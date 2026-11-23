@@ -1,0 +1,13 @@
+name: probe-kcisa
+on:
+  push:
+    branches: [probe-kcisa]
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: reach KCISA without key
+        run: |
+          curl -sS -m 60 -o body.txt -w "HTTP %{http_code} in %{time_total}s\n" "https://api.kcisa.kr/openapi/API_CPM_008/request?numOfRows=1&pageNo=1" || echo "curl failed $?"
+          head -c 400 body.txt; echo
