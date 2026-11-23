@@ -8,6 +8,10 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
+      - name: 키가 어디 있는지 확인 (값은 출력 안 함)
+        run: |
+          echo "secret KCISA_KEY_INOUT 있음: ${{ secrets.KCISA_KEY_INOUT != '' }}"
+          echo "variable KCISA_KEY_INOUT 있음: ${{ vars.KCISA_KEY_INOUT != '' }}"
       - name: 빠진 페이지 받기
         env:
           KCISA_KEY_INOUT: ${{ secrets.KCISA_KEY_INOUT }}
