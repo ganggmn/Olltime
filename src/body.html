@@ -21,11 +21,14 @@
       <div class="map" id="map">__MAPSVG__</div>
       <div class="mapctl"><button type="button" id="zin" aria-label="지도 확대"><i data-ic="plus"></i></button><button type="button" id="zout" aria-label="지도 축소"><i data-ic="minus"></i></button><button type="button" id="zre" aria-label="지도 처음 크기로"><i data-ic="rotate-ccw"></i></button></div>
     </div>
+    <p class="cap mapleg" id="mapleg"></p>
     <div class="scrub">
       <button class="btn sec sq" type="button" id="play" aria-label="하루 흐름 재생"><i data-ic="play"></i></button>
       <div class="track"><div class="strip" id="strip" aria-hidden="true"></div><div class="showmk" id="showmk" aria-hidden="true" hidden><span>공연</span></div><div class="nowmk" id="nowmk" aria-hidden="true" hidden><span>지금</span></div><input type="range" id="tr" min="300" max="1560" step="10" value="300" aria-label="지도와 지표의 시각"></div>
       <div class="ticks" id="ticks" aria-hidden="true"></div>
       <p class="sleg" id="sleg"></p>
+      <p class="cap sexp" id="sexp"></p>
+      <ul class="runs" id="runs"></ul>
       <p class="cap acc1" id="acc1"></p>
     </div>
     <div class="metrics" id="metrics"></div>
@@ -40,7 +43,6 @@
 <section class="band" id="shows"><div class="wrap split">
   <div class="side"><h2>공연이 있는 날은 시작 1시간 전과 끝나고 1시간 반 뒤가 가장 붐벼요</h2><p class="body">작년 공연 날 주차장 입출차 기록에서 찾은 규칙을 공연 시작 시각에 맞춰 옮겨 계산했어요. 공연 일정과 시작 시각은 올림픽공원 공연 안내를 따랐어요.</p></div>
   <div>
-    <p class="tlleg" aria-hidden="true"><span><i class="a"></i>차가 몰려 들어오는 때</span><span><i class="s"></i>공연</span><span><i class="x"></i>차가 몰려 나가는 때</span><span><i class="p"></i>가장 많이 나가는 때</span></p>
     <div class="rows" id="showRows"></div>
     <div class="moresh" id="moreShows"></div>
   </div>
