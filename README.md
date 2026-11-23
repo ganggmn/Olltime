@@ -34,4 +34,6 @@
 
 ## 고칠 때
 
-미리보기용 원본(v2.html)에서 `build_web.py`로 index.html을 다시 만들어요. 직접 index.html을 고쳐도 돼요.
+index.html은 `src/`의 조각을 합쳐 만들어요. `src/head.html`(CSS), `src/body.html`(본문), `src/app.js`(동작), `src/data/`(공연, 지도, 노선, 정확도 숫자)를 고친 뒤 `python3 src/assemble.py`를 돌리면 index.html이 다시 만들어져요. `src/`는 `.vercelignore`로 배포에서 빠져요.
+
+정확도 숫자(`src/data/accuracy.json`)는 맥의 `analyze_accuracy.py`가 모아 둔 서울시 데이터로 계산해요. 다시 돌리면 날이 쌓인 만큼 새로 계산돼요.

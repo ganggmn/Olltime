@@ -14,7 +14,7 @@ export function compactCity(raw) {
   const c = raw && raw.CITYDATA;
   if (!c) {
     const r = (raw && (raw.RESULT || raw.result)) || {};
-    throw new Error(`서울시 응답 오류 ${r['RESULT.CODE'] || r.CODE || '?'}`);
+    throw new Error(`서울시 응답 ${r['RESULT.CODE'] || r.CODE || '?'} ${r['RESULT.MESSAGE'] || r.MESSAGE || ''}`.trim());
   }
   const p = list(c.LIVE_PPLTN_STTS)[0];
   if (!p || !p.PPLTN_TIME) throw new Error('인구 데이터가 비어 있어요');
