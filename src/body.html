@@ -35,13 +35,17 @@
   </div>
   <div class="h-i">
     <dl class="facts" id="facts"></dl>
+    <ul class="tips" aria-label="주차 알아두기">
+      <li><b>주말 낮 1~3시에 주차장이 가장 자주 차요</b><span class="cap">한국체육산업개발의 2025년 만차 기록 186건 중 183건이 토·일요일, 124건이 오후 1~3시대였어요</span></li>
+      <li><b>내려 주기만 한다면 10분 안에 나오면 주차 요금이 없어요</b><span class="cap">올림픽공원 주차 안내 기준이에요. 들어오는 차 4대 중 1대가 이렇게 다녀가요</span></li>
+    </ul>
     <div class="today" id="today"></div>
     <div class="train" id="train" hidden></div>
   </div>
 </div></section>
 
 <section class="band" id="shows"><div class="wrap split">
-  <div class="side"><h2>공연이 있는 날은 시작 1시간 전과 끝나고 1시간 반 뒤가 가장 붐벼요</h2><p class="body">작년 공연 날 주차장 입출차 기록에서 찾은 규칙을 공연 시작 시각에 맞춰 옮겨 계산했어요. 공연 일정과 시작 시각은 올림픽공원 공연 안내를 따랐어요.</p></div>
+  <div class="side"><h2>공연이 있는 날은 시작 1시간 반 전과 끝나고 50분 뒤가 가장 붐벼요</h2><p class="body">2025년 큰 공연 28일의 주차장 입출차 기록에서 찾은 규칙을 공연 시작 시각에 맞춰 옮겨 계산했어요. 들어오는 차는 시작 2시간 40분 전부터 늘고, 나가는 차는 끝나고 2시간 뒤면 거의 다 빠져요. 공연 일정과 시작 시각은 올림픽공원 공연 안내를 따랐어요.</p></div>
   <div>
     <div class="rows" id="showRows"></div>
     <div class="moresh" id="moreShows"></div>
@@ -66,6 +70,7 @@
 
 <section class="band" id="story"><div class="wrap">
   <div class="split" style="margin-bottom:48px"><h2 id="acc" tabindex="-1">올타임은 얼마나 맞나요</h2><p style="align-self:end;max-width:680px" id="accLead"></p></div>
+  <div class="ins"><div><p class="lbl">주차장 예측</p><p class="bign">87.5% → 91%</p><p>주차장 안에 있는 차량 수를 시간별로 맞힌 정도예요. 2025년 입출차 기록 241만 건으로, 한 달을 통째로 숨기고 나머지 달로 배워서 숨긴 달을 맞히는 방식으로 쟀어요. 내일 이후는 87.5%, 2시간 앞은 그날 실제 값으로 고쳐서 91%예요.</p><p style="margin-top:12px">설·추석(70%)과 평일에 낀 공휴일(72%)은 덜 맞아요. 8월과 9월은 원본이 4대 중 1대만 남아 있어 복원해서 썼어요.</p></div><figure class="fg" style="margin:0"><p class="fgt">데이터를 하나씩 더할 때 주차장 안 차량 예측 정확도</p><ol class="lad" id="lad"></ol></figure></div>
   <div class="ins"><div><p class="lbl">공연 날 붐비는 시간</p><p class="bign" id="a1"></p><p id="a1t"></p><div class="attr" id="a1b" role="img"></div><div class="fgl al" id="a1l" aria-hidden="true"></div></div><figure class="fg" style="margin:0"><p class="fgt" id="a1c"></p><div class="fgl" aria-hidden="true"><span><i></i>서울시 실측</span><span><i class="d"></i>서울시 예보</span><span><i class="k"></i>올타임이 붐빈다고 본 시간</span></div><div class="fig"><svg id="a1f" role="img"></svg></div></figure></div>
   <div class="ins"><div><p class="lbl">서울시 혼잡 예보</p><p class="bign" id="a2"></p><p id="a2t"></p></div><figure class="fg" style="margin:0"><p class="fgt">몇 시간 앞을 예보했는지에 따라 혼잡 단계가 맞은 비율</p><div class="fig" style="height:200px"><svg id="a2f" role="img"></svg></div></figure></div>
   <div class="ins"><div><p class="lbl">공연 보러 오는 길</p><p class="bign" id="a3"></p><p id="a3t"></p></div><figure class="fg" style="margin:0"><p class="fgt">공연 날 평소보다 늘어난 교통카드 하차</p><div class="fig" style="height:120px"><svg id="a3f" role="img"></svg></div></figure></div>
