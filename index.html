@@ -90,6 +90,13 @@ button,input{font-family:inherit;color:inherit}
 .shl .cap{display:block}
 .today .sum{margin-top:16px}
 .today .sum+.cap{margin-top:4px}
+.train{margin-top:48px}
+.trl li{grid-template-columns:52px minmax(0,1fr) auto}
+.trl .eta{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.trl .eta b{font-weight:600}
+.trl .eta span{margin-left:10px;color:var(--ink-2)}
+.train .sum{margin-top:12px}
+.train>.cap{margin-top:8px}
 .stg{margin-top:24px;position:relative}
 .stg li{position:relative;padding:0 0 20px 28px}
 .stg li::before{content:"";position:absolute;left:0;top:7px;width:11px;height:11px;border-radius:50%;background:var(--ink)}
@@ -382,6 +389,7 @@ h1{font-size:28px;line-height:1.35}h2{font-size:20px;line-height:1.5}.ins .bign,
   <div class="h-i">
     <dl class="facts" id="facts"></dl>
     <div class="today" id="today"></div>
+    <div class="train" id="train" hidden></div>
   </div>
 </div></section>
 
@@ -444,7 +452,7 @@ h1{font-size:28px;line-height:1.35}h2{font-size:20px;line-height:1.5}.ins .bign,
 
 <footer class="ft"><div class="wrap">
   <div><h2>올타임</h2><p>올림픽공원 방문 시간 안내 서비스예요. 한국체육산업개발(주) 공공데이터 활용 경진대회 출품작이며, 올림픽공원 공식 서비스가 아니에요.</p><p id="ftStamp" style="margin-top:8px">서울시 데이터를 불러오는 중이에요.</p><p class="ftl"><a href="/privacy">개인정보 처리방침</a><a href="/terms">이용약관</a></p></div>
-  <div><h2>사용한 데이터</h2><ul><li>한국체육산업개발(주) 올림픽공원 2025 입출차정보</li><li>한국체육산업개발(주) 차량 입출차, 공연, 날씨 연계 데이터</li><li>한국체육산업개발(주) 올림픽공원 실시간 주차 현황</li><li>한국체육산업개발(주) 올림픽공원 공연정보(공연 일정), 공연 시작 시각은 올림픽공원 누리집 공연 안내</li><li>서울특별시 공공데이터 서울시 실시간 도시데이터(올림픽공원)</li><li>올림픽공원 유실물센터 게시판</li><li>수도권 지하철 노선과 역 위치는 © OpenStreetMap&nbsp;기여자(ODbL)</li><li>서울시 차량통행속도(2025년 평일 시속 21.7km, 휴일 23.9km)와 도시고속도로 평균 시속 50.2km(2024년)</li></ul></div>
+  <div><h2>사용한 데이터</h2><ul><li>한국체육산업개발(주) 올림픽공원 2025 입출차정보</li><li>한국체육산업개발(주) 차량 입출차, 공연, 날씨 연계 데이터</li><li>한국체육산업개발(주) 올림픽공원 실시간 주차 현황</li><li>한국체육산업개발(주) 올림픽공원 공연정보(공연 일정), 공연 시작 시각은 올림픽공원 누리집 공연 안내</li><li>서울특별시 공공데이터 서울시 실시간 도시데이터(올림픽공원)</li><li>서울특별시 공공데이터 서울시 지하철 실시간 도착정보(올림픽공원역)</li><li>올림픽공원 유실물센터 게시판</li><li>수도권 지하철 노선과 역 위치는 © OpenStreetMap&nbsp;기여자(ODbL)</li><li>서울시 차량통행속도(2025년 평일 시속 21.7km, 휴일 23.9km)와 도시고속도로 평균 시속 50.2km(2024년)</li></ul></div>
   <div><h2>실측과 예상</h2><p>서울시 실측과 예보는 서울시가 발표한 값 그대로예요. 서울시 인구는 500명 단위 구간으로 나와서 그대로 보여드려요. 예상이라고 적은 값은 작년 공연 날 주차장 기록을 공연 시각에 맞춰 옮겨 계산한 값이라 실제와 다를 수 있어요.</p><p style="margin-top:8px">오는 길 시간은 어림값이에요. 지하철은 역 사이 거리로 계산하고 환승 5분, 첫 열차 대기 4분을 더했어요. 자동차는 서울시 평균 통행속도에 공원 주변 도로의 시간대별 속도 비율을 곱하고, 6km가 넘는 구간의 4분의 3은 도시고속도로로 간다고 가정했어요.</p></div>
 </div></footer>
 <noscript><p style="position:fixed;left:0;right:0;bottom:0;margin:0;padding:12px 20px;background:#0A0A0A;color:#FAFAFA;font-size:14px">올타임은 자바스크립트로 지도와 시각을 계산해요. 브라우저에서 자바스크립트를 켜 주세요.</p></noscript>
@@ -901,9 +909,33 @@ const load=async()=>{STATE='pending';renderHero();
  const hadF=document.activeElement===$('#retry');
  renderHero();renderView(false);renderShows();renderQ();renderPass(false);
  if(hadF)(STATE==='fail'?$('#retry'):$('#heroH')).focus()};
+/* 올림픽공원역 다음 열차: 서울시가 정보를 만든 시각(recptnDt)에서 지난 시간만큼 당겨서 보여줘요 */
+let TRAIN=null;
+const LINE=id=>{const n=+id-1000;return n>=1&&n<=9?`${n}호선`:''};
+const kstMs=s=>Date.parse(String(s).replace(' ','T')+'+09:00');
+const etaOf=(t,now)=>{if(t.cd==='2')return null;if(t.cd==='0'||t.cd==='1')return{s:0,x:'곧 도착'};
+ const el=Math.max(0,(now-kstMs(t.at))/1000)||0,mins=s=>s<=40?{s:0,x:'곧 도착'}:{s,x:`${Math.ceil(s/60)}분`};
+ if(t.sec>0)return mins(t.sec-el);
+ let m=t.msg.match(/\[(\d+)\]번째 전역/);if(m)return{s:+m[1]*120,x:`${m[1]}정거장 전`};
+ if(/전역 (도착|출발|진입)/.test(t.msg))return{s:90,x:'1정거장 전'};
+ m=t.msg.match(/(\d+)분\s*(?:(\d+)초)?\s*후/);if(m)return mins(+m[1]*60+(+m[2]||0)-el);
+ return null};
+const renderTrain=()=>{const box=$('#train');
+ if(!TRAIN||!TRAIN.ok||Date.now()-Date.parse(TRAIN.fetchedAt)>600000){box.hidden=true;return}
+ const now=Date.now(),G=new Map();
+ for(const t of TRAIN.list){const ln=LINE(t.id),e=ln&&etaOf(t,now);if(!e)continue;
+  const way=((t.line.split(' - ')[1]||'').replace(/\s*\(.*$/,'').replace(/방면$/,' 방면').trim())||t.updn,k=t.id+'|'+t.updn;
+  if(!G.has(k))G.set(k,{ln,id:t.id,way,ts:[]});G.get(k).ts.push({...e,d:`${t.dest}행${t.exp?' 급행':''}${t.last?' 막차':''}`})}
+ const rows=[...G.values()].sort((a,b)=>a.id.localeCompare(b.id)||a.way.localeCompare(b.way)).map(g=>{const ts=g.ts.sort((a,b)=>a.s-b.s).slice(0,2);
+  return`<li><span class="t">${g.ln}</span><span>${esc(g.way)}<span class="cap">${[...new Set(ts.map(x=>x.d))].map(esc).join(', ')}</span></span><span class="eta">${ts.map((x,i)=>i?`<span>${x.x}</span>`:`<b>${x.x}</b>`).join('')}</span></li>`}).join('');
+ const at=TRAIN.list.map(t=>t.at).sort().pop()||'';
+ box.hidden=false;box.innerHTML=`<h2 class="h-sub">올림픽공원역 다음 열차</h2>${rows?`<ul class="shl trl">${rows}</ul>`:'<p class="sum">지금은 들어오는 열차 정보가 없어요.</p>'}<p class="cap">서울시 지하철 실시간 도착정보${at?`, ${esc(at.slice(11,16))} 기준`:''}</p>`};
+const loadTrain=async()=>{try{TRAIN=await getJSON('/api/subway',7000)}catch(e){}renderTrain()};
+loadTrain();
+setInterval(()=>{if(document.visibilityState==='visible')loadTrain();else renderTrain()},120000);
 $('#retry').onclick=()=>{$('#retry').dataset.busy='1';load()};
 /* 열어 둔 채로 있어도 최신으로: 1분마다 '지금' 표시, 5분마다 서울시 데이터를 조용히 다시 받아요 */
-setInterval(()=>{if(VIEW===TODAY)drawNow()},60000);
+setInterval(()=>{if(VIEW===TODAY)drawNow();renderTrain()},60000);
 setInterval(async()=>{if(document.visibilityState!=='visible'||STATE==='pending')return;try{const c=await getJSON('/api/now',7000);if(!c||!c.now||c.now.lo==null||(STATE==='live'&&c.now.time===N.time))return;const p=await getJSON('/api/parking',7000).catch(()=>null);if(p&&p.ok)PARK=p;STATE='live';CITY=c;derive();renderHero();renderView(false);renderPass(false)}catch(e){}},300000);
 $('#heroH').setAttribute('tabindex','-1');
 await load();

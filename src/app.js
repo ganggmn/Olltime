@@ -375,9 +375,33 @@ const load=async()=>{STATE='pending';renderHero();
  const hadF=document.activeElement===$('#retry');
  renderHero();renderView(false);renderShows();renderQ();renderPass(false);
  if(hadF)(STATE==='fail'?$('#retry'):$('#heroH')).focus()};
+/* 올림픽공원역 다음 열차: 서울시가 정보를 만든 시각(recptnDt)에서 지난 시간만큼 당겨서 보여줘요 */
+let TRAIN=null;
+const LINE=id=>{const n=+id-1000;return n>=1&&n<=9?`${n}호선`:''};
+const kstMs=s=>Date.parse(String(s).replace(' ','T')+'+09:00');
+const etaOf=(t,now)=>{if(t.cd==='2')return null;if(t.cd==='0'||t.cd==='1')return{s:0,x:'곧 도착'};
+ const el=Math.max(0,(now-kstMs(t.at))/1000)||0,mins=s=>s<=40?{s:0,x:'곧 도착'}:{s,x:`${Math.ceil(s/60)}분`};
+ if(t.sec>0)return mins(t.sec-el);
+ let m=t.msg.match(/\[(\d+)\]번째 전역/);if(m)return{s:+m[1]*120,x:`${m[1]}정거장 전`};
+ if(/전역 (도착|출발|진입)/.test(t.msg))return{s:90,x:'1정거장 전'};
+ m=t.msg.match(/(\d+)분\s*(?:(\d+)초)?\s*후/);if(m)return mins(+m[1]*60+(+m[2]||0)-el);
+ return null};
+const renderTrain=()=>{const box=$('#train');
+ if(!TRAIN||!TRAIN.ok||Date.now()-Date.parse(TRAIN.fetchedAt)>600000){box.hidden=true;return}
+ const now=Date.now(),G=new Map();
+ for(const t of TRAIN.list){const ln=LINE(t.id),e=ln&&etaOf(t,now);if(!e)continue;
+  const way=((t.line.split(' - ')[1]||'').replace(/\s*\(.*$/,'').replace(/방면$/,' 방면').trim())||t.updn,k=t.id+'|'+t.updn;
+  if(!G.has(k))G.set(k,{ln,id:t.id,way,ts:[]});G.get(k).ts.push({...e,d:`${t.dest}행${t.exp?' 급행':''}${t.last?' 막차':''}`})}
+ const rows=[...G.values()].sort((a,b)=>a.id.localeCompare(b.id)||a.way.localeCompare(b.way)).map(g=>{const ts=g.ts.sort((a,b)=>a.s-b.s).slice(0,2);
+  return`<li><span class="t">${g.ln}</span><span>${esc(g.way)}<span class="cap">${[...new Set(ts.map(x=>x.d))].map(esc).join(', ')}</span></span><span class="eta">${ts.map((x,i)=>i?`<span>${x.x}</span>`:`<b>${x.x}</b>`).join('')}</span></li>`}).join('');
+ const at=TRAIN.list.map(t=>t.at).sort().pop()||'';
+ box.hidden=false;box.innerHTML=`<h2 class="h-sub">올림픽공원역 다음 열차</h2>${rows?`<ul class="shl trl">${rows}</ul>`:'<p class="sum">지금은 들어오는 열차 정보가 없어요.</p>'}<p class="cap">서울시 지하철 실시간 도착정보${at?`, ${esc(at.slice(11,16))} 기준`:''}</p>`};
+const loadTrain=async()=>{try{TRAIN=await getJSON('/api/subway',7000)}catch(e){}renderTrain()};
+loadTrain();
+setInterval(()=>{if(document.visibilityState==='visible')loadTrain();else renderTrain()},120000);
 $('#retry').onclick=()=>{$('#retry').dataset.busy='1';load()};
 /* 열어 둔 채로 있어도 최신으로: 1분마다 '지금' 표시, 5분마다 서울시 데이터를 조용히 다시 받아요 */
-setInterval(()=>{if(VIEW===TODAY)drawNow()},60000);
+setInterval(()=>{if(VIEW===TODAY)drawNow();renderTrain()},60000);
 setInterval(async()=>{if(document.visibilityState!=='visible'||STATE==='pending')return;try{const c=await getJSON('/api/now',7000);if(!c||!c.now||c.now.lo==null||(STATE==='live'&&c.now.time===N.time))return;const p=await getJSON('/api/parking',7000).catch(()=>null);if(p&&p.ok)PARK=p;STATE='live';CITY=c;derive();renderHero();renderView(false);renderPass(false)}catch(e){}},300000);
 $('#heroH').setAttribute('tabindex','-1');
 await load();
