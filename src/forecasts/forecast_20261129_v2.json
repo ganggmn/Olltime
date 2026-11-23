@@ -1,0 +1,301 @@
+{
+ "made_at": "2026-11-23T19:38:39.468128Z",
+ "target": "2026-11-29 (일)",
+ "version": 2,
+ "based_on": "forecast_20261129.json (1차 예보, 그대로 보존)",
+ "scope": "북2문·동2문·남2문으로 들어와 10분 이상 주차한 차",
+ "method": "1차 예보에서 밤새 서 있는 차 1030대를 뺀 나머지에 0.762을 곱함. 이 배수는 지난주 같은 요일 공연 날(로이킴, KSPO DOME) 10~22시에 같은 방식 예측과 실시간 주차 대수 실측의 비율. 범위는 1차 범위를 같은 배수로 옮기되 최소 ±10%",
+ "calibration_source": "실시간 주차 대수 실측: 한국체육산업개발 실시간 주차현황 API 값을 5분마다 기록한 공개 저장소 github.com/wkqhd5095/kspo-parking-logger (parking-data 브랜치, 2026-11-20~22). 보정 배수 계산에만 사용했고 원자료는 보관하지 않음",
+ "k": 0.762,
+ "floor": 1030,
+ "hourly": [
+  {
+   "time": "06:00",
+   "rt_mid_v1": 1039,
+   "rt_mid": 1037,
+   "rt_low": 933,
+   "rt_high": 1141,
+   "pct_mid": 47
+  },
+  {
+   "time": "06:30",
+   "rt_mid_v1": 1059,
+   "rt_mid": 1052,
+   "rt_low": 947,
+   "rt_high": 1157,
+   "pct_mid": 48
+  },
+  {
+   "time": "07:00",
+   "rt_mid_v1": 1094,
+   "rt_mid": 1079,
+   "rt_low": 971,
+   "rt_high": 1187,
+   "pct_mid": 49
+  },
+  {
+   "time": "07:30",
+   "rt_mid_v1": 1138,
+   "rt_mid": 1112,
+   "rt_low": 1001,
+   "rt_high": 1223,
+   "pct_mid": 51
+  },
+  {
+   "time": "08:00",
+   "rt_mid_v1": 1187,
+   "rt_mid": 1150,
+   "rt_low": 1035,
+   "rt_high": 1265,
+   "pct_mid": 52
+  },
+  {
+   "time": "08:30",
+   "rt_mid_v1": 1273,
+   "rt_mid": 1215,
+   "rt_low": 1094,
+   "rt_high": 1336,
+   "pct_mid": 55
+  },
+  {
+   "time": "09:00",
+   "rt_mid_v1": 1451,
+   "rt_mid": 1351,
+   "rt_low": 1216,
+   "rt_high": 1486,
+   "pct_mid": 61
+  },
+  {
+   "time": "09:30",
+   "rt_mid_v1": 1576,
+   "rt_mid": 1446,
+   "rt_low": 1301,
+   "rt_high": 1591,
+   "pct_mid": 66
+  },
+  {
+   "time": "10:00",
+   "rt_mid_v1": 1741,
+   "rt_mid": 1572,
+   "rt_low": 1390,
+   "rt_high": 1732,
+   "pct_mid": 71
+  },
+  {
+   "time": "10:30",
+   "rt_mid_v1": 1853,
+   "rt_mid": 1657,
+   "rt_low": 1469,
+   "rt_high": 1870,
+   "pct_mid": 75
+  },
+  {
+   "time": "11:00",
+   "rt_mid_v1": 1963,
+   "rt_mid": 1741,
+   "rt_low": 1549,
+   "rt_high": 1981,
+   "pct_mid": 79
+  },
+  {
+   "time": "11:30",
+   "rt_mid_v1": 2011,
+   "rt_mid": 1777,
+   "rt_low": 1576,
+   "rt_high": 2085,
+   "pct_mid": 81
+  },
+  {
+   "time": "12:00",
+   "rt_mid_v1": 2089,
+   "rt_mid": 1837,
+   "rt_low": 1637,
+   "rt_high": 2177,
+   "pct_mid": 84
+  },
+  {
+   "time": "12:30",
+   "rt_mid_v1": 2158,
+   "rt_mid": 1889,
+   "rt_low": 1656,
+   "rt_high": 2245,
+   "pct_mid": 86
+  },
+  {
+   "time": "13:00",
+   "rt_mid_v1": 2125,
+   "rt_mid": 1864,
+   "rt_low": 1656,
+   "rt_high": 2336,
+   "pct_mid": 85
+  },
+  {
+   "time": "13:30",
+   "rt_mid_v1": 2194,
+   "rt_mid": 1917,
+   "rt_low": 1725,
+   "rt_high": 2482,
+   "pct_mid": 87
+  },
+  {
+   "time": "14:00",
+   "rt_mid_v1": 2330,
+   "rt_mid": 2020,
+   "rt_low": 1818,
+   "rt_high": 2623,
+   "pct_mid": 92
+  },
+  {
+   "time": "14:30",
+   "rt_mid_v1": 2432,
+   "rt_mid": 2098,
+   "rt_low": 1888,
+   "rt_high": 2722,
+   "pct_mid": 95
+  },
+  {
+   "time": "15:00",
+   "rt_mid_v1": 2583,
+   "rt_mid": 2213,
+   "rt_low": 1992,
+   "rt_high": 2861,
+   "pct_mid": 101
+  },
+  {
+   "time": "15:30",
+   "rt_mid_v1": 2744,
+   "rt_mid": 2336,
+   "rt_low": 2096,
+   "rt_high": 3028,
+   "pct_mid": 106
+  },
+  {
+   "time": "16:00",
+   "rt_mid_v1": 2765,
+   "rt_mid": 2352,
+   "rt_low": 2117,
+   "rt_high": 3071,
+   "pct_mid": 107
+  },
+  {
+   "time": "16:30",
+   "rt_mid_v1": 2837,
+   "rt_mid": 2406,
+   "rt_low": 2163,
+   "rt_high": 3013,
+   "pct_mid": 109
+  },
+  {
+   "time": "17:00",
+   "rt_mid_v1": 2788,
+   "rt_mid": 2369,
+   "rt_low": 2132,
+   "rt_high": 2911,
+   "pct_mid": 108
+  },
+  {
+   "time": "17:30",
+   "rt_mid_v1": 2745,
+   "rt_mid": 2336,
+   "rt_low": 2064,
+   "rt_high": 2746,
+   "pct_mid": 106
+  },
+  {
+   "time": "18:00",
+   "rt_mid_v1": 2608,
+   "rt_mid": 2232,
+   "rt_low": 2000,
+   "rt_high": 2645,
+   "pct_mid": 101
+  },
+  {
+   "time": "18:30",
+   "rt_mid_v1": 2444,
+   "rt_mid": 2107,
+   "rt_low": 1896,
+   "rt_high": 2550,
+   "pct_mid": 96
+  },
+  {
+   "time": "19:00",
+   "rt_mid_v1": 2390,
+   "rt_mid": 2066,
+   "rt_low": 1859,
+   "rt_high": 2414,
+   "pct_mid": 94
+  },
+  {
+   "time": "19:30",
+   "rt_mid_v1": 2296,
+   "rt_mid": 1994,
+   "rt_low": 1691,
+   "rt_high": 2356,
+   "pct_mid": 91
+  },
+  {
+   "time": "20:00",
+   "rt_mid_v1": 2302,
+   "rt_mid": 1999,
+   "rt_low": 1528,
+   "rt_high": 2293,
+   "pct_mid": 91
+  },
+  {
+   "time": "20:30",
+   "rt_mid_v1": 1804,
+   "rt_mid": 1620,
+   "rt_low": 1306,
+   "rt_high": 2084,
+   "pct_mid": 74
+  },
+  {
+   "time": "21:00",
+   "rt_mid_v1": 1381,
+   "rt_mid": 1297,
+   "rt_low": 1167,
+   "rt_high": 1812,
+   "pct_mid": 59
+  },
+  {
+   "time": "21:30",
+   "rt_mid_v1": 1261,
+   "rt_mid": 1206,
+   "rt_low": 1085,
+   "rt_high": 1389,
+   "pct_mid": 55
+  },
+  {
+   "time": "22:00",
+   "rt_mid_v1": 1156,
+   "rt_mid": 1126,
+   "rt_low": 1013,
+   "rt_high": 1239,
+   "pct_mid": 51
+  },
+  {
+   "time": "22:30",
+   "rt_mid_v1": 1101,
+   "rt_mid": 1084,
+   "rt_low": 976,
+   "rt_high": 1192,
+   "pct_mid": 49
+  },
+  {
+   "time": "23:00",
+   "rt_mid_v1": 1084,
+   "rt_mid": 1071,
+   "rt_low": 964,
+   "rt_high": 1178,
+   "pct_mid": 49
+  },
+  {
+   "time": "23:30",
+   "rt_mid_v1": 1076,
+   "rt_mid": 1065,
+   "rt_low": 958,
+   "rt_high": 1172,
+   "pct_mid": 48
+  }
+ ]
+}
