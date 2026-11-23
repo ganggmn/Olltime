@@ -1,0 +1,22 @@
+name: fetch-inout-missing
+on:
+  push:
+    branches: [probe-kcisa]
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: 빠진 페이지 받기
+        env:
+          KCISA_KEY_INOUT: ${{ secrets.KCISA_KEY_INOUT }}
+          PAGES: "169 997 1800 1822 1865 1868 1869 1872 1874 1876 1897 1900 1942 2039 2053 2056 2061 2072 2084 2089 2108 2117 2135 2142 2144 2145 2146 2148 2155 2164 2169 2215 2216 2231 2239 2242 2248 2261 2297 2303 2304 2328 2374 2379 2381"
+        run: python3 tools/fetch_pages.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: inout-missing
+          path: tools/data/inout_parts/*.csv
+          retention-days: 1
+          if-no-files-found: warn
