@@ -11,12 +11,13 @@ const W7='일월화수목금토';
 const dayLabel=d=>{const x=new Date(d+'T12:00:00+09:00');return`${x.getUTCMonth()+1}월 ${x.getUTCDate()}일 ${W7[x.getUTCDay()]}요일`};
 const mdLabel=d=>dayLabel(d).replace(/ \S+요일$/,'');
 /* 혼잡 단계: 무채색에서 빨강으로. 붐빌수록 진하고 붉게 */
-const LVG={'여유':'#E8E8EC','보통':'#ADADB5','약간 붐빔':'#E05A4F','붐빔':'#A51C1C'},LVN={'여유':0,'보통':1,'약간 붐빔':2,'붐빔':3};
+/* 혼잡 막대: 여유·보통은 색 없이, 약간 붐빔은 노랑, 붐빔은 빨강 (각 원색 70%를 흰 바탕에 얹은 값) */
+const LVG={'여유':'#EEEEF0','보통':'#EEEEF0','약간 붐빔':'#FFD64D','붐빔':'#E76767'},LVN={'여유':0,'보통':1,'약간 붐빔':2,'붐빔':3};
 const LVC=l=>'lv-'+(l==='약간 붐빔'?'약간':l);
 const HATCH=c=>`repeating-linear-gradient(45deg,${c} 0 2.5px,#FFFFFF 2.5px 4px)`;
-const C_IN='#A1A1AA',C_SHOW='#D9D9DE',C_OUT='#B91C1C';
+const C_IN='#A1A1AA',C_SHOW='#D9D9DE',C_OUT='#E76767';
 /* 출입문 원: 10분에 나가는 차가 남2문 최대 124대 대비 얼마인지 */
-const gateC=r=>r<.3?'#A1A1AA':r<.6?'#E05A4F':'#A51C1C';
+const gateC=r=>r<.3?'#A1A1AA':r<.6?'#FFC400':'#DC2626';
 const ic=(n,extra='')=>`<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"${extra}>${ICONS[n]||''}</svg>`;
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const hm=m=>{m=((Math.round(m)%1440)+1440)%1440;return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0')};
@@ -144,15 +145,15 @@ const renderView=reset=>{
  const sw=$('#vsw');if(!todayShows.length&&NEXTD){sw.hidden=false;sw.innerHTML=[[TODAY,'오늘'],[NEXTD,`${mdLabel(NEXTD)} 공연 날 미리 보기`]].map(([d,t])=>`<button type="button" data-v="${d}" aria-pressed="${VIEW===d}">${t}</button>`).join('')}else sw.hidden=true;
  const L=[],busy=[];
  if(VIEW===TODAY){for(let t=X0;t<X1;t+=30){const pp=people(t+15);L.push([t,t+30,pp.none?'#FFFFFF':LVG[pp.lvl]]);if(!pp.none&&LVN[pp.lvl]>=2)busy.push([t,t+30,LVN[pp.lvl]])}
-  $('#sleg').innerHTML=SW(LVG['여유'],'여유')+SW(LVG['보통'],'보통')+SW(LVG['약간 붐빔'],'약간 붐빔')+SW(LVG['붐빔'],'붐빔')+'<span>‘지금’ 뒤는 서울시 예보</span>';
-  $('#mapleg').textContent='출입문 원은 그 시각 10분 동안 나가는 차 예상이에요. 많을수록 크고 붉게 깜빡여요.'}
+  $('#sleg').innerHTML=SW(LVG['여유'],'여유·보통')+SW(LVG['약간 붐빔'],'약간 붐빔')+SW(LVG['붐빔'],'붐빔')+'<span>‘지금’ 뒤는 서울시 예보</span>';
+  $('#mapleg').textContent='출입문 원은 그 시각 10분 동안 나가는 차 예상이에요. 많을수록 크게, 노랑에서 빨강으로 깜빡여요.'}
  else{const ps=viewShows.map(pred);for(let t=X0;t<X1;t+=10){const m=t+5;let bg='#FFFFFF';if(ps.some(p=>m>=p.st&&m<p.end))bg=C_SHOW;else if(ps.some(p=>m>=p.inA&&m<p.inB))bg=C_IN;else if(ps.some(p=>m>=p.outA&&m<p.outB)){bg=C_OUT;busy.push([t,t+10,9])}L.push([t,t+10,bg])}
   $('#sleg').innerHTML=SW(C_IN,'차가 몰려 들어와요')+SW(C_SHOW,'공연')+SW(C_OUT,'차가 몰려 나가요')+'<span>작년 공연 날 기록으로 예상</span>';
-  $('#mapleg').textContent='출입문 원은 작년 공연 날 기록으로 예상한, 그 시각 10분 동안 나가는 차예요. 많을수록 크고 붉게 깜빡여요.'}
+  $('#mapleg').textContent='출입문 원은 작년 공연 날 기록으로 예상한, 그 시각 10분 동안 나가는 차예요. 많을수록 크게, 노랑에서 빨강으로 깜빡여요.'}
  /* 붐비는 때만 막대 바로 아래에 시각을 적어요. 30분 이하 틈은 이어 붙여요 */
  const BB=[];for(const b of busy){const l=BB[BB.length-1];if(l&&b[0]-l[1]<=30){l[1]=b[1];l[2]=Math.max(l[2],b[2])}else BB.push([...b])}
  const bw=v=>v===9?'출차 몰림':v===3?'붐빔':'약간 붐빔';
- $('#blab').innerHTML=BB.length?BB.map(([a,b,v])=>`<span style="left:${pct((a+b)/2)}%">${hm(a)}~${hm(b)} ${bw(v)}</span>`).join(''):(VIEW===TODAY&&STATE==='live'?'<em>붐비는 시간이 없어요</em>':'');
+ $('#blab').innerHTML=BB.length?BB.map(([a,b,v])=>`<span class="b${v}" style="left:${pct((a+b)/2)}%">${hm(a)}~${hm(b)} ${bw(v)}</span>`).join(''):(VIEW===TODAY&&STATE==='live'?'<em>붐비는 시간이 없어요</em>':'');
  placeBlab();
  $('#strip').innerHTML=segs(L);
  const mk=$('#showmk');if(viewShows.length){const ps=viewShows.map(pred),a=Math.min(...ps.map(p=>p.st)),b=Math.max(...ps.map(p=>p.end));mk.hidden=false;Object.assign(mk.style,{left:pct(a)+'%',width:(pct(Math.min(b,X1))-pct(a))+'%'})}else mk.hidden=true;
