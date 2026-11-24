@@ -60,20 +60,20 @@ async function load(){
   let ppl=j.list.filter(r=>r[2]!=null).map(r=>[r[0],r[2],r[3]]);
   const odd=ppl.filter((r,i)=>i>0&&i<ppl.length-1&&r[2]>1.6*ppl[i-1][2]&&r[2]>1.6*ppl[i+1][2]);ppl=ppl.filter(r=>!odd.includes(r));
   const est=estimate(ppl),pk=ppl.reduce((b,r,i)=>est[i]>b.v?{v:est[i],m:r[0]}:b,{v:0,m:0});
-  $('#pb').innerHTML=ppl.length?`가장 많았던 때 <b>${hm(pk.m)}, 약 ${num(pk.v/100)*100}명</b>`+(odd.length?` · 서울시 값이 한 번 크게 튄 ${hm(odd[0][0])}는 그래프에서 뺐어요`:''):'이날 사람 수 기록이 없어요.';
+  $('#pb').innerHTML=ppl.length?`가장 많았던 때 <b>${hm(pk.m)}, 약 ${num(Math.round(pk.v/100)*100)}명</b>`+(odd.length?` · 서울시 값이 한 번 크게 튄 ${hm(odd[0][0])}는 그래프에서 뺐어요`:''):'이날 사람 수 기록이 없어요.';
   {const H=300,ymax=Math.max(6000,Math.ceil(Math.max(...ppl.map(r=>r[2]))/4000)*4000),{P,y}=frame($('#c1'),H,ymax,[0,ymax/4,ymax/2,ymax*3/4,ymax],v=>num(v));
    if(ppl.length){const up=ppl.map((r,i)=>`${i?'L':'M'}${xs(r[0]).toFixed(1)},${y(r[2]).toFixed(1)}`).join(''),dn=ppl.slice().reverse().map(r=>`L${xs(r[0]).toFixed(1)},${y(r[1]).toFixed(1)}`).join('');P('path',{d:up+dn+'Z',fill:'#D4D4D8'});
     P('path',{d:ppl.map((r,i)=>`${i?'L':'M'}${xs(r[0]).toFixed(1)},${y(est[i]).toFixed(1)}`).join(''),fill:'none',stroke:'#0A0A0A','stroke-width':2,'stroke-linejoin':'round'});
-    hover($('#c1'),H,ppl.map((r,i)=>({m:r[0],lo:r[1],hi:r[2],e:est[i]})),$('#t1'),b=>`<b>${hm(b.m)}</b> 약 ${num(b.e/10)*10}명 <span style="color:#6B6B74">(서울시 범위 ${num(b.lo)}~${num(b.hi)}명)</span>`)}}
+    hover($('#c1'),H,ppl.map((r,i)=>({m:r[0],lo:r[1],hi:r[2],e:est[i]})),$('#t1'),b=>`<b>${hm(b.m)}</b> 약 ${num(Math.round(b.e/100)*100)}명 <span style="color:#6B6B74">(서울시 범위 ${num(b.lo)}~${num(b.hi)}명)</span>`)}}
   const car=j.list.filter(r=>r[1]!=null).map(r=>({m:r[0],v:r[1]}));
   {const H=280,ymax=Math.max(2800,Math.ceil(Math.max(0,...car.map(c=>c.v))/400)*400),{P,y}=frame($('#c2'),H,ymax,[0,1100,1540,1980],v=>v?num(v):'0');
    [[1100,'50% 다소혼잡'],[1540,'70% 혼잡'],[1980,'90% 만차']].forEach(([v,l])=>{const t=P('text',{x:X1,y:y(v)-4,'text-anchor':'end',class:'lb'});t.textContent=l});
-   if(car.length){const mx=car.reduce((a,b)=>b.v>a.v?b:a);$('#cb').innerHTML=`가장 많았던 때 <b>${hm(mx.m)}, ${num(mx.v)}대</b> (2,200대의 ${Math.round(mx.v/22)}%)`;
+   if(car.length>=6){const mx=car.reduce((a,b)=>b.v>a.v?b:a);$('#cb').innerHTML=`가장 많았던 때 <b>${hm(mx.m)}, ${num(mx.v)}대</b> (2,200대의 ${Math.round(mx.v/22)}%)`;
     let d='';car.forEach((c,i)=>{d+=(i&&c.m-car[i-1].m<=30?'L':'M')+xs(c.m).toFixed(1)+','+y(c.v).toFixed(1)});P('path',{d,fill:'none',stroke:'#0A0A0A','stroke-width':2,'stroke-linejoin':'round'});
     hover($('#c2'),H,car,$('#t2'),b=>`<b>${hm(b.m)}</b> ${num(b.v)}대 <span style="color:#6B6B74">(2,200대의 ${Math.round(b.v/22)}%)</span>`)}
    else{$('#cb').textContent='이날은 주차 대수를 기록하기 전이에요. 11월 23일부터 볼 수 있어요.'}}
   const em=new Map(ppl.map((r,i)=>[r[0],est[i]]));
-  $('#tb').innerHTML='<table><tr><th>시각</th><th>사람 수 추정</th><th>서울시 범위</th><th>주차 대수</th></tr>'+j.list.filter(r=>r[0]%60===0).map(r=>`<tr><td>${hm(r[0])}</td><td>${em.has(r[0])?num(em.get(r[0])/10)*10:''}</td><td>${r[2]!=null?num(r[2])+'~'+num(r[3]):''}</td><td>${r[1]!=null?num(r[1]):''}</td></tr>`).join('')+'</table>';
+  $('#tb').innerHTML='<table><tr><th>시각</th><th>사람 수 추정</th><th>서울시 범위</th><th>주차 대수</th></tr>'+j.list.filter(r=>r[0]%60===0).map(r=>`<tr><td>${hm(r[0])}</td><td>${em.has(r[0])?num(Math.round(em.get(r[0])/100)*100):''}</td><td>${r[2]!=null?num(r[2])+'~'+num(r[3]):''}</td><td>${r[1]!=null?num(r[1]):''}</td></tr>`).join('')+'</table>';
 }
 $('#days').addEventListener('click',e=>{const b=e.target.closest('button');if(b){day=b.dataset.d;$('#t1').textContent='';$('#t2').textContent='';load()}});load();
 </script></body></html>
