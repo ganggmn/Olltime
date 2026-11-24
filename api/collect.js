@@ -3,6 +3,10 @@
    필요한 환경변수: SEOUL_KEY, SUPABASE_URL, SUPABASE_SERVICE_KEY. COLLECT_TOKEN은 선택이에요.
    키와 토큰은 응답과 오류 메시지 어디에도 넣지 않아요. */
 import { compactCity } from './_city.js';
+import { ask } from './_subway.js';
+
+/* 지하철 도착 정보는 공연이 있는 시간대(14:30~01:00)에만 모아요. 하루 호출 한도를 아끼려고 세 이름만 물어요. */
+const SUBWAY_Q = ['올림픽공원', '올림픽공원(한국체대)', '한성백제'];
 
 const AREA = '올림픽공원';
 const PARKING_URL = 'https://www.ksponco.or.kr/online/main/parkingorsApi.do?apiKey=PARKING21803504';
@@ -12,7 +16,8 @@ async function city(key) {
   const r = await fetch(url, { signal: AbortSignal.timeout(9000) });
   const text = (await r.text()).trim();
   if (text.startsWith('<') || !r.ok) throw new Error('서울시 응답 오류');
-  return compactCity(JSON.parse(text)).now;
+  const d = compactCity(JSON.parse(text));
+  return { ...d.now, fcst: d.fcst };
 }
 
 async function parking() {
@@ -27,7 +32,7 @@ async function parking() {
 
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
-  const { SEOUL_KEY, SUPABASE_URL, SUPABASE_SERVICE_KEY, COLLECT_TOKEN } = process.env;
+  const { SEOUL_KEY, SUPABASE_URL, SUPABASE_SERVICE_KEY, COLLECT_TOKEN, SEOUL_SUBWAY_KEY } = process.env;
   if (!SEOUL_KEY || !SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
     return res.status(503).json({ ok: false, note: '저장소가 아직 연결되지 않았어요' });
   }
@@ -57,7 +62,8 @@ export default async function handler(req, res) {
     ppl_lo: c.status === 'fulfilled' ? c.value.lo : null,
     ppl_hi: c.status === 'fulfilled' ? c.value.hi : null,
     ppl_time: c.status === 'fulfilled' ? c.value.time : null,
-    lvl: c.status === 'fulfilled' ? c.value.lvl : null
+    lvl: c.status === 'fulfilled' ? c.value.lvl : null,
+    fcst: c.status === 'fulfilled' ? c.value.fcst : null
   };
   try {
     const r = await fetch(`${base}/rest/v1/samples?on_conflict=ts`, {
@@ -66,7 +72,22 @@ export default async function handler(req, res) {
       body: JSON.stringify(row), signal: AbortSignal.timeout(8000)
     });
     if (!r.ok) return res.status(502).json({ ok: false, note: `저장 실패 ${r.status}` });
-    return res.status(200).json({ ok: true, ts: slot, parking: row.parking !== null, people: row.ppl_lo !== null });
+    /* 지하철: 한국 시간 14:30~01:00에만 */
+    let subway = null;
+    const kstMin = (new Date(Date.now() + 9 * 3600e3).getUTCHours() * 60) + new Date().getUTCMinutes();
+    if (SEOUL_SUBWAY_KEY && (kstMin >= 870 || kstMin < 60)) {
+      const got = await Promise.allSettled(SUBWAY_Q.map(q => ask(SEOUL_SUBWAY_KEY, q)));
+      const list = got.flatMap(g => (g.status === 'fulfilled' ? g.value : []));
+      if (got.some(g => g.status === 'fulfilled')) {
+        const r2 = await fetch(`${base}/rest/v1/subway_samples?on_conflict=ts`, {
+          method: 'POST',
+          headers: { ...auth, 'Content-Type': 'application/json', Prefer: 'resolution=merge-duplicates,return=minimal' },
+          body: JSON.stringify({ ts: slot, list }), signal: AbortSignal.timeout(8000)
+        });
+        subway = r2.ok ? list.length : `저장 실패 ${r2.status}`;
+      }
+    }
+    return res.status(200).json({ ok: true, ts: slot, parking: row.parking !== null, people: row.ppl_lo !== null, subway });
   } catch (e) {
     return res.status(502).json({ ok: false, note: '저장소에 닿지 못했어요' });
   }
