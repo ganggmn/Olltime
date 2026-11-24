@@ -1,0 +1,57 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>올타임 구간 혼잡도 (시안)</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+@font-face{font-family:Pretendard;src:url(/fonts/Pretendard-Regular.subset.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:Pretendard;src:url(/fonts/Pretendard-SemiBold.subset.woff2) format("woff2");font-weight:600;font-display:swap}
+:root{--bg:#FAFAFA;--ink:#0A0A0A;--ink-2:#6B6B74;--line:#D4D4D8;--line-weak:#E5E5E5}
+*{box-sizing:border-box}body{margin:0;font-family:Pretendard,system-ui,sans-serif;color:var(--ink);background:var(--bg);font-size:16px;line-height:1.5}
+main{max-width:720px;margin:0 auto;padding:20px 20px 40px}
+h1{font-size:22px;font-weight:600;margin:0 0 4px}.sub{margin:0;color:var(--ink-2);font-size:14px}
+.now{margin:20px 0 6px;font-size:20px;font-weight:600}
+.sl{display:flex;align-items:center;gap:12px}.sl input{flex:1;accent-color:#0A0A0A;height:36px}
+.ticks{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-2);margin-top:-2px}
+#map{height:340px;margin:16px 0 8px;border:1px solid var(--line)}
+h2{font-size:15px;font-weight:600;margin:22px 0 2px;color:var(--ink-2)}
+ul{list-style:none;margin:0;padding:0}
+li{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:13px 0;border-bottom:1px solid var(--line-weak)}
+li b{font-weight:600}li .lv{font-weight:600;white-space:nowrap}li .cap{grid-column:1/-1;font-size:14px;color:var(--ink-2)}
+.lv i{display:inline-block;width:22px;vertical-align:middle;margin-right:8px;border-radius:2px}
+.note{font-size:13px;color:var(--ink-2);margin-top:18px}
+.lb{background:none;border:0;box-shadow:none;font:600 13px Pretendard,system-ui,sans-serif;color:#0A0A0A;text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 3px #fff;white-space:nowrap}.leaflet-tooltip.lb:before{display:none}
+</style></head><body><main>
+<h1>구간 혼잡도 <span style="font-weight:400;color:var(--ink-2);font-size:15px">시안</span></h1>
+<p class="sub">큰 공연(관객 9천 명 이상)이 있는 날, 공연장에서 역과 문으로 가는 구간이 얼마나 붐비는지예요.</p>
+<p class="now" id="now"></p>
+<div class="sl"><input id="rg" type="range" min="0" max="5" step="1" value="3" aria-label="공연 기준 시각"></div>
+<div class="ticks"><span>시작 3시간 전</span><span>공연 중</span><span>끝나고 2시간</span></div>
+<div id="map" role="img" aria-label="구간 혼잡도 지도"></div>
+<h2>걸어서</h2><ul id="walk"></ul>
+<h2>차로</h2><ul id="car"></ul>
+<p class="note">단계는 2025년 큰 공연 날의 역별 승차 기록(80일), 문별 출차 기록(76일), 구역별 생활인구(74일)에서 사람과 차가 쏠린 몫으로 정했어요. 길 위 인원을 직접 센 값이 아니에요. 걷는 시간은 직선거리로 어림한 값이에요. 서울특별시 공공데이터, 서울교통공사, 한국체육산업개발 자료. 배경 지도 © OpenStreetMap 기여자</p>
+</main>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const V=[37.5190,127.1272];
+const PH=['시작 3~2시간 전','시작 2시간 전~30분 전','공연 중','끝난 직후 20분','끝나고 20분~1시간','끝나고 1~2시간'];
+const LV=[['여유','#A1A1AA',3,'4 6'],['보통','#FFC400',5,null],['혼잡','#FFC400',9,null],['매우 혼잡','#DC2626',10,null]];
+const WALK=[
+ {n:'올림픽공원역 방향 (동쪽)',to:[37.5158,127.1309],min:8,lv:[1,2,0,3,2,1],why:'지하철 승객의 98%가 이 역으로 가요. 끝난 뒤 첫 10~20분에 대부분이 몰려요.'},
+ {n:'방이동 방향 (남쪽)',to:[37.5128,127.1232],min:12,lv:[0,1,0,1,1,1],why:'끝난 뒤 이쪽에 약 1,500명이 늘고 2~3시간 머물러요.'},
+ {n:'한성백제역 방향 (서쪽)',to:[37.5167,127.1162],min:17,lv:[0,0,0,0,0,0],why:'9호선 바로 옆 역인데 공연 날에도 승차가 거의 안 늘어요.'},
+ {n:'몽촌토성역 방향 (서쪽 끝)',to:[37.5176,127.1125],min:22,lv:[0,0,0,0,0,0],why:'8호선. 공연 날에도 승차 변화가 없어요.'},
+ {n:'성내동 방향 (북쪽)',to:[37.5241,127.1284],min:9,lv:[0,0,0,0,0,0],why:'서울시 유동인구 센서에 공연 날 변화가 없어요.'}];
+const CAR=[
+ {n:'북2문, 동2문',lv:[1,2,0,2,3,2],why:'밤 8시 이후 나가는 차의 71%. 5분에 약 45대가 상한이고, 그 근처에 20~25분 머물러요.'},
+ {n:'남2문',lv:[0,1,0,0,1,0],why:'같은 주차장과 이어져 있는데 나가는 차의 16%만 써요.'}];
+const map=L.map('map',{zoomControl:true,scrollWheelZoom:false});map.attributionControl.setPrefix('Leaflet');map.fitBounds([[37.5120,127.1118],[37.5248,127.1318]]);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap'}).addTo(map);
+L.circleMarker(V,{radius:7,color:'#0A0A0A',fillColor:'#0A0A0A',fillOpacity:1}).addTo(map).bindTooltip('공연장',{permanent:true,direction:'top',className:'lb'});
+const lines=WALK.map(w=>{L.circleMarker(w.to,{radius:4,color:'#0A0A0A',fillColor:'#fff',fillOpacity:1,weight:2}).addTo(map);return L.polyline([V,w.to]).addTo(map)});
+const $=s=>document.querySelector(s);
+const row=(x,i,walk)=>{const [t,c,w]=LV[x.lv[i]];return `<li><b>${x.n}${walk?` <span style="font-weight:400;color:var(--ink-2)">약 ${x.min}분</span>`:''}</b><span class="lv"${x.lv[i]===3?' style="color:#B91C1C"':''}><i style="height:${Math.max(3,w-2)}px;background:${c}"></i>${t}</span><span class="cap">${x.why}</span></li>`};
+function draw(){const i=+$('#rg').value;$('#now').textContent=PH[i];
+ WALK.forEach((w,k)=>{const [t,c,wt,d]=LV[w.lv[i]];lines[k].setStyle({color:c,weight:wt,dashArray:d,opacity:.95})});
+ $('#walk').innerHTML=WALK.map(x=>row(x,i,true)).join('');$('#car').innerHTML=CAR.map(x=>row(x,i,false)).join('')}
+$('#rg').addEventListener('input',draw);draw();
+</script></body></html>
