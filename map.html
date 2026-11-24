@@ -1,0 +1,47 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>올타임 구역별 인원 지도 (시험판)</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+@font-face{font-family:Pretendard;src:url(/fonts/Pretendard-Regular.subset.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:Pretendard;src:url(/fonts/Pretendard-SemiBold.subset.woff2) format("woff2");font-weight:600;font-display:swap}
+:root{--bg:#FAFAFA;--ink:#0A0A0A;--ink-2:#6B6B74;--line:#D4D4D8;--line-weak:#E5E5E5}
+*{box-sizing:border-box}html,body{margin:0;height:100%}body{font-family:Pretendard,system-ui,sans-serif;color:var(--ink);background:var(--bg);display:flex;flex-direction:column;font-size:16px;line-height:1.5}
+header{padding:16px 20px 12px;border-bottom:1px solid var(--line-weak)}
+h1{font-size:20px;font-weight:600;margin:0 0 4px}p{margin:0;color:var(--ink-2);font-size:14px}
+.ctl{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;margin-top:12px}
+.seg{display:flex;border:1px solid var(--line)}.seg button{font:inherit;font-size:15px;padding:8px 14px;background:#fff;border:0;color:var(--ink-2);cursor:pointer;min-height:40px}.seg button+button{border-left:1px solid var(--line)}.seg button[aria-pressed=true]{background:var(--ink);color:#fff}
+.sl{display:flex;align-items:center;gap:10px;flex:1;min-width:240px}.sl input{flex:1;accent-color:#0A0A0A;height:32px}.sl b{font-weight:600;min-width:118px;font-variant-numeric:tabular-nums}
+#map{flex:1;min-height:320px}
+footer{padding:10px 20px;border-top:1px solid var(--line-weak);font-size:13px;color:var(--ink-2)}
+.lg{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px;font-size:13px;color:var(--ink-2)}.lg i{display:inline-block;width:14px;height:14px;vertical-align:-2px;margin-right:5px;border:1px solid var(--line)}
+.lb{background:none;border:0;box-shadow:none;font:600 13px Pretendard,system-ui,sans-serif;color:#0A0A0A;text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 3px #fff;white-space:nowrap}
+.leaflet-tooltip.lb:before{display:none}
+</style></head><body>
+<header><h1>구역별 인원 지도 <span style="font-weight:400;color:var(--ink-2);font-size:15px">시험판</span></h1>
+<p id="sub"></p>
+<div class="ctl"><div class="seg" role="group" aria-label="보기"><button id="bW" aria-pressed="true">공연 없는 평일</button><button id="bS" aria-pressed="false">큰 공연 날 늘어난 사람</button></div>
+<label class="sl"><b id="tl"></b><input id="rg" type="range" step="1" aria-label="시간"></label></div>
+<div class="lg" id="lg"></div></header>
+<div id="map" role="img" aria-label="올림픽공원 250미터 칸별 인원 지도"></div>
+<footer>사람 수: 서울 생활인구(250m 격자, 2025년), 서울특별시 공공데이터. 한 시간 동안 그 칸에 머문 평균 인원이라 지나가는 사람은 작게 잡혀요. 칸 숫자는 중앙값이에요. 배경 지도 © OpenStreetMap 기여자</footer>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const DATA={"weekday_days":174,"show_days":74,"cells":[{"id":"66004650","sw":[37.517163,127.115254],"ne":[37.519426,127.118072],"wk":[61,69,82,101,109,113,113,114,116,116,113,107,98,89,82,74,65],"ex":[-2,1,8,15,18,22,19,9,2]},{"id":"66004675","sw":[37.519417,127.115243],"ne":[37.521679,127.11806],"wk":[403,546,572,946,1174,1027,680,641,700,675,556,550,628,616,646,497,154],"ex":[109,129,160,77,10,-29,-32,-32,-37]},{"id":"66254625","sw":[37.514919,127.118095],"ne":[37.517182,127.120912],"wk":[21,31,38,39,43,58,72,74,66,61,63,80,110,100,83,76,63],"ex":[-14,-4,-2,-16,-6,-8,0,-4,-13]},{"id":"66254650","sw":[37.517173,127.118083],"ne":[37.519435,127.120901],"wk":[67,75,89,108,118,124,124,128,129,128,123,117,108,96,88,80,70],"ex":[16,24,30,33,32,30,26,18,13]},{"id":"66254700","sw":[37.521679,127.11806],"ne":[37.523942,127.120878],"wk":[222,246,293,357,392,409,417,425,431,430,416,391,362,320,293,266,233],"ex":[-12,20,35,46,50,46,46,13,-15]},{"id":"66504625","sw":[37.514928,127.120923],"ne":[37.517191,127.123741],"wk":[173,227,591,1017,1184,1145,1012,1136,1181,1151,1100,965,684,401,262,207,168],"ex":[71,84,100,107,77,52,22,16,3]},{"id":"66504650","sw":[37.517182,127.120912],"ne":[37.519444,127.12373],"wk":[52,59,70,86,93,96,96,97,99,99,96,91,84,75,70,63,55],"ex":[-2,1,7,13,15,19,16,7,2]},{"id":"66504675","sw":[37.519435,127.120901],"ne":[37.521697,127.123718],"wk":[155,172,204,248,272,282,284,291,295,291,281,266,245,219,201,184,161],"ex":[310,355,360,349,344,333,285,232,195]},{"id":"66504700","sw":[37.521688,127.120889],"ne":[37.523951,127.123707],"wk":[251,280,331,408,443,462,468,481,490,483,468,442,406,360,330,300,261],"ex":[-14,10,31,39,51,49,40,4,-36]},{"id":"66504725","sw":[37.523942,127.120878],"ne":[37.526204,127.123696],"wk":[91,103,123,150,162,167,166,169,172,172,167,159,147,132,123,111,97],"ex":[-8,-2,8,20,25,31,22,7,2]},{"id":"66754650","sw":[37.517191,127.123741],"ne":[37.519453,127.126559],"wk":[80,118,120,200,222,222,217,239,332,348,314,234,192,171,152,121,68],"ex":[162,386,442,722,907,679,512,272,97]},{"id":"66754675","sw":[37.519444,127.12373],"ne":[37.521706,127.126547],"wk":[199,224,269,328,355,367,368,373,379,379,370,350,321,289,269,243,212],"ex":[-6,2,26,50,59,71,61,28,7]},{"id":"67004625","sw":[37.514946,127.126581],"ne":[37.517209,127.129399],"wk":[304,342,411,501,540,555,554,565,572,571,557,529,488,441,409,371,323],"ex":[-17,0,31,76,91,107,83,37,11]},{"id":"67004650","sw":[37.5172,127.12657],"ne":[37.519462,127.129388],"wk":[334,503,672,1061,1270,1295,1212,1309,1398,1469,1453,1290,1063,838,693,493,278],"ex":[582,1386,3255,4683,4848,4403,2304,798,177]},{"id":"67004675","sw":[37.519453,127.126559],"ne":[37.521715,127.129377],"wk":[18,35,33,52,64,64,66,71,83,85,79,79,74,66,63,46,32],"ex":[101,183,523,710,737,685,288,51,-56]},{"id":"67254625","sw":[37.514955,127.12941],"ne":[37.517217,127.132228],"wk":[100,119,127,128,164,202,221,206,225,260,270,205,175,165,141,120,120],"ex":[3,17,3,1,-5,4,147,103,40]}]};
+const map=L.map('map',{zoomControl:true,attributionControl:true});map.attributionControl.setPrefix('Leaflet');map.fitBounds([[37.5118,127.1150],[37.5272,127.1325]]);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap'}).addTo(map);
+let mode='W',idx=4;const $=s=>document.querySelector(s);
+const col=(v,mx)=>{const r=Math.max(0,Math.min(1,v/mx));if(r<.08)return['#A1A1AA',.18];if(r<.45)return['#FFC400',.25+r*.6];return['#DC2626',.3+r*.5]};
+const rects=DATA.cells.map(c=>{const r=L.rectangle([c.sw,c.ne],{weight:1,color:'#0A0A0A',opacity:.35,fillOpacity:.3}).addTo(map);r.bindTooltip('',{permanent:true,direction:'center',className:'lb'});return r});
+function draw(){
+  const W=mode==='W',n=W?17:9;$('#rg').max=n-1;if(idx>n-1)idx=n-1;$('#rg').value=idx;
+  const mx=W?1400:4800;
+  $('#tl').textContent=W?`${idx+6}시~${idx+7}시`:(idx===3?'공연 시작 시간대':idx<3?`시작 ${3-idx}시간 전`:`시작 ${idx-3}시간 뒤`);
+  $('#sub').textContent=W?`2025년 공연 없는 평일(월~목) ${DATA.weekday_days}일, 그 시간에 칸 안에 있던 사람 수`:`2025년 큰 공연 ${DATA.show_days}일, 같은 요일 평소보다 늘어난 사람 수`;
+  $('#lg').innerHTML=W?'<span><i style="background:#A1A1AA55"></i>110명 미만</span><span><i style="background:#FFC400"></i>110~630명</span><span><i style="background:#DC2626"></i>630명 이상</span>':'<span><i style="background:#A1A1AA55"></i>+380명 미만</span><span><i style="background:#FFC400"></i>+380~2,160명</span><span><i style="background:#DC2626"></i>+2,160명 이상</span>';
+  DATA.cells.forEach((c,i)=>{const v=W?c.wk[idx]:c.ex[idx],[f,o]=col(v,mx);rects[i].setStyle({fillColor:f,fillOpacity:o});rects[i].setTooltipContent((W?'':v>0?'+':'')+v.toLocaleString('ko-KR'))});
+}
+$('#rg').addEventListener('input',e=>{idx=+e.target.value;draw()});
+$('#bW').onclick=()=>{mode='W';idx=4;$('#bW').setAttribute('aria-pressed',true);$('#bS').setAttribute('aria-pressed',false);draw()};
+$('#bS').onclick=()=>{mode='S';idx=3;$('#bS').setAttribute('aria-pressed',true);$('#bW').setAttribute('aria-pressed',false);draw()};
+draw();
+</script></body></html>
