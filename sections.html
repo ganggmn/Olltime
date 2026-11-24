@@ -18,7 +18,7 @@ li{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:13px 0;borde
 li b{font-weight:600}li .lv{font-weight:600;white-space:nowrap}li .cap{grid-column:1/-1;font-size:14px;color:var(--ink-2)}
 .lv i{display:inline-block;width:22px;vertical-align:middle;margin-right:8px;border-radius:2px}
 .note{font-size:13px;color:var(--ink-2);margin-top:18px}
-.lb{background:none;border:0;box-shadow:none;font:600 13px Pretendard,system-ui,sans-serif;color:#0A0A0A;text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 3px #fff;white-space:nowrap}.leaflet-tooltip.lb:before{display:none}
+.lb{background:none;border:0;box-shadow:none;font:600 13px Pretendard,system-ui,sans-serif;color:#0A0A0A;text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 3px #fff;white-space:nowrap}.leaflet-tooltip.lb:before{display:none}.lb.nm{font-size:11px}
 </style></head><body><main>
 <h1>구간 혼잡도 <span style="font-weight:400;color:var(--ink-2);font-size:15px">시안</span></h1>
 <p class="sub">큰 공연(관객 9천 명 이상)이 있는 날, 공연장에서 역과 문으로 가는 구간이 얼마나 붐비는지예요.</p>
@@ -49,6 +49,7 @@ const map=L.map('map',{zoomControl:true,scrollWheelZoom:false});map.attributionC
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap'}).addTo(map);
 L.circleMarker(V,{radius:7,color:'#0A0A0A',fillColor:'#0A0A0A',fillOpacity:1}).addTo(map).bindTooltip('KSPO DOME',{permanent:true,direction:'top',className:'lb'});
 const lines=WALK.map(w=>{const p=PT[w.k];L.circleMarker(p[p.length-1],{radius:4,color:'#0A0A0A',fillColor:'#fff',fillOpacity:1,weight:2}).addTo(map);return L.polyline(p,{lineJoin:'round'}).addTo(map)});
+[[37.51475,127.12758,'올림픽홀'],[37.51736,127.12639,'핸드볼경기장'],[37.51676,127.12507,'우리금융아트홀'],[37.51905,127.12504,'88잔디마당'],[37.52094,127.12661,'수영장'],[37.51694,127.12331,'벨로드롬'],[37.52036,127.11591,'올림픽회관'],[37.51615,127.13093,'올림픽공원역'],[37.51667,127.11621,'한성백제역'],[37.51753,127.11267,'몽촌토성역']].forEach(([a,b,n])=>L.circleMarker([a,b],{radius:3,color:'#0A0A0A',fillColor:'#fff',fillOpacity:1,weight:2,interactive:false}).addTo(map).bindTooltip(n,{permanent:true,direction:'right',offset:[4,0],className:'lb nm'}));
 const $=s=>document.querySelector(s);
 const row=(x,i,walk)=>{const [t,c,w]=LV[x.lv[i]];return `<li><b>${x.n}${walk?` <span style="font-weight:400;color:var(--ink-2)">걸어서 약 ${x.min}분 (${x.m.toLocaleString('ko-KR')}m)</span>`:''}</b><span class="lv"${x.lv[i]===3?' style="color:#B91C1C"':''}><i style="height:${Math.max(3,w-2)}px;background:${c}"></i>${t}</span><span class="cap">${x.why}</span></li>`};
 function draw(){const i=+$('#rg').value;$('#now').textContent=PH[i];
