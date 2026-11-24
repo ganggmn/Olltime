@@ -1,6 +1,8 @@
 /* GET /api/trend: 오늘(한국 시간 0시부터) 쌓인 주차 대수와 공원 인원 범위를 5분 단위로 돌려줘요.
    저장소 키는 서버에만 있고, 응답에는 숫자만 들어 있어요. 2분 동안 CDN에 저장해요. */
 export default async function handler(req, res) {
+  /* 숫자만 담긴 공개 응답이라 다른 주소의 화면에서도 읽을 수 있게 해요 */
+  res.setHeader('Access-Control-Allow-Origin', '*');
   const { SUPABASE_URL, SUPABASE_SERVICE_KEY } = process.env;
   if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
     res.setHeader('Cache-Control', 's-maxage=60');
