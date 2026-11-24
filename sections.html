@@ -18,7 +18,7 @@ li{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:13px 0;borde
 li b{font-weight:600}li .lv{font-weight:600;white-space:nowrap}li .cap{grid-column:1/-1;font-size:14px;color:var(--ink-2)}
 .lv i{display:inline-block;width:22px;vertical-align:middle;margin-right:8px;border-radius:2px}
 .note{font-size:13px;color:var(--ink-2);margin-top:18px}
-.lb{background:none;border:0;box-shadow:none;font:600 13px Pretendard,system-ui,sans-serif;color:#0A0A0A;text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 3px #fff;white-space:nowrap}.leaflet-tooltip.lb:before{display:none}.lb.nm{font-size:11px}
+.lb{background:none;border:0;box-shadow:none;font:600 13px Pretendard,system-ui,sans-serif;color:#0A0A0A;text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 3px #fff;white-space:nowrap}.leaflet-tooltip.lb:before{display:none}.gt{font:600 12px Pretendard,system-ui,sans-serif;border:1.5px solid #0A0A0A;background:#fff;text-align:center;line-height:19px;height:22px;width:44px}.lb.nm{font-size:11px}
 </style></head><body><main>
 <h1>구간 혼잡도 <span style="font-weight:400;color:var(--ink-2);font-size:15px">시안</span></h1>
 <p class="sub">큰 공연(관객 9천 명 이상)이 있는 날, 공연장에서 역과 문으로 가는 구간이 얼마나 붐비는지예요.</p>
@@ -27,7 +27,7 @@ li b{font-weight:600}li .lv{font-weight:600;white-space:nowrap}li .cap{grid-colu
 <div class="ticks"><span>시작 3시간 전</span><span>공연 중</span><span>끝나고 2시간</span></div>
 <div id="map" role="img" aria-label="구간 혼잡도 지도"></div>
 <h2>걸어서</h2><ul id="walk"></ul>
-<h2>차로</h2><ul id="car"></ul>
+<h2>차로 <span style="font-weight:400">(지도의 네모가 문이에요)</span></h2><ul id="car"></ul>
 <p class="note">단계는 2025년 큰 공연 날의 역별 승차 기록(80일), 문별 출차 기록(76일), 구역별 생활인구(74일)에서 사람과 차가 쏠린 몫으로 정했어요. 길 위 인원을 직접 센 값이 아니에요. 걷는 시간은 KSPO DOME에서 지도상 길을 따라 잰 거리를 1분에 75m로 나눈 값이에요. 서울특별시 공공데이터, 서울교통공사, 한국체육산업개발 자료. 배경 지도 © OpenStreetMap 기여자</p>
 </main>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -37,7 +37,7 @@ const PH=['시작 3~2시간 전','시작 2시간 전~30분 전','공연 중','�
 const LV=[['여유','#A1A1AA',3,'4 6'],['보통','#FFC400',5,null],['혼잡','#FFC400',9,null],['매우 혼잡','#DC2626',10,null]];
 const PT={"e":[[37.51955,127.12822],[37.51911,127.12831],[37.51857,127.12803],[37.51833,127.12855],[37.51701,127.12774],[37.51586,127.13043],[37.51631,127.13075]],"s":[[37.51955,127.12822],[37.51911,127.12831],[37.51857,127.12803],[37.51833,127.12855],[37.51679,127.1276],[37.51642,127.12723],[37.51606,127.12661],[37.51585,127.12594],[37.51565,127.12451],[37.51538,127.12372],[37.51511,127.12332],[37.51447,127.12287],[37.51415,127.12283],[37.51408,127.12301]],"w":[[37.51955,127.12822],[37.51911,127.12831],[37.51857,127.12803],[37.51833,127.12855],[37.51701,127.12774],[37.51652,127.12716],[37.51619,127.12664],[37.51596,127.12591],[37.51577,127.12445],[37.51547,127.12364],[37.51517,127.12321],[37.5145,127.1227],[37.51435,127.12246],[37.51434,127.12236],[37.51658,127.1161]],"m":[[37.51955,127.12822],[37.51911,127.12831],[37.51857,127.12803],[37.51833,127.12855],[37.51765,127.12817],[37.51821,127.12697],[37.51799,127.12683],[37.51811,127.12642],[37.5181,127.12611],[37.518,127.12584],[37.51781,127.12556],[37.51741,127.12541],[37.51734,127.12457],[37.51756,127.12436],[37.51778,127.12326],[37.518,127.12303],[37.51805,127.12238],[37.5178,127.12176],[37.51696,127.12073],[37.51677,127.12019],[37.5167,127.11967],[37.51748,127.11721],[37.51736,127.11649],[37.51816,127.11615],[37.51757,127.11412],[37.51736,127.11405]],"n":[[37.51955,127.12822],[37.5198,127.12796],[37.5199,127.12814],[37.52031,127.12834],[37.52108,127.12797],[37.52179,127.12745],[37.52238,127.12727],[37.52289,127.1273],[37.52381,127.12778],[37.52388,127.12792],[37.5241,127.12804]]};
 const WALK=[
- {n:'올림픽공원역 방향 (동쪽)',k:'e',m:660,min:9,lv:[1,2,0,3,2,1],why:'지하철 승객의 98%가 이 역으로 가요. 끝난 뒤 첫 10~20분에 대부분이 몰려요.'},
+ {n:'올림픽공원역 방향 (동쪽)',k:'e',m:660,min:9,lv:[1,2,0,3,2,1],why:'지하철 승객의 98%가 이 역으로 가요. 끝난 뒤 첫 10~20분에 대부분이 몰려요. 차가 많이 나가는 동2문이 역 출구에서 60m 거리라 사람과 차가 같은 곳에서 만나요.'},
  {n:'남2문·방이동 방향 (남쪽)',k:'s',m:930,min:12,lv:[0,1,0,1,1,1],why:'끝난 뒤 남쪽 방이동에 약 1,500명이 늘고 2~3시간 머물러요.'},
  {n:'한성백제역 방향 (서쪽)',k:'w',m:1530,min:20,lv:[0,0,0,0,0,0],why:'9호선 바로 옆 역인데 공연 날에도 승차가 거의 안 늘어요.'},
  {n:'몽촌토성역 방향 (서쪽 끝)',k:'m',m:1770,min:24,lv:[0,0,0,0,0,0],why:'8호선. 공연 날에도 승차 변화가 없어요.'},
@@ -50,10 +50,11 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribu
 L.circleMarker(V,{radius:7,color:'#0A0A0A',fillColor:'#0A0A0A',fillOpacity:1}).addTo(map).bindTooltip('KSPO DOME',{permanent:true,direction:'top',className:'lb'});
 const lines=WALK.map(w=>{const p=PT[w.k];L.circleMarker(p[p.length-1],{radius:4,color:'#0A0A0A',fillColor:'#fff',fillOpacity:1,weight:2}).addTo(map);return L.polyline(p,{lineJoin:'round'}).addTo(map)});
 [[37.51475,127.12758,'올림픽홀'],[37.51736,127.12639,'핸드볼경기장'],[37.51676,127.12507,'우리금융아트홀'],[37.51905,127.12504,'88잔디마당'],[37.52094,127.12661,'수영장'],[37.51694,127.12331,'벨로드롬'],[37.52036,127.11591,'올림픽회관'],[37.51615,127.13093,'올림픽공원역'],[37.51667,127.11621,'한성백제역'],[37.51753,127.11267,'몽촌토성역']].forEach(([a,b,n])=>L.circleMarker([a,b],{radius:3,color:'#0A0A0A',fillColor:'#fff',fillOpacity:1,weight:2,interactive:false}).addTo(map).bindTooltip(n,{permanent:true,direction:'right',offset:[4,0],className:'lb nm'}));
+const GATE={'북2문, 동2문':[[37.52369,127.12779,'북2문'],[37.51607,127.13004,'동2문']],'남2문':[[37.51434,127.12274,'남2문']]};const gm={};Object.entries(GATE).forEach(([k,v])=>{gm[k]=v.map(([la,lo,n])=>L.marker([la,lo],{interactive:false,icon:L.divIcon({className:'',html:`<div class="gt">${n}</div>`,iconSize:[44,22],iconAnchor:[22,11]})}).addTo(map))});
 const $=s=>document.querySelector(s);
 const row=(x,i,walk)=>{const [t,c,w]=LV[x.lv[i]];return `<li><b>${x.n}${walk?` <span style="font-weight:400;color:var(--ink-2)">걸어서 약 ${x.min}분 (${x.m.toLocaleString('ko-KR')}m)</span>`:''}</b><span class="lv"${x.lv[i]===3?' style="color:#B91C1C"':''}><i style="height:${Math.max(3,w-2)}px;background:${c}"></i>${t}</span><span class="cap">${x.why}</span></li>`};
 function draw(){const i=+$('#rg').value;$('#now').textContent=PH[i];
  WALK.forEach((w,k)=>{const [t,c,wt,d]=LV[w.lv[i]];lines[k].setStyle({color:c,weight:wt,dashArray:d,opacity:.95})});
- $('#walk').innerHTML=WALK.map(x=>row(x,i,true)).join('');$('#car').innerHTML=CAR.map(x=>row(x,i,false)).join('')}
+ CAR.forEach(c=>{const [t,col]=LV[c.lv[i]];gm[c.n].forEach(m=>{const el=m.getElement().firstChild;el.style.background=c.lv[i]?col:'#fff';el.style.color=c.lv[i]===3?'#fff':'#0A0A0A'})});$('#walk').innerHTML=WALK.map(x=>row(x,i,true)).join('');$('#car').innerHTML=CAR.map(x=>row(x,i,false)).join('')}
 $('#rg').addEventListener('input',draw);draw();
 </script></body></html>
