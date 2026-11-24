@@ -14,7 +14,7 @@ h1{font-size:22px;font-weight:600;margin:0 0 4px}.sub{margin:0;color:var(--ink-2
 #map{height:340px;margin:16px 0 8px;border:1px solid var(--line)}
 h2{font-size:15px;font-weight:600;margin:22px 0 2px;color:var(--ink-2)}
 ul{list-style:none;margin:0;padding:0}
-li{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:13px 0;border-bottom:1px solid var(--line-weak)}
+li{border-bottom:1px solid var(--line-weak)}li button{all:unset;box-sizing:border-box;width:100%;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:13px 10px 13px 12px;border-left:3px solid transparent;min-height:44px}li.on button{border-left-color:#0A0A0A;background:#fff}li button:focus-visible{outline:2px solid #0A0A0A;outline-offset:-2px}
 li b{font-weight:600}li .lv{font-weight:600;white-space:nowrap}li .cap{grid-column:1/-1;font-size:14px;color:var(--ink-2)}
 .lv i{display:inline-block;width:22px;vertical-align:middle;margin-right:8px;border-radius:2px}
 .note{font-size:13px;color:var(--ink-2);margin-top:18px}
@@ -26,6 +26,7 @@ li b{font-weight:600}li .lv{font-weight:600;white-space:nowrap}li .cap{grid-colu
 <div class="sl"><input id="rg" type="range" min="0" max="5" step="1" value="3" aria-label="공연 기준 시각"></div>
 <div class="ticks"><span>시작 3시간 전</span><span>공연 중</span><span>끝나고 2시간</span></div>
 <div id="map" role="img" aria-label="구간 혼잡도 지도"></div>
+<p class="sub" style="margin-top:10px">구간을 누르면 지도에서 그 길이 굵게 표시돼요. 다시 누르면 풀려요.</p>
 <h2>걸어서</h2><ul id="walk"></ul>
 <h2>차로 <span style="font-weight:400">(지도의 네모가 문이에요)</span></h2><ul id="car"></ul>
 <p class="note">단계는 2025년 큰 공연 날의 역별 승차 기록(80일), 문별 출차 기록(76일), 구역별 생활인구(74일)에서 사람과 차가 쏠린 몫으로 정했어요. 길 위 인원을 직접 센 값이 아니에요. 걷는 시간은 KSPO DOME에서 지도상 길을 따라 잰 거리를 1분에 75m로 나눈 값이에요. 서울특별시 공공데이터, 서울교통공사, 한국체육산업개발 자료. 배경 지도 © OpenStreetMap 기여자</p>
@@ -52,9 +53,10 @@ const lines=WALK.map(w=>{const p=PT[w.k];L.circleMarker(p[p.length-1],{radius:4,
 [[37.51615,127.13093,'올림픽공원역','right'],[37.51667,127.11621,'한성백제역','bottom'],[37.51753,127.11267,'몽촌토성역','top']].forEach(([a,b,n,d])=>L.circleMarker([a,b],{radius:3,color:'#0A0A0A',fillColor:'#fff',fillOpacity:1,weight:2,interactive:false}).addTo(map).bindTooltip(n,{permanent:true,direction:d,offset:d==='right'?[6,0]:[0,d==='top'?-4:4],className:'lb nm'}));
 const GATE={'북2문, 동2문':[[37.52369,127.12779,'북2문'],[37.51607,127.13004,'동2문']],'남2문':[[37.51434,127.12274,'남2문']]};const gm={};Object.entries(GATE).forEach(([k,v])=>{gm[k]=v.map(([la,lo,n])=>L.marker([la,lo],{interactive:false,icon:L.divIcon({className:'',html:`<div class="gt">${n}</div>`,iconSize:[44,22],iconAnchor:[22,11]})}).addTo(map))});
 const $=s=>document.querySelector(s);
-const row=(x,i,walk)=>{const [t,c,w]=LV[x.lv[i]];return `<li><b>${x.n}${walk?` <span style="font-weight:400;color:var(--ink-2)">걸어서 약 ${x.min}분 (${x.m.toLocaleString('ko-KR')}m)</span>`:''}</b><span class="lv"${x.lv[i]===3?' style="color:#B91C1C"':''}><i style="height:${Math.max(3,w-2)}px;background:${c}"></i>${t}</span><span class="cap">${x.why}</span></li>`};
+let sel=null;const row=(x,i,walk)=>{const [t,c,w]=LV[x.lv[i]];const on=sel===x.n;return `<li${on?' class="on"':''}><button type="button" data-n="${x.n}" aria-pressed="${on}"><b>${x.n}${walk?` <span style="font-weight:400;color:var(--ink-2)">걸어서 약 ${x.min}분 (${x.m.toLocaleString('ko-KR')}m)</span>`:''}</b><span class="lv"${x.lv[i]===3?' style="color:#B91C1C"':''}><i style="height:${Math.max(3,w-2)}px;background:${c}"></i>${t}</span><span class="cap">${x.why}</span></button></li>`};
 function draw(){const i=+$('#rg').value;$('#now').textContent=PH[i];
- WALK.forEach((w,k)=>{const [t,c,wt,d]=LV[w.lv[i]];lines[k].setStyle({color:c,weight:wt,dashArray:d,opacity:.95})});
+ WALK.forEach((w,k)=>{const [t,c,wt,d]=LV[w.lv[i]];const on=sel===w.n,dim=sel&&!on;lines[k].setStyle({color:on&&!w.lv[i]?'#0A0A0A':c,weight:on?wt+4:wt,dashArray:on?null:d,opacity:dim?.25:.95});if(on){lines[k].bringToFront();map.fitBounds(lines[k].getBounds(),{padding:[40,40],maxZoom:17})}});
+ Object.entries(gm).forEach(([k,ms])=>ms.forEach(m=>{m.getElement().style.opacity=sel&&sel!==k?.3:1;if(sel===k)map.panTo(m.getLatLng())}));
  CAR.forEach(c=>{const [t,col]=LV[c.lv[i]];gm[c.n].forEach(m=>{const el=m.getElement().firstChild;el.style.background=c.lv[i]?col:'#fff';el.style.color=c.lv[i]===3?'#fff':'#0A0A0A'})});$('#walk').innerHTML=WALK.map(x=>row(x,i,true)).join('');$('#car').innerHTML=CAR.map(x=>row(x,i,false)).join('')}
-$('#rg').addEventListener('input',draw);draw();
+$('#rg').addEventListener('input',draw);document.addEventListener('click',e=>{const b=e.target.closest('button[data-n]');if(!b)return;sel=sel===b.dataset.n?null:b.dataset.n;if(!sel)map.fitBounds([[37.5132,127.1118],[37.5245,127.1345]]);draw()});draw();
 </script></body></html>
