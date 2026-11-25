@@ -44,9 +44,10 @@ if 'bike' in what:
                 if all(k in cc for k in keys): return i
             return None
         rt, rs, tt, ts, mi, me, by, sx, ut = col('대여일시'), col('대여', '대여소번호'), col('반납일시'), col('반납', '대여소번호'), col('이용시간'), col('이용거리'), col('생년'), col('성별'), col('이용자종류')
-        for r in R:
+        for k, r in enumerate(R):
+            if k < 2: print('  예시', r[:8], flush=True)
             try:
-                a, c = r[rs].strip().lstrip("'"), r[ts].strip().lstrip("'")
+                a, c = r[rs].strip().strip("'\"").lstrip('0'), r[ts].strip().strip("'\"").lstrip('0')
             except (IndexError, TypeError): continue
             if a in BIKE or c in BIKE:
                 yb = r[by].strip() if by is not None and by < len(r) else ''
