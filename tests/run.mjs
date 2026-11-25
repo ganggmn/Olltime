@@ -12,6 +12,8 @@ const near = (a, b, tol, m) => ok(Math.abs(a - b) <= tol, `${m || ''} ${a} ≠ $
 const scripts = html => [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m => m[1]);
 const constOf = (src, name) => { const m = src.match(new RegExp('const ' + name + '=([\\s\\S]*?);\\n')); ok(m, name + ' 없음'); return new Function('return ' + m[1])(); };
 
+await import(path.join(ROOT, 'gp.js')); await import(path.join(ROOT, 'model.js'));
+const OLL = globalThis.OLL, GP = globalThis.GP;
 const PAGES = ['index.html', 'trend.html', 'ops.html', 'sections.html', 'verify.html', 'privacy.html', 'terms.html'];
 console.log('1. 화면 코드');
 for (const f of PAGES) await test(`${f}: 스크립트 문법`, () => { for (const s of scripts(rd(f))) new Function('return (async()=>{' + s.replace(/^\s*\(async\(\)=>\{/, '').replace(/\}\)\(\);?\s*$/, '') + '\n})'); });
@@ -22,8 +24,7 @@ console.log('2. 화면끼리 숫자');
 const app = rd('src/app.js'), body = rd('src/body.html'), verify = rd('verify.html'), ops = rd('ops.html'), sec = rd('sections.html'), trend = rd('trend.html');
 await test('정확도 표: 첫 화면과 검증 기록이 같음', () => { const lad = [...app.matchAll(/\['[^']+',(\d+\.\d),'/g)].map(m => m[1]); ok(lad.length === 6, '단계 수 ' + lad.length); for (const v of lad) ok(verify.includes(`<td>${v}%</td>`), `검증 기록에 ${v}% 없음`); ok(body.includes(`${lad[4]}% → ${lad[5]}%`), '첫 화면 큰 숫자가 표와 다름'); });
 await test('검증 기록 목차 수 = 본문 항목 수', () => { const toc = (verify.match(/<li><a href="#v\d+">/g) || []).length, secs = (verify.match(/<section id="v\d+">/g) || []).length; ok(toc === secs, `목차 ${toc} 본문 ${secs}`); ok(body.includes(`검증 기록 ${secs}건`), '첫 화면의 건수'); });
-await test('주차 새벽 바닥 보정값: 추이와 운영판이 같음', () => { const a = +trend.match(/const FLOOR=(\d+)/)[1], b = +ops.match(/FLOOR=(\d+)/)[1]; ok(a === b, `${a} ≠ ${b}`); });
-await test('차이가 남는 비율 표: 추이와 운영판이 같음', () => { const g = s => s.match(/const BETA=(\{[^;]+\})[,;]/)[1].replace(/\s/g, ''); ok(g(trend) === g(ops), '표가 다름'); });
+await test('추이와 운영판이 계산을 따로 갖고 있지 않고 model.js를 씀', () => { for (const [n, h] of [['trend', trend], ['ops', ops]]) { ok(h.includes('<script src="/model.js">') && h.includes('<script src="/gp.js">'), n + ': 공용 파일을 안 불러옴'); ok(!/const BETA=\{/.test(h) && !/FLOOR=\d/.test(h) && !/const KC=\{/.test(h), n + ': 숫자를 따로 적어 둠'); } });
 const KER = constOf(ops, 'KER'), GOUT = constOf(ops, 'GOUT'), GIN = constOf(ops, 'GIN'), TOT = +ops.match(/const TOT=(\d+)/)[1], LAG = +ops.match(/LAG=(\d+)/)[1];
 const F = new Function('return ' + sec.match(/const F=(\{[^;]+\});/)[1])();
 await test('10분 곡선의 몫을 모두 더하면 100%', () => near(KER.reduce((a, b) => a + b, 0), 100, 1.5));
@@ -34,8 +35,8 @@ await test('곡선 길이: 시작 전 21칸, 끝난 뒤 15칸', () => { ok(KER.l
 console.log('3. 운영판 계산');
 const opsJs = scripts(ops).pop();
 const calcSrc = opsJs.slice(opsJs.indexOf('const $='), opsJs.indexOf('function render()'));
-const calcEnv = new Function('document', 'matchMedia', calcSrc + '\nreturn {calc,mk,runs,TOT,LAG,AUD0,W_HOT,C_WARN};');
-const O = calcEnv({ querySelector: () => ({}) }, () => ({ matches: false }));
+const calcEnv = new Function('document', 'matchMedia', 'OLL', calcSrc + '\nreturn {calc,mk,runs,TOT,LAG,AUD0,W_HOT,C_WARN};');
+const O = calcEnv({ querySelector: () => ({}) }, () => ({ matches: false }), OLL);
 await test('관객이 기준(13,452명)이면 역 방향 합이 승차 증가 합과 같음', () => { const o = O.calc([{ v: 'KSPO DOME', s: 1020, e: 1170, a: O.AUD0 }]); near([...o.we].reduce((a, b) => a + b, 0), O.TOT, O.TOT * .02); });
 await test('관객 수에 비례함', () => { const a = O.calc([{ s: 1020, e: 1170, a: 13452 }]).pk, b = O.calc([{ s: 1020, e: 1170, a: 6726 }]).pk; near(b, a / 2, 1); });
 await test('가장 붐비는 10분은 끝 시각 + 25분 + 10~20분', () => { const o = O.calc([{ s: 1020, e: 1170, a: 13452 }]); near(o.pt, 1170 + O.LAG + 10, 10); });
@@ -46,8 +47,8 @@ console.log('4. 공연 일정');
 const data = rd('src/data/data.js'), travel = rd('src/data/travel.js');
 const { TR, ROUTE, SHOWS } = new Function(data + '\n' + travel + '\nreturn {TR,ROUTE,SHOWS};')();
 await test('공연 목록: 날짜순, 시각 형식, 아는 공연장', () => { const V = new Set(['KSPO DOME', '올림픽홀', '핸드볼경기장', '티켓링크 라이브 아레나', '우리금융아트홀', '88잔디마당', 'K-아트홀', '뮤즈라이브', '수변무대', 'SK핸드볼경기장']); let prev = ''; for (const s of SHOWS) { ok(/^\d{4}-\d{2}-\d{2}$/.test(s.d) && /^\d{2}:\d{2}$/.test(s.t), JSON.stringify(s).slice(0, 60)); ok(s.d >= prev, '날짜 순서 ' + s.d); prev = s.d; ok(V.has(s.venue), '모르는 공연장 ' + s.venue); } });
-await test('운영판의 공연이 공연 목록과 같음(공연장, 시작 시각)', () => { const EVT = constOf(ops, 'EVT'); for (const [d, list] of Object.entries(EVT)) { const real = SHOWS.filter(s => s.d === d && ['KSPO DOME', '올림픽홀', '핸드볼경기장'].includes(s.venue)); if (!real.length) continue; ok(real.length === list.length, `${d}: 목록 ${real.length}개, 운영판 ${list.length}개`); for (const s of real) { const m = +s.t.slice(0, 2) * 60 + +s.t.slice(3); ok(list.some(e => e[0] === s.venue && e[1] === m && (!s.run || e[2] === s.run)), `${d} ${s.venue} ${s.t}`); } } });
-await test('추이의 공연 표시가 공연 목록의 KSPO DOME 시작 시각과 같음', () => { const EVT = constOf(trend, 'EVT'); for (const [d, list] of Object.entries(EVT)) { const s = SHOWS.find(x => x.d === d && x.venue === 'KSPO DOME'); if (!s) continue; ok(list[0][0] === +s.t.slice(0, 2) * 60 + +s.t.slice(3), d); } });
+await test('운영판의 공연이 공연 목록과 같음(공연장, 시작 시각)', () => { const EVT = OLL.EVT; for (const [d, list] of Object.entries(EVT)) { const real = SHOWS.filter(s => s.d === d && ['KSPO DOME', '올림픽홀', '핸드볼경기장'].includes(s.venue)); if (!real.length) continue; ok(real.length === list.length, `${d}: 목록 ${real.length}개, 운영판 ${list.length}개`); for (const s of real) { const m = +s.t.slice(0, 2) * 60 + +s.t.slice(3); ok(list.some(e => e[0] === s.venue && e[1] === m && (!s.run || e[2] === s.run)), `${d} ${s.venue} ${s.t}`); } } });
+await test('큰 공연 날 판정이 공연 목록과 같음', () => { for (const s of SHOWS.filter(x => x.venue === 'KSPO DOME' && x.d >= '2026-11-22' && x.d <= '2026-12-06')) ok(OLL.bigShow(s.d), s.d + '가 큰 공연 날로 안 잡힘'); ok(!OLL.bigShow('2026-11-25')); ok(OLL.clsOf('2026-11-28') === 'sat_show' && OLL.clsOf('2026-11-25') === 'wk' && OLL.clsOf('2026-11-27') === 'fri_show'); });
 
 console.log('5. 지하철 경로');
 const ST = ROUTE.st.map(x => x[0]), L9 = ROUTE.ln.indexOf('9호선');
@@ -66,6 +67,36 @@ await test('추이: 기록을 [분, 주차, 아래, 위, 단계]로 바꿔 돌�
 await test('추이: 날짜 형식이 틀리면 오늘로', async () => { const real = globalThis.fetch; globalThis.fetch = async () => ({ ok: true, json: async () => [] }); const r = mkRes(); await trendFn({ query: { day: "2026-11-22';drop" } }, r); globalThis.fetch = real; ok(/^\d{4}-\d{2}-\d{2}$/.test(r.body.day)); });
 await test('추이: 저장소가 실패하면 502', async () => { const real = globalThis.fetch; globalThis.fetch = async () => ({ ok: false, status: 500 }); const r = mkRes(); await trendFn({ query: {} }, r); globalThis.fetch = real; ok(r.code === 502 && r.body.ok === false); });
 await test('저장소 코드에 키 값이 적혀 있지 않음', () => { for (const f of fs.readdirSync(path.join(ROOT, 'api'))) { const s = rd('api/' + f); ok(!/eyJ[A-Za-z0-9_-]{20,}/.test(s) && !/sb_secret_/.test(s), f + '에 키처럼 보이는 문자열'); } });
+
+
+console.log('7. 단계별 임시 데이터(가짜 하루를 넣고 단계마다 나와야 할 값을 확인)');
+/* 가짜 하루 만들기: 5분 간격. car(m)=주차 대수, ppl(m)=사람 수(서울시처럼 500명 범위로 뭉툭하게) */
+const fake = (car, ppl, upto = 1435) => { const L = []; for (let m = 0; m <= upto; m += 5) { const c = car(m), p = ppl(m); const lo = p == null ? null : Math.floor(p / 500) * 500; L.push([m, c == null ? null : Math.round(c), lo, lo == null ? null : lo + 500, '보통']); } return L; };
+const WK = '2026-11-25', profWk = m => { const R0 = OLL.run([[0, 1, 0, 500, '']], { day: WK }); return R0.pAt(m); };
+await test('①기록 정리: 값이 없는 줄은 빠지고 멈추지 않음', () => { const L = fake(m => (m >= 600 && m < 700 ? null : 1500), m => (m >= 300 && m < 360 ? null : 6000)); const R = OLL.run(L, { day: WK }); ok(R.car.every(c => c.v === 1500) && R.car.length < L.length); ok(R.ppl.length < L.length && R.pe.every(p => isFinite(p.v))); });
+await test('①기록 정리: 혼자 1.6배 넘게 튄 인원 값 하나는 빠짐', () => { const L = fake(() => 1500, m => (m === 600 ? 20000 : 6000)); const R = OLL.run(L, { day: WK }); ok(R.odd.length === 1 && R.odd[0][0] === 600, JSON.stringify(R.odd)); });
+await test('②추정: 사람 수 추정은 항상 서울시 범위 안', () => { const L = fake(m => 1000 + 800 * Math.sin(Math.PI * m / 1440), m => 4000 + 5000 * Math.sin(Math.PI * m / 1440)); const R = OLL.run(L, { day: WK }); R.ppl.forEach((r, i) => ok(R.est[i] >= r[1] && R.est[i] <= r[2], `${r[0]}분: ${R.est[i]} ∉ ${r[1]}~${r[2]}`)); });
+await test('③주차 예상: 실제가 2025년 가운데값과 똑같으면 예상도 그대로(오차 0)', () => { const L = fake(m => profWk(m), () => 6000); const s = OLL.score(L, { day: WK }); ok(s.car.n >= 50, 'n=' + s.car.n); near(s.car.mae, 0, 1, '평균 오차'); });
+await test('③주차 예상: 실제가 가운데값보다 늘 100대 많으면 2시간 앞 예상은 88대만 더함(오차 12대)', () => { const L = fake(m => profWk(m) + 100, () => 6000); const s = OLL.score(L, { day: WK }); near(s.car.mae, 100 * (1 - OLL.BETA.noshow[5]), 1.5, '평균 오차'); });
+await test('③주차 예상: 큰 공연 날은 큰 공연 날의 비율(85%)을 씀', () => { const day = '2026-11-28', R0 = OLL.run([[0, 1, 0, 500, '']], { day }); const L = fake(m => R0.pAt(m) + 100, () => 6000); near(OLL.score(L, { day }).car.mae, 100 * (1 - OLL.BETA.show[5]), 1.5); });
+await test('④사람 수 예상: 주차 기록이 없으면 예상을 내지 않음(억지로 만들지 않음)', () => { const s = OLL.score(fake(() => null, () => 6000), { day: WK }); ok(s.ppl.n === 0 && s.car.n === 0); });
+await test('④오늘: 지금 이후 예상은 마지막 실제 값에서 이어짐', () => { const L = fake(m => profWk(m) + 50, () => 6000, 600); const R = OLL.run(L, { day: WK, isToday: true }); ok(R.carFut.length > 10 && R.carFut[0].m === 600 && R.carFut[0].v === L[L.length - 1][1]); near(R.carFut[1].v - R.pAt(R.carFut[1].m), 50, 3, '바로 다음 칸'); ok(Math.abs(R.carFut[R.carFut.length - 1].v - R.pAt(1440)) < 50, '먼 시각일수록 차이를 덜 옮김'); });
+const dropDay = fake(m => profWk(m), m => (m < 1200 ? 9000 : 4000));
+await test('⑥이상 징후: 기준을 안 정하면 아무것도 표시하지 않음', () => ok(OLL.score(dropDay, { day: WK }).events.length === 0));
+await test('⑥이상 징후: 10분 사이 2,000명 기준이면 20:00의 5,000명 감소를 알림', () => { const ev = OLL.score(dropDay, { day: WK, rules: { win: 10, dn: 2000 } }).events; ok(ev.length === 1 && ev[0].kind === 'jump' && ev[0].text.includes('줄었어요') && ev[0].at >= '20:00' && ev[0].at <= '20:15', JSON.stringify(ev)); });
+await test('⑥이상 징후: 기준을 6,000명으로 높이면 같은 감소를 알리지 않음', () => ok(OLL.score(dropDay, { day: WK, rules: { win: 10, dn: 6000 } }).events.length === 0));
+await test('⑥이상 징후: % 기준(50.0%)으로도 같은 감소를 알림, 60.0%면 안 알림', () => { ok(OLL.score(dropDay, { day: WK, rules: { win: 10, dp: 50.0 } }).events.length === 1); ok(OLL.score(dropDay, { day: WK, rules: { win: 10, dp: 60.0 } }).events.length === 0); });
+await test('⑥이상 징후: 평소 오차의 3.0배 기준', () => { const L = fake(m => profWk(m) + (m >= 900 && m < 1000 ? 600 : 0), () => 6000); const a = OLL.score(L, { day: WK, rules: { k: 3.0 }, usual: { car: 40, ppl: 500 } }).events, b = OLL.score(L, { day: WK, rules: { k: 30.0 }, usual: { car: 40, ppl: 500 } }).events; ok(a.some(e => e.kind === 'err' && e.text.includes('주차 예상') && e.at >= '15:00' && e.at <= '17:00'), JSON.stringify(a)); ok(b.length === 0); });
+await test('⑦채점: 이상 징후 시간을 빼도 전체 값은 그대로 남고, 뺀 쪽은 개수가 줄어듦', () => { const L = fake(m => profWk(m) + (m >= 900 && m < 1000 ? 600 : 0), () => 6000); const s = OLL.score(L, { day: WK, rules: { k: 3.0 }, usual: { car: 40, ppl: 500 } }), s0 = OLL.score(L, { day: WK }); ok(s.car.n === s0.car.n && s.car.mae === s0.car.mae, '전체 값이 기준에 따라 바뀜'); ok(s.carEx.n < s.car.n && s.carEx.mae < s.car.mae); });
+await test('기준 입력: 분·명은 정수, %와 배수는 소수 한 자리, 엉뚱한 값은 무시', () => { const r = OLL.cleanRules({ win: '10.4', dn: '2000.7', dp: '20.26', k: '3.14' }); ok(r.win === 10 && r.dn === 2001 && r.dp === 20.3 && r.k === 3.1, JSON.stringify(r)); const z = OLL.cleanRules({ win: 'abc', dn: '-5', dp: '', k: '0' }); ok(z.win === null && z.dn === null && z.dp === null && z.k === null); });
+
+console.log('8. 누가 돌려도 같은 결과');
+const realDay = JSON.parse(rd('tests/fixtures/day_2026-11-23.json'));
+await test('실제 하루(11월 23일) 기록의 채점 결과가 적어 둔 값과 같음', () => { const s = OLL.score(realDay.list, { day: '2026-11-23' }); ok(s.car.n === 60 && s.car.mae === 43.6 && s.car.pct === 2.7, JSON.stringify(s.car)); ok(s.ppl.n === 66 && s.ppl.mae === 632.8 && s.ppl.inband === 26, JSON.stringify(s.ppl)); });
+await test('같은 기록을 두 번 채점하면 글자 하나까지 같음', () => { const a = JSON.stringify(OLL.scoreDays({ '2026-11-23': realDay.list }, { win: 10, dn: 2000 })), b = JSON.stringify(OLL.scoreDays({ '2026-11-23': JSON.parse(JSON.stringify(realDay.list)) }, { win: 10, dn: 2000 })); ok(a === b); });
+const scoreFn = (await import(path.join(ROOT, 'api/score.js'))).default, live = await import(path.join(ROOT, 'analysis/live_score.mjs'));
+await test('서버의 채점(/api/score)과 공개 스크립트(live_score.mjs)가 같은 숫자를 냄', async () => { process.env.SUPABASE_URL = 'https://example.invalid'; process.env.SUPABASE_SERVICE_KEY = 'test-key'; const real = globalThis.fetch; const from = Date.parse('2026-11-23T00:00:00+09:00'); globalThis.fetch = async u => ({ ok: true, json: async () => (String(u).includes('gte.' + encodeURIComponent(new Date(from).toISOString())) ? realDay.list.map(r => ({ ts: new Date(from + r[0] * 60000).toISOString(), parking: r[1], ppl_lo: r[2], ppl_hi: r[3], lvl: r[4] })) : []) }); const r = mkRes(); await scoreFn({ query: { end: '2026-11-23', days: '2', win: '10', dn: '2000', k: '3.0' } }, r); globalThis.fetch = real; ok(r.body.ok && r.body.days.length === 1, JSON.stringify(r.body).slice(0, 200)); const mine = await live.scoreFrom(async d => (d === '2026-11-23' ? realDay : { ok: true, list: [] }), ['2026-11-22', '2026-11-23'], { win: 10, dn: 2000, k: 3.0 }); ok(JSON.stringify(r.body.days) === JSON.stringify(mine.days) && JSON.stringify(r.body.total) === JSON.stringify(mine.total), '서로 다름'); ok(!JSON.stringify(r.body).includes('test-key')); });
+await test('채점 결과를 문장으로 풀어 쓸 수 있음(전문 용어 없이)', async () => { const out = await live.scoreFrom(async () => realDay, ['2026-11-23'], { win: 10, dn: 2000 }); const t = live.say(out); ok(t.includes('주차 2시간 앞 예상: 60번, 평균 43.6대(2.7%) 차이'), t.slice(0, 300)); for (const w of ['MAE', 'MAPE', 'beta', 'residual', 'LOO', 'undefined', 'NaN', 'null']) ok(!t.includes(w), '"' + w + '"가 들어 있음'); });
 
 console.log(`\n${pass}개 통과, ${fails.length}개 실패`);
 if (fails.length) { console.log('실패: ' + fails.join(' / ')); process.exit(1); }
