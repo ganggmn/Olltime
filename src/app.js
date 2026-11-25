@@ -250,7 +250,7 @@ const renderPass=say=>{let cap,title,sub,bigT,bigS,why='',rows=[],tips=[],destNa
    if(k==='car')rows=[[dep,`${org}에서 출발`,`자동차로 약 ${dur(m.min)}`,''],[p.st-90,'주차장 도착',`입차는 ${hm(p.inA)}부터 꾸준히 많아요. 일찍 올수록 덜 기다려요`,''],[p.st,'공연 시작','',''],[p.end,'공연 종료',runTxt(p),'soft'],[p.end+EXITP50,'주차장을 빠져나와요',`작년 관객 차량 절반이 예정 종료 ${EXITP50}분 뒤에 나갔어요`,'soft'],[p.end+EXITP50+C.c.min-8,`${org} 근처 도착`,'','']];
    else if(k==='pt'){const t=C.t;rows=[[dep,`${org}에서 출발`,t.legs.map(l=>`${l.line}${l.exp?' 급행':''} ${l.from}에서 ${l.to}까지`).join(', ')||'',''],[dep+t.min-t.walk,`${TR.name(t.to)}역 도착`,`${destName}까지 걸어서 ${t.walk}분`,'soft'],[p.st-45,`${destName} 도착`,'','soft'],[p.st,'공연 시작','',''],[p.end,'공연 종료',runTxt(p),'soft'],[p.end+15+t.min,`${org} 도착`,C.late?'자정을 넘겨요. 막차가 끊겼을 수 있으니 출발 전에 막차 시간을 꼭 확인하세요':'올림픽공원역이 붐비면 한성백제역(9호선)과 몽촌토성역(8호선)도 있어요','']]}
    else rows=[[dep,`${org}에서 출발`,`${ro(MODE[k][0])} 약 ${dur(m.min)}`,''],[p.st-45,`${destName} 도착`,k==='bike'?`공원 근처 따릉이 대여소 12곳에 ${ROUTE.bikeAt} 기준 ${TR.bikes}대가 있었어요`:'','soft'],[p.st,'공연 시작','',''],[p.end,'공연 종료',runTxt(p),'soft'],[p.end+m.min,`${org} 도착`,'','']];
-   if(k==='car')tips=['작년 공연 날 남2문 출구는 10분에 124대에서 더 늘지 않았어요. 동2문과 북2문은 가장 많을 때도 93~99대였어요.','공연이 끝나고 바로 나가기보다 공원을 걷거나 식사하고 출발하면 덜 기다려요.']}
+   if(k==='car')tips=['2025년 큰 공연 76일 기록으로는 밤 8시 이후 나가는 차의 71%가 북2문과 동2문으로 몰렸어요. 남2문은 16%만 썼어요.','공연이 끝나고 바로 나가기보다 공원을 걷거나 식사하고 출발하면 덜 기다려요.']}
   else{const wk=s.venue==='KSPO DOME'?8:Math.max(5,(TR.transit(OPS,dest)||{walk:8}).walk);bigT=hm(p.st-45);bigS=`까지 ${s.venue}에 도착하세요`;why='출발역을 넣으면 무엇을 타고 몇 시에 나서면 되는지 알려드려요.';
    rows=[[p.inA,'공연 관객 차량이 늘기 시작해요',`${hm(p.inPk)} 전후가 가장 많아요. 자동차라면 일찍 들어가세요`,'soft'],[p.st-45-wk,'올림픽공원역 도착',s.venue==='KSPO DOME'?'3번 출구에서 KSPO DOME까지 걸어서 약 8분':`5호선과 9호선, ${s.venue}까지 걸어서 약 ${wk}분`,'soft'],[p.st-45,`${s.venue} 도착`,'',''],[p.st,'공연 시작','',''],[p.end,'공연 종료',runTxt(p),'soft'],[p.outPk,'출차가 가장 몰려요','작년엔 예정 종료 80분 뒤가 가장 많았어요','']]}
   if(SHOWS.filter(o=>o.d===s.d&&o.t===s.t).length>1)tips.push('같은 시각에 다른 공연장도 시작해요. 작년 이런 날 입차와 출차가 가장 많았어요.');
@@ -310,7 +310,7 @@ mk('#f4',`한 시간 동안 들어온 차량 수. 눈이 온 12월 4일 저녁 7
 /* 출구별로 출차 80%가 끝난 시각 (작년 12월 6일) */
 {const st=REF.sat.start,end=st+150,G=[['북2문',3],['동2문',4],['남2문',5]].map(([n,g])=>{const post=sat.filter(r=>r[0]>=end),tot=post.reduce((a,r)=>a+r[g],0);let c=0,t80=null;for(const r of post){c+=r[g];if(t80===null&&c>=.8*tot)t80=r[0]}return[n,t80]});
  const by=G.reduce((m,[n,t])=>{(m[t]=m[t]||[]).push(n);return m},{}),ks=Object.keys(by).map(Number).sort((a,b)=>a-b);
- $('#i3t').textContent=`작년 12월 6일 출차의 80%가 끝난 시각은 ${ks.map(t=>`${by[t].join('과 ')} ${hm(t)}`).join(', ')}이었어요. 공연 날 차를 가져온다면 ${by[ks[ks.length-1]].join(', ')} 쪽 주차장이 가장 늦게 빠져요.`}
+ $('#i3t').textContent=`작년 12월 6일 출차의 80%가 끝난 시각은 ${ks.map(t=>`${by[t].join('과 ')} ${hm(t)}`).join(', ')}이었어요. 이날은 ${by[ks[ks.length-1]].join(', ')} 쪽이 가장 늦게 빠졌어요.`}
 
 /* 주차장 예측 정확도: 2025년 입출차 1년치, 한 달씩 숨기고 맞히는 검증 (2026-11-24 계산) */
 {const LAD=[['시간대만',80.0,'하루 중 몇 시인지만 보고 예측'],['요일',83.4,'평일, 금요일, 토요일, 일요일을 구분'],['공휴일과 명절',84.9,'공휴일, 평일에 낀 공휴일, 설·추석을 구분'],['공연 정보',85.1,'그날 공연이 있는지와 관객 규모 (한국체육산업개발 공연 자료)'],['지난주 실측',87.5,'예측하는 날 직전 7일 동안 실제로 주차된 대수'],['2시간 전 실제 값',90.7,'예측하려는 시각의 2시간 전에 실제로 몇 대였는지 보고(기관 실시간 주차현황), 예측을 그만큼 올리거나 내림']];
