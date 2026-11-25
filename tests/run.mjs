@@ -29,7 +29,7 @@ const KER = constOf(ops, 'KER'), GOUT = constOf(ops, 'GOUT'), GIN = constOf(ops,
 const F = new Function('return ' + sec.match(/const F=(\{[^;]+\});/)[1])();
 await test('10분 곡선의 몫을 모두 더하면 100%', () => near(KER.reduce((a, b) => a + b, 0), 100, 1.5));
 await test('구간 혼잡도의 역 방향 사람 수 = 승차 증가 합 × 10분 곡선', () => { const h1 = KER.slice(3, 9).reduce((a, b) => a + b, 0) / 100 * TOT, h2 = KER.slice(9, 15).reduce((a, b) => a + b, 0) / 100 * TOT; near(F.e[4], h1, h1 * .02, '끝난 뒤 1시간'); near(F.e[5], h2, 30, '그다음 1시간'); });
-await test('구간 혼잡도의 북2문 사람 수 = 10분 출차 합 × 2명', () => { near(F.n[4], 2 * GOUT.n.slice(3, 9).reduce((a, b) => a + b, 0), 20); near(F.n[5], 2 * GOUT.n.slice(9, 15).reduce((a, b) => a + b, 0), 20); });
+await test('구간 혼잡도의 남·북 사람 수 = 기지국 테두리 칸 증가(차 대수로 셈하지 않음)', () => { const J = JSON.parse(rd('analysis/sec_flow_2025.json')); for (const [k, z] of [['s', 'rim_s'], ['n', 'rim_n']]) for (let i = 0; i < 6; i++) near(F[k][i], Math.max(0, J.F[z][i]), 0.5, k + i); ok(!/2명으로|차 한 대에/.test(sec), '차 × 사람 문구가 남아 있음'); });
 await test('곡선 길이: 시작 전 21칸, 끝난 뒤 15칸', () => { ok(KER.length === 15); for (const k of ['n', 'd', 's']) { ok(GOUT[k].length === 15, 'GOUT.' + k); ok(GIN[k].length === 21, 'GIN.' + k); } });
 
 console.log('3. 운영판 계산');
