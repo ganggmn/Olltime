@@ -42,7 +42,7 @@ function run(list,o){const day=o.day,isToday=!!o.isToday,isShow=bigShow(day),k=c
   const car=list.filter(r=>r[1]!=null).map(r=>({m:r[0],v:r[1]})),carMap=new Map(car.map(c=>[c.m,c.v]));
   /* ② 사람 수 추정 */
   const ctx=carCtx(ppl,carMap),est2=ctx?estimate2(ppl,carMap,tab,ctx):null,est=est2||estimate(ppl);
-  /* ③ 주차 예상: 2025년 같은 종류 날의 가운데값 + (기준 시각의 실제 값과 예상의 차이 × 그 차이가 남는 비율) */
+  /* ③ 주차 예상: 2025년 같은 종류 날의 중앙값 + (기준 시각의 실제 값과 예상의 차이 × 그 차이가 남는 비율) */
   const profAll=GP.slots_min.map((m,i)=>({m,v:['북2문','동2문','남2문'].reduce((a,g)=>a+GP.gates[g][k][i],0)+FLOOR}));
   const pAt=m=>{const i=Math.max(0,Math.min(71,Math.floor(m/20))),a=profAll[i],b=profAll[Math.min(71,i+1)];return a.v+(b.v-a.v)*(m-a.m)/20};
   const before=(arr,m)=>{let r=null;for(const c of arr){if(c.m<=m)r=c;else break}return r};
@@ -75,7 +75,7 @@ function score(list,o){const R=run(list,{day:o.day,isToday:false}),E=errors(R),e
   const inEv=m=>ev.some(e=>m>=e.from&&m<=e.to+AHEAD),carX=E.car.filter(x=>!inEv(x.m)),pplX=E.ppl.filter(x=>!inEv(x.m));
   const P=stat(E.ppl),PX=stat(pplX);P.inband=E.ppl.length?Math.round(E.ppl.filter(x=>x.inb).length/E.ppl.length*100):null;PX.inband=pplX.length?Math.round(pplX.filter(x=>x.inb).length/pplX.length*100):null;
   return{day:o.day,kind:R.k,records:list.length,car:stat(E.car),carEx:stat(carX),ppl:P,pplEx:PX,events:ev.map(e=>({from:hm(e.from),at:hm(e.m),to:hm(e.to),kind:e.kind,text:e.text})),errs:{car:E.car.map(x=>x.e),ppl:E.ppl.map(x=>x.e)}}}
-/* 여러 날을 한 번에: 평소 오차(모든 날 오차의 가운데값)를 먼저 구하고 그걸로 이상 징후를 판정 */
+/* 여러 날을 한 번에: 평소 오차(모든 날 오차의 중앙값)를 먼저 구하고 그걸로 이상 징후를 판정 */
 function scoreDays(byDay,rules){const days=Object.keys(byDay).sort(),first=days.map(d=>score(byDay[d],{day:d}));
   const usual={car:med(first.flatMap(s=>s.errs.car)),ppl:med(first.flatMap(s=>s.errs.ppl))};
   const out=days.map(d=>{const s=score(byDay[d],{day:d,rules,usual});delete s.errs;return s});

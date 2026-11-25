@@ -14,7 +14,7 @@ export function say(out) {
   const L = [], f = (s, u) => s.n ? `${s.n}번, 평균 ${s.mae}${u}(${s.pct}%) 차이` : '채점할 값 없음';
   const r = out.rules, on = [r.win && (r.dn || r.dp) ? `${r.win}분 사이 사람 수가 ${[r.dn ? r.dn + '명' : '', r.dp ? r.dp + '%' : ''].filter(Boolean).join(' 또는 ')} 넘게 변함` : '', r.k ? `예상이 평소 오차의 ${r.k}배 넘게 빗나감` : ''].filter(Boolean);
   L.push(on.length ? `이상 징후 기준: ${on.join(', ')}` : '이상 징후 기준: 정하지 않음(모든 시간을 그대로 채점)');
-  L.push(`평소 오차(모든 날의 가운데값): 주차 ${out.usual.car ?? '-'}대, 사람 수 ${out.usual.ppl ?? '-'}명`);
+  L.push(`평소 오차(모든 날의 중앙값): 주차 ${out.usual.car ?? '-'}대, 사람 수 ${out.usual.ppl ?? '-'}명`);
   for (const d of out.days) {
     L.push(`\n${d.day}`);
     L.push(`  주차 2시간 앞 예상: ${f(d.car, '대')}` + (d.events.length ? ` / 이상 징후 시간을 빼면 ${f(d.carEx, '대')}` : ''));
