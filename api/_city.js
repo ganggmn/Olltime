@@ -25,6 +25,8 @@ export function compactCity(raw) {
     time: p.PPLTN_TIME, m, lvl: p.AREA_CONGEST_LVL,
     lo: num(p.AREA_PPLTN_MIN), hi: num(p.AREA_PPLTN_MAX), msg: p.AREA_CONGEST_MSG || '',
     nonres: num(p.NON_RESNT_PPLTN_RATE),
+    /* 성별·나이 비율(%): 서울시 실시간 인구의 기지국 추정. 공연 관객 구성을 보려고 같이 남겨요 */
+    demo: { male: num(p.MALE_PPLTN_RATE), female: num(p.FEMALE_PPLTN_RATE), age: [0, 10, 20, 30, 40, 50, 60, 70].map(k => num(p['PPLTN_RATE_' + k])), resnt: num(p.RESNT_PPLTN_RATE), nonres: num(p.NON_RESNT_PPLTN_RATE) },
     temp: num(w.TEMP), hum: num(w.HUMIDITY), wind: num(w.WIND_SPD),
     pcp: w.PCP_MSG || '', ptype: w.PRECPT_TYPE || '없음',
     pm10: num(w.PM10), pm25: num(w.PM25), air: w.AIR_IDX || ''

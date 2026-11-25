@@ -80,7 +80,8 @@ export default async function handler(req, res) {
     ppl_hi: c.status === 'fulfilled' ? c.value.hi : null,
     ppl_time: c.status === 'fulfilled' ? c.value.time : null,
     lvl: c.status === 'fulfilled' ? c.value.lvl : null,
-    fcst: c.status === 'fulfilled' ? c.value.fcst : null
+    fcst: c.status === 'fulfilled' ? c.value.fcst : null,
+    demo: c.status === 'fulfilled' ? c.value.demo : null
   };
   try {
     const r = await fetch(`${base}/rest/v1/samples?on_conflict=ts`, {
@@ -91,8 +92,8 @@ export default async function handler(req, res) {
     if (!r.ok) return res.status(502).json({ ok: false, note: `저장 실패 ${r.status}` });
     /* 공원 둘레 구역: 못 받은 구역도 이유와 함께 한 줄 남겨요 */
     const rimRows = (rim.status === 'fulfilled' ? rim.value : []).map((g, i) => (g.status === 'fulfilled'
-      ? { ts: slot, area: RIM[i], lo: g.value.lo, hi: g.value.hi, ppl_time: g.value.time, lvl: g.value.lvl, fcst: g.value.fcst, err: null }
-      : { ts: slot, area: RIM[i], lo: null, hi: null, ppl_time: null, lvl: null, fcst: null, err: why(g.reason) }));
+      ? { ts: slot, area: RIM[i], lo: g.value.lo, hi: g.value.hi, ppl_time: g.value.time, lvl: g.value.lvl, fcst: g.value.fcst, demo: g.value.demo, err: null }
+      : { ts: slot, area: RIM[i], lo: null, hi: null, ppl_time: null, lvl: null, fcst: null, demo: null, err: why(g.reason) }));
     const rimSave = rimRows.length ? fetch(`${base}/rest/v1/area_samples?on_conflict=ts,area`, {
       method: 'POST', headers: { ...auth, 'Content-Type': 'application/json', Prefer: 'resolution=merge-duplicates,return=minimal' },
       body: JSON.stringify(rimRows), signal: AbortSignal.timeout(8000)
