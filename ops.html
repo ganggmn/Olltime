@@ -32,6 +32,7 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid 
 <h2>공연</h2>
 <p class="sub">끝나는 시각을 10분씩 옮기면 아래 시간표가 바로 다시 계산돼요. 처음 들어 있는 끝 시각은 공연 안내의 공연 길이를 따랐고, 안내에 없으면 2시간 30분으로 넣었어요(첫 화면과 같은 가정). 관객 수는 임시로 넣은 값이니 실제 예매 수로 고쳐 주세요.</p>
 <div id="shows"></div>
+<p class="sub" id="evsrc" role="status"></p>
 <button type="button" class="add" id="add">공연 추가</button>
 <p class="sub" id="warn" role="status" style="color:#B91C1C;margin-top:8px"></p>
 <p class="sum" id="sum"></p>
@@ -72,7 +73,7 @@ const GOUT={n:[0,1,5,32,57,65,60,49,36,30,24,21,17,15,11],d:[0,2,3,22,43,51,42,3
 const TOT=3770,LAG=25,W_HOT=150,C_WARN=35,C_HOT=55;
 const EVT=OLL.EVT;
 const kst=()=>new Date(Date.now()+9*3600e3),today=kst().toISOString().slice(0,10),nowM=()=>{const k=kst();return k.getUTCHours()*60+k.getUTCMinutes()};
-const DAYS=[...new Set([today].concat(Object.keys(EVT).filter(d=>d>=today)))].sort().slice(0,5);
+const mkDays=()=>[...new Set([today].concat(Object.keys(EVT).filter(d=>d>=today)))].sort().slice(0,5);let DAYS=mkDays();const INI={};
 let day=DAYS.find(d=>EVT[d])&&!EVT[today]?today:today,shows=[],base=null,live=null;
 const mk=(v,s,run,nm)=>({v,s,e:s+(run||DUR),a:CAP[v],nm:nm||''}),SAVED={};let warn='';
 function calc(list){const B=178,z=()=>new Float64Array(B),o={we:z(),cn:z(),cd:z(),cs:z(),inE:z()};
@@ -123,7 +124,9 @@ function alerts(){const sec=$('#live');if(day!==today||!live||!live.length){sec.
   if(scoreOut){const td=scoreOut.days.find(d=>d.day===today);if(td&&td.board){td.board.error.slice(-2).forEach(e=>out.push(['hot',`<b>오류</b> ${e.text}`]));td.board.warn.slice(-2).forEach(e=>out.push(['warn',`<b>경고</b> ${e.text}`]));td.board.unknown.slice(-2).forEach(e=>out.push(['',`<b>미확인</b> ${e.text}`]))}}
   if(!out.length)out.push(['','지금은 알릴 것이 없어요. 값은 5분마다 새로 확인해요.']);$('#al').innerHTML=out.map(([c,t])=>`<li${c?` class="${c}"`:''}>${t}</li>`).join('')}
 async function pull(){if(day!==today){live=null;alerts();return}try{const j=await (await fetch('/api/trend?day='+today)).json();live=j.ok?j.list:null}catch(e){live=null}alerts()}
-function setDay(d){day=d;warn='';const ini=(EVT[d]||[]).map(([v,s,run,nm])=>mk(v,s,run,nm));base=ini.length?calc(ini):null;shows=SAVED[d]||ini;SAVED[d]=shows;render();pull()}
+function setDay(d){day=d;warn='';const ini=(EVT[d]||[]).map(([v,s,run,nm])=>mk(v,s,run,nm));base=ini.length?calc(ini):null;if(!SAVED[d])INI[d]=JSON.stringify(ini);shows=SAVED[d]||ini;SAVED[d]=shows;render();pull()}
+/* 공연 일정을 올림픽공원 누리집에서 읽어 와 더함. 운영자가 손대지 않은 날만 새 일정으로 바꿔요 */
+async function syncShows(){const el=$('#evsrc');try{const j=await (await fetch('/api/shows')).json();if(!j.ok)throw 0;const ch=OLL.addShows(j.list);for(const c of ch)if(SAVED[c.d]&&INI[c.d]===JSON.stringify(SAVED[c.d]))delete SAVED[c.d];if(ch.length){DAYS=mkDays();setDay(day)}const t=new Date(new Date(j.read_at).getTime()+9*3600e3);el.textContent=`공연 일정은 올림픽공원 누리집 일정안내에서 읽어 왔어요(${t.getUTCMonth()+1}월 ${t.getUTCDate()}일 ${hm(t.getUTCHours()*60+t.getUTCMinutes())} 기준, 한 시간마다 다시 읽음).`+(j.skipped.some(x=>x.days||x.text)?' 시각을 읽지 못한 공연이 있어요: '+j.skipped.filter(x=>x.days||x.text).map(x=>x.name).join(', ')+'.':'')}catch(e){el.textContent='올림픽공원 누리집의 공연 일정을 읽지 못해서 미리 적어 둔 일정으로 보여 드려요.'}}
 document.addEventListener('change',e=>{const t=e.target,i=t.dataset.i;if(i==null)return;const x=shows[i],f=t.dataset.f;if(f==='v'){x.v=t.value;x.a=CAP[x.v]}else if(f==='a'){const v=+t.value||x.a;x.a=Math.min(60000,Math.max(500,v));warn=v!==x.a?'관객 수는 500명에서 60,000명 사이로 넣을 수 있어요. 가까운 값으로 바꿨어요.':''}else if(t.value){const m=toM(t.value);if(f==='s'){x.e+=m-x.s;x.s=m;warn=''}else{const e=m<=x.s&&m<360?m+1440:m;if(e<x.s+30||e>x.s+480){warn=`끝나는 시각은 시작(${hm(x.s)})보다 30분에서 8시간 뒤여야 해요. 바꾸지 않았어요.`}else{x.e=e;x.det=false;warn=''}}}render()});
 document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)return;
   if(t.dataset.d)return setDay(t.dataset.d);
@@ -146,5 +149,5 @@ async function loadScore(){const raw={};RK.forEach(k=>{const v=$('#r_'+k).value;
   $('#sc_ev').innerHTML=B.map(([key,name,desc,cls])=>{const items=j.days.slice().reverse().flatMap(d=>(d.board?d.board[key]:[]).slice().reverse().map(e=>`<li${cls?` class="${cls}"`:''}><b>${+d.day.slice(5,7)}월 ${+d.day.slice(8)}일</b> ${e.text}</li>`));return `<h3 style="font-size:15px;font-weight:600;margin:20px 0 2px">${name} ${items.length}건 <span style="font-weight:400;color:var(--ink-2);font-size:13px">${desc}</span></h3><ul class="al">${items.slice(0,8).join('')||'<li>없어요.</li>'}</ul>`+(items.length>8?`<p class="sub">최근 8건만 보여요. 모두 ${items.length}건이에요.</p>`:'')}).join('');alerts()}
 {const r=rget();RK.forEach(k=>{if(r[k]!=null)$('#r_'+k).value=k==='dp'||k==='k'?(+r[k]).toFixed(1):r[k]})}
 $('#r_go').addEventListener('click',loadScore);$('#r_clear').addEventListener('click',()=>{RK.forEach(k=>$('#r_'+k).value='');loadScore()});
-setDay(day);loadScore();setInterval(()=>{pull();loadScore()},300000);
+setDay(day);syncShows();loadScore();setInterval(()=>{pull();loadScore()},300000);
 </script></body></html>

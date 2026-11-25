@@ -17,6 +17,17 @@ const hAt=(a,m)=>{const x=((m/60-0.5)%24+24)%24,h=Math.floor(x),v=a[h],w=a[(h+1)
 const AHEAD=120;
 /* 큰 공연 일정: [공연장, 시작(0시부터 몇 분), 공연 길이(분, 공연 안내에 있을 때만), 이름]. 첫 화면의 공연 목록과 같아야 해요(자동 점검이 확인). */
 const EVT={'2026-11-22':[['KSPO DOME',1020,0,'로이킴']],'2026-11-27':[['KSPO DOME',1140,130,'조용필'],['올림픽홀',1200,0,'다이나믹 듀오']],'2026-11-28':[['KSPO DOME',1080,130,'조용필'],['올림픽홀',1080,0,'다이나믹 듀오']],'2026-11-29':[['KSPO DOME',1020,130,'조용필'],['올림픽홀',1020,0,'다이나믹 듀오']],'2026-12-04':[['KSPO DOME',1140,120,'이승철']],'2026-12-05':[['KSPO DOME',960,120,'이승철'],['올림픽홀',1080,120,'비']],'2026-12-06':[['KSPO DOME',960,120,'이승철'],['올림픽홀',1020,120,'비']]};
+/* 누리집에서 읽어 온 공연 일정을 EVT에 더함. 손으로 적어 둔 것과 공연장·시작 시각이 같으면 적어 둔 것을 그대로 두고,
+   없는 공연은 더하고, 같은 날 같은 공연장인데 시작 시각이 다르면 누리집 것으로 바꿔요. 바뀐 내용을 돌려줘요 */
+function addShows(list){const ch=[];const toM=t=>{const [a,b]=String(t).split(':').map(Number);return a*60+b};
+  const byDay={};for(const s of list||[]){if(!s||!/^\d{4}-\d{2}-\d{2}$/.test(s.d)||!/^\d{1,2}:\d{2}$/.test(s.t)||!s.venue)continue;(byDay[s.d]=byDay[s.d]||[]).push(s)}
+  for(const d of Object.keys(byDay)){const cur=(EVT[d]||[]).slice(),got=byDay[d];
+    for(const s of got){const m=toM(s.t);if(cur.some(e=>e[0]===s.venue&&e[1]===m))continue;
+      const same=cur.filter(e=>e[0]===s.venue),nGot=got.filter(x=>x.venue===s.venue).length;
+      if(same.length===1&&nGot===1){ch.push({d,venue:s.venue,from:hm(same[0][1]),to:s.t});same[0][1]=m;if(s.run)same[0][2]=s.run}
+      else{cur.push([s.venue,m,s.run||0,s.short||s.name||'']);ch.push({d,venue:s.venue,add:s.t})}}
+    cur.sort((a,b)=>a[1]-b[1]||(a[0]==='KSPO DOME'?-1:b[0]==='KSPO DOME'?1:0));EVT[d]=cur}
+  return ch}
 const bAt=(t,h)=>{if(h<=0)return 1;const x=h/20;if(x<=1)return 1+(t[0]-1)*x;const i=Math.min(t.length-1,Math.floor(x)-1),j=Math.min(t.length-1,i+1);return t[i]+(t[j]-t[i])*(x-i-1)};
 const kAt=(t,m)=>{const h=m/60;if(h<=t[0][0])return t[0][1];for(let i=1;i<t.length;i++)if(h<=t[i][0])return t[i-1][1]+(t[i][1]-t[i-1][1])*(h-t[i-1][0])/(t[i][0]-t[i-1][0]);return t[t.length-1][1]};
 const hm=m=>{m=((Math.round(m)%1440)+1440)%1440;return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0')};
@@ -118,5 +129,5 @@ function scoreDays(byDay,rules,logs,untils){const days=Object.keys(byDay).sort()
 /* 운영자가 넣은 기준을 숫자로: 분·명은 정수, %와 배수는 소수 한 자리 */
 function cleanRules(q){const f=(v,dec,lo,hi)=>{const n=Number(v);if(!isFinite(n)||n<=0)return null;const r=dec?Math.round(n*10)/10:Math.round(n);return Math.min(hi,Math.max(lo,r))};
   return{win:f(q.win,0,5,180),dn:f(q.dn,0,1,100000),dp:f(q.dp,1,0.1,1000),k:f(q.k,1,0.1,100),stale:f(q.stale,0,10,720),gap:f(q.gap,0,10,720)}}
-globalThis.OLL={BETA,BETAP,PP,RIMB,FLOOR,KC,AHEAD,EVT,bAt,kAt,hm,num,med,bigShow,clsOf,estimate,carCtx,estimate2,run,errors,anomalies,board,score,scoreDays,cleanRules};
+globalThis.OLL={BETA,BETAP,PP,RIMB,FLOOR,KC,AHEAD,EVT,addShows,bAt,kAt,hm,num,med,bigShow,clsOf,estimate,carCtx,estimate2,run,errors,anomalies,board,score,scoreDays,cleanRules};
 })();

@@ -29,6 +29,17 @@ const toM=t=>{const[a,b]=t.split(':').map(Number);return a*60+b};
 const num=n=>Math.round(n).toLocaleString('ko-KR');
 const kst=()=>{const d=new Date(Date.now()+9*36e5);return{date:d.toISOString().slice(0,10),m:d.getUTCHours()*60+d.getUTCMinutes()}};
 const getJSON=async(u,ms)=>{const c=new AbortController(),t=setTimeout(()=>c.abort(),ms);try{const r=await fetch(u,{signal:c.signal});if(!r.ok)throw new Error(String(r.status));return await r.json()}finally{clearTimeout(t)}};
+/* 공연 일정: 올림픽공원 누리집에서 읽어 온 것을 적어 둔 목록에 더함(같은 공연장·같은 시각이면 적어 둔 것을 둠, 시각이 바뀌었으면 누리집 것으로). 못 받으면 적어 둔 목록 그대로 */
+let SHOWSRC='';
+const mergeShows=list=>{const yr=kst().date.slice(0,4),lab=d=>(d.slice(0,4)!==yr?d.slice(0,4)+'년 ':'')+dayLabel(d);let n=0;
+ for(const g of list||[]){if(!g||!/^\d{4}-\d{2}-\d{2}$/.test(g.d)||!/^\d{2}:\d{2}$/.test(g.t)||!VENOK.has(g.venue))continue;
+  if(SHOWS.some(s=>s.d===g.d&&s.venue===g.venue&&s.t===g.t))continue;
+  const same=SHOWS.filter(s=>s.d===g.d&&s.venue===g.venue),ng=list.filter(x=>x.d===g.d&&x.venue===g.venue).length;
+  if(same.length===1&&ng===1){same[0].t=g.t;if(g.run)same[0].run=g.run}
+  else SHOWS.push({d:g.d,day:lab(g.d),t:g.t,name:g.name,short:g.short||g.name,venue:g.venue,run:g.run||null});n++}
+ SHOWS.sort((a,b)=>a.d<b.d?-1:a.d>b.d?1:a.t<b.t?-1:a.t>b.t?1:0);return n};
+const VENOK=new Set(['KSPO DOME','올림픽홀','핸드볼경기장']);
+try{const j=await getJSON('/api/shows',1500);if(j&&j.ok&&Array.isArray(j.list)){mergeShows(j.list);SHOWSRC=j.read_at||''}}catch(e){}
 const EXITP50=45; /* 2025년 큰 공연 28일: 공연 뒤 나가는 차의 절반이 빠진 때는 시작 195분 뒤(러닝타임 150분이면 끝나고 45분 뒤), 90%는 끝나고 110분 뒤 */
 
 /* 상태: 서울시 데이터를 기다리는 중(pending), 받음(live), 못 받음(fail) */
@@ -89,7 +100,7 @@ const renderHero=()=>{const live=STATE==='live',pend=STATE==='pending';
 /* 지도 */
 const svg=$('#svg'),dyn=$('#dyn');
 const halo='paint-order:stroke;stroke:#FAFAFA;stroke-width:4px;stroke-linejoin:round';
-const VEN={'KSPO DOME':[684,262,34],'올림픽홀':[851,506,25]};
+const VEN={'KSPO DOME':[684,262,34],'올림픽홀':[851,506,25],'핸드볼경기장':[684,372,27]};
 const GATES=[['북1문',322,44],['북2문',546,42,3],['동1문',975,312],['동2문',975,394,4],['남1문',931,668],['남2문',644,668,5],['남3문',437,668],['남4문',305,668],['서1문',40,527],['서2문',40,435,6]];
 const LOTS=[[556,132],[800,452],[672,520],[140,362]];
 const STN=[['올림픽공원역','5호선, 9호선',922,318,'l'],['한성백제역','9호선',230,620,'r'],['몽촌토성역','8호선',92,700,'r']];
@@ -102,7 +113,7 @@ const drawMap=()=>{const u=1/K,fs=(13*u).toFixed(2),hs=`paint-order:stroke;strok
  const tx=(x,y,str,o={})=>`<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" font-size="${fs}" text-anchor="${o.a||'middle'}"${o.w?' font-weight="600"':''} fill="${o.c||'#0A0A0A'}" style="${hs}">${str}</text>`;
  const sh=showAt(T),p=sh?pred(sh):null,row=refAt(TREF,T);let g='';
  for(const[n,x,y,dy,t,pos0]of PL){if(!tierOK(t)||(sh&&n===sh.venue))continue;const pos=pos0==='b'&&t===0&&K<.5?'u':pos0;g+=tx(x,pos==='c'?y+4.5*u:pos==='u'?y-dy-6*u:y+dy+15*u,n,{c:t===0?'#0A0A0A':'#6B6B74'})}
- if(sh){const[vx,vy,vr]=VEN[sh.venue];const live=T>=p.inA-60&&T<p.outB;
+ if(sh){const[vx,vy,vr]=VEN[sh.venue]||VEN['KSPO DOME'];const live=T>=p.inA-60&&T<p.outB;
   g+=`<circle cx="${vx}" cy="${vy}" r="${vr}" fill="${live?'#0A0A0A':'#FFFFFF'}" stroke="#0A0A0A" stroke-width="${(1.5*u).toFixed(2)}"/>`;
   if(K<.5){g+=tx(vx,sh.venue==='올림픽홀'?vy+vr+15*u:vy-vr-7*u,esc(sh.venue),{w:1})}else{const d=K>=.9?1:-1,ex=vx+d*vr*.7,ey=vy-vr*.7,bx=vx+d*(vr+22*u),by=vy-vr-18*u,st=venueState(p,T),a=d>0?'start':'end';
   g+=`<path d="M${ex.toFixed(1)},${ey.toFixed(1)} L${(bx-d*8*u).toFixed(1)},${by.toFixed(1)} H${bx.toFixed(1)}" fill="none" stroke="#0A0A0A" stroke-width="${u.toFixed(2)}"/>`+tx(bx+d*6*u,by-4*u,`${esc(sh.venue)}, ${sh.t} ${esc(sh.short)}`,{a,w:1})+(st?tx(bx+d*6*u,by+15*u,st,{a}):'')}}
@@ -189,7 +200,7 @@ $('#moreShows').addEventListener('click',e=>{if(e.target.closest('#msc')){allSho
 $('#showRows').addEventListener('click',e=>{const b=e.target.closest('[data-plan]');if(!b)return;const s=SHOWS[+b.dataset.plan];P.auto=false;P.day=s.d;P.what='show';P.show=+b.dataset.plan;P.mode=null;renderQ();renderPass(true);$('#plan').scrollIntoView({behavior:smooth()});$('#passH').focus({preventScroll:true})});
 
 __TRAVEL__
-const DEST={'KSPO DOME':[37.5192,127.1272],'올림픽홀':[37.5146,127.1268],'park':[37.5185,127.1220]};
+const DEST={'KSPO DOME':[37.5192,127.1272],'올림픽홀':[37.5146,127.1268],'핸드볼경기장':[37.5170,127.1270],'park':[37.5185,127.1220]};
 const MODE={pt:['지하철','train-front'],car:['자동차','car'],bike:['따릉이','bike'],walk:['걷기','footprints']};
 const OPS=ROUTE.st.findIndex(s=>s[0]==='올림픽공원');
 const jong=w=>{const c=w.charCodeAt(w.length-1)-0xAC00;return c>=0&&c<=11171?c%28:0};const iga=w=>w+(jong(w)?'이':'가');const ro=w=>{const j=jong(w);return w+(j&&j!==8?'으로':'로')};

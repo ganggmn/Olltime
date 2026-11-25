@@ -32,6 +32,8 @@ if (process.argv[1] && process.argv[1].endsWith('live_score.mjs')) {
   for (let i = 0; i < args.length; i++) if (args[i].startsWith('--')) rules[args[i].slice(2)] = args[i + 1];
   if (!days.length) { console.log('날짜를 하나 이상 주세요. 예: node analysis/live_score.mjs 2026-11-24'); process.exit(1); }
   const site = process.env.OLLTIME_SITE || 'https://olltime.vercel.app';
+  /* 서버와 같은 공연 일정을 씀(큰 공연 날 판정) */
+  try { const sh = await (await fetch(`${site}/api/shows?from=${days.slice().sort()[0].slice(0, 7)}-01&months=2`)).json(); if (sh.ok) OLL.addShows(sh.list); } catch (e) { console.log('(공연 일정을 받지 못해 저장소에 적어 둔 일정만 썼어요)'); }
   const out = await scoreFrom(async d => (await fetch(`${site}/api/trend?day=${d}`)).json(), days, rules);
   console.log(say(out));
 }

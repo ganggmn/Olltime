@@ -3,6 +3,7 @@
    계산은 model.js의 scoreDays 하나로 해요. 같은 기록(/api/trend)과 같은 파일로 누구나 같은 숫자를 낼 수 있어요(analysis/live_score.mjs). */
 import '../gp.js';
 import '../model.js';
+import { fetchShows, monthsFrom } from './_shows.js';
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -38,13 +39,16 @@ export default async function handler(req, res) {
     } catch (e) { return []; }
   };
   try {
+    /* 공연 일정(큰 공연 날 판정에 씀): 올림픽공원 누리집에서 읽어 와 더함. 못 받으면 model.js에 적어 둔 일정만으로 채점 */
+    const ym = [...new Set(list.map(d => d.slice(0, 7)))].sort(), sh = await fetchShows(monthsFrom(ym[0] + '-01', Math.min(2, ym.length)), 5000).catch(() => ({ list: [], months: [], failed: [] }));
+    OLL.addShows(sh.list);
     const [rows, lg] = await Promise.all([Promise.all(list.map(one)), Promise.all(list.map(logOf))]);
     const byDay = {}, logs = {}, untils = {};
     const today = kst.toISOString().slice(0, 10), nowMin = Math.floor((kst.getUTCHours() * 60 + kst.getUTCMinutes()) / 5) * 5 - 5;
     list.forEach((d, i) => { if (rows[i].length) { byDay[d] = rows[i]; logs[d] = lg[i]; if (d === today) untils[d] = Math.max(0, nowMin); } });
     const out = OLL.scoreDays(byDay, rules, logs, untils);
     res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600');
-    return res.status(200).json({ ok: true, end, asked: days, ...out });
+    return res.status(200).json({ ok: true, end, asked: days, shows: { months: sh.months, failed: sh.failed }, ...out });
   } catch (e) {
     res.setHeader('Cache-Control', 's-maxage=30');
     return res.status(502).json({ ok: false, note: '저장소를 읽지 못했어요' });
