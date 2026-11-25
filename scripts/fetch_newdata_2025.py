@@ -57,7 +57,7 @@ if 'fo' in what:
 if 'od' in what:
     S = json.load(open('analysis/shows_site_2024-12_2025-12.json', encoding='utf-8'))
     dome = sorted({s['d'] for s in S['list'] if s['venue'] == 'KSPO DOME' and s['d'].startswith('2025')})
-    others = {s['d'] for s in S['list'] + S['small'] if s['d'].startswith('2025')}
+    others = {s['d'] for s in S['list'] + [x for x in S['small'] if '잔디' in x['venue']] if s['d'].startswith('2025')}  # 큰·중간·작은 공연장과 야외 축제 날만 뺌(아트홀은 거의 매일이라 둠)
     D = lambda s: datetime.date.fromisoformat(s)
     base = set()
     for d in dome:
@@ -74,8 +74,11 @@ if 'od' in what:
         if not b: continue
         z = zipfile.ZipFile(io.BytesIO(b)); A = collections.defaultdict(lambda: [0.0, 0.0, 0.0])
         for name in z.namelist():
+            with z.open(name) as f0: first = f0.read(65536)
+            try: first.decode('utf-8-sig'); enc = 'utf-8-sig'
+            except UnicodeDecodeError: enc = 'cp949'
             with z.open(name) as f:
-                R = csv.reader(io.TextIOWrapper(f, encoding='utf-8-sig')); h = next(R); ix = {c: i for i, c in enumerate(h)}
+                R = csv.reader(io.TextIOWrapper(f, encoding=enc, errors='replace')); h = next(R); ix = {c: i for i, c in enumerate(h)}
                 io_, id_, ist, ifn, iwho, imd, idist, itm, icnt = (ix[c] for c in ('o_admdong_cd', 'd_admdong_cd', 'st_time_cd', 'fns_time_cd', 'in_forn_div_nm', 'move_trans', 'move_dist', 'move_time', 'cnt'))
                 for r in R:
                     o, dd = r[io_], r[id_]
