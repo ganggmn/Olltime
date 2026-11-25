@@ -18,21 +18,22 @@ h2{font-size:17px;font-weight:600;margin:30px 0 4px}
 .show .rm{grid-column:1/-1;justify-self:start;font:inherit;font-size:13px;color:var(--ink-2);background:none;border:0;text-decoration:underline;cursor:pointer;padding:6px 0;min-height:32px}
 .sum{margin:14px 0 0;font-size:15px}.sum b{font-weight:600}
 ol.tl{list-style:none;margin:8px 0 0;padding:0}ol.tl li{display:grid;grid-template-columns:104px 1fr;gap:10px;padding:10px 0;border-bottom:1px solid var(--line-weak);font-size:15px}ol.tl time{font-weight:600;font-variant-numeric:tabular-nums}ol.tl span{color:var(--ink-2);font-size:14px;display:block}ol.tl li.hot time{color:#B91C1C}
-svg{display:block;width:100%;height:auto}.ax{font-size:11px;fill:var(--ink-2)}
+svg{display:block;width:100%;height:auto}.ax{font-size:11px;fill:var(--ink-2)}@media(max-width:560px){.ax{font-size:20px}}
 .lg{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--ink-2);margin-top:6px}.lg i{display:inline-block;vertical-align:middle;margin-right:6px}
 .note{font-size:13px;color:var(--ink-2);margin-top:16px}
 button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid #0A0A0A;outline-offset:2px}
 </style></head>
 <body><main>
-<p style="display:flex;justify-content:space-between;align-items:center;margin:0 0 28px"><b style="font-weight:600;font-size:20px">올타임</b><a href="/" style="font-size:14px;color:var(--ink-2);padding:12px 0">처음으로</a></p>
+<p style="display:flex;justify-content:space-between;align-items:center;margin:0 0 28px"><b style="font-weight:600;font-size:20px">올타임</b><span style="display:flex;flex-wrap:wrap;gap:0 14px;justify-content:flex-end;font-size:14px"><a href="/" style="color:var(--ink-2);padding:12px 0">처음</a><a href="/trend" style="color:var(--ink-2);padding:12px 0">오늘의 추이</a><a href="/sections" style="color:var(--ink-2);padding:12px 0">구간 혼잡도</a><a href="/verify" style="color:var(--ink-2);padding:12px 0">검증 기록</a></span></p>
 <h1>운영판</h1>
 <p class="sub">공연을 넣으면 그날 사람과 차가 언제 어디에 몰릴지 10분 단위 시간표로 만들어 줘요. 공연 주최 측과 공원 운영 담당자용이에요.</p>
 <div class="days" id="days" role="group" aria-label="날짜"></div>
 <section id="live" hidden><h2>지금 알림</h2><ul class="al" id="al"></ul></section>
 <h2>공연</h2>
-<p class="sub">끝나는 시각을 10분씩 옮기면 아래 시간표가 바로 다시 계산돼요. 처음 들어 있는 끝 시각은 공연 안내의 공연 길이를 따랐고, 안내에 없으면 2시간 55분(2025년 큰 공연의 가운데값)으로 넣었어요. 관객 수는 임시로 넣은 값이니 실제 예매 수로 고쳐 주세요.</p>
+<p class="sub">끝나는 시각을 10분씩 옮기면 아래 시간표가 바로 다시 계산돼요. 처음 들어 있는 끝 시각은 공연 안내의 공연 길이를 따랐고, 안내에 없으면 2시간 30분으로 넣었어요(첫 화면과 같은 가정). 관객 수는 임시로 넣은 값이니 실제 예매 수로 고쳐 주세요.</p>
 <div id="shows"></div>
 <button type="button" class="add" id="add">공연 추가</button>
+<p class="sub" id="warn" role="status" style="color:#B91C1C;margin-top:8px"></p>
 <p class="sum" id="sum"></p>
 <h2>시간표</h2>
 <ol class="tl" id="tl"></ol>
@@ -45,7 +46,7 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid 
 <script src="/gp.js"></script>
 <script>
 const $=s=>document.querySelector(s),NS='http://www.w3.org/2000/svg',num=n=>Math.round(n).toLocaleString('ko-KR'),hm=m=>{m=((Math.round(m)%1440)+1440)%1440;return `${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`},toM=s=>+s.slice(0,2)*60+ +s.slice(3,5);
-const AUD0=13452,DUR=175,VENS=['KSPO DOME','올림픽홀','핸드볼경기장'],CAP={'KSPO DOME':13000,'올림픽홀':3000,'핸드볼경기장':5000};
+const AUD0=13452,DUR=150,VENS=['KSPO DOME','올림픽홀','핸드볼경기장'],CAP={'KSPO DOME':13000,'올림픽홀':3000,'핸드볼경기장':5000};
 /* 10분별 모양(관객 13,452명 기준). 시작 전: 시작 -180분부터 21칸. 끝난 뒤: 끝 -30분부터 15칸 */
 const KER=[0,0,0,21,25,18.8,12.9,8.4,5.3,3.3,2.1,1.3,.8,.5,.3];
 const PRE_E=[680,1070,1040].flatMap(v=>Array(6).fill(v/6)).concat([3,3,3]);
@@ -53,11 +54,11 @@ const GIN={n:[12,10,14,12,10,11,12,13,13,15,14,16,17,19,13,11,6,7,5,4,3],d:[8,8,
 const GOUT={n:[0,1,5,32,57,65,60,49,36,30,24,21,17,15,11],d:[0,2,3,22,43,51,42,35,29,24,21,16,13,11,8],s:[3,6,7,18,30,31,25,19,19,15,14,12,9,6,4]};
 const W_HOT=150,C_WARN=35,C_HOT=55;
 /* [공연장, 시작(분), 공연 길이(분, 공연 안내에 있을 때만)] */
-const EVT={'2026-11-22':[['KSPO DOME',1020]],'2026-11-27':[['KSPO DOME',1140,130],['올림픽홀',1200]],'2026-11-28':[['KSPO DOME',1080,130],['올림픽홀',1080]],'2026-11-29':[['KSPO DOME',1020,130],['올림픽홀',1020]],'2026-12-04':[['KSPO DOME',1140,120]],'2026-12-05':[['KSPO DOME',960,120],['올림픽홀',1080,120]],'2026-12-06':[['KSPO DOME',960,120],['올림픽홀',1020,120]]};
+const EVT={'2026-11-22':[['KSPO DOME',1020,0,'11월 22일 공연']],'2026-11-27':[['KSPO DOME',1140,130,'조용필'],['올림픽홀',1200,0,'다이나믹 듀오']],'2026-11-28':[['KSPO DOME',1080,130,'조용필'],['올림픽홀',1080,0,'다이나믹 듀오']],'2026-11-29':[['KSPO DOME',1020,130,'조용필'],['올림픽홀',1020,0,'다이나믹 듀오']],'2026-12-04':[['KSPO DOME',1140,120,'이승철']],'2026-12-05':[['KSPO DOME',960,120,'이승철'],['올림픽홀',1080,120,'비']],'2026-12-06':[['KSPO DOME',960,120,'이승철'],['올림픽홀',1020,120,'비']]};
 const kst=()=>new Date(Date.now()+9*3600e3),today=kst().toISOString().slice(0,10),nowM=()=>{const k=kst();return k.getUTCHours()*60+k.getUTCMinutes()};
 const DAYS=[...new Set([today].concat(Object.keys(EVT).filter(d=>d>=today)))].sort().slice(0,5);
 let day=DAYS.find(d=>EVT[d])&&!EVT[today]?today:today,shows=[],base=null,live=null;
-const mk=(v,s,run)=>({v,s,e:s+(run||DUR),a:CAP[v]});
+const mk=(v,s,run,nm)=>({v,s,e:s+(run||DUR),a:CAP[v],nm:nm||''}),SAVED={};let warn='';
 function calc(list){const B=178,z=()=>new Float64Array(B),o={we:z(),cn:z(),cd:z(),cs:z(),inE:z()};
   const put=(arr,t0,vals,k)=>vals.forEach((v,i)=>{const b=Math.round((t0+i*10)/10);if(b>=0&&b<B)arr[b]+=v*k});
   list.forEach(x=>{const k=x.a/AUD0;put(o.inE,x.s-180,PRE_E,k);put(o.we,x.e-30,KER.map(p=>2440*p/100),k);put(o.cn,x.e-30,GOUT.n,k);put(o.cd,x.e-30,GOUT.d,k);put(o.cs,x.e-30,GOUT.s,k)});
@@ -65,12 +66,13 @@ function calc(list){const B=178,z=()=>new Float64Array(B),o={we:z(),cn:z(),cd:z(
 const runs=(B,f)=>{const out=[];let c=null;for(let b=0;b<B;b++){if(f(b)){if(!c)c={a:b,b};c.b=b}else if(c){out.push(c);c=null}}if(c)out.push(c);return out};
 function render(){
   $('#days').innerHTML=DAYS.map(d=>`<button type="button" aria-pressed="${d===day}" data-d="${d}">${+d.slice(5,7)}월 ${+d.slice(8)}일${d===today?' (오늘)':''}</button>`).join('');
-  $('#shows').innerHTML=shows.map((x,i)=>`<div class="show"><label>공연장<select data-i="${i}" data-f="v">${VENS.map(v=>`<option${v===x.v?' selected':''}>${v}</option>`).join('')}</select></label><label>관객 수(명)<input type="number" inputmode="numeric" min="500" max="60000" step="500" value="${x.a}" data-i="${i}" data-f="a"></label><label style="grid-column:1/-1">시작<input type="time" step="600" value="${hm(x.s)}" data-i="${i}" data-f="s"></label><div class="st"><label>끝<input type="time" step="600" value="${hm(x.e)}" data-i="${i}" data-f="e"></label><button type="button" data-i="${i}" data-sh="-10" aria-label="끝나는 시각 10분 앞으로">−10분</button><button type="button" data-i="${i}" data-sh="10" aria-label="끝나는 시각 10분 뒤로">+10분</button></div>${shows.length>1?`<button type="button" class="rm" data-rm="${i}">이 공연 빼기</button>`:''}</div>`).join('')||'<p class="sub" style="padding:12px 0">이날 등록된 큰 공연이 없어요. 아래 버튼으로 넣어 보세요.</p>';
+  $('#shows').innerHTML=shows.map((x,i)=>`<div class="show">${x.nm?`<b style="grid-column:1/-1;font-weight:600">${x.nm}</b>`:''}<label>공연장<select data-i="${i}" data-f="v">${VENS.map(v=>`<option${v===x.v?' selected':''}>${v}</option>`).join('')}</select></label><label>관객 수(명)<input type="number" inputmode="numeric" min="500" max="60000" step="500" value="${x.a}" data-i="${i}" data-f="a"></label><label style="grid-column:1/-1">시작<input type="time" step="600" value="${hm(x.s)}" data-i="${i}" data-f="s"></label><div class="st"><label>끝<input type="time" step="600" value="${hm(x.e)}" data-i="${i}" data-f="e"></label><button type="button" data-i="${i}" data-sh="-10" aria-label="끝나는 시각 10분 앞으로">−10분</button><button type="button" data-i="${i}" data-sh="10" aria-label="끝나는 시각 10분 뒤로">+10분</button></div>${shows.length>1?`<button type="button" class="rm" data-rm="${i}">이 공연 빼기</button>`:''}</div>`).join('')||'<p class="sub" style="padding:12px 0">이날 등록된 큰 공연이 없어요. 아래 버튼으로 넣어 보세요.</p>';
+  $('#warn').textContent=warn;
   const o=calc(shows),B=o.we.length,ev=[];
-  shows.forEach(x=>{ev.push([x.s,`${x.v} 시작`,`관객 ${num(x.a)}명 기준`]);ev.push([x.e,`${x.v} 끝`,x.det?'실시간 값으로 맞춘 시각':'예정']) });
+  shows.forEach(x=>{const n=x.nm?`${x.nm} (${x.v})`:x.v;ev.push([x.s,`${n} 시작`,`관객 ${num(x.a)}명 기준`]);ev.push([x.e,`${n} 끝`,x.det?'실시간 값으로 맞춘 시각':'예정']) });
   runs(B,b=>o.inE[b]>=W_HOT).forEach(r=>ev.push([r.a*10,`~${hm(r.b*10+10)} 올림픽공원역에서 공연장으로 오는 사람이 많아요`,`10분에 최고 약 ${num(Math.max(...o.inE.slice(r.a,r.b+1)))}명`]));
   runs(B,b=>o.we[b]>=W_HOT&&o.cd[b]>=C_WARN).forEach(r=>ev.push([r.a*10,`~${hm(r.b*10+10)} 동2문 앞에서 사람과 차가 겹쳐요`,`역으로 걷는 사람 10분에 최고 약 ${num(Math.max(...o.we.slice(r.a,r.b+1)))}명, 동2문으로 나가는 차 최고 약 ${num(Math.max(...o.cd.slice(r.a,r.b+1)))}대. 역 출구와 동2문은 60m 거리예요. 안내 인력이 필요한 시간이에요.`,1]));
-  runs(B,b=>o.cn[b]>=C_HOT).forEach(r=>ev.push([r.a*10,`~${hm(r.b*10+10)} 북2문으로 나가는 차가 몰려요`,`10분에 평소보다 최고 약 ${num(Math.max(...o.cn.slice(r.a,r.b+1)))}대 많아요. 북2문은 5분에 약 45대가 상한이에요.`,1]));
+  runs(B,b=>o.cn[b]>=C_HOT).forEach(r=>ev.push([r.a*10,`~${hm(r.b*10+10)} 북2문으로 나가는 차가 몰려요`,`10분에 평소보다 최고 약 ${num(Math.max(...o.cn.slice(r.a,r.b+1)))}대 더 나가요. 북2문은 기록상 10분에 약 90대(5분에 45대)가 가장 많이 나간 값이라, 평소 나가던 차에 이만큼이 더해지면 줄이 생겨요.`,1]));
   runs(B,b=>o.we[b]>=W_HOT).forEach(r=>{const seg=[...o.we.slice(r.a,r.b+1)],mx=Math.max(...seg);ev.push([(r.a+seg.indexOf(mx))*10,`올림픽공원역 방향이 가장 붐벼요`,`10분에 약 ${num(mx)}명이 공연장을 나서요. 약 8분 뒤 역 3번 출구에 닿아요.`,1]);ev.push([r.b*10+10,`올림픽공원역 방향이 풀려요`,`10분에 ${W_HOT}명 아래로 내려가요`])});
   ev.sort((a,b)=>a[0]-b[0]);
   $('#tl').innerHTML=ev.map(e=>`<li${e[3]?' class="hot"':''}><time>${hm(e[0])}</time><div>${e[1]}<span>${e[2]}</span></div></li>`).join('')||'<li><time></time><div>공연을 넣으면 시간표가 나와요.</div></li>';
@@ -78,10 +80,10 @@ function render(){
   $('#sum').innerHTML=shows.length?`같은 10분에 역으로 걷는 사람 최고 <b>${hm(o.pt)}, 약 ${num(o.pk)}명</b>`+(base&&!same?` · 처음 넣은 값으로는 ${hm(base.pt)}에 약 ${num(base.pk)}명 <button type="button" id="rs" style="font:inherit;font-size:13px;background:none;border:0;text-decoration:underline;color:var(--ink-2);cursor:pointer;padding:6px 0">처음 값으로</button>`:''):'';
   /* 그래프 */
   const svg=$('#ch');svg.innerHTML='';const P=(t,a,txt)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;svg.appendChild(e);return e};
-  const ts=shows.length?Math.max(0,Math.min(...shows.map(x=>x.s))-200):840,te=shows.length?Math.min(1770,Math.max(...shows.map(x=>x.e))+130):1440,X0=40,X1=680,H=260,xs=m=>X0+(X1-X0)*(m-ts)/(te-ts);
+  const ts=shows.length?Math.max(0,Math.min(...shows.map(x=>x.s))-200):840,te=shows.length?Math.min(1770,Math.max(...shows.map(x=>x.e))+130):1440,NAR=matchMedia('(max-width:560px)').matches,X0=NAR?66:40,X1=NAR?654:680,H=260,xs=m=>X0+(X1-X0)*(m-ts)/(te-ts);
   const cars=[...o.cn].map((v,b)=>v+o.cd[b]+o.cs[b]),ym=Math.max(200,Math.ceil(Math.max(...o.we,...o.inE)/200)*200),cm=Math.max(60,Math.ceil(Math.max(...cars)/60)*60),y=v=>H-24-(H-40)*v/ym,yc=v=>H-24-(H-40)*v/cm;
   [0,.5,1].forEach(f=>{P('line',{x1:X0,x2:X1,y1:y(ym*f),y2:y(ym*f),stroke:'#E5E5E5'});P('text',{x:X0-5,y:y(ym*f)+4,'text-anchor':'end',class:'ax'},num(ym*f));P('text',{x:X1+5,y:y(ym*f)+4,class:'ax',fill:'#B91C1C'},num(cm*f))});
-  for(let m=Math.ceil(ts/60)*60;m<=te;m+=60)P('text',{x:xs(m),y:H-6,'text-anchor':'middle',class:'ax'},(Math.floor(m/60)%24)+'시');
+  for(let m=Math.ceil(ts/60)*60;m<=te;m+=NAR?120:60)P('text',{x:xs(m),y:H-6,'text-anchor':'middle',class:'ax'},(Math.floor(m/60)%24)+'시');
   const bw=Math.max(2,(X1-X0)/((te-ts)/10)-2);for(let b=Math.floor(ts/10);b<te/10&&b<B;b++){const v=o.we[b]+o.inE[b];if(v>=1)P('rect',{x:xs(b*10)+1,y:y(v),width:bw,height:Math.max(1,y(0)-y(v)),fill:'#0A0A0A',rx:2})}
   let d='';for(let b=Math.floor(ts/10);b<te/10&&b<B;b++)d+=(d?'L':'M')+(xs(b*10)+bw/2+1).toFixed(1)+','+yc(Math.max(0,cars[b])).toFixed(1);P('path',{d,fill:'none',stroke:'#DC2626','stroke-width':2,'stroke-linejoin':'round'});
   shows.forEach(x=>[x.s,x.e].forEach((m,j)=>{P('line',{x1:xs(m),x2:xs(m),y1:12,y2:H-24,stroke:'#6B6B74','stroke-dasharray':'3 4'});P('text',{x:xs(m)+4,y:20,class:'ax'},j?'끝':'시작')}));
@@ -104,14 +106,14 @@ function alerts(){const sec=$('#live');if(day!==today||!live||!live.length){sec.
     else if(ppl.length&&ppl[ppl.length-1].m>x.e+15)out.push(['warn',`<b>${x.v}: 끝날 시각(${hm(x.e)})이 지났는데 사람이 빠지는 신호가 아직 없어요.</b> 공연이 늦어지는 것일 수 있어요. 신호가 잡히면 시간표를 옮길 수 있어요.`])});
   if(!out.length)out.push(['','지금은 알릴 것이 없어요. 값은 5분마다 새로 확인해요.']);$('#al').innerHTML=out.map(([c,t])=>`<li${c?` class="${c}"`:''}>${t}</li>`).join('')}
 async function pull(){if(day!==today){live=null;alerts();return}try{const j=await (await fetch('/api/trend?day='+today)).json();live=j.ok?j.list:null}catch(e){live=null}alerts()}
-function setDay(d){day=d;shows=(EVT[d]||[]).map(([v,s,run])=>mk(v,s,run));base=shows.length?calc(shows):null;render();pull()}
-document.addEventListener('change',e=>{const t=e.target,i=t.dataset.i;if(i==null)return;const x=shows[i],f=t.dataset.f;if(f==='v'){x.v=t.value;x.a=CAP[x.v]}else if(f==='a'){x.a=Math.max(500,+t.value||x.a)}else if(t.value){const m=toM(t.value);if(f==='s'){x.e+=m-x.s;x.s=m}else{x.e=m<x.s?m+1440:m;x.det=false}}render()});
+function setDay(d){day=d;warn='';const ini=(EVT[d]||[]).map(([v,s,run,nm])=>mk(v,s,run,nm));base=ini.length?calc(ini):null;shows=SAVED[d]||ini;SAVED[d]=shows;render();pull()}
+document.addEventListener('change',e=>{const t=e.target,i=t.dataset.i;if(i==null)return;const x=shows[i],f=t.dataset.f;if(f==='v'){x.v=t.value;x.a=CAP[x.v]}else if(f==='a'){const v=+t.value||x.a;x.a=Math.min(60000,Math.max(500,v));warn=v!==x.a?'관객 수는 500명에서 60,000명 사이로 넣을 수 있어요. 가까운 값으로 바꿨어요.':''}else if(t.value){const m=toM(t.value);if(f==='s'){x.e+=m-x.s;x.s=m;warn=''}else{const e=m<=x.s&&m<360?m+1440:m;if(e<x.s+30||e>x.s+480){warn=`끝나는 시각은 시작(${hm(x.s)})보다 30분에서 8시간 뒤여야 해요. 바꾸지 않았어요.`}else{x.e=e;x.det=false;warn=''}}}render()});
 document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)return;
   if(t.dataset.d)return setDay(t.dataset.d);
   if(t.dataset.sh){const x=shows[t.dataset.i];x.e=Math.max(x.s+30,x.e+ +t.dataset.sh);x.det=false;return render()}
   if(t.dataset.rm){shows.splice(+t.dataset.rm,1);return render()}
   if(t.dataset.fit){const x=shows[t.dataset.fit];x.e=+t.dataset.t;x.det=true;return render()}
   if(t.id==='add'){const s=shows.length?shows[shows.length-1].s:1080;shows.push(mk(shows.some(x=>x.v==='올림픽홀')?'핸드볼경기장':shows.length?'올림픽홀':'KSPO DOME',s));if(!base)base=null;return render()}
-  if(t.id==='rs'){return setDay(day)}});
+  if(t.id==='rs'){delete SAVED[day];return setDay(day)}});
 setDay(day);setInterval(pull,300000);
 </script></body></html>

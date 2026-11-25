@@ -45,7 +45,7 @@ const nowC=()=>{const k=kst();return Math.max(NOWM,k.date===TODAY?k.m:k.date>TOD
 const derive=()=>{N=CITY.now;NOWM=N.m;TODAY=N.time.slice(0,10);todayShows=SHOWS.filter(s=>s.d===TODAY);NEXTD=(SHOWS.find(s=>s.d>TODAY)||{}).d||null;
  setView(VIEW&&VIEW===NEXTD&&!todayShows.length?VIEW:TODAY)};
 /* 같은 날 공연이 여러 개면 그 시각에 가장 가까운 공연을 보여줘요 */
-const showAt=t=>{if(!viewShows.length)return null;const on=viewShows.filter(s=>{const p=pred(s);return t>=p.inA-60&&t<p.outB});if(on.length)return on[on.length-1];const nx=viewShows.find(s=>pred(s).inA-60>t);return nx||viewShows[viewShows.length-1]};
+const showAt=t=>{if(!viewShows.length)return null;const on=viewShows.filter(s=>{const p=pred(s);return t>=p.inA-60&&t<p.outB});if(on.length)return on.find(s=>s.venue==='KSPO DOME')||on[on.length-1];const nx=viewShows.find(s=>pred(s).inA-60>t);return nx||viewShows[viewShows.length-1]};
 const OCCMAX=Math.max(...REF.sat.rows.map(r=>r[1]),...REF.fri.rows.map(r=>r[1]));
 /* 공원 안 인구: 서울시가 낸 값(500명 단위 구간)만 그대로 써요. 실측 사이나 예보 사이를 이어 붙이지 않아요 */
 const people=t=>{if(VIEW!==TODAY)return{none:'preview'};if(STATE!=='live')return{none:STATE};
@@ -215,7 +215,7 @@ $('#pf').addEventListener('submit',e=>e.preventDefault());
  const close=()=>{box.hidden=true;inp.setAttribute('aria-expanded','false');inp.removeAttribute('aria-activedescendant');cur=-1};
  const draw=()=>{box.innerHTML=hits.map((i,k)=>`<button type="button" tabindex="-1" role="option" id="og${k}" data-i="${i}" aria-selected="${k===cur}"><span>${esc(TR.name(i))}</span><span class="cap">${esc(TR.linesOf(i).join(', '))}</span></button>`).join('');box.hidden=!hits.length;inp.setAttribute('aria-expanded',String(!!hits.length));if(cur>=0)inp.setAttribute('aria-activedescendant','og'+cur);else inp.removeAttribute('aria-activedescendant')};
  const pick=i=>{P.org=i;P.mode=null;inp.value=TR.name(i)+'역';msg.textContent=`${TR.name(i)}역에서 출발하는 길로 계산했어요`;close();renderPass(true)};
- const miss=()=>{msg.textContent=`'${inp.value.trim()}'에 맞는 역을 찾지 못했어요. 역 이름을 다시 확인해 주세요.`};
+ const miss=()=>{msg.textContent=`'${inp.value.trim()}'에 맞는 역을 찾지 못했어요. 역 이름을 다시 확인해 주세요.`;if(P.org!==null){P.org=null;try{renderPass(false)}catch(e){}}};
  inp.addEventListener('input',()=>{hits=TR.find(inp.value).slice(0,6);cur=-1;draw();msg.textContent=DEF;if(!inp.value.trim()&&P.org!==null){P.org=null;renderPass(true)}});
  inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();if(cur>=0)return pick(hits[cur]);const h=TR.find(inp.value);if(h.length)pick(h[0]);else if(inp.value.trim())miss();return}
   if(box.hidden)return;if(e.key==='ArrowDown'){cur=Math.min(hits.length-1,cur+1);draw();e.preventDefault()}else if(e.key==='ArrowUp'){cur=Math.max(0,cur-1);draw();e.preventDefault()}else if(e.key==='Escape')close()});
@@ -323,7 +323,7 @@ if(ACC){const H=ACC.horizon,h3=H.find(x=>x.h===3)||H[0],nF=H.reduce((a,x)=>a+x.n
  const fd=s=>`${+s.slice(5,7)}월 ${+s.slice(8,10)}일 ${+s.slice(11,13)}시`;
  const man=v=>v>=10000?(v/10000).toFixed(v%10000?1:0)+'만':v>=1000?(v/1000)+'천':String(v);
  $('#acc1').innerHTML=`서울시 3시간 앞 예보는 혼잡 단계가 ${h3.level}% 맞았어요. <a href="#acc">정확도 자세히</a>`;
- $('#accLead').textContent=`올타임이 ${fd(pd[0])}부터 ${fd(pd[1])}까지 직접 모은 서울시 실시간 도시데이터로 예보와 실측을 맞춰 봤어요. 날이 쌓이면 다시 계산해요.`;
+ $('#accLead').textContent=`주차장 예측은 2025년 입출차 기록 1년 치로 검증했어요. 그 아래 '공연 날 붐비는 시간'과 '서울시 혼잡 예보'는 올타임이 ${fd(pd[0])}부터 ${fd(pd[1])}까지 모은 서울시 실시간 도시데이터로 계산한 값이에요. 그 뒤의 기록은 '오늘의 추이'에 5분마다 쌓이고 있어요.`;
  const S=ACC.show;
  if(S&&S.days){const R=S.detail.flatMap(d=>d.rows),n=R.length,both=R.filter(r=>r.ok_seoul&&r.ok_ours).length,fix=R.filter(r=>!r.ok_seoul&&r.ok_ours),worse=R.filter(r=>r.ok_seoul&&!r.ok_ours).length,miss=n-both-fix.length-worse,pc=v=>Math.round(100*v/n);
   $('#a1').textContent=`${S.seoul}% → ${S.ours}%`;
@@ -345,8 +345,8 @@ if(ACC){const H=ACC.horizon,h3=H.find(x=>x.h===3)||H[0],nF=H.reduce((a,x)=>a+x.n
   return yax([0,50,100],L,R,W,Y,v=>v+'%')+H.map((x,i)=>{const xx=L+i*bw+bw*.2,w=bw*.6;return`<rect x="${xx}" y="${Y(x.level)}" width="${w}" height="${Y(0)-Y(x.level)}" rx="2" fill="${x.h===3?'#0A0A0A':'#A1A1AA'}"/>`+(sel.includes(x.h)?`<text class="v" x="${xx+w/2}" y="${Y(x.level)-6}" text-anchor="middle">${x.level}%</text><text x="${xx+w/2}" y="${Hh-B+22}" text-anchor="middle">${x.h}시간</text>`:'')}).join('')});
  const M=ACC.share;
  if(M&&M.subway_pct!==null){const tot=M.subway+M.bus;
-  $('#a3').textContent=`지하철 ${M.subway_pct}%`;
-  $('#a3t').textContent=`금요일 KSPO DOME 공연 날(${M.days.map(d=>mdLabel(d)).join(', ')}) 공원 주변 역과 정류장에서 교통카드로 내린 사람이 평소 금요일보다 ${num(tot)}명 늘었어요. 그중 지하철이 ${M.subway_pct}%, 버스가 ${100-M.subway_pct}%였어요. 자동차로 온 사람은 아래 주차장 기록으로 봐요.`;
+  $('#a3').textContent=`대중교통 중 지하철 ${M.subway_pct}%`;
+  $('#a3t').textContent=`금요일 KSPO DOME 공연 날(${M.days.map(d=>mdLabel(d)).join(', ')}) 공원 주변 역과 정류장에서 교통카드로 내린 사람이 평소 금요일보다 ${num(tot)}명 늘었어요. 그중 지하철이 ${M.subway_pct}%, 버스가 ${100-M.subway_pct}%였어요. 관객 전체 가운데 지하철을 탄 비율이 아니에요. 교통카드로 내린 사람만 센 값이라 자동차, 택시, 걸어서 온 사람은 빠져 있어요.`;
   mk('#a3f',`지하철 ${num(M.subway)}명, ${M.subway_pct}%. 버스 ${num(M.bus)}명, ${100-M.subway_pct}%.`,(W,Hh)=>{const L=0,R=0,w=W-L-R,a=w*M.subway/tot;
    return`<rect x="${L}" y="20" width="${a-1}" height="28" rx="2" fill="#0A0A0A"/><rect x="${L+a+1}" y="20" width="${w-a-1}" height="28" rx="2" fill="#A1A1AA"/><text class="v" x="${L}" y="72">지하철 ${M.subway_pct}%</text><text x="${L}" y="92">${num(M.subway)}명</text><text class="v" x="${W}" y="72" text-anchor="end">버스 ${100-M.subway_pct}%</text><text x="${W}" y="92" text-anchor="end">${num(M.bus)}명</text>`})}}
 
@@ -357,9 +357,10 @@ const stc=s=>s==='보관 중'?'s-keep':s==='경찰서 이관'?'s-pol':'s-back';
 $('#lf').innerHTML=['전체','보관 중','경찰서 이관','반환 완료'].map(f=>`<button type="button" data-f="${f}" aria-pressed="${f===lf}">${f}</button>`).join('');
 const STOP=/^(근처|부근|주변|잃어버렸어요|잃어버렸어|잃어버림|찾아요|찾고|있어요)$/;
 const renderLost=()=>{const q=$('#lq').value.trim(),syn=[];
- const words=q.split(/\s+/).map(w=>{const b=w.replace(/(을|를|에서|에|은|는|이|가|도)$/,''),m=SYN[w]||SYN[b];if(m&&m!==b)syn.push([b,m]);return m||b}).filter(w=>w.length>1&&!STOP.test(w));
+ const words=q.split(/\s+/).map(w=>{const b=w.replace(/(을|를|에서|에|은|는|이|가|도)$/,''),m=SYN[w]||SYN[b];if(m&&m!==b)syn.push([b,m]);return m||b}).filter(w=>w.length>0&&!STOP.test(w));
+ const dm=q.match(/(\d{1,2})\s*월\s*(\d{1,2})\s*일/),dkey=dm?`-${String(dm[1]).padStart(2,'0')}-${String(dm[2]).padStart(2,'0')}`:null;
  let rows=LOST.filter(r=>lf==='전체'||r.st===lf);
- if(words.length){const sc=r=>words.filter(w=>(r.item+r.place).replace(/\s/g,'').includes(w)).length+(words.includes(r.item.replace(/\s/g,''))?.5:0);rows=rows.filter(r=>sc(r)>0).sort((a,b)=>sc(b)-sc(a))}
+ if(dkey){rows=rows.filter(r=>r.d.endsWith(dkey))}else if(words.length){const sc=r=>words.filter(w=>(r.item+r.place).replace(/\s/g,'').includes(w)).length+(words.includes(r.item.replace(/\s/g,''))?.5:0);rows=rows.filter(r=>sc(r)>0).sort((a,b)=>sc(b)-sc(a))}
  const total=rows.length,cut=!words.length&&!showAll&&rows.length>12;if(cut)rows=rows.slice(0,12);
  $('#items').innerHTML=rows.map(r=>`<div class="lr" tabindex="-1">${ic(icon(r.item))}<div><h3>${esc(r.item)}</h3><p class="pl">${esc(r.place)}</p></div><span class="d num">${+r.d.slice(5,7)}월 ${+r.d.slice(8)}일</span><span class="c">${r.center}</span>${r.st==='경찰서 이관'?`<a class="s ${stc(r.st)}" href="https://www.lost112.go.kr" target="_blank" rel="noopener" aria-label="경찰서 이관, lost112에서 찾기, 새 창">${r.st}</a>`:`<span class="s ${stc(r.st)}">${r.st}</span>`}</div>`).join('')||`<p class="lbl" style="padding:16px 0">맞는 습득물이 없어요. 한 달이 지났다면 lost112.go.kr에서 찾아보세요.</p>`;
  $('#lmore').innerHTML=cut?`<button class="btn sec" type="button" id="lmb">${total-12}건 더 보기</button>`:'';

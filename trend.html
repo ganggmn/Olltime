@@ -11,14 +11,14 @@ h1{font-size:22px;font-weight:600;margin:0 0 4px}.sub{margin:0;color:var(--ink-2
 .days button{font:inherit;font-size:15px;padding:9px 14px;background:#fff;border:0;color:var(--ink-2);cursor:pointer;min-height:42px}.days button+button{border-left:1px solid var(--line)}.days button[aria-pressed=true]{background:var(--ink);color:#fff}
 h2{font-size:17px;font-weight:600;margin:28px 0 2px}.big{font-size:15px;color:var(--ink-2);margin:0 0 6px}.big b{color:var(--ink);font-weight:600}
 svg{display:block;width:100%;height:auto;touch-action:pan-y}
-.ax{font-size:11px;fill:var(--ink-2)}.lb{font-size:11px;fill:var(--ink-2)}
+.ax{font-size:11px;fill:var(--ink-2)}.lb{font-size:11px;fill:var(--ink-2)}@media(max-width:560px){.ax,.lb{font-size:20px}}
 .lg{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--ink-2);margin-top:6px}.lg i{display:inline-block;vertical-align:middle;margin-right:6px}
 .pick{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--ink-2);margin:8px 0 6px}.pick select{font:inherit;font-size:15px;color:var(--ink);padding:9px 10px;border:1px solid var(--line);background:#fff;border-radius:0;min-height:42px;max-width:100%;flex:1}
 .tip{font-size:14px;min-height:22px;margin-top:6px}.tip b{font-weight:600}
 .note{font-size:13px;color:var(--ink-2);margin-top:22px}
 details{margin-top:14px;font-size:14px}summary{cursor:pointer;color:var(--ink-2);padding:8px 0}table{border-collapse:collapse;font-size:13px;width:100%}td,th{text-align:right;padding:5px 8px;border-bottom:1px solid var(--line-weak);font-variant-numeric:tabular-nums}th{color:var(--ink-2);font-weight:600}td:first-child,th:first-child{text-align:left}
 </style></head><body><main>
-<p style="display:flex;justify-content:space-between;align-items:center;margin:0 0 28px"><b style="font-weight:600;font-size:20px">올타임</b><a href="/" style="font-size:14px;color:var(--ink-2);padding:12px 0">처음으로</a></p>
+<p style="display:flex;justify-content:space-between;align-items:center;margin:0 0 28px"><b style="font-weight:600;font-size:20px">올타임</b><span style="display:flex;flex-wrap:wrap;gap:0 14px;justify-content:flex-end;font-size:14px"><a href="/" style="color:var(--ink-2);padding:12px 0">처음</a><a href="/sections" style="color:var(--ink-2);padding:12px 0">구간 혼잡도</a><a href="/ops" style="color:var(--ink-2);padding:12px 0">운영판</a><a href="/verify" style="color:var(--ink-2);padding:12px 0">검증 기록</a></span></p>
 <h1>오늘의 추이</h1>
 <p class="sub">올림픽공원 안 사람 수와 주차 대수가 하루 동안 어떻게 움직였는지, 남은 시간에는 어떻게 될지 보여 줘요. 실제 값은 5분마다 새로 들어오고, 오늘 날짜를 보고 있으면 화면도 5분마다 스스로 바뀌어요.</p>
 <div class="days" id="days" role="group" aria-label="날짜"></div>
@@ -48,7 +48,7 @@ const EVT={'2026-11-22':[[1020,'17:00 KSPO DOME 공연 시작']],'2026-11-27':[[
 const $=s=>document.querySelector(s),NS='http://www.w3.org/2000/svg',num=n=>Math.round(n).toLocaleString('ko-KR'),hm=m=>`${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`;
 const kst=new Date(Date.now()+9*3600e3),today=kst.toISOString().slice(0,10);
 const DAYS=[-3,-2,-1,0].map(k=>new Date(Date.now()+9*3600e3+k*864e5).toISOString().slice(0,10));let day=today;
-const X0=46,X1=708,xs=m=>X0+(X1-X0)*m/1440;
+const NAR=matchMedia('(max-width:560px)').matches,X0=NAR?84:46,X1=708,xs=m=>X0+(X1-X0)*m/1440;
 function estimate(rows){ /* rows: [m,lo,hi] */
   const mid=rows.map(r=>(r[1]+r[2])/2),kt=[],kv=[];
   for(let i=1;i<rows.length;i++){const a=rows[i-1],b=rows[i];if(a[1]!==b[1]){const w=a[2]-a[1];if(Math.abs(b[1]-a[1])<=w*1.5||Math.abs(b[2]-a[2])<=w*1.5){kt.push((a[0]+b[0])/2);kv.push(b[1]>a[1]?b[1]:b[2])}else{kt.push(b[0]);kv.push(mid[i])}}}
