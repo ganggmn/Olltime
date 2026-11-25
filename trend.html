@@ -44,7 +44,7 @@ const FLOOR=928; /* 실시간 값의 새벽 바닥(약 1,030대)에서 입출차
 const clsOf=d=>{const wd=new Date(d+'T12:00:00+09:00').getUTCDay(),base=wd===0?'hol':wd===6?'sat':wd===5?'fri':'wk';return EVT[d]&&base!=='wk'?base+'_show':base};
 const CLS={wk:'공연 없는 평일(월~목)',fri:'공연 없는 금요일',sat:'공연 없는 토요일',hol:'공연 없는 일요일·공휴일',fri_show:'큰 공연이 있는 금요일',sat_show:'큰 공연이 있는 토요일',hol_show:'큰 공연이 있는 일요일·공휴일'};
 const API='/api/trend';
-const EVT={'2026-11-22':[[1020,'17:00 KSPO DOME 공연 시작']],'2026-11-27':[[1140,'19:00 공연 시작']],'2026-11-28':[[1080,'18:00 공연 시작']],'2026-11-29':[[1020,'17:00 공연 시작']]};
+const EVT={'2026-11-22':[[1020,'17:00 KSPO DOME 공연 시작']],'2026-11-27':[[1140,'19:00 공연 시작']],'2026-11-28':[[1080,'18:00 공연 시작']],'2026-11-29':[[1020,'17:00 공연 시작']],'2026-12-04':[[1140,'19:00 공연 시작']],'2026-12-05':[[960,'16:00 공연 시작']],'2026-12-06':[[960,'16:00 공연 시작']]};
 const $=s=>document.querySelector(s),NS='http://www.w3.org/2000/svg',num=n=>Math.round(n).toLocaleString('ko-KR'),hm=m=>`${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`;
 const kst=new Date(Date.now()+9*3600e3),today=kst.toISOString().slice(0,10);
 const DAYS=[-3,-2,-1,0].map(k=>new Date(Date.now()+9*3600e3+k*864e5).toISOString().slice(0,10));let day=today;

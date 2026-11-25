@@ -30,7 +30,7 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid 
 <div class="days" id="days" role="group" aria-label="날짜"></div>
 <section id="live" hidden><h2>지금 알림</h2><ul class="al" id="al"></ul></section>
 <h2>공연</h2>
-<p class="sub">끝나는 시각을 10분씩 옮기면 아래 시간표가 바로 다시 계산돼요.</p>
+<p class="sub">끝나는 시각을 10분씩 옮기면 아래 시간표가 바로 다시 계산돼요. 처음 들어 있는 끝 시각은 공연 안내의 공연 길이를 따랐고, 안내에 없으면 2시간 55분(2025년 큰 공연의 가운데값)으로 넣었어요. 관객 수는 임시로 넣은 값이니 실제 예매 수로 고쳐 주세요.</p>
 <div id="shows"></div>
 <button type="button" class="add" id="add">공연 추가</button>
 <p class="sum" id="sum"></p>
@@ -52,11 +52,12 @@ const PRE_E=[680,1070,1040].flatMap(v=>Array(6).fill(v/6)).concat([3,3,3]);
 const GIN={n:[12,10,14,12,10,11,12,13,13,15,14,16,17,19,13,11,6,7,5,4,3],d:[8,8,9,4,9,7,8,9,9,10,11,10,11,11,7,7,6,4,5,1,2],s:[3,4,4,4,4,6,3,9,8,7,11,9,6,8,9,8,7,5,4,4,3]};
 const GOUT={n:[0,1,5,32,57,65,60,49,36,30,24,21,17,15,11],d:[0,2,3,22,43,51,42,35,29,24,21,16,13,11,8],s:[3,6,7,18,30,31,25,19,19,15,14,12,9,6,4]};
 const W_HOT=150,C_WARN=35,C_HOT=55;
-const EVT={'2026-11-22':[['KSPO DOME',1020]],'2026-11-27':[['KSPO DOME',1140]],'2026-11-28':[['KSPO DOME',1080]],'2026-11-29':[['KSPO DOME',1020]]};
+/* [공연장, 시작(분), 공연 길이(분, 공연 안내에 있을 때만)] */
+const EVT={'2026-11-22':[['KSPO DOME',1020]],'2026-11-27':[['KSPO DOME',1140,130],['올림픽홀',1200]],'2026-11-28':[['KSPO DOME',1080,130],['올림픽홀',1080]],'2026-11-29':[['KSPO DOME',1020,130],['올림픽홀',1020]],'2026-12-04':[['KSPO DOME',1140,120]],'2026-12-05':[['KSPO DOME',960,120],['올림픽홀',1080,120]],'2026-12-06':[['KSPO DOME',960,120],['올림픽홀',1020,120]]};
 const kst=()=>new Date(Date.now()+9*3600e3),today=kst().toISOString().slice(0,10),nowM=()=>{const k=kst();return k.getUTCHours()*60+k.getUTCMinutes()};
 const DAYS=[...new Set([today].concat(Object.keys(EVT).filter(d=>d>=today)))].sort().slice(0,5);
 let day=DAYS.find(d=>EVT[d])&&!EVT[today]?today:today,shows=[],base=null,live=null;
-const mk=(v,s)=>({v,s,e:s+DUR,a:CAP[v]});
+const mk=(v,s,run)=>({v,s,e:s+(run||DUR),a:CAP[v]});
 function calc(list){const B=178,z=()=>new Float64Array(B),o={we:z(),cn:z(),cd:z(),cs:z(),inE:z()};
   const put=(arr,t0,vals,k)=>vals.forEach((v,i)=>{const b=Math.round((t0+i*10)/10);if(b>=0&&b<B)arr[b]+=v*k});
   list.forEach(x=>{const k=x.a/AUD0;put(o.inE,x.s-180,PRE_E,k);put(o.we,x.e-30,KER.map(p=>2440*p/100),k);put(o.cn,x.e-30,GOUT.n,k);put(o.cd,x.e-30,GOUT.d,k);put(o.cs,x.e-30,GOUT.s,k)});
@@ -103,7 +104,7 @@ function alerts(){const sec=$('#live');if(day!==today||!live||!live.length){sec.
     else if(ppl.length&&ppl[ppl.length-1].m>x.e+15)out.push(['warn',`<b>${x.v}: 끝날 시각(${hm(x.e)})이 지났는데 사람이 빠지는 신호가 아직 없어요.</b> 공연이 늦어지는 것일 수 있어요. 신호가 잡히면 시간표를 옮길 수 있어요.`])});
   if(!out.length)out.push(['','지금은 알릴 것이 없어요. 값은 5분마다 새로 확인해요.']);$('#al').innerHTML=out.map(([c,t])=>`<li${c?` class="${c}"`:''}>${t}</li>`).join('')}
 async function pull(){if(day!==today){live=null;alerts();return}try{const j=await (await fetch('/api/trend?day='+today)).json();live=j.ok?j.list:null}catch(e){live=null}alerts()}
-function setDay(d){day=d;shows=(EVT[d]||[]).map(([v,s])=>mk(v,s));base=shows.length?calc(shows):null;render();pull()}
+function setDay(d){day=d;shows=(EVT[d]||[]).map(([v,s,run])=>mk(v,s,run));base=shows.length?calc(shows):null;render();pull()}
 document.addEventListener('change',e=>{const t=e.target,i=t.dataset.i;if(i==null)return;const x=shows[i],f=t.dataset.f;if(f==='v'){x.v=t.value;x.a=CAP[x.v]}else if(f==='a'){x.a=Math.max(500,+t.value||x.a)}else if(t.value){const m=toM(t.value);if(f==='s'){x.e+=m-x.s;x.s=m}else{x.e=m<x.s?m+1440:m;x.det=false}}render()});
 document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)return;
   if(t.dataset.d)return setDay(t.dataset.d);
