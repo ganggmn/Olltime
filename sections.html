@@ -80,7 +80,7 @@ const row=(x,i,walk)=>{const on=sel===x.n,has=ven==='dome';let lvHtml,seg='',cap
  if(walk){const m=len(x.k);ttl+=` <span style="font-weight:400;color:var(--ink-2)">걸어서 약 ${Math.round(m/75)}분 (${(Math.round(m/10)*10).toLocaleString('ko-KR')}m)</span>`;
   if(has){const ps=parts(x.k,i),avg=Math.round(ps.reduce((a,p)=>a+p.l*p.len,0)/m);lvHtml=`<i style="background:${LV[avg][1]}"></i>${ps.length>1?'평균 ':''}${LV[avg][0]}`;
    if(ps.length>1)seg=`<span class="cap seg">${ps.map((p,j)=>`${j?'그다음':'처음'} ${(Math.round(p.len/10)*10).toLocaleString('ko-KR')}m <b>${LV[p.l][0]}</b>`).join(' → ')}</span>`;
-   cap=(F[x.k][i]>=50?`이 방향으로 확인된 사람: 1시간에 약 ${F[x.k][i].toLocaleString('ko-KR')}명. `:(avg>0?'이 역까지 가는 사람은 거의 없어요. 처음 구간을 다른 방향과 같이 써서 그 부분만 붐벼요. ':'이 방향으로 확인된 사람: 거의 없음. '))+cap}
+   cap=(F[x.k][i]>=50?(x.k==='s'||x.k==='n'?`그쪽 바깥 칸에 이 시간 머문 사람이 평소보다 약 ${F[x.k][i].toLocaleString('ko-KR')}명 많아요(지나가는 사람은 거의 안 잡혀요). `:`이 방향으로 확인된 사람: 1시간에 약 ${F[x.k][i].toLocaleString('ko-KR')}명. `):(avg>0?'이 역까지 가는 사람은 거의 없어요. 처음 구간을 다른 방향과 같이 써서 그 부분만 붐벼요. ':'이 방향으로 확인된 사람: 거의 없음. '))+cap}
   else{lvHtml=`<i style="background:${NA}"></i>단계 없음`;cap=''}}
  else lvHtml=`<i style="background:${LV[x.lv[i]][1]}"></i>${LV[x.lv[i]][0]}`;
  return `<li${on?' class="on"':''}><button type="button" data-n="${x.n}" aria-pressed="${on}"><b>${ttl}</b><span class="lv">${lvHtml}</span>${seg}${cap?`<span class="cap">${cap}</span>`:''}</button></li>`};
