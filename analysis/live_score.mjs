@@ -1,6 +1,7 @@
 /* 누구나 같은 채점을 다시 해 보는 스크립트(Node 20 이상, 설치할 것 없음).
    공개된 기록(https://olltime.vercel.app/api/trend?day=날짜)을 받아, 저장소의 model.js로 '2시간 앞서 낸 예상'을 채점해요.
-   사용: node analysis/live_score.mjs 2026-11-23 2026-11-24 [--win 10 --dn 2000 --dp 20.0 --k 3.0]
+   사용: node analysis/live_score.mjs 2026-11-23 2026-11-24 [--win 10 --dn 2000 --dp 20.0 --k 3.0 --stale 60 --gap 20]
+   (오류 칸은 서버만 볼 수 있는 수집 기록에서 오므로 이 스크립트에는 나오지 않아요. 그 밖의 숫자는 같아요.)
    같은 날짜와 같은 기준이면 /api/score 와 같은 숫자가 나와야 해요. */
 import '../gp.js';
 import '../model.js';
@@ -19,7 +20,7 @@ export function say(out) {
     L.push(`\n${d.day}`);
     L.push(`  주차 2시간 앞 예상: ${f(d.car, '대')}` + (d.events.length ? ` / 이상 징후 시간을 빼면 ${f(d.carEx, '대')}` : ''));
     L.push(`  사람 수 2시간 앞 예상: ${f(d.ppl, '명')}` + (d.ppl.n ? `, 서울시 범위 안 ${d.ppl.inband}%` : '') + (d.events.length ? ` / 빼면 ${f(d.pplEx, '명')}` : ''));
-    for (const e of d.events) L.push(`  알림: ${e.text}`);
+    for (const [k, n] of [['warn', '경고'], ['error', '오류'], ['unknown', '미확인']]) for (const e of (d.board ? d.board[k] : [])) L.push(`  ${n}: ${e.text}`);
   }
   L.push(`\n합계  주차: ${f(out.total.car, '대')} / 이상 징후 제외 ${f(out.total.carEx, '대')}`);
   L.push(`      사람 수: ${f(out.total.ppl, '명')} / 이상 징후 제외 ${f(out.total.pplEx, '명')}`);

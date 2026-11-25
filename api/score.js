@@ -1,5 +1,5 @@
 /* GET /api/score: 쌓인 실제 값으로 '2시간 앞서 낸 예상'을 날마다 다시 채점해요.
-   ?days=7(1~14) &end=YYYY-MM-DD(기본 오늘) &win=분 &dn=명 &dp=% &k=배  ← 이상 징후 기준(운영자가 정함, 비우면 안 씀)
+   ?days=7(1~14) &end=YYYY-MM-DD(기본 오늘) &win=분 &dn=명 &dp=% &k=배 &stale=분 &gap=분  ← 기준(운영자가 정함, 비우면 안 씀)
    계산은 model.js의 scoreDays 하나로 해요. 같은 기록(/api/trend)과 같은 파일로 누구나 같은 숫자를 낼 수 있어요(analysis/live_score.mjs). */
 import '../gp.js';
 import '../model.js';
@@ -28,11 +28,21 @@ export default async function handler(req, res) {
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     return (await r.json()).map(x => [Math.round((Date.parse(x.ts) - Date.parse(from)) / 60000), x.parking, x.ppl_lo, x.ppl_hi, x.lvl]);
   };
+  /* 수집 기록(실패한 이유). 표가 없거나 읽지 못하면 빈 목록으로 두고 채점은 계속해요 */
+  const logOf = async day => {
+    const from = new Date(`${day}T00:00:00+09:00`).toISOString(), to = new Date(Date.parse(from) + 864e5).toISOString();
+    try {
+      const r = await fetch(`${base}/rest/v1/collect_log?select=ts,city,parking&ts=gte.${encodeURIComponent(from)}&ts=lt.${encodeURIComponent(to)}&order=ts.asc&limit=400`, { headers: { apikey: SUPABASE_SERVICE_KEY, Authorization: `Bearer ${SUPABASE_SERVICE_KEY}` }, signal: AbortSignal.timeout(6000) });
+      if (!r.ok) return [];
+      return (await r.json()).map(x => ({ m: Math.round((Date.parse(x.ts) - Date.parse(from)) / 60000), city: x.city, parking: x.parking }));
+    } catch (e) { return []; }
+  };
   try {
-    const rows = await Promise.all(list.map(one));
-    const byDay = {};
-    list.forEach((d, i) => { if (rows[i].length) byDay[d] = rows[i]; });
-    const out = OLL.scoreDays(byDay, rules);
+    const [rows, lg] = await Promise.all([Promise.all(list.map(one)), Promise.all(list.map(logOf))]);
+    const byDay = {}, logs = {}, untils = {};
+    const today = kst.toISOString().slice(0, 10), nowMin = Math.floor((kst.getUTCHours() * 60 + kst.getUTCMinutes()) / 5) * 5 - 5;
+    list.forEach((d, i) => { if (rows[i].length) { byDay[d] = rows[i]; logs[d] = lg[i]; if (d === today) untils[d] = Math.max(0, nowMin); } });
+    const out = OLL.scoreDays(byDay, rules, logs, untils);
     res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600');
     return res.status(200).json({ ok: true, end, asked: days, ...out });
   } catch (e) {

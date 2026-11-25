@@ -15,20 +15,24 @@ async function city(key) {
   const url = `http://openapi.seoul.go.kr:8088/${encodeURIComponent(key)}/json/citydata/1/5/${encodeURIComponent(AREA)}`;
   const r = await fetch(url, { signal: AbortSignal.timeout(9000) });
   const text = (await r.text()).trim();
-  if (text.startsWith('<') || !r.ok) throw new Error('서울시 응답 오류');
+  if (!r.ok) throw new Error(`서버 응답 ${r.status}`);
+  if (text.startsWith('<')) throw new Error('형식이 다른 응답');
   const d = compactCity(JSON.parse(text));
   return { ...d.now, fcst: d.fcst };
 }
 
 async function parking() {
   const r = await fetch(PARKING_URL, { signal: AbortSignal.timeout(8000) });
-  if (!r.ok) throw new Error('주차 응답 오류');
+  if (!r.ok) throw new Error(`서버 응답 ${r.status}`);
   let body = await r.json();
   if (Array.isArray(body)) body = body[0] || {};
   const sum = Number.parseInt(body.parking_sum, 10);
-  if (String(body.code || body.resultCode || '0000') !== '0000' || !Number.isFinite(sum)) throw new Error('주차 값 없음');
+  if (String(body.code || body.resultCode || '0000') !== '0000' || !Number.isFinite(sum)) throw new Error('값이 비어 있음');
   return sum;
 }
+
+/* 실패한 이유를 짧은 말로: 키나 주소는 넣지 않아요 */
+const why = e => (e && (e.name === 'TimeoutError' || e.name === 'AbortError') ? '응답 시간 초과' : e && /^(서버 응답 \d+|형식이 다른 응답|값이 비어 있음)$/.test(e.message) ? e.message : e instanceof SyntaxError ? '형식이 다른 응답' : '연결 실패');
 
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
@@ -54,6 +58,15 @@ export default async function handler(req, res) {
   }
 
   const [c, p] = await Promise.allSettled([city(SEOUL_KEY), parking()]);
+  /* 하나라도 못 받았으면 이유를 수집 기록(collect_log)에 남겨요. 알림판이 '오류'와 '미확인'을 가르는 데 써요. */
+  if (c.status !== 'fulfilled' || p.status !== 'fulfilled') {
+    try {
+      await fetch(`${base}/rest/v1/collect_log?on_conflict=ts`, {
+        method: 'POST', headers: { ...auth, 'Content-Type': 'application/json', Prefer: 'resolution=merge-duplicates,return=minimal' },
+        body: JSON.stringify({ ts: slot, city: c.status === 'fulfilled' ? 'ok' : why(c.reason), parking: p.status === 'fulfilled' ? 'ok' : why(p.reason) }), signal: AbortSignal.timeout(6000)
+      });
+    } catch (e) { /* 기록을 못 남겨도 수집은 계속해요 */ }
+  }
   if (c.status !== 'fulfilled' && p.status !== 'fulfilled') return res.status(502).json({ ok: false, note: '두 값 모두 받지 못했어요' });
 
   const row = {

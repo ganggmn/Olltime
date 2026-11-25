@@ -40,19 +40,21 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid 
 <h2>10분마다 역으로 걷는 사람과 문으로 나가는 차</h2>
 <svg id="ch" viewBox="0 0 720 260" role="img" aria-label="10분별 사람과 차"></svg>
 <div class="lg"><span><i style="width:12px;height:12px;background:#0A0A0A"></i>올림픽공원역 방향으로 걷는 사람 (10분, 왼쪽 눈금)</span><span><i style="width:22px;height:0;border-top:3px solid #DC2626"></i>북2·동2·남2문으로 나가는 차, 평소보다 늘어난 만큼 (10분, 오른쪽 눈금)</span></div>
-<h2 id="score">자동 채점과 이상 징후 기준</h2>
-<p class="sub">5분마다 쌓이는 실제 값으로 '2시간 앞서 낸 예상'을 날마다 다시 채점해요. 사람이 갑자기 크게 늘거나 준 시간, 예상이 크게 빗나간 시간은 틀린 것으로만 세지 않고 따로 알려 줘요. 무엇을 '갑자기'로 볼지는 아래에서 직접 정해요. 비워 둔 칸의 기준은 쓰지 않아요.</p>
+<h2 id="score">알림판과 자동 채점</h2>
+<p class="sub">5분마다 쌓이는 실제 값으로 '2시간 앞서 낸 예상'을 날마다 다시 채점하고, 눈여겨볼 일을 세 가지로 나눠 알려 줘요. <b>경고</b>는 값은 제대로 들어왔는데 숫자가 크게 튄 것, <b>오류</b>는 값을 받지 못했고 그 이유가 기록에 남은 것, <b>미확인</b>은 이상하지만 실제 변화인지 자료 문제인지 가릴 수 없는 것이에요. 무엇을 알릴지는 아래 칸에 직접 정해요. 비워 둔 칸의 기준은 쓰지 않아요.</p>
 <div class="show" style="border-bottom:1px solid var(--line)">
   <label>몇 분 사이에<input type="number" inputmode="numeric" min="5" max="180" step="5" id="r_win" placeholder="예: 10"></label>
   <label>사람 수가 몇 명 넘게 변하면<input type="number" inputmode="numeric" min="1" step="100" id="r_dn" placeholder="예: 2000"></label>
   <label>또는 몇 % 넘게 변하면<input type="number" inputmode="decimal" min="0.1" step="0.1" id="r_dp" placeholder="예: 20.0"></label>
   <label>예상이 평소 오차의 몇 배 넘게 빗나가면<input type="number" inputmode="decimal" min="0.1" step="0.1" id="r_k" placeholder="예: 3.0"></label>
+  <label>낮에 주차 대수가 몇 분째 그대로면<input type="number" inputmode="numeric" min="10" max="720" step="10" id="r_stale" placeholder="예: 60"></label>
+  <label>값이 몇 분 넘게 안 들어오면<input type="number" inputmode="numeric" min="10" max="720" step="5" id="r_gap" placeholder="예: 20"></label>
 </div>
 <p style="display:flex;gap:8px;flex-wrap:wrap;margin:0"><button type="button" class="add" id="r_go">이 기준으로 채점</button><button type="button" class="add" id="r_clear">기준 지우기</button></p>
 <p class="sum" id="sc_sum" role="status"></p>
 <div id="sc_tb" style="overflow-x:auto"></div>
-<ul class="al" id="sc_ev"></ul>
-<p class="note">채점 방법: 20분마다, 그 시각보다 2시간 전까지의 값만 보고 낸 예상을 실제 주차 대수(한국체육산업개발 실시간 주차현황)와 견줘요. 사람 수는 서울시가 범위로만 알려 주므로 올타임이 범위 안에서 한 숫자로 좁힌 값과 견주고, 서울시 범위 안에 든 비율을 함께 적어요. '평소 오차'는 채점한 날 전체 오차의 중앙값이에요. '이상 징후 제외'는 알림이 시작된 때부터 끝나고 2시간 뒤까지를 뺀 값이에요. 기준을 느슨하게 잡으면 빼는 시간이 늘어 오차가 작아 보이니, 전체 값과 함께 봐 주세요. 기준은 이 브라우저에만 저장돼요. 같은 채점을 직접 해 보려면 저장소의 <code>analysis/live_score.mjs</code>를 돌리면 돼요.</p>
+<div id="sc_ev"></div>
+<p class="note">채점 방법: 20분마다, 그 시각보다 2시간 전까지의 값만 보고 낸 예상을 실제 주차 대수(한국체육산업개발 실시간 주차현황)와 견줘요. 사람 수는 서울시가 범위로만 알려 주므로 올타임이 범위 안에서 한 숫자로 좁힌 값과 견주고, 서울시 범위 안에 든 비율을 함께 적어요. '평소 오차'는 채점한 날 전체 오차의 중앙값이에요. '이상 징후 제외'는 사람 수가 튀었거나 예상이 크게 빗나간 때부터 끝나고 2시간 뒤까지를 뺀 값이에요. 튀었다가 1시간 안에 되돌아온 변화는 경고가 아니라 미확인으로 가요. 오류는 5분마다 값을 받을 때 실패한 이유를 남긴 기록에서 가져와요(2026년 11월 25일 저녁부터 남기기 시작했어요. 그 전의 빈칸은 이유가 없어 미확인이에요). 기준을 느슨하게 잡으면 빼는 시간이 늘어 오차가 작아 보이니, 전체 값과 함께 봐 주세요. 기준은 이 브라우저에만 저장돼요. 같은 채점을 직접 해 보려면 저장소의 <code>analysis/live_score.mjs</code>를 돌리면 돼요.</p>
 <p class="note">계산 방법: 2025년 큰 공연(관객 9천 명 이상) 날의 기록에서 구한 10분별 모양을 관객 수에 비례해 키우거나 줄이고, 공연이 여러 개면 더해요. 끝난 뒤 역 방향은 역 승차 기록 60일로 구한 10분별 몫(첫 10분 21%, 25%, 19%, 13%…)에 승차 증가 합(관객 13,452명일 때 중앙값 3,770명)을 곱한 값이에요. 1시간으로 다시 묶으면 실제와 72.6% 일치해요. 사람과 차는 '끝' 시각의 약 25분 뒤부터 몰려 나온다고 봤어요(2025년 62일: 시작 2시간 55분 뒤가 중앙값). 문별 차는 입출차 기록의 10분 실제 평균이에요. 시작 전 역 방향은 1시간 값을 6으로 고르게 나눴어요.</p>
 <p class="note">알아 둘 점: 사람 수는 지하철 승하차로 확인되는 만큼이에요(관객의 약 28%). 버스, 택시, 걸어서 가는 사람은 방향을 몰라 빠져 있어서 실제로 걷는 사람은 더 많아요. 관객 수 기본값은 KSPO DOME 13,000명(2025년 큰 공연 관객의 중앙값 13,452명에 가까운 값, 시설 수용 인원은 15,000석), 올림픽홀 3,000명, 핸드볼경기장 5,000명(시설 수용 인원)이에요. 올림픽홀과 핸드볼경기장은 단독 공연 날이 적어 KSPO DOME의 모양을 관객 수 비율로 줄여 썼어요(가정). 끝나는 시각을 옮겼을 때의 숫자는 평균 모양을 더한 계산값이고, 실제로 시각을 옮겨 본 기록으로 확인한 것은 아니에요. '겹침'과 '몰림'을 가르는 숫자(걷는 사람 10분에 150명, 차 10분에 35대·55대)는 올타임이 정한 값이고, 걷기 불편한 정도를 재는 표준 기준은 아니에요. '사람이 빠져나가고 있어요' 알림은 공원 안 사람 수가 10분에 2,000명 넘게 줄어드는 것을 보고 판단하는데, 공연 날 실시간 기록이 11월 22일 하루뿐이라 아직 한 번만 확인됐어요. 만차 예상은 <a href="/trend" style="color:inherit">오늘의 추이</a>와 같은 방법이에요. 자세한 검증은 <a href="/verify" style="color:inherit">검증 기록</a>에 있어요. 서울특별시 공공데이터, 서울교통공사, 한국체육산업개발 자료.</p>
 </main>
@@ -118,7 +120,7 @@ function alerts(){const sec=$('#live');if(day!==today||!live||!live.length){sec.
   shows.forEach((x,i)=>{if(x.det)return out.push(['',`${x.v}: 사람이 빠지기 시작한 ${hm(x.e+LAG)}에 맞춰 시간표를 옮겨 두었어요.`]);const after=ppl.filter(p=>p.m>=x.s+90);let det=null;for(let j=0;j<after.length&&det==null;j++){const prev=after.filter(p=>p.m<=after[j].m-8&&p.m>=after[j].m-12).pop();if(prev&&prev.hi-after[j].hi>=2000)det=prev.m}
     if(det!=null){if(Math.abs(det-(x.e+LAG))>10)out.push(['hot',`<b>${x.v}: ${hm(det)}쯤부터 사람이 빠져나가고 있어요.</b> 공원 안 사람 수가 10분 사이 2,000명 넘게 줄었어요. 시간표는 ${hm(x.e+LAG)}부터 빠진다고 보고 있었어요. <br><button type="button" data-fit="${i}" data-t="${det}">시간표를 ${hm(det)}에 맞추기</button>`]);else out.push(['',`${x.v}: ${hm(det)}쯤부터 사람이 빠져나가고 있어요. 시간표와 맞아요.`])}
     else if(ppl.length&&ppl[ppl.length-1].m>x.e+LAG+15)out.push(['warn',`<b>${x.v}: 끝날 시각(${hm(x.e)})이 지났는데 사람이 빠지는 신호가 아직 없어요.</b> 공연이 늦어지는 것일 수 있어요. 신호가 잡히면 시간표를 옮길 수 있어요.`])});
-  if(scoreOut){const td=scoreOut.days.find(d=>d.day===today);if(td)td.events.slice(-3).forEach(e=>out.push(['warn',`<b>이상 징후(정해 둔 기준)</b> ${e.text}`]))}
+  if(scoreOut){const td=scoreOut.days.find(d=>d.day===today);if(td&&td.board){td.board.error.slice(-2).forEach(e=>out.push(['hot',`<b>오류</b> ${e.text}`]));td.board.warn.slice(-2).forEach(e=>out.push(['warn',`<b>경고</b> ${e.text}`]));td.board.unknown.slice(-2).forEach(e=>out.push(['',`<b>미확인</b> ${e.text}`]))}}
   if(!out.length)out.push(['','지금은 알릴 것이 없어요. 값은 5분마다 새로 확인해요.']);$('#al').innerHTML=out.map(([c,t])=>`<li${c?` class="${c}"`:''}>${t}</li>`).join('')}
 async function pull(){if(day!==today){live=null;alerts();return}try{const j=await (await fetch('/api/trend?day='+today)).json();live=j.ok?j.list:null}catch(e){live=null}alerts()}
 function setDay(d){day=d;warn='';const ini=(EVT[d]||[]).map(([v,s,run,nm])=>mk(v,s,run,nm));base=ini.length?calc(ini):null;shows=SAVED[d]||ini;SAVED[d]=shows;render();pull()}
@@ -131,7 +133,7 @@ document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)r
   if(t.id==='add'){const s=shows.length?shows[shows.length-1].s:1080;shows.push(mk(shows.some(x=>x.v==='올림픽홀')?'핸드볼경기장':shows.length?'올림픽홀':'KSPO DOME',s));if(!base)base=null;return render()}
   if(t.id==='rs'){delete SAVED[day];return setDay(day)}});
 /* 자동 채점 */
-const RK=['win','dn','dp','k'],rget=()=>{try{return JSON.parse(localStorage.getItem('olltime_rules')||'{}')}catch(e){return{}}},rset=o=>{try{localStorage.setItem('olltime_rules',JSON.stringify(o))}catch(e){}};
+const RK=['win','dn','dp','k','stale','gap'],rget=()=>{try{return JSON.parse(localStorage.getItem('olltime_rules')||'{}')}catch(e){return{}}},rset=o=>{try{localStorage.setItem('olltime_rules',JSON.stringify(o))}catch(e){}};
 let scoreOut=null;
 const fmt=(s,u)=>s&&s.n?`${num(s.mae)}${u} (${s.pct}%)`:'-';
 async function loadScore(){const raw={};RK.forEach(k=>{const v=$('#r_'+k).value;if(v!=='')raw[k]=v});const r=OLL.cleanRules(raw);RK.forEach(k=>{$('#r_'+k).value=r[k]==null?'':(k==='dp'||k==='k'?r[k].toFixed(1):r[k])});rset(r);
@@ -140,7 +142,8 @@ async function loadScore(){const raw={};RK.forEach(k=>{const v=$('#r_'+k).value;
   scoreOut=j;const any=j.days.some(d=>d.events.length),t=j.total;
   $('#sc_sum').innerHTML=`최근 ${j.days.length}일, 2시간 앞 예상: 주차는 평균 <b>${fmt(t.car,'대')}</b>, 사람 수는 평균 <b>${fmt(t.ppl,'명')}</b> 달랐어요.`+(any?` 이상 징후로 표시된 시간을 빼면 주차 ${fmt(t.carEx,'대')}, 사람 수 ${fmt(t.pplEx,'명')}이에요.`:(RK.some(k=>r[k]!=null)?' 정한 기준에 걸린 시간은 없었어요.':' 이상 징후 기준은 아직 정하지 않았어요.'));
   $('#sc_tb').innerHTML='<table style="border-collapse:collapse;width:100%;font-size:13px;min-width:520px"><tr>'+['날짜','주차 예상 오차','이상 징후 제외','사람 수 예상 오차','이상 징후 제외','알림'].map((h,i)=>`<th style="text-align:${i?'right':'left'};padding:6px 8px;border-bottom:1px solid var(--line);color:var(--ink-2);font-weight:600">${h}</th>`).join('')+'</tr>'+j.days.map(d=>'<tr>'+[`${+d.day.slice(5,7)}월 ${+d.day.slice(8)}일`,fmt(d.car,'대'),d.events.length?fmt(d.carEx,'대'):'',fmt(d.ppl,'명'),d.events.length?fmt(d.pplEx,'명'):'',d.events.length?d.events.length+'건':''].map((c,i)=>`<td style="text-align:${i?'right':'left'};padding:6px 8px;border-bottom:1px solid var(--line-weak);font-variant-numeric:tabular-nums">${c}</td>`).join('')+'</tr>').join('')+'</table>';
-  $('#sc_ev').innerHTML=j.days.slice().reverse().flatMap(d=>d.events.map(e=>`<li class="warn"><b>${+d.day.slice(5,7)}월 ${+d.day.slice(8)}일</b> ${e.text}${e.to!==e.at?` (${e.to}까지 이어짐)`:''}</li>`)).slice(0,12).join('');alerts()}
+  const B=[['warn','경고','값은 들어왔는데 숫자가 크게 튐','warn'],['error','오류','값을 받지 못했고 이유가 기록에 남음','hot'],['unknown','미확인','실제 변화인지 자료 문제인지 가릴 수 없음','']];
+  $('#sc_ev').innerHTML=B.map(([key,name,desc,cls])=>{const items=j.days.slice().reverse().flatMap(d=>(d.board?d.board[key]:[]).slice().reverse().map(e=>`<li${cls?` class="${cls}"`:''}><b>${+d.day.slice(5,7)}월 ${+d.day.slice(8)}일</b> ${e.text}</li>`));return `<h3 style="font-size:15px;font-weight:600;margin:20px 0 2px">${name} ${items.length}건 <span style="font-weight:400;color:var(--ink-2);font-size:13px">${desc}</span></h3><ul class="al">${items.slice(0,8).join('')||'<li>없어요.</li>'}</ul>`+(items.length>8?`<p class="sub">최근 8건만 보여요. 모두 ${items.length}건이에요.</p>`:'')}).join('');alerts()}
 {const r=rget();RK.forEach(k=>{if(r[k]!=null)$('#r_'+k).value=k==='dp'||k==='k'?(+r[k]).toFixed(1):r[k]})}
 $('#r_go').addEventListener('click',loadScore);$('#r_clear').addEventListener('click',()=>{RK.forEach(k=>$('#r_'+k).value='');loadScore()});
 setDay(day);loadScore();setInterval(()=>{pull();loadScore()},300000);

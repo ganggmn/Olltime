@@ -69,20 +69,38 @@ function anomalies(R,E,rules,usual){const ev=[],r=rules||{},win=+r.win>0?+r.win:
   /* 같은 일로 이어지는 알림은 하나로: 30분 안에 이어지면 처음 것만 남기고 끝 시각을 늘림 */
   const out=[];for(const e of ev){const l=out[out.length-1];if(l&&l.kind===e.kind&&e.m-l.to<=30){l.to=e.m;l.n++}else out.push({...e,to:e.m,n:1})}
   return out}
+/* ⑥-2 알림판: 경고(값은 들어왔는데 숫자가 튐) / 오류(값을 못 받았고 이유를 앎) / 미확인(이상한데 어느 쪽인지 모름)
+   log=[{m,city,parking}]: 수집 기록에 남은 실패(값이 'ok'가 아니면 그 이유). until: 오늘이면 지금 시각(분), 지난 날이면 1435 */
+function board(R,ev,log,rules,until){const r=rules||{},warn=[],error=[],unknown=[],pe=R.pe,end=until==null?1435:until;
+  /* 튀었다가 1시간 안에 되돌아온 변화는 실제 이동인지 자료가 흔들린 것인지 가릴 수 없어 미확인 */
+  for(const e of ev){if(e.kind!=='jump'){warn.push({from:hm(e.from),to:hm(e.to),text:e.text});continue}
+    const a=pe.find(p=>p.m>=e.from),b=pe.find(p=>p.m>=e.m);if(!a||!b){warn.push({from:hm(e.from),to:hm(e.to),text:e.text});continue}
+    const d=b.v-a.v,back=pe.some(p=>p.m>e.to&&p.m<=e.to+60&&Math.abs(p.v-a.v)<=0.3*Math.abs(d)),ret=pe.some(p=>p.m<e.from&&p.m>=e.from-60&&Math.abs(p.v-b.v)<=0.3*Math.abs(d));
+    if(back||ret)unknown.push({from:hm(e.from),to:hm(e.to),text:e.text+(back?'. 그런데 1시간 안에 원래 수준으로 돌아왔어요':'. 1시간 전 수준으로 되돌아온 변화예요')+'. 실제로 사람이 움직인 것인지 자료가 흔들린 것인지 가릴 수 없어요'});
+    else warn.push({from:hm(e.from),to:hm(e.to),text:e.text})}
+  /* 오류: 수집 기록에 이유가 남은 실패. 같은 이유로 이어지면 하나로 */
+  const SRC=[['parking','주차 대수(한국체육산업개발)'],['city','공원 안 사람 수(서울시)']],bad={parking:[],city:[]};
+  for(const [key,name] of SRC){let cur=null;for(const l of (log||[]).filter(l=>l[key]&&l[key]!=='ok').sort((x,y)=>x.m-y.m)){bad[key].push(l.m);if(cur&&cur.why===l[key]&&l.m-cur.to<=10){cur.to=l.m;cur.n++}else{cur={from:l.m,to:l.m,why:l[key],n:1};error.push(cur);cur.name=name}}}
+  error.forEach(e=>{e.text=`${hm(e.from)}${e.to>e.from?'~'+hm(e.to+5):''} ${e.name} 값을 받지 못했어요(이유: ${e.why}${e.n>1?', '+e.n+'번 연속':''})`;e.from=hm(e.from);e.to=hm(e.to);delete e.name;delete e.why;delete e.n});
+  /* 미확인: 값이 오래 비었는데 수집 기록에 이유가 없음 */
+  if(+r.gap>0){for(const [key,name,pts] of [['parking','주차 대수',R.car.map(c=>c.m)],['city','공원 안 사람 수',R.ppl.map(p=>p[0])]]){const ms=[-5].concat(pts,[end+5]);for(let i=1;i<ms.length;i++){const a=ms[i-1]+5,b=ms[i]-5;if(b-a+5<+r.gap)continue;if(bad[key].some(m=>m>=a&&m<=b))continue;unknown.push({from:hm(a),to:hm(b),text:`${hm(a)}부터 ${b-a+5}분 동안 ${name} 값이 없어요. 수집 기록에 이유가 남아 있지 않아요`})}}}
+  /* 미확인: 낮(07~22시)에 주차 대수가 오래 그대로. 실제로 안 변한 것인지 갱신이 멈춘 것인지 모름 */
+  if(+r.stale>0){const c=R.car.filter(x=>x.m>=420&&x.m<=1320);let i=0;while(i<c.length){let j=i;while(j+1<c.length&&c[j+1].v===c[i].v&&c[j+1].m-c[j].m<=15)j++;const dur=c[j].m-c[i].m;if(dur>=+r.stale)unknown.push({from:hm(c[i].m),to:hm(c[j].m),text:`${hm(c[i].m)}부터 ${dur}분 동안 주차 대수가 ${num(c[i].v)}대 그대로예요. 실제로 안 변한 것인지 값 갱신이 멈춘 것인지 알 수 없어요`});i=j+1}}
+  const by=(x,y)=>x.from<y.from?-1:x.from>y.from?1:0;return{warn:warn.sort(by),error:error.sort(by),unknown:unknown.sort(by)}}
 const stat=(xs)=>{if(!xs.length)return{n:0,mae:null,pct:null};const mae=xs.reduce((s,x)=>s+x.e,0)/xs.length,pct=xs.reduce((s,x)=>s+(x.a>0?x.e/x.a:0),0)/xs.length*100;return{n:xs.length,mae:Math.round(mae*10)/10,pct:Math.round(pct*10)/10}};
 /* ⑦ 하루 채점: 전체와, 이상 징후로 표시된 시간(시작부터 끝 뒤 2시간까지)을 뺀 것 두 가지 */
 function score(list,o){const R=run(list,{day:o.day,isToday:false}),E=errors(R),ev=anomalies(R,E,o.rules,o.usual);
   const inEv=m=>ev.some(e=>m>=e.from&&m<=e.to+AHEAD),carX=E.car.filter(x=>!inEv(x.m)),pplX=E.ppl.filter(x=>!inEv(x.m));
   const P=stat(E.ppl),PX=stat(pplX);P.inband=E.ppl.length?Math.round(E.ppl.filter(x=>x.inb).length/E.ppl.length*100):null;PX.inband=pplX.length?Math.round(pplX.filter(x=>x.inb).length/pplX.length*100):null;
-  return{day:o.day,kind:R.k,records:list.length,car:stat(E.car),carEx:stat(carX),ppl:P,pplEx:PX,events:ev.map(e=>({from:hm(e.from),at:hm(e.m),to:hm(e.to),kind:e.kind,text:e.text})),errs:{car:E.car.map(x=>x.e),ppl:E.ppl.map(x=>x.e)}}}
+  return{day:o.day,kind:R.k,records:list.length,car:stat(E.car),carEx:stat(carX),ppl:P,pplEx:PX,board:board(R,ev,o.log,o.rules,o.until),events:ev.map(e=>({from:hm(e.from),at:hm(e.m),to:hm(e.to),kind:e.kind,text:e.text})),errs:{car:E.car.map(x=>x.e),ppl:E.ppl.map(x=>x.e)}}}
 /* 여러 날을 한 번에: 평소 오차(모든 날 오차의 중앙값)를 먼저 구하고 그걸로 이상 징후를 판정 */
-function scoreDays(byDay,rules){const days=Object.keys(byDay).sort(),first=days.map(d=>score(byDay[d],{day:d}));
+function scoreDays(byDay,rules,logs,untils){const days=Object.keys(byDay).sort(),first=days.map(d=>score(byDay[d],{day:d}));
   const usual={car:med(first.flatMap(s=>s.errs.car)),ppl:med(first.flatMap(s=>s.errs.ppl))};
-  const out=days.map(d=>{const s=score(byDay[d],{day:d,rules,usual});delete s.errs;return s});
+  const out=days.map(d=>{const s=score(byDay[d],{day:d,rules,usual,log:(logs||{})[d]||[],until:(untils||{})[d]});delete s.errs;return s});
   const tot=k=>{const xs=out.filter(s=>s[k].n);const n=xs.reduce((a,s)=>a+s[k].n,0);return n?{n,mae:Math.round(xs.reduce((a,s)=>a+s[k].mae*s[k].n,0)/n*10)/10,pct:Math.round(xs.reduce((a,s)=>a+s[k].pct*s[k].n,0)/n*10)/10}:{n:0,mae:null,pct:null}};
   return{rules:rules||{},usual:{car:usual.car==null?null:Math.round(usual.car),ppl:usual.ppl==null?null:Math.round(usual.ppl)},days:out,total:{car:tot('car'),carEx:tot('carEx'),ppl:tot('ppl'),pplEx:tot('pplEx')}}}
 /* 운영자가 넣은 기준을 숫자로: 분·명은 정수, %와 배수는 소수 한 자리 */
 function cleanRules(q){const f=(v,dec,lo,hi)=>{const n=Number(v);if(!isFinite(n)||n<=0)return null;const r=dec?Math.round(n*10)/10:Math.round(n);return Math.min(hi,Math.max(lo,r))};
-  return{win:f(q.win,0,5,180),dn:f(q.dn,0,1,100000),dp:f(q.dp,1,0.1,1000),k:f(q.k,1,0.1,100)}}
-globalThis.OLL={BETA,FLOOR,KC,AHEAD,EVT,bAt,kAt,hm,num,med,bigShow,clsOf,estimate,carCtx,estimate2,run,errors,anomalies,score,scoreDays,cleanRules};
+  return{win:f(q.win,0,5,180),dn:f(q.dn,0,1,100000),dp:f(q.dp,1,0.1,1000),k:f(q.k,1,0.1,100),stale:f(q.stale,0,10,720),gap:f(q.gap,0,10,720)}}
+globalThis.OLL={BETA,FLOOR,KC,AHEAD,EVT,bAt,kAt,hm,num,med,bigShow,clsOf,estimate,carCtx,estimate2,run,errors,anomalies,board,score,scoreDays,cleanRules};
 })();
