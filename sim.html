@@ -1,0 +1,89 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>올타임 흐름 시뮬레이션 (시안)</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+@font-face{font-family:Pretendard;src:url(/fonts/Pretendard-Regular.subset.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:Pretendard;src:url(/fonts/Pretendard-SemiBold.subset.woff2) format("woff2");font-weight:600;font-display:swap}
+:root{--bg:#FAFAFA;--ink:#0A0A0A;--ink-2:#6B6B74;--line:#D4D4D8;--line-weak:#E5E5E5}
+*{box-sizing:border-box}body{margin:0;font-family:Pretendard,system-ui,sans-serif;color:var(--ink);background:var(--bg);font-size:16px;line-height:1.5}
+main{max-width:720px;margin:0 auto;padding:20px 20px 40px}
+h1{font-size:22px;font-weight:600;margin:0 0 4px}.sub{margin:0;color:var(--ink-2);font-size:14px}
+.now{margin:20px 0 6px;font-size:20px;font-weight:600}
+.sl{display:flex;align-items:center;gap:12px}.sl input{flex:1;accent-color:#0A0A0A;height:36px}
+.ticks{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-2);margin-top:-2px}
+#map{height:360px;margin:16px 0 8px;border:1px solid var(--line)}
+.days{display:flex;flex-wrap:wrap;margin:14px 0 0;border:1px solid var(--line);width:fit-content}.days button{all:unset;box-sizing:border-box;cursor:pointer;padding:10px 14px;min-height:44px;font-size:15px;border-right:1px solid var(--line)}.days button:last-child{border-right:0}.days button[aria-pressed=true]{background:#0A0A0A;color:#fff;font-weight:600}.days button:focus-visible{outline:2px solid #0A0A0A;outline-offset:2px}
+.lg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--ink-2);margin:0 0 4px}.lg i{display:inline-block;width:20px;height:5px;border-radius:3px;vertical-align:middle;margin-right:6px}
+h2{font-size:15px;font-weight:600;margin:22px 0 2px;color:var(--ink-2)}
+ul{list-style:none;margin:0;padding:0}
+li{border-bottom:1px solid var(--line-weak)}li button{all:unset;box-sizing:border-box;width:100%;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:13px 10px 13px 12px;border-left:3px solid transparent;min-height:44px}li.on button{border-left-color:#0A0A0A;background:#fff}li button:focus-visible{outline:2px solid #0A0A0A;outline-offset:-2px}
+li b{font-weight:600}li .lv{font-weight:600;white-space:nowrap}li .cap{grid-column:1/-1;font-size:14px;color:var(--ink-2)}li .seg{color:var(--ink)}li .seg b{font-weight:600}
+.lv i{display:inline-block;width:20px;height:5px;vertical-align:middle;margin-right:8px;border-radius:3px}
+.note{font-size:13px;color:var(--ink-2);margin-top:18px}
+.lb{background:none;border:0;box-shadow:none;font:600 13px Pretendard,system-ui,sans-serif;color:#0A0A0A;text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 3px #fff;white-space:nowrap}.leaflet-tooltip.lb:before{display:none}.gt{font:600 12px Pretendard,system-ui,sans-serif;border:1.5px solid #0A0A0A;background:#fff;text-align:center;line-height:19px;height:22px;width:44px}.lb.nm{font-size:11px}
+.ctl{display:flex;align-items:center;gap:12px;margin-top:6px}.ctl button{all:unset;box-sizing:border-box;cursor:pointer;border:1px solid #0A0A0A;padding:0 16px;min-height:44px;line-height:44px;font-weight:600;font-size:15px}.ctl button:focus-visible{outline:2px solid #0A0A0A;outline-offset:2px}.ctl input{flex:1;accent-color:#0A0A0A;height:36px}
+#map{position:relative}#cv{position:absolute;inset:0;z-index:450;pointer-events:none}
+.meet{margin:10px 0 0;padding:10px 12px;border-left:3px solid #DC2626;background:#fff;font-size:15px}
+</style></head><body><main>
+<h1>흐름 시뮬레이션 <span style="font-weight:400;color:var(--ink-2);font-size:15px">시안</span></h1>
+<p class="sub">큰 공연(관객 9천 명 이상) 날 KSPO DOME 앞뒤로 사람과 차가 10분마다 어디로 얼마나 움직이는지예요. 점 하나가 10명이에요.</p>
+<p class="now" id="now"></p>
+<div class="ctl"><button type="button" id="pl" aria-pressed="false">재생</button><input id="rg" type="range" min="0" max="35" step="1" value="21" aria-label="공연 기준 시각"></div>
+<div class="ticks"><span>시작 3시간 전</span><span>시작</span><span>끝</span><span>끝나고 2시간</span></div>
+<div id="map" role="img" aria-label="흐름 시뮬레이션 지도"><canvas id="cv"></canvas></div>
+<p class="lg" id="lg"></p>
+<p class="meet" id="meet" hidden></p>
+<h2>걸어서</h2><ul id="walk"></ul>
+<h2>차로 <span style="font-weight:400">(지도의 네모가 문이에요)</span></h2><ul id="car"></ul>
+<p class="note">끝난 뒤: 올림픽공원역 방향은 2025년 큰 공연 60일의 역 승차 기록으로 구한 10분별 몫(첫 10분 21%, 다음 25%, 19%, 13%…)을 썼어요. 이 몫을 1시간으로 다시 묶으면 실제 기록과 72.6% 일치해요. 문으로 나가는 차는 입출차 기록을 10분으로 센 실제 평균이에요(평소보다 늘어난 만큼). 남쪽으로 걷는 사람은 10분 자료가 없어서 역 방향과 같은 모양으로 나눴어요(가정).</p>
+<p class="note">시작 전: 공연이 모두 정각에 시작해서 10분 단위 모양을 가려낼 수 없었어요(10분 모형 67.4%, 평균 몫 67.0%로 차이 없음). 그래서 역 방향은 1시간 값을 6으로 고르게 나눴어요. 차는 10분 실제 평균이에요.</p>
+<p class="note">'끝'은 차가 문으로 몰려 나가기 시작한 시각이에요(가운데값: 시작 2시간 55분 뒤). 차 한 대에 2명은 가정이에요. 여기 나오는 사람은 지하철과 차로 확인되는 만큼이고 관객 전체가 아니에요. 버스, 택시, 걸어서 가는 사람은 방향을 몰라 빠져 있어요. 걷는 속도는 1분에 75m로 두었고, 길이 막혀 느려지는 것은 넣지 않았어요. 색을 나누는 숫자(10분에 50명, 150명, 250명)와 차의 단계(10분에 15대, 35대, 55대)는 올타임이 정한 값이에요. 서울특별시 공공데이터, 서울교통공사, 한국체육산업개발 자료. 배경 지도와 길 모양 © OpenStreetMap 기여자</p>
+</main>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const CH=[{"m":"eswm","len":332,"p":[[37.51955,127.12822],[37.51928,127.12832],[37.51911,127.12831],[37.51884,127.12821],[37.51857,127.12803],[37.51833,127.12855],[37.51806,127.12845],[37.51701,127.12774]]},{"m":"e","len":301,"p":[[37.51701,127.12774],[37.51586,127.13043],[37.51608,127.13062]]},{"m":"swm","len":561,"p":[[37.51701,127.12774],[37.51689,127.12769],[37.51642,127.12723],[37.51623,127.12696],[37.51606,127.12661],[37.51585,127.12594],[37.51565,127.12451],[37.51556,127.12415],[37.51538,127.12372],[37.51511,127.12332],[37.51447,127.12287],[37.51432,127.12282]]},{"m":"wm","len":672,"p":[[37.51432,127.12282],[37.51415,127.12283],[37.51449,127.12197],[37.51658,127.1161]]},{"m":"m","len":337,"p":[[37.51658,127.1161],[37.51668,127.11581],[37.51658,127.11575],[37.51721,127.11402],[37.51739,127.11306],[37.51749,127.11274],[37.5175,127.11261]]},{"m":"n","len":513,"p":[[37.51955,127.12822],[37.5198,127.12796],[37.5199,127.12814],[37.52031,127.12834],[37.52108,127.12797],[37.52179,127.12745],[37.52204,127.12732],[37.52238,127.12727],[37.52289,127.1273],[37.52364,127.12775],[37.52371,127.12774]]}];
+const LV=[['여유','#16A34A'],['보통','#EAB308'],['혼잡','#F97316'],['매우 혼잡','#DC2626']],TH=[50,150,250],CTH=[15,35,55],PPD=10,SPD=75;
+/* 시작 전: -180분부터 10분씩 21칸(시작 +20분까지). 끝난 뒤: -30분부터 10분씩 15칸(+110분까지) */
+const six=(a)=>a.flatMap(v=>Array(6).fill(Math.round(v/6)));
+const KER=[0,0,0,21,25,18.8,12.9,8.4,5.3,3.3,2.1,1.3,.8,.5,.3];
+const GIN={n:[12,10,14,12,10,11,12,13,13,15,14,16,17,19,13,11,6,7,5,4,3],d:[8,8,9,4,9,7,8,9,9,10,11,10,11,11,7,7,6,4,5,1,2],s:[3,4,4,4,4,6,3,9,8,7,11,9,6,8,9,8,7,5,4,4,3]};
+const GOUT={n:[0,1,5,32,57,65,60,49,36,30,24,21,17,15,11],d:[0,2,3,22,43,51,42,35,29,24,21,16,13,11,8],s:[3,6,7,18,30,31,25,19,19,15,14,12,9,6,4]};
+const PRE={e:six([680,1070,1040]).concat([3,3,3]),s:six([170,120,140]).map((v,i)=>v).concat([0,0,0]),n:GIN.n.map(v=>v*2),w:Array(21).fill(0),m:Array(21).fill(0)};
+const POST={e:KER.map(p=>Math.round(2440*p/100)),s:KER.map((p,i)=>Math.round(830*p/100)+GOUT.s[i]*2),n:GOUT.n.map(v=>v*2),w:Array(15).fill(0),m:Array(15).fill(0)};
+const STEPS=[];for(let i=0;i<21;i++)STEPS.push({ph:0,t:-180+i*10,i});for(let i=0;i<15;i++)STEPS.push({ph:1,t:-30+i*10,i});
+const lab=s=>s.ph===0?(s.t<0?`시작 ${-s.t}분 전부터 10분`:s.t===0?'시작부터 10분':`시작 ${s.t}분 뒤부터 10분`):(s.t<0?`끝나기 ${-s.t}분 전부터 10분`:s.t===0?'끝난 직후 10분':`끝나고 ${s.t}~${s.t+10}분`);
+const WALK=[{n:'올림픽공원역 방향 (동쪽)',k:'e'},{n:'남2문·방이동 방향 (남쪽)',k:'s'},{n:'한성백제역 방향 (서쪽)',k:'w'},{n:'몽촌토성역 방향 (서쪽 끝)',k:'m'},{n:'북2문·성내동 방향 (북쪽)',k:'n'}];
+const CARS=[{n:'북2문',k:'n',p:[37.52369,127.12779]},{n:'동2문',k:'d',p:[37.51607,127.13004]},{n:'남2문',k:'s',p:[37.51434,127.12274]}];
+const BOX=[[37.5120,127.1118],[37.5245,127.1345]];
+const map=L.map('map',{zoomControl:true,scrollWheelZoom:false});map.attributionControl.setPrefix('Leaflet');map.fitBounds(BOX);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap'}).addTo(map);
+[[37.51615,127.13093,'올림픽공원역','right'],[37.51667,127.11621,'한성백제역','bottom'],[37.51753,127.11267,'몽촌토성역','top']].forEach(([a,b,n,d])=>L.circleMarker([a,b],{radius:3,color:'#0A0A0A',fillColor:'#fff',fillOpacity:1,weight:2,interactive:false}).addTo(map).bindTooltip(n,{permanent:true,direction:d,offset:d==='right'?[6,0]:[0,d==='top'?-4:4],className:'lb nm'}));
+L.circleMarker([37.51926,127.12751],{radius:7,color:'#0A0A0A',fillColor:'#0A0A0A',fillOpacity:1,interactive:false}).addTo(map).bindTooltip('KSPO DOME',{permanent:true,direction:'left',offset:[-8,0],className:'lb'});
+const lines=CH.map(c=>L.polyline(c.p,{lineJoin:'round',lineCap:'round',interactive:false,smoothFactor:0,weight:6,opacity:.55,color:LV[0][1]}).addTo(map));
+const gmk={};CARS.forEach(c=>{gmk[c.k]=L.marker(c.p,{interactive:false,icon:L.divIcon({className:'',html:`<div class="gt">${c.n}</div>`,iconSize:[44,22],iconAnchor:[22,11]})}).addTo(map)});
+const hav=(a,b)=>{const p=Math.PI/180,x=(b[1]-a[1])*p*Math.cos((a[0]+b[0])/2*p),y=(b[0]-a[0])*p;return 6371000*Math.hypot(x,y)};
+/* 방향별 길: 조각을 이어 붙이고, 거리로 위치를 찾을 수 있게 해 둠 */
+const RT={};WALK.forEach(w=>{const pts=[],own=[];CH.forEach((c,ci)=>{if(!c.m.includes(w.k))return;c.p.forEach((p,j)=>{if(pts.length&&j===0)return;pts.push(p);own.push(ci)})});const cum=[0];for(let i=1;i<pts.length;i++)cum.push(cum[i-1]+hav(pts[i-1],pts[i]));RT[w.k]={pts,cum,own,len:cum[cum.length-1]}});
+const at=(r,s)=>{let i=1;while(i<r.cum.length-1&&r.cum[i]<s)i++;const f=(s-r.cum[i-1])/((r.cum[i]-r.cum[i-1])||1),a=r.pts[i-1],b=r.pts[i];return{ll:[a[0]+(b[0]-a[0])*f,a[1]+(b[1]-a[1])*f],ci:r.own[i]}};
+/* 점: 10분 칸마다 사람 수/10개를 칸 안에 고르게 출발시킴 */
+const DOTS=[[],[]];[PRE,POST].forEach((Q,ph)=>WALK.forEach(w=>Q[w.k].forEach((q,i)=>{const n=Math.round(q/PPD),t0=(ph?-30:-180)+i*10;for(let j=0;j<n;j++)DOTS[ph].push({k:w.k,dep:t0+10*(j+.5)/n})})));
+const $=s=>document.querySelector(s),cv=$('#cv'),cx=cv.getContext('2d');
+function size(){const r=$('#map').getBoundingClientRect(),d=window.devicePixelRatio||1;cv.width=r.width*d;cv.height=r.height*d;cv.style.width=r.width+'px';cv.style.height=r.height+'px';cx.setTransform(d,0,0,d,0,0)}
+let pos=21,playing=false,last=0;
+function frame(){const si=Math.min(35,Math.floor(pos)),st=STEPS[si],T=st.t+(pos-si)*10,ph=st.ph,Q=ph?POST:PRE;
+ const onCh=CH.map(()=>0),onRt={e:0,s:0,w:0,m:0,n:0};cx.clearRect(0,0,cv.width,cv.height);cx.fillStyle='#0A0A0A';
+ DOTS[ph].forEach(d=>{const r=RT[d.k],s=(T-d.dep)*SPD;if(s<0||s>r.len)return;const a=at(r,ph?s:r.len-s);onCh[a.ci]++;onRt[d.k]++;const p=map.latLngToContainerPoint(a.ll);cx.beginPath();cx.arc(p.x,p.y,2.2,0,6.283);cx.fill()});
+ CH.forEach((c,k)=>{const f=onCh[k]*PPD*750/c.len,l=f>=TH[2]?3:f>=TH[1]?2:f>=TH[0]?1:0;lines[k].setStyle({color:LV[l][1]})});
+ if(frame.si!==si||frame.tick!==Math.floor(pos*5)){frame.si=si;frame.tick=Math.floor(pos*5);$('#now').textContent=lab(st);$('#rg').value=si;
+  const G=ph?GOUT:GIN,num=n=>Math.round(n).toLocaleString('ko-KR');
+  $('#walk').innerHTML=WALK.map(w=>{const q=Q[w.k][st.i],l=q>=TH[2]?3:q>=TH[1]?2:q>=TH[0]?1:0;return `<li><button type="button" tabindex="-1"><b>${w.n} <span style="font-weight:400;color:var(--ink-2)">${num(RT[w.k].len/10)*10>=1000?(Math.round(RT[w.k].len/10)*10).toLocaleString('ko-KR'):Math.round(RT[w.k].len/10)*10}m</span></b><span class="lv"><i style="background:${LV[l][1]}"></i>${LV[l][0]}</span><span class="cap seg">${q>=5?`이 10분에 ${ph?'공연장에서 출발':'공연장 쪽으로 출발'} 약 <b>${num(q)}명</b> · 지금 길 위에 약 <b>${num(onRt[w.k]*PPD)}명</b>`:'확인된 사람이 거의 없어요'}</span></button></li>`}).join('');
+  $('#car').innerHTML=CARS.map(c=>{const q=G[c.k][st.i],l=q>=CTH[2]?3:q>=CTH[1]?2:q>=CTH[0]?1:0;const el=gmk[c.k].getElement().firstChild;el.style.background=l?LV[l][1]:'#fff';el.style.color=l>=2?'#fff':'#0A0A0A';return `<li><button type="button" tabindex="-1"><b>${c.n}</b><span class="lv"><i style="background:${LV[l][1]}"></i>${LV[l][0]}</span><span class="cap seg">이 10분에 ${ph?'나가는':'들어오는'} 차가 평소보다 약 <b>${num(Math.max(0,q))}대</b> 많아요</span></button></li>`}).join('');
+  const pe=Q.e[st.i],cd=G.d[st.i],m=$('#meet');if(ph&&pe>=TH[1]&&cd>=CTH[1]){m.hidden=false;m.innerHTML=`<b>동2문 앞</b> 역으로 걷는 사람 약 ${num(pe)}명과 동2문으로 나가는 차 약 ${num(cd)}대가 같은 10분에 만나요. 역 출구와 동2문은 60m 떨어져 있어요.`}else m.hidden=true}
+}
+function loop(ts){if(playing){if(last)pos+=(ts-last)/1000*1.2;last=ts;if(pos>=35.99){pos=35.99;playing=false;last=0;$('#pl').textContent='처음부터';$('#pl').setAttribute('aria-pressed','false')}frame();if(playing)requestAnimationFrame(loop)}}
+$('#pl').addEventListener('click',()=>{if(playing){playing=false;last=0;$('#pl').textContent='재생'}else{if(pos>=35.9)pos=0;playing=true;$('#pl').textContent='멈춤';requestAnimationFrame(loop)}$('#pl').setAttribute('aria-pressed',playing)});
+$('#rg').addEventListener('input',e=>{pos=+e.target.value+.5;frame.si=-1;frame()});
+$('#lg').innerHTML=LV.map((l,j)=>`<span><i style="background:${l[1]}"></i>${l[0]} ${j===0?'10분에 50명 미만':j===1?'50~150명':j===2?'150~250명':'250명 이상'}</span>`).join('')+'<span><i style="background:#0A0A0A;width:5px;height:5px;border-radius:50%"></i>10명</span>';
+map.on('move zoom resize',()=>{size();frame.si=-1;frame()});size();pos=24.5;frame();
+if(matchMedia('(prefers-reduced-motion: reduce)').matches)$('#pl').hidden=true;
+</script></body></html>
