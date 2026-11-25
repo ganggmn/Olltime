@@ -1,5 +1,5 @@
 /* 지난 공연 일정을 올림픽공원 누리집 '일정안내'에서 받아 저장해요(분석용). 
-   사용: node scripts/fetch_shows_history.mjs 2025-01 2025-12  → analysis/shows_site_2025.json
+   사용: node scripts/fetch_shows_history.mjs 2025-01 2025-12  → analysis/shows_site_2025-01_2025-12.json
    원문(시각 문장 포함)과, api/_shows.js로 풀어 낸 날짜별 시작 시각을 함께 남겨요. */
 import fs from 'fs';
 import { parseShows, timesOf, venueOf, runOf } from '../api/_shows.js';
@@ -17,5 +17,5 @@ const parsed = parseShows([[raw]]);
 const small = [];
 for (const x of raw) if (!venueOf(x.plc)) { const t = timesOf(x.tm, x.beginDt, x.endDt); for (const s of t.list) small.push({ d: s.d, t: s.t, venue: String(x.plc || '').trim(), name: String(x.title || '').trim(), run: runOf(x.ndTm), seq: x.evtSeq }); }
 const out = { source: '한국체육산업개발 올림픽공원 누리집 일정안내 (eventInfoListAjax.es)', read_at: new Date().toISOString(), months: yms, raw, list: parsed.list, small, skipped: parsed.skipped };
-fs.writeFileSync('analysis/shows_site_' + a.slice(0, 4) + '.json', JSON.stringify(out, null, 1));
+fs.writeFileSync('analysis/shows_site_' + a + '_' + b + '.json', JSON.stringify(out, null, 1));
 console.log('raw', raw.length, 'shows', parsed.list.length, 'small', small.length, 'skipped', parsed.skipped.length);

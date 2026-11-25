@@ -69,6 +69,7 @@ export function timesOf(tm, begin, end) {
   if (!isFinite(b) || !isFinite(e) || e < b) return { list: [], miss: ['기간을 읽지 못함'] };
   const days = []; for (let t = b; t <= e && days.length < 62; t += 864e5) days.push(new Date(t + 9 * 36e5));
   const inRange = new Set(days.map(x => (x.getUTCMonth() + 1) + '-' + x.getUTCDate()));
+  const mentioned = new Set(); for (const m of text.matchAll(DATE)) if (+m[2] >= 1 && +m[2] <= 12) mentioned.add(+m[2] + '-' + +m[3]);
   const loose = new Map(); for (const [k, v] of byDate) if (!inRange.has(k)) { const d = k.split('-')[1]; if (!loose.has(d)) loose.set(d, v); }
   for (const x of days) {
     const d = x.toISOString().slice(0, 10), k = (x.getUTCMonth() + 1) + '-' + x.getUTCDate();
@@ -76,9 +77,12 @@ export function timesOf(tm, begin, end) {
     if (!ts && !byDate.size) ts = byWd.get(x.getUTCDay()) || (byWd.size ? null : plain.length && days.length === 1 ? plain : plain.length === 1 ? plain : null);
     if (!ts && byDate.size && byWd.size) ts = byWd.get(x.getUTCDay());
     if (ts) for (const min of [...new Set(ts)].sort((p, q) => p - q)) out.push({ d, t: pad(Math.floor(min / 60)) + ':' + pad(min % 60) });
-    else if (!byDate.size && !byWd.has(x.getUTCDay()) && byWd.size) { /* 그 요일은 공연이 없는 날 */ }
+    /* 시각이 없는 날: 글에 날짜가 적혀 있으면 그 날짜만 '못 읽음'(나머지는 공연 없는 날), 요일로 적혀 있으면 적히지 않은 요일은 공연 없는 날,
+       날짜도 요일도 없이 시각만 적혀 있는데 못 붙였으면 못 읽음 */
+    else if (byDate.size || byWd.size) { if (mentioned.has(k)) miss.push(d); }
     else miss.push(d);
   }
+  if (!out.length && !miss.length) miss.push(...days.map(x => x.toISOString().slice(0, 10)));
   return { list: out, miss };
 }
 /* 누리집 응답(한 달 치: [앞으로의 공연, 지난 공연]) 여러 개 → 공연 목록 */
