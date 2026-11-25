@@ -1,0 +1,23 @@
+name: 2025년 공원 둘레 버스·따릉이 자료 받기
+on:
+  workflow_dispatch:
+    inputs:
+      what: { description: 'bus, bike 또는 둘 다(빈칸)', default: '' }
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/fetch_transit_2025.py ${{ inputs.what }}
+      - run: |
+          git config user.name "olltime-bot"
+          git config user.email "olltime-bot@users.noreply.github.com"
+          git add analysis/bus_park_2025.csv.gz analysis/bike_park_2025.csv.gz 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "2025년 공원 둘레 버스·따릉이 자료 받음"
+          git pull --rebase -q && git push
