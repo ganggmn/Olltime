@@ -3,5 +3,10 @@
   "private": true,
   "type": "module",
   "description": "올타임: 올림픽공원 방문 시간 안내",
-  "engines": { "node": ">=20" }
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node tests/run.mjs"
+  }
 }
