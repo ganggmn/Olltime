@@ -26,7 +26,7 @@ const mkTravel=R=>{
   if(!best)return null;
   const seq=path(P,best.k),legs=[];let cur=null;
   for(const k of seq){const s=Math.floor(k/NL),L=k%NL;if(!cur||cur.L!==L){if(cur&&cur.to===undefined)cur.to=cur.last;cur={L,from:s,last:s};legs.push(cur)}else cur.last=s}
-  const lg=[];for(const x of legs.filter(x=>x.from!==x.last)){const prev=lg[lg.length-1];if(prev&&prev.base===(x.L>>1)){prev.to=ST[x.last][0];prev.exp=prev.exp||(x.L&1)}else lg.push({base:x.L>>1,line:LN[x.L>>1],exp:x.L&1,from:ST[x.from][0],to:ST[x.last][0]})}
+  const lg=[];for(const x of legs.filter(x=>x.from!==x.last)){const prev=lg[lg.length-1];if(prev&&prev.L===x.L){prev.to=ST[x.last][0]}else lg.push({L:x.L,base:x.L>>1,line:LN[x.L>>1],exp:x.L&1,from:ST[x.from][0],to:ST[x.last][0]})}
   return{min:Math.round(best.tot),ride:Math.round(best.d),walk:Math.round(best.w),to:best.t,legs:lg}};
  /* 자동차: 서울시 평균 속도(평일 21.7, 휴일 23.9, 도시고속도로 50.2) x 공원 주변 시간대별 속도 비율 */
  const hours=Object.keys(R.spd).map(Number),pm=hours.filter(h=>h>=6&&h<=18).reduce((a,h)=>a+R.spd[h],0)/hours.filter(h=>h>=6&&h<=18).length;
