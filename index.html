@@ -477,7 +477,7 @@ h1{font-size:28px;line-height:1.35}h2{font-size:20px;line-height:1.5}.ins .bign,
 
 <footer class="ft"><div class="wrap">
   <div><h2>올타임</h2><p>올림픽공원 방문 시간 안내 서비스예요. 한국체육산업개발(주) 공공데이터 활용 경진대회 출품작이며, 올림픽공원 공식 서비스가 아니에요.</p><p id="ftStamp" style="margin-top:8px">서울시 데이터를 불러오는 중이에요.</p><p class="ftl"><a href="/privacy">개인정보 처리방침</a><a href="/terms">이용약관</a></p></div>
-  <div><h2>사용한 데이터</h2><ul><li>한국체육산업개발(주) 올림픽공원 2025 입출차정보</li><li>한국체육산업개발(주) 차량 입출차, 공연, 날씨 연계 데이터</li><li>한국체육산업개발(주) 올림픽공원 실시간 주차 현황</li><li>한국체육산업개발(주) 올림픽공원 공연정보(공연 일정), 공연 시작 시각은 올림픽공원 누리집 공연 안내</li><li>한국체육산업개발(주) 주차장 혼잡도 정보(만차 기록)</li><li>서울특별시 공공데이터 서울시 실시간 도시데이터(올림픽공원)</li><li>서울특별시 공공데이터 서울 생활인구(250m 격자, 2025년)</li><li>서울교통공사 역별 일별 시간대별 승하차 인원(2025년)</li><li>서울특별시 공공데이터 서울시 지하철 실시간 도착정보(올림픽공원역)</li><li>올림픽공원 유실물센터 게시판</li><li>수도권 지하철 노선과 역 위치, 공원 안 걷는 길 모양은 © OpenStreetMap&nbsp;기여자(ODbL)</li><li>서울시 차량통행속도(2025년 평일 시속 21.7km, 휴일 23.9km)와 도시고속도로 평균 시속 50.2km(2024년)</li></ul></div>
+  <div><h2>사용한 데이터</h2><ul><li>한국체육산업개발(주) 올림픽공원 2025 입출차정보</li><li>한국체육산업개발(주) 차량 입출차, 공연, 날씨 연계 데이터</li><li>한국체육산업개발(주) 올림픽공원 실시간 주차 현황</li><li>한국체육산업개발(주) 올림픽공원 공연정보(공연 일정), 공연 시작 시각은 올림픽공원 누리집 공연 안내</li><li>한국체육산업개발(주) 주차장 혼잡도 정보(만차 기록)</li><li>서울특별시 공공데이터 서울시 실시간 도시데이터(올림픽공원)</li><li>서울특별시 공공데이터 서울 생활인구(250m 격자, 2025년)</li><li>서울교통공사 역별 일별 시간대별 승하차 인원(2025년)</li><li>서울특별시 공공데이터 서울시 지하철 실시간 도착정보(올림픽공원·한성백제·몽촌토성역)</li><li>올림픽공원 유실물센터 게시판</li><li>수도권 지하철 노선과 역 위치, 공원 안 걷는 길 모양은 © OpenStreetMap&nbsp;기여자(ODbL)</li><li>서울시 차량통행속도(2025년 평일 시속 21.7km, 휴일 23.9km)와 도시고속도로 평균 시속 50.2km(2024년)</li></ul></div>
   <div><h2>실측과 예상</h2><p>서울시 실측과 예보는 서울시가 발표한 값 그대로예요. 다만 혼잡 단계 이름은 서울시의 '약간 붐빔', '붐빔'을 '약간 혼잡', '혼잡'으로 바꿔 적었어요. 서울시 인구는 500명 단위 구간으로 나와서 그대로 보여드려요. 예상이라고 적은 값은 작년 공연 날 주차장 기록을 공연 시각에 맞춰 옮겨 계산한 값이라 실제와 다를 수 있어요.</p><p style="margin-top:8px">오는 길 시간은 어림값이에요. 지하철은 역 사이 거리로 계산하고 환승 5분, 첫 열차 대기 4분을 더했어요. 자동차는 서울시 평균 통행속도에 공원 주변 도로의 시간대별 속도 비율을 곱하고, 6km가 넘는 구간의 4분의 3은 도시고속도로로 간다고 가정했어요.</p></div>
 </div></footer>
 <noscript><p style="position:fixed;left:0;right:0;bottom:0;margin:0;padding:12px 20px;background:#0A0A0A;color:#FAFAFA;font-size:14px">올타임은 자바스크립트로 지도와 시각을 계산해요. 브라우저에서 자바스크립트를 켜 주세요.</p></noscript>
@@ -979,7 +979,7 @@ const renderTrain=()=>{const box=$('#train');
  box.hidden=false;box.innerHTML=`<h2 class="h-sub">올림픽공원역 다음 열차</h2>${rows?`<ul class="shl trl">${rows}</ul>`:'<p class="sum">지금은 들어오는 열차 정보가 없어요.</p>'}<p class="cap">서울시 지하철 실시간 도착정보${at?`, ${esc(at.slice(11,16))} 기준`:''}</p>`};
 const loadTrain=async()=>{try{TRAIN=await getJSON('/api/subway',7000)}catch(e){}renderTrain()};
 loadTrain();
-setInterval(()=>{if(document.visibilityState==='visible')loadTrain();else renderTrain()},120000);
+setInterval(()=>{if(document.visibilityState==='visible')loadTrain();else renderTrain()},30000);
 $('#retry').onclick=()=>{$('#retry').dataset.busy='1';load()};
 /* 열어 둔 채로 있어도 최신으로: 1분마다 '지금' 표시, 5분마다 서울시 데이터를 조용히 다시 받아요 */
 setInterval(()=>{if(VIEW===TODAY)drawNow();renderTrain()},60000);

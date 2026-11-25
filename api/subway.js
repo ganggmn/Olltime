@@ -1,6 +1,6 @@
 /* GET /api/subway: 올림픽공원역에 들어오는 다음 열차 (서울시 지하철 실시간 도착정보).
    서울시 실시간 지하철 키는 서버에만 있어요(환경변수 SEOUL_SUBWAY_KEY).
-   응답은 2분 동안 CDN에 저장돼서, 방문자가 많아도 서울시는 2분에 한 번 정도만 불러요.
+   응답은 30초 동안 CDN에 저장해요(서울시 호출 한도가 풀려서 2분에서 줄임).
    9호선은 '올림픽공원', 5호선은 '올림픽공원(한국체대)'로 따로 잡혀서 두 이름을 함께 물어요.
    화면에서는 서울시가 정보를 만든 시각부터 지난 시간을 빼고, 이미 지나간 열차는 지워요. */
 import { STATIONS, ask } from './_subway.js';
@@ -29,6 +29,6 @@ export default async function handler(req, res) {
     }
   }
   const asked = STATIONS.map((q, i) => ({ q, n: got[i].status === 'fulfilled' ? got[i].value.length : -1 }));
-  res.setHeader('Cache-Control', 's-maxage=120, stale-while-revalidate=60');
+  res.setHeader('Cache-Control', 's-maxage=30, stale-while-revalidate=30');
   return res.status(200).json({ ok: true, fetchedAt: new Date().toISOString(), asked, list });
 }

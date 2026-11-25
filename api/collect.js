@@ -5,14 +5,18 @@
 import { compactCity } from './_city.js';
 import { ask } from './_subway.js';
 
-/* 지하철 도착 정보는 공연이 있는 시간대(14:30~01:00)에만 모아요. 하루 호출 한도를 아끼려고 세 이름만 물어요. */
-const SUBWAY_Q = ['올림픽공원', '올림픽공원(한국체대)', '한성백제'];
+/* 지하철 도착 정보: 공원 둘레의 세 역을 하루 종일 모아요(서울시 호출 한도가 풀림, 2026년 11월 26일부터).
+   몽촌토성역은 서울시에 '몽촌토성(평화의문)'으로 올라 있을 수 있어서 두 이름을 다 물어요. 없는 이름은 빈 목록으로 와요. */
+const SUBWAY_Q = ['올림픽공원', '올림픽공원(한국체대)', '한성백제', '몽촌토성', '몽촌토성(평화의문)'];
 
 const AREA = '올림픽공원';
+/* 공원 둘레: 서울시 '잠실 관광특구' 구역(2.31㎢)은 '올림픽공원' 구역(1.45㎢)을 통째로 품고 있어요.
+   두 값의 차이가 공원 서쪽 테두리(잠실·방이동 쪽, 약 0.86㎢)의 사람 수예요. 2026년 11월 26일부터 모아요. */
+const RIM = ['잠실 관광특구'];
 const PARKING_URL = 'https://www.ksponco.or.kr/online/main/parkingorsApi.do?apiKey=PARKING21803504';
 
-async function city(key) {
-  const url = `http://openapi.seoul.go.kr:8088/${encodeURIComponent(key)}/json/citydata/1/5/${encodeURIComponent(AREA)}`;
+async function city(key, area = AREA) {
+  const url = `http://openapi.seoul.go.kr:8088/${encodeURIComponent(key)}/json/citydata/1/5/${encodeURIComponent(area)}`;
   const r = await fetch(url, { signal: AbortSignal.timeout(9000) });
   const text = (await r.text()).trim();
   if (!r.ok) throw new Error(`서버 응답 ${r.status}`);
@@ -57,7 +61,7 @@ export default async function handler(req, res) {
     return res.status(502).json({ ok: false, note: '저장소에 닿지 못했어요' });
   }
 
-  const [c, p] = await Promise.allSettled([city(SEOUL_KEY), parking()]);
+  const [c, p, rim] = await Promise.allSettled([city(SEOUL_KEY), parking(), Promise.allSettled(RIM.map(a => city(SEOUL_KEY, a)))]);
   /* 하나라도 못 받았으면 이유를 수집 기록(collect_log)에 남겨요. 알림판이 '오류'와 '미확인'을 가르는 데 써요. */
   if (c.status !== 'fulfilled' || p.status !== 'fulfilled') {
     try {
@@ -85,10 +89,17 @@ export default async function handler(req, res) {
       body: JSON.stringify(row), signal: AbortSignal.timeout(8000)
     });
     if (!r.ok) return res.status(502).json({ ok: false, note: `저장 실패 ${r.status}` });
-    /* 지하철: 한국 시간 14:30~01:00에만 */
+    /* 공원 둘레 구역: 못 받은 구역도 이유와 함께 한 줄 남겨요 */
+    const rimRows = (rim.status === 'fulfilled' ? rim.value : []).map((g, i) => (g.status === 'fulfilled'
+      ? { ts: slot, area: RIM[i], lo: g.value.lo, hi: g.value.hi, ppl_time: g.value.time, lvl: g.value.lvl, fcst: g.value.fcst, err: null }
+      : { ts: slot, area: RIM[i], lo: null, hi: null, ppl_time: null, lvl: null, fcst: null, err: why(g.reason) }));
+    const rimSave = rimRows.length ? fetch(`${base}/rest/v1/area_samples?on_conflict=ts,area`, {
+      method: 'POST', headers: { ...auth, 'Content-Type': 'application/json', Prefer: 'resolution=merge-duplicates,return=minimal' },
+      body: JSON.stringify(rimRows), signal: AbortSignal.timeout(8000)
+    }).then(r => (r.ok ? rimRows.filter(x => x.err === null).length : `저장 실패 ${r.status}`)).catch(() => '저장소에 닿지 못함') : Promise.resolve(0);
+    /* 지하철: 하루 종일 */
     let subway = null;
-    const kstMin = (new Date(Date.now() + 9 * 3600e3).getUTCHours() * 60) + new Date().getUTCMinutes();
-    if (SEOUL_SUBWAY_KEY && (kstMin >= 870 || kstMin < 60)) {
+    if (SEOUL_SUBWAY_KEY) {
       const got = await Promise.allSettled(SUBWAY_Q.map(q => ask(SEOUL_SUBWAY_KEY, q)));
       const list = got.flatMap(g => (g.status === 'fulfilled' ? g.value : []));
       if (got.some(g => g.status === 'fulfilled')) {
@@ -100,7 +111,8 @@ export default async function handler(req, res) {
         subway = r2.ok ? list.length : `저장 실패 ${r2.status}`;
       }
     }
-    return res.status(200).json({ ok: true, ts: slot, parking: row.parking !== null, people: row.ppl_lo !== null, subway });
+    const areas = await rimSave;
+    return res.status(200).json({ ok: true, ts: slot, parking: row.parking !== null, people: row.ppl_lo !== null, areas, subway });
   } catch (e) {
     return res.status(502).json({ ok: false, note: '저장소에 닿지 못했어요' });
   }

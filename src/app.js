@@ -420,7 +420,7 @@ const renderTrain=()=>{const box=$('#train');
  box.hidden=false;box.innerHTML=`<h2 class="h-sub">올림픽공원역 다음 열차</h2>${rows?`<ul class="shl trl">${rows}</ul>`:'<p class="sum">지금은 들어오는 열차 정보가 없어요.</p>'}<p class="cap">서울시 지하철 실시간 도착정보${at?`, ${esc(at.slice(11,16))} 기준`:''}</p>`};
 const loadTrain=async()=>{try{TRAIN=await getJSON('/api/subway',7000)}catch(e){}renderTrain()};
 loadTrain();
-setInterval(()=>{if(document.visibilityState==='visible')loadTrain();else renderTrain()},120000);
+setInterval(()=>{if(document.visibilityState==='visible')loadTrain();else renderTrain()},30000);
 $('#retry').onclick=()=>{$('#retry').dataset.busy='1';load()};
 /* 열어 둔 채로 있어도 최신으로: 1분마다 '지금' 표시, 5분마다 서울시 데이터를 조용히 다시 받아요 */
 setInterval(()=>{if(VIEW===TODAY)drawNow();renderTrain()},60000);
