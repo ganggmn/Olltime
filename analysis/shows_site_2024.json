@@ -1,0 +1,9644 @@
+{
+ "source": "한국체육산업개발 올림픽공원 누리집 일정안내 (eventInfoListAjax.es)",
+ "read_at": "2026-11-25T16:51:57.880Z",
+ "months": [
+  "202412",
+  "202501",
+  "202502",
+  "202503",
+  "202504",
+  "202505",
+  "202506",
+  "202507",
+  "202508",
+  "202509",
+  "202510",
+  "202511",
+  "202512"
+ ],
+ "raw": [
+  {
+   "evtSeq": 4874,
+   "plc": "뮤즈라이브",
+   "plcCd": "07",
+   "beginDt": "2024-10-04",
+   "endDt": "2024-12-31",
+   "ndTm": "65분",
+   "seeAge": "12개월이상 관람가",
+   "title": "뮤지컬 〈친구의 전설〉 - 서울",
+   "tm": "일별 11:00, 14:00, 16:30 (일자별 상이 / 스케줄 표 참고)",
+   "genre": ""
+  },
+  {
+   "evtSeq": 4893,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2024-11-23",
+   "endDt": "2024-12-01",
+   "ndTm": "130분",
+   "seeAge": "8세이상 관람가능",
+   "title": "[20집 발매 기념 조용필&위대한탄생 Concert - 서울]",
+   "tm": "토일 18:00",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4892,
+   "plc": "우리금융아트홀",
+   "plcCd": "04",
+   "beginDt": "2024-11-24",
+   "endDt": "2024-12-29",
+   "ndTm": "100분",
+   "seeAge": "8세이상 관람가능",
+   "title": "최현우 19＋I",
+   "tm": "평일 19시 30분 / 토요일 14시, 18시 / 일요일 13시 / 월,화 공연없음 11/23(토) 프리뷰 공연 18시 / 11/24(일) 13시, 17시 / 12/24(화) 크리스마스 이브 19시 30분 / 12/25 크리스마스 14시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4894,
+   "plc": "올림픽핸드볼경기장",
+   "plcCd": "03",
+   "beginDt": "2024-11-30",
+   "endDt": "2024-12-01",
+   "ndTm": "",
+   "seeAge": "만 7세이상",
+   "title": "2024 하현상 콘서트 〈Elegy〉",
+   "tm": "2024년 11월 30일(토) 6PM 2024년 12월 1일(일) 5PM",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4898,
+   "plc": "KSPODOME",
+   "plcCd": "02",
+   "beginDt": "2024-12-06",
+   "endDt": "2024-12-08",
+   "ndTm": "150분",
+   "seeAge": "만 7세 이상 관람가",
+   "title": "INFINITE 15TH ANNIVERSARY CONCERT : LIMITED EDITION",
+   "tm": "2024년 12월 06일(금) ~ 2024년 12월 08일(일)  금 20시 / 토 18시 / 일 17시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4904,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2024-12-06",
+   "endDt": "2024-12-08",
+   "ndTm": "120분",
+   "seeAge": "만 7세이상",
+   "title": "2024 다이나믹 듀오 단독 콘서트 “가끔씩 오래 보자” - 서울",
+   "tm": "2024년 12월 6일(금) 8PM 2024년 12월 7일(토) 6PM 2024년 12월 8일(일) 5PM",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4901,
+   "plc": "핸드볼경기장",
+   "plcCd": "03",
+   "beginDt": "2024-12-07",
+   "endDt": "2024-12-08",
+   "ndTm": "",
+   "seeAge": "만 7세 이상 관람가",
+   "title": "2024 로이킴 콘서트 〈R♥y actually〉",
+   "tm": "2024년 12월 7일 6PM 2024년 12월 8일 5PM",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4902,
+   "plc": "핸드볼경기장",
+   "plcCd": "03",
+   "beginDt": "2024-12-13",
+   "endDt": "2024-12-15",
+   "ndTm": "120분",
+   "seeAge": "만 8세이상",
+   "title": "2024 권진아 연말 콘서트 〈This Winter〉",
+   "tm": "2024년 12월 13일(금) 오후 8시  2024년 12월 14일(토) 오후 6시  2024년 12월 15일(일) 오후 5시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4899,
+   "plc": "KSPODOME",
+   "plcCd": "02",
+   "beginDt": "2024-12-13",
+   "endDt": "2024-12-15",
+   "ndTm": "120분",
+   "seeAge": "만 7세 이상(미취학아동이상)",
+   "title": "[서울 앵콜] 2024 이찬원 콘서트 ‘ 찬가（燦歌）’",
+   "tm": "2024년 12월 13일(금) 오후 7시 2024년 12월 14일(토) 오후 5시 2024년 12월 15일(일) 오후 5시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4905,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2024-12-14",
+   "endDt": "2024-12-15",
+   "ndTm": "120분",
+   "seeAge": "8세이상 관람가능",
+   "title": "GUMMY Tour Concert 2024 〈LOVE〉-서울",
+   "tm": "2024년 12월 14일(토) 오후 6시  2024년 12월 15일(일) 오후 4시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4907,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2024-12-20",
+   "endDt": "2024-12-22",
+   "ndTm": "120분",
+   "seeAge": "만 7세 이상 관람가",
+   "title": "2024 CRUSH CONCERT ［CRUSH HOUR : O］",
+   "tm": "2024년 12월 20일(금) 20:00 (KST) 2024년 12월 21일(토) 19:00 (KST) 2024년 12월 22일(일) 18:00 (KST)",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4903,
+   "plc": "핸드볼경기장",
+   "plcCd": "03",
+   "beginDt": "2024-12-20",
+   "endDt": "2024-12-22",
+   "ndTm": "120분",
+   "seeAge": "12세 이상",
+   "title": "2024 에픽하이 콘서트",
+   "tm": "2024년 12월 20일(금) ~ 12월 22일(일)  금 오후 8시 / 토 오후 6시 / 일 오후 4시 ",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4908,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2024-12-20",
+   "endDt": "2024-12-22",
+   "ndTm": "120분",
+   "seeAge": "8세이상 관람가능",
+   "title": "KYUHYUN 10th Anniversary Asia Tour ［COLORS］ in SEOUL",
+   "tm": "2024년 12월 20일(금) 20:00 (KST) 2024년 12월 21일(토) 18:00 (KST) 2024년 12월 22일(일) 17:00 (KST)",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4906,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2024-12-27",
+   "endDt": "2024-12-29",
+   "ndTm": "",
+   "seeAge": "미취학아동입장불가",
+   "title": "박진영 30주년 콘서트 〈Still JYP〉",
+   "tm": "2024년 12월 27일(금) 8PM 2024년 12월 28일(토) 6PM 2024년 12월 29일(일) 5PM",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4949,
+   "plc": "올림픽핸드볼경기장",
+   "plcCd": "03",
+   "beginDt": "2024-12-27",
+   "endDt": "2024-12-29",
+   "ndTm": "120분",
+   "seeAge": "만 7세이상",
+   "title": "2024 LEE SEUNG YOON CONCERT ［YEOK SEONG : 끝을 거슬러］",
+   "tm": "2024년 12월 27일(금) 오후 8시  12월 28일(토) 오후 6시  12월 29일(일) 오후 5시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4900,
+   "plc": "KSPODOME",
+   "plcCd": "02",
+   "beginDt": "2024-12-27",
+   "endDt": "2024-12-31",
+   "ndTm": "120분",
+   "seeAge": "초등학생이상 관람가",
+   "title": "2024 성시경 연말 콘서트 〈성시경〉",
+   "tm": "2024년 12월 27일(금) 7:30PM(KST) | 28일(토) 6PM(KST) | 29일(일) 6PM(KST) | 31일(화) 9PM",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4909,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2024-12-31",
+   "endDt": "2025-01-05",
+   "ndTm": "120분",
+   "seeAge": "초등학생 이상(미취학 아동이상)",
+   "title": "김희재 콘서트 ‘HEERE WE GO’",
+   "tm": "2024년 12월 31일(화) 오후 7시 2025년 1월 1일(수) 오후 5시 2025년 1월 4일(토) 오후 5시 2025년 1월 5일(일) 오후 5시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4910,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-01-04",
+   "endDt": "2025-01-05",
+   "ndTm": "150분",
+   "seeAge": "8세이상 관람가능",
+   "title": "로드 투 킹덤 : ACE OF ACE 콘서트",
+   "tm": "2025년 1월 4일(토) 오후 1시, 7시   2025년 1월 5일(일) 오후 1시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4914,
+   "plc": "우리금융아트홀",
+   "plcCd": "04",
+   "beginDt": "2025-01-08",
+   "endDt": "2025-02-16",
+   "ndTm": "65분 (인터미션없음)",
+   "seeAge": "24개월 이상 관람가(12~24개월 이상 증빙서류 확인시 무료입장)",
+   "title": "뮤지컬 [사랑의 하츄핑]",
+   "tm": "화,수,목,금,일 11시, 14시 / 토 11시, 14시, 16시 30분 (월 공연없음) * 설연휴 1월 28일/30일 11시, 14시 설당일 1월29일 14시, 16시30분",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4911,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-01-10",
+   "endDt": "2025-01-12",
+   "ndTm": "총 120분",
+   "seeAge": "만 10세이상",
+   "title": "나훈아 ‘2024 고마웠습니다-라스트 콘서트(LAST CONCERT)’",
+   "tm": "2025년 1월 10일(금) 오후 7시 30분 2025년 1월 11일(토) 오후 3시, 7시 30분 2025년 1월 12일(일) 오후 3시, 7시 30분",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4913,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-01-12",
+   "endDt": "2025-01-12",
+   "ndTm": "",
+   "seeAge": "전체관람가",
+   "title": "벤슨 분 첫 단독 내한공연",
+   "tm": "2025년 1월 12일(일) 오후 6시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4916,
+   "plc": "올림픽핸드볼경기장",
+   "plcCd": "03",
+   "beginDt": "2025-01-17",
+   "endDt": "2025-01-19",
+   "ndTm": "120분",
+   "seeAge": " 만 12세 이상",
+   "title": "I.M WORLD TOUR 〈Off The Beat〉 FINAL IN SEOUL",
+   "tm": "2025년 1월 17일(금) 오후 8시 2025년 1월 18일(토) 오후 6시 2025년 1월 19일(일) 오후 5시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4918,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-01-17",
+   "endDt": "2025-01-19",
+   "ndTm": "120분",
+   "seeAge": "만9세이상",
+   "title": "GFRIEND 10th Anniversary < Season of Memories >",
+   "tm": "2025년 01월 17일(금) ~ 2025년 01월 19일(일)  금 20시 / 토 18시 / 일 17시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4912,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-01-18",
+   "endDt": "2025-01-19",
+   "ndTm": "120분",
+   "seeAge": "8세이상 관람가능",
+   "title": "2025 DAVICHI CONCERT 〈A Stitch in Time〉",
+   "tm": "2025년 1월 18일 (토) 오후 6시   2025년 1월 19일 (일) 오후 5시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4915,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-01-25",
+   "endDt": "2025-01-26",
+   "ndTm": "",
+   "seeAge": "만 7세 이상 관람가",
+   "title": "2025 BABYMONSTER 1st WORLD TOUR 〈HELLO MONSTERS〉 IN SEOUL",
+   "tm": "2025년 1월 25일(토) 18:00 2025년 1월 26일(일) 17:00(",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4917,
+   "plc": "올림픽핸드볼경기장",
+   "plcCd": "03",
+   "beginDt": "2025-01-25",
+   "endDt": "2025-01-26",
+   "ndTm": "",
+   "seeAge": "미취학아동입장불가",
+   "title": "2025 SUHO CONCERT 〈SU:HOMME〉 ENCORE",
+   "tm": "2025년 1월 25일(토) ~ 1월 26일(일)   토 오후 6시 / 일 오후 4시",
+   "genre": ""
+  },
+  {
+   "evtSeq": 4919,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-01-25",
+   "endDt": "2025-01-26",
+   "ndTm": "110분",
+   "seeAge": "초등학생이상 관람가",
+   "title": "터치드(TOUCHED) 단독 콘서트 ‘HIGHLIGHT Ⅲ’",
+   "tm": "2025년 1월 25일(토)~26일(일) / 토 6PM 일 5PM",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4922,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-01-31",
+   "endDt": "2025-02-02",
+   "ndTm": "150분",
+   "seeAge": "8세이상 관람가능",
+   "title": "THE BOYZ FAN-CON 〈THE B LAND〉",
+   "tm": "2025년 1월 31일(금) 7PM 2025년 2월 1일(토) 5PM 2025년 2월 2일(일) 4PM 공지사항",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4932,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-02-07",
+   "endDt": "2025-02-09",
+   "ndTm": "120분",
+   "seeAge": "14세 이상 관람가",
+   "title": "2025 검정치마 단독공연 ＂SONGS TO BRING YOU HOME＂",
+   "tm": "2025년 2월 7일(금) 저녁 8시 2025년 2월 8일(토) 저녁 7시 2025년 2월 9일(일) 저녁 6시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4927,
+   "plc": "올림픽핸드볼경기장",
+   "plcCd": "03",
+   "beginDt": "2025-02-07",
+   "endDt": "2025-02-09",
+   "ndTm": "120분",
+   "seeAge": "만 7세 이상 관람가",
+   "title": "2025 LEECHANGSUB SOLO CONCERT 〈The Wayfarer〉 ENCORE",
+   "tm": "2월 7일(금) 오후 8시  2월 8일(토) 오후 6시  2월 9일(일) 오후 5시 ",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4920,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-02-08",
+   "endDt": "2025-02-09",
+   "ndTm": " 총 120분",
+   "seeAge": "초등학생 이상 (미취학아동이상)",
+   "title": "2025 황영웅 앨범 발매 쇼케이스 PANORAMA : SHOWKING",
+   "tm": "2025년 2월 8일(토) 오후 5시 2025년 2월 9일(일) 오후 5시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4928,
+   "plc": "올림픽핸드볼경기장",
+   "plcCd": "03",
+   "beginDt": "2025-02-14",
+   "endDt": "2025-02-16",
+   "ndTm": "120분",
+   "seeAge": "만 9세이상",
+   "title": "2025 TWS 1ST FANMEETING 〈42:CLUB〉 IN SEOUL",
+   "tm": "2025년 2월 14일(금) 7PM  2월 15일(토) 6PM 2월 16일(일) 5PM(KST)",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4923,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-02-14",
+   "endDt": "2025-02-16",
+   "ndTm": "120분",
+   "seeAge": "만 7세이상",
+   "title": "2025 윤하 앵콜 콘서트 〈GROWTH THEORY : Final Edition〉",
+   "tm": "2월 14일(금) 오후 8시 2월 15일(토) 오후 7시 2월 16일(일) 오후 6시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4933,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-02-15",
+   "endDt": "2025-02-16",
+   "ndTm": "120분",
+   "seeAge": "초등학생 이상 관람가",
+   "title": "2025 박지현 콘서트 쇼맨쉽 ‘SHOWMANSHIP’",
+   "tm": "2025년 2월 15일(토) 오후 5시 2025년 2월 16일(일) 오후 5시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4938,
+   "plc": "우리금융아트홀",
+   "plcCd": "04",
+   "beginDt": "2025-02-21",
+   "endDt": "2025-03-23",
+   "ndTm": "60분",
+   "seeAge": "36개월이상 관람가능",
+   "title": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "tm": "[2월 공연] - 화수목금 : 11시, 2시 - 토일 : 11시, 2시, 4시30분  [3월 공연] 금 : 오후 3시 토,일 : 오전 11시, 2시, 4시30분 * 3월3일(월) : 오전 11시, 2시, 4시30분 공연",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4921,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-02-22",
+   "endDt": "2025-02-23",
+   "ndTm": "120분",
+   "seeAge": "초등학생이상 관람가",
+   "title": "2025 영탁 단독 콘서트 “TAK SHOW3” - 앙코르",
+   "tm": "2025년 2월 22일(토) 오후 3시 | 2월 23일(일) 오후 3시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4934,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-02-22",
+   "endDt": "2025-02-23",
+   "ndTm": "120분",
+   "seeAge": "미취학아동입장불가",
+   "title": "2025 ONEW CONCERT [ONEW THE LIVE : CONNECTION] IN SEOUL",
+   "tm": "2025년 2월 21일(금) ~ 2월 23일(일)   금 오후 8시 / 토 오후 6시 / 일 오후 4시 ",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4924,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-02-28",
+   "endDt": "2025-03-02",
+   "ndTm": "120분",
+   "seeAge": "만 9세이상",
+   "title": "j-hope Tour ‘HOPE ON THE STAGE’ in SEOUL",
+   "tm": "2월 28일(금) 7PM 3월 1일(토) 6PM  3월 2일(일) 5PM",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4935,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-03-01",
+   "endDt": "2025-03-01",
+   "ndTm": "",
+   "seeAge": "전체관람가",
+   "title": "keshi: REQUIEM TOUR IN SEOUL",
+   "tm": "2025년 3월 1일(토) 오후 7시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4936,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-03-06",
+   "endDt": "2025-03-06",
+   "ndTm": "",
+   "seeAge": "만 12세이상",
+   "title": "KEHLANI - CRASH WORLD TOUR in Seoul",
+   "tm": "2025년 3월 6일(목) 오후 8시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4925,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-03-07",
+   "endDt": "2025-03-09",
+   "ndTm": "",
+   "seeAge": "7세 이상",
+   "title": "TAEYEON CONCERT - The TENSE",
+   "tm": "2025년 3월 7일(금) ~ 3월 9일(일)   금 오후 8시 / 토 오후 6시 / 일 오후 5시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4955,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-03-08",
+   "endDt": "2025-03-08",
+   "ndTm": "120분",
+   "seeAge": "8세이상 관람가능",
+   "title": "2025 LEE MINHO ASIA FANMEETING TOUR ‘MINHOVERSE’ IN SEOUL",
+   "tm": "2025년 3월 8일(토) 오후 6시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4929,
+   "plc": "올림픽핸드볼경기장",
+   "plcCd": "03",
+   "beginDt": "2025-03-15",
+   "endDt": "2025-03-16",
+   "ndTm": "150분",
+   "seeAge": "만 7세 이상 관람가",
+   "title": "2025년 이승환 콘서트 〈HEAVEN〉 - 서울",
+   "tm": "2025년 03월 15일 토 18시 2025년 03월 16일 일 17시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4926,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-03-15",
+   "endDt": "2025-03-16",
+   "ndTm": "",
+   "seeAge": "미취학아동입장불가",
+   "title": "2024-25 aespa LIVE TOUR－SYNK：PARALLEL LINE－ENCORE",
+   "tm": "2025년 3월 15일(토) ~ 3월 16일(일)  토 오후 6시 / 일 오후 5시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4937,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-03-15",
+   "endDt": "2025-03-15",
+   "ndTm": "90분",
+   "seeAge": "미취학아동입장불가",
+   "title": "보이위드우크 첫 단독 내한공연 BoyWithUke BURNOUT WORLD TOUR 2025",
+   "tm": "2025년 3월 15일(토) 오후 7시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4930,
+   "plc": "올림픽핸드볼경기장",
+   "plcCd": "03",
+   "beginDt": "2025-03-21",
+   "endDt": "2025-03-23",
+   "ndTm": "",
+   "seeAge": " 7세 이상",
+   "title": "2025 NCT WISH ASIA TOUR LOG in SEOUL",
+   "tm": "3월 21일(금) ~ 3월 23일(일)  금 오후 8시 / 토 오후 6시 / 일 오후 4시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4946,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-03-21",
+   "endDt": "2025-03-23",
+   "ndTm": "120분",
+   "seeAge": "만 8세이상 관람가능",
+   "title": "2025 BTOB FAN-CON ‘3,2,1 GO! MELympic’",
+   "tm": "2025년 3월 21일(금) 8PM, 3월 22일(토) 6PM, 3월 23일(일) 5PM",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4942,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-03-22",
+   "endDt": "2025-03-23",
+   "ndTm": "",
+   "seeAge": "7세 이상 (미취학아동입장불가)",
+   "title": "2025 ATEEZ WORLD TOUR [TOWARDS THE LIGHT : WILL TO POWER] FINALE IN SEOUL",
+   "tm": "2025년 3월 22일(토) 오후 5시 2025년 3월 23일(일) 오후 5시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4945,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-03-28",
+   "endDt": "2025-03-30",
+   "ndTm": "150분",
+   "seeAge": "8세이상 관람가능",
+   "title": "정동원棟동 이야기話화 3rd 전국투어 콘서트 - 서울",
+   "tm": "3월 28일(금) 7PM, 3월 29일(토) 5PM, 3월 30일(일) 5PM",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4950,
+   "plc": "올림픽핸드볼경기장",
+   "plcCd": "03",
+   "beginDt": "2025-03-29",
+   "endDt": "2025-03-30",
+   "ndTm": "120분",
+   "seeAge": "8세이상 관람가능",
+   "title": "〈미스터트롯3〉 전국투어 콘서트",
+   "tm": "2025년 3월 29일(토) 오후 1시, 6시 2025년 3월 30일(일) 오후 1시, 6시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4943,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-04-05",
+   "endDt": "2025-04-06",
+   "ndTm": "총 120분 예정 (인터미션 없음) ",
+   "seeAge": "7세 이상 (2018년생 포함 이전 출생자) ",
+   "title": "2025 IVE THE 3RD FAN CONCERT 〈IVE SCOUT〉",
+   "tm": "2025년 4월 5일(토) 6PM  / 2025년 4월 6일(일) 5PM",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4951,
+   "plc": "우리금융아트홀",
+   "plcCd": "04",
+   "beginDt": "2025-04-05",
+   "endDt": "2025-06-01",
+   "ndTm": "150분(인터미션 20분)",
+   "seeAge": "8세이상 관람가능",
+   "title": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "tm": "화, 목, 금 19시 30분 / 수 15시, 19시 30분 / 주말 및 공휴일 14시, 18시 30분 / 월 공연 없음",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4947,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-04-05",
+   "endDt": "2025-04-06",
+   "ndTm": "120분",
+   "seeAge": " 만 7세 이상",
+   "title": "EUNHYUK LIVE TOUR 2025 -Limitless: Time- Special in SEOUL",
+   "tm": "2025년 4월 5일(토) 오후 6시 2025년 4월 6일(일) 오후 4시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4944,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-04-12",
+   "endDt": "2025-04-13",
+   "ndTm": "",
+   "seeAge": "만 7세이상",
+   "title": "2025 2NE1 CONCERT ［WELCOME BACK］ ENCORE IN SEOUL",
+   "tm": "2025년 4월 12일(토) 18:00, 4월 13일(일) 17:00",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4948,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-04-12",
+   "endDt": "2025-04-13",
+   "ndTm": "120분",
+   "seeAge": "만 7세이상",
+   "title": "2025 STAYC TOUR ‘STAY TUNED’",
+   "tm": "2025년 4월 12일(토) 6PM  2025년 4월 13일(일) 5PM",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4952,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-04-18",
+   "endDt": "2025-04-20",
+   "ndTm": "140분",
+   "seeAge": "만 7세 이상 관람가",
+   "title": "2025 ZEROBASEONE FAN-CON［BLUE MANSION］",
+   "tm": "2025년 4월 18일(금) 7:30PM 2025년 4월 19일(토) 6:00PM 2025년 4월 20일(일) 5:00PM",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4954,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-04-19",
+   "endDt": "2025-04-20",
+   "ndTm": "총 120분",
+   "seeAge": "만8세이상 관람가능",
+   "title": "2025 OH MY GIRL CONCERT [Milky Way]",
+   "tm": "2025년 4월 19일(토) 오후 6시 2025년 4월 20일(일) 오후 5시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4956,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-04-26",
+   "endDt": "2025-04-27",
+   "ndTm": "120분",
+   "seeAge": "8세이상 관람가능",
+   "title": "2024-25 TAEMIN WORLD TOUR [Ephemeral Gaze] Finale",
+   "tm": "2025년 4월 26일(토) 오후 5시 2025년 4월 27일(일) 오후 4시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4957,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-04-26",
+   "endDt": "2025-04-27",
+   "ndTm": "100 분",
+   "seeAge": "만 7세이상",
+   "title": "DAESUNG 2025 ASIA TOUR：D’s WAVE IN SEOUL",
+   "tm": "2025년 4월 26일(토) 6PM (KST) / 4월 27일(일) 5PM (KST)",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4960,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-05-02",
+   "endDt": "2025-05-05",
+   "ndTm": "",
+   "seeAge": "만 7세 이상 관람가 (미취학아동입장불가)",
+   "title": "Xdinary Heroes〈Beautiful Mind〉World Tour in SEOUL",
+   "tm": "2025년 5월 2일(금) 오후 7시 2025년 5월 3일(토) 오후 6시 2025년 5월 4일(일) 오후 5시 2025년 5월 5일(월) 오후 5시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5076,
+   "plc": "올림픽공원 뮤즈라이브",
+   "plcCd": "07",
+   "beginDt": "2025-05-03",
+   "endDt": "2026-03-02",
+   "ndTm": "70분",
+   "seeAge": "24개월이상 관람가능",
+   "title": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "tm": "평일(수), (목), (금) 11시 / 주말(토), (일) 14시 ",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4953,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-05-03",
+   "endDt": "2025-05-04",
+   "ndTm": "90분",
+   "seeAge": "12세 이상",
+   "title": "YUURI ARENA LIVE 2025 at SEOUL",
+   "tm": "토 18시 / 일 17시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4968,
+   "plc": "뮤즈라이브",
+   "plcCd": "07",
+   "beginDt": "2025-05-03",
+   "endDt": "2025-12-28",
+   "ndTm": "75분",
+   "seeAge": "24개월이상 관람가능",
+   "title": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "tm": "평일(금): 11:00 (1회) 주말(토/일) : 11:00, 14:00 (2회) 공휴일 : 11:00(1회)",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4966,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-05-09",
+   "endDt": "2025-05-18",
+   "ndTm": "",
+   "seeAge": "",
+   "title": "DAY6 3RD WORLD TOUR〈FOREVER YOUNG〉FINALE in SEOUL",
+   "tm": "2025년 5월 9일(금) 오후 7시 2025년 5월 10일(토) 오후 6시 2025년 5월 11일(일) 오후 5시 2025년 5월 16일(금) 오후 7시 2025년 5월 17일(토) 오후 6시 2025년 5월 18일(일) 오후 5시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4964,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-05-09",
+   "endDt": "2025-05-11",
+   "ndTm": "120분",
+   "seeAge": "8세이상 관람가능",
+   "title": "2025 N.Flying LIVE ‘＆CON4 : FULL CIRCLE’",
+   "tm": "5월 9일(금) 19:30 5월 10일(토) 18:00 5월 11일(일) 16:00",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4965,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-05-16",
+   "endDt": "2025-05-18",
+   "ndTm": "",
+   "seeAge": "만 15세이상",
+   "title": "2025 BIBI 1st WORLD TOUR ［EVE］ IN SEOUL",
+   "tm": "2025년 5월 16일(금) 8PM, 17일(토) 6PM, 18일(일) 5PM",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4961,
+   "plc": "올림픽핸드볼경기장",
+   "plcCd": "03",
+   "beginDt": "2025-05-17",
+   "endDt": "2025-05-18",
+   "ndTm": "",
+   "seeAge": " 7세 이상",
+   "title": "2025 KAI SOLO CONCERT TOUR 〈KAION〉 IN SEOUL",
+   "tm": "5.17(토) 18:00   5.18(일) 16:00",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4958,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-05-23",
+   "endDt": "2025-05-25",
+   "ndTm": "",
+   "seeAge": "",
+   "title": "SHINee WORLD Ⅶ [E.S.S.A.Y] (Every Stage Shines Around You)",
+   "tm": "2025.5.23(금) 19시 / 5.24(토) 18시 / 5.25(일) 17시25분",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4967,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-05-23",
+   "endDt": "2025-05-25",
+   "ndTm": "120분",
+   "seeAge": "미취학아동입장불가",
+   "title": "[서울] 2025 멜로망스 전국투어 콘서트 〈Romance Station〉",
+   "tm": "2025년 5월 23일(금) 오후 8시 2025년 5월 24일(토) 오후 6시 2025년 5월 25일(일) 오후 5시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4962,
+   "plc": "올림픽핸드볼경기장",
+   "plcCd": "03",
+   "beginDt": "2025-05-24",
+   "endDt": "2025-05-25",
+   "ndTm": "120분",
+   "seeAge": " 15세 이상",
+   "title": "2025 Jay Park World Tour [Serenades & Body Rolls]",
+   "tm": "5.24(토) 18:00  5.25(일) 17:00",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4959,
+   "plc": "KSPODOME 88잔디마당 올림픽홀",
+   "plcCd": "02",
+   "beginDt": "2025-05-30",
+   "endDt": "2025-06-01",
+   "ndTm": "",
+   "seeAge": "",
+   "title": "제17회 서울재즈페스티벌 2025",
+   "tm": "11:00",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4972,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-06-07",
+   "endDt": "2025-06-08",
+   "ndTm": "",
+   "seeAge": "만 7세 이상 관람가",
+   "title": "2025 ILLIT GLITTER DAY IN SEOUL",
+   "tm": "2025년 6월 7일(토) 6PM(KST) 2025년 6월 8일(일) 5PM(KST)",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4969,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-06-07",
+   "endDt": "2025-06-08",
+   "ndTm": "120분",
+   "seeAge": "8세이상 관람가능",
+   "title": "2025 BAEKHYUN WORLD TOUR 〈Reverie〉 in SEOUL",
+   "tm": "2025년 6월 7일(토) 오후 6시 2025년 6월 8일(일) 오후 4시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4976,
+   "plc": "우리금융아트홀",
+   "plcCd": "04",
+   "beginDt": "2025-06-07",
+   "endDt": "2025-06-08",
+   "ndTm": "120분",
+   "seeAge": "8세 이상 관람가",
+   "title": "윤종신 전국투어 콘서트 ‘그때’ - 서울",
+   "tm": "2025년 6월 7일(토) ~ 6월 8일(일)  토 오후 5시 / 일 오후 4시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4963,
+   "plc": "88잔디마당",
+   "plcCd": "06",
+   "beginDt": "2025-06-13",
+   "endDt": "2025-06-15",
+   "ndTm": "",
+   "seeAge": "전체관람가",
+   "title": "뷰티풀 민트 라이프 2025",
+   "tm": "12:00",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4971,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-06-14",
+   "endDt": "2025-06-15",
+   "ndTm": "120분",
+   "seeAge": "7세 이상 관람가",
+   "title": "2025 IRENE & SEULGI Concert Tour [ BALANCE ] in SEOUL",
+   "tm": "2025년 6월 14일(토) ~ 6월 15일(일)  토 오후 6시 / 일 오후 4시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4978,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-06-20",
+   "endDt": "2025-06-22",
+   "ndTm": "120분",
+   "seeAge": "초등학생 이상(미취학아동이상)",
+   "title": "[서울 앵콜] 2025 박지현 콘서트 쇼맨쉽 ‘SHOWMANSHIP’",
+   "tm": "2025년 6월 20일(금) 오후 7시 2025년 6월 21일(토) 오후 4시 2025년 6월 22일(일) 오후 4시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4977,
+   "plc": "우리금융아트홀",
+   "plcCd": "04",
+   "beginDt": "2025-06-20",
+   "endDt": "2025-06-22",
+   "ndTm": "65분",
+   "seeAge": "24개월이상 관람가능",
+   "title": "［서울］뮤지컬 번개맨 시즌2 - 여름맞이 특별공연",
+   "tm": "(금) 14시 / 16시30분 (토) 11시 / 14시 / 16시30분 (일) 11시 / 14시 / 16시30분",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4979,
+   "plc": "올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-06-27",
+   "endDt": "2025-06-29",
+   "ndTm": "150분",
+   "seeAge": "만 7세이상",
+   "title": "2025 PALMTREE ISLAND 3rd GALA CONCERT",
+   "tm": "2025년 6월 27일(금) 19시30분 2025년 6월 28일(토) 18시 2025년 6월 29일(일) 17시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4970,
+   "plc": " KSPO DOME,88잔디마당",
+   "plcCd": "02",
+   "beginDt": "2025-06-28",
+   "endDt": "2025-06-29",
+   "ndTm": "510분",
+   "seeAge": "12세 이상",
+   "title": "2025 서울파크뮤직페스티벌",
+   "tm": "88잔디마당 14시 ~ 21시30분 KSPO DOME 14시30분 ~ 22시30분",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4980,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-07-04",
+   "endDt": "2025-07-06",
+   "ndTm": "",
+   "seeAge": "7세 이상",
+   "title": "2025 RIIZE CONCERT TOUR [RIIZING LOUD] IN SEOUL",
+   "tm": "2025년 7월 4일(금) ~ 7월 6일(일)  금 오후 8시 / 토 오후 6시 / 일 오후 4시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4986,
+   "plc": "우리금융아트홀",
+   "plcCd": "04",
+   "beginDt": "2025-07-08",
+   "endDt": "2025-08-24",
+   "ndTm": "총 85분",
+   "seeAge": "만 24개월 이상 관람",
+   "title": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "tm": "화~금 11시, 14시 / 주말&공휴일 11시, 14시, 17시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4982,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-07-11",
+   "endDt": "2025-07-13",
+   "ndTm": "120분",
+   "seeAge": "만 7세이상",
+   "title": "HIGHLIGHT LIVE 2025 [RIDE OR DIE]",
+   "tm": "2025년 7월 11일(금) 오후 7시 30분 2025년 7월 12일(토) 오후 6시 2025년 7월 13일(일) 오후 5시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4985,
+   "plc": "올림픽",
+   "plcCd": "01",
+   "beginDt": "2025-07-12",
+   "endDt": "2025-07-13",
+   "ndTm": "150분",
+   "seeAge": "7세이상",
+   "title": "2025 FIVE O ONE : 20th Anniversary World Tour In Seoul",
+   "tm": "17시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4984,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-07-18",
+   "endDt": "2025-07-20",
+   "ndTm": "",
+   "seeAge": "",
+   "title": "2025 MONSTA X CONNECT X",
+   "tm": "2025년 7월 18일(금) ~ 7월 20일(일)   금 오후 8시 / 토 오후 6시 / 일 오후 4시 ",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4987,
+   "plc": " 올림픽공원 올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-07-18",
+   "endDt": "2025-07-20",
+   "ndTm": " 120분",
+   "seeAge": " 8세 이상",
+   "title": "2025 JUNG YONG HWA LIVE ‘Director’s Cut : Our Fine Days’",
+   "tm": "금 오후 7시 30분 / 토 오후 6시 / 일 오후 4시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4981,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-07-25",
+   "endDt": "2025-07-27",
+   "ndTm": "",
+   "seeAge": "만 9세 이상 관람가",
+   "title": "BOYNEXTDOOR TOUR ‘KNOCK ON Vol.1’ FINAL",
+   "tm": "2025년 7월 25일(금) 7PM(KST) 2025년 7월 26일(토) 6PM(KST) 2025년 7월 27일(일) 5PM(KST)",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4988,
+   "plc": "올림픽공원 올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-07-25",
+   "endDt": "2025-07-27",
+   "ndTm": "120분",
+   "seeAge": "만 7세이상",
+   "title": "2025 WINNER CONCERT ［IN OUR CIRCLE］",
+   "tm": "7월 25일(금) 20:00(KST) 7월 26일(토) 18:00(KST) 7월 27일(일) 17:00(KST)",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4991,
+   "plc": "올림픽공원 핸드볼경기장",
+   "plcCd": "03",
+   "beginDt": "2025-08-02",
+   "endDt": "2025-08-03",
+   "ndTm": " 120분",
+   "seeAge": "8세 이상",
+   "title": "2025 ONEW WORLD TOUR [ONEW THE LIVE : PERCENT (%)] IN SEOUL",
+   "tm": "토 오후 6시 / 일 오후 4시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4989,
+   "plc": "KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-08-02",
+   "endDt": "2025-08-03",
+   "ndTm": "140분",
+   "seeAge": "7세이상",
+   "title": "그룹사운드 잔나비 앵콜 콘서트 <모든소년소녀들 2125> ",
+   "tm": "17시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4990,
+   "plc": "올림픽공원 올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-08-02",
+   "endDt": "2025-08-03",
+   "ndTm": " 120분",
+   "seeAge": "7세 이상",
+   "title": "2025 WayV Concert Tour [NO Way OUT] in SEOUL",
+   "tm": "토 오후 6시 / 일 오후 4시 ",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4992,
+   "plc": "KSPO DOME(올림픽체조경기장)",
+   "plcCd": "02",
+   "beginDt": "2025-08-08",
+   "endDt": "2025-08-10",
+   "ndTm": "--",
+   "seeAge": "8세이상 관람가능",
+   "title": "THE BOYZ〈THE BLAZE〉WORLD TOUR in SEOUL",
+   "tm": "8월 8일(금) 오후 7시, 8월 9일(토) 오후 5시, 8월 10일(일) 오후 4시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4994,
+   "plc": "올림픽공원 올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-08-09",
+   "endDt": "2025-08-10",
+   "ndTm": "120분",
+   "seeAge": "만 8세이상 ",
+   "title": "2025 KANGDANIEL CONCERT ［ACT : NEW EPISODE］",
+   "tm": "8월 9일(토) 18:00 (KST) / 8월 10일(일) 17:00 (KST)",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4993,
+   "plc": "올림픽공원 핸드볼경기장",
+   "plcCd": "03",
+   "beginDt": "2025-08-09",
+   "endDt": "2025-08-10",
+   "ndTm": "120분",
+   "seeAge": "8세이상 관람가능",
+   "title": "2025 10CM 단독공연 〈5.0〉",
+   "tm": "8월 9일(토) 6PM, 8월 10일(일) 5PM",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4995,
+   "plc": "KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-08-15",
+   "endDt": "2025-08-17",
+   "ndTm": "--",
+   "seeAge": "12세이상",
+   "title": "2025 PLAVE Asia Tour ［DASH: Quantum Leap］ in Seoul",
+   "tm": "8월 15일(금) 8PM, 8월 16일(토) 6PM, 8월 17일(일) 5PM",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4996,
+   "plc": " 올림픽공원 올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-08-16",
+   "endDt": "2025-08-17",
+   "ndTm": "150분",
+   "seeAge": "만 7세이상",
+   "title": "2025 NAM WOO HYUN CONCERT <식목일5 - 나무高 :TREE HIGH SCHOOL>",
+   "tm": " 8월 16일(토) 18시 / 8월 17일(일) 16시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5000,
+   "plc": "티켓링크 라이브 아레나 (핸드볼경기장)",
+   "plcCd": "03",
+   "beginDt": "2025-08-16",
+   "endDt": "2025-08-17",
+   "ndTm": "100분",
+   "seeAge": " 8세이상 관람가능",
+   "title": "2025 TAEMIN FANMEETING [CLASS-MATE]",
+   "tm": "8월 16일(토) 오후 5시, 8월 17일(일) 오후 4시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4997,
+   "plc": " KSPO DOME ",
+   "plcCd": "02",
+   "beginDt": "2025-08-22",
+   "endDt": "2025-08-24",
+   "ndTm": "--",
+   "seeAge": "7세 이상",
+   "title": "SUPER JUNIOR 20th Anniversary TOUR 〈SUPER SHOW 10〉 in SEOUL",
+   "tm": "금 오후 8시 / 토 오후 6시 / 일 오후 5시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4998,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-08-29",
+   "endDt": "2025-08-31",
+   "ndTm": "--",
+   "seeAge": "미취학아동입장불가",
+   "title": "2025 aespa LIVE TOUR - SYNK : aeXIS LINE -",
+   "tm": "금 오후 8시 / 토 오후 6시 / 일 오후 5시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 4999,
+   "plc": "올림픽공원 올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-08-30",
+   "endDt": "2025-08-31",
+   "ndTm": "150분",
+   "seeAge": "만7세이상",
+   "title": "이승환 35주년 콘서트 HEAVEN [ ENCORE ] - 서울",
+   "tm": "토 18시 / 일 17시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5003,
+   "plc": "올림픽공원 88잔디마당",
+   "plcCd": "06",
+   "beginDt": "2025-09-06",
+   "endDt": "2025-09-07",
+   "ndTm": "500분",
+   "seeAge": "전체관람가",
+   "title": "Someday Festival 2025 - week 1",
+   "tm": "2025년 09월 06일(토) 12:00~ 2025년 09월 07일(일) 12:00~",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5005,
+   "plc": " KSPO DOME (올림픽 체조경기장) ",
+   "plcCd": "02",
+   "beginDt": "2025-09-06",
+   "endDt": "2025-09-06",
+   "ndTm": "90분",
+   "seeAge": "미취학아동입장불가",
+   "title": "크리스토퍼 내한공연 CHRISTOPHER LIVE IN SEOUL 2025",
+   "tm": "2025년 9월 6일(토) 오후 7시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5007,
+   "plc": "올림픽공원 올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-09-13",
+   "endDt": "2025-09-14",
+   "ndTm": "110분",
+   "seeAge": "만 7세이상",
+   "title": "Gen Hoshino presents MAD HOPE Asia Tour in SEOUL",
+   "tm": "2025년 9월 13일(토) 6PM, 2025년 9월 14일(일) 5PM",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5001,
+   "plc": " KSPO DOME ",
+   "plcCd": "02",
+   "beginDt": "2025-09-13",
+   "endDt": "2025-09-14",
+   "ndTm": "120분",
+   "seeAge": "미취학아동입장불가",
+   "title": "2025 IU FAN MEET-UP ［Bye, Summer］",
+   "tm": "토 오후 5시 / 일 오후 4시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5004,
+   "plc": "올림픽공원 88잔디마당",
+   "plcCd": "06",
+   "beginDt": "2025-09-20",
+   "endDt": "2025-09-21",
+   "ndTm": " 480분",
+   "seeAge": "전체관람가",
+   "title": "KB 조이올팍 페스티벌 2025",
+   "tm": "토 오후 1시 / 일 오후 1시 30분",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5006,
+   "plc": " 티켓링크 라이브 아레나 (구 올림픽공원 핸드볼경기장) ",
+   "plcCd": "03",
+   "beginDt": "2025-09-26",
+   "endDt": "2025-09-28",
+   "ndTm": "-",
+   "seeAge": "8세 이상",
+   "title": "2025 KEYLAND : Uncanny Valley",
+   "tm": "2025년 9월 26일(금) ~ 9월 28일(일)  금 오후 7시 / 토 오후 6시 / 일 오후 4시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5012,
+   "plc": "올림픽공원 올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-10-03",
+   "endDt": "2025-10-03",
+   "ndTm": "120분",
+   "seeAge": "8세이상 관람가능",
+   "title": "허용별 콘서트 : 보컬 전쟁 시즌2 “The War of Vocalists II“ - 서울 앵콜",
+   "tm": " 2025년 10월 3일(금) 오후 2시 / 6시 30분 ",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5009,
+   "plc": " 티켓링크 라이브 아레나 (구 올림픽공원 핸드볼경기장)",
+   "plcCd": "03",
+   "beginDt": "2025-10-03",
+   "endDt": "2025-10-05",
+   "ndTm": " 120분",
+   "seeAge": "8세 이상",
+   "title": "2025 QWER 1ST WORLDTOUR [ROCKATION]",
+   "tm": "2025년 10월 3일(금) ~ 10월 5일(일)   금, 토, 일 오후 5시 ",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5008,
+   "plc": "KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-10-03",
+   "endDt": "2025-10-05",
+   "ndTm": "",
+   "seeAge": "만 7세이상",
+   "title": "2025 ZEROBASEONE WORLD TOUR ［HERE ＆ NOW］ IN SEOUL",
+   "tm": "2025년 10월 3일(금) 7:30PM / 2025년 10월 4일(토) 6:00PM / 2025년 10월 5일(일) 5:00PM",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5011,
+   "plc": "KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-10-10",
+   "endDt": "2025-10-12",
+   "ndTm": "",
+   "seeAge": "만 7세이상",
+   "title": "2025-26 TREASURE TOUR［PULSE ON］IN SEOUL",
+   "tm": "2025년 10월 10일(금) 19:00(KST), 2025년 10월 11일(토) 18:00(KST), 2025년 10월 12일(일) 17:00(KST)",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5010,
+   "plc": "티켓링크 라이브 아레나 (올림픽공원 핸드볼경기장)",
+   "plcCd": "03",
+   "beginDt": "2025-10-10",
+   "endDt": "2025-10-12",
+   "ndTm": "",
+   "seeAge": "만 7세이상",
+   "title": "2025 하현상 콘서트 〈Navy Horizon〉",
+   "tm": "2025년 10월 10일(금) 8PM / 2025년 10월 11일(토) 6PM / 2025년 10월 12일(일) 5PM",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5013,
+   "plc": "올림픽공원 올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-10-11",
+   "endDt": "2025-10-12",
+   "ndTm": "120분",
+   "seeAge": "8세이상 관람가능",
+   "title": "2025 쎄시봉 ［The Last］ 콘서트 - 서울",
+   "tm": "10월 11일(토) 오후 2시 / 6시, 10월 12일(일) 오후 2시 / 6시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5014,
+   "plc": "올림픽공원 올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-10-17",
+   "endDt": "2025-10-19",
+   "ndTm": "120분",
+   "seeAge": "만 12세이상",
+   "title": "비보쇼 with Friends",
+   "tm": "10월 17일(금) 19:30 , 10월 18일(토) 18:00, 10월 19일(일) 17:00",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5002,
+   "plc": "올림픽공원 ",
+   "plcCd": "06",
+   "beginDt": "2025-10-18",
+   "endDt": "2025-10-19",
+   "ndTm": "",
+   "seeAge": "전체관람가",
+   "title": "그랜드 민트 페스티벌 2025",
+   "tm": "",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5017,
+   "plc": "KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-10-24",
+   "endDt": "2025-10-26",
+   "ndTm": "150분",
+   "seeAge": "만 9세이상",
+   "title": "ENHYPEN WORLD TOUR ‘WALK THE LINE’ : FINAL",
+   "tm": "10월 24일(금) 7PM(KST), 10월 25일(토) 6PM(KST), 10월 26일(일) 5PM(KST) ",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5015,
+   "plc": "올림픽공원 內 올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-10-25",
+   "endDt": "2025-10-26",
+   "ndTm": "",
+   "seeAge": "만 7세 이상 (미취학아동입장불가)",
+   "title": "NEXZ SPECIAL CONCERT〈ONE BEAT〉",
+   "tm": "10월 25일(토) 오후 6시, 10월 26일(일) 오후 5시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5018,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-10-31",
+   "endDt": "2025-11-02",
+   "ndTm": "120분",
+   "seeAge": "7세 이상",
+   "title": "IVE WORLD TOUR [SHOW WHAT I AM]",
+   "tm": "금 오후 7시 30분 / 토 오후 6시 / 일 오후 4시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5025,
+   "plc": " 올림픽공원 우리금융아트홀",
+   "plcCd": "04",
+   "beginDt": "2025-11-01",
+   "endDt": "2025-11-01",
+   "ndTm": "120분",
+   "seeAge": "만7세이상",
+   "title": "2025 LEE JUN YOUNG ENCORE FANMEETING [Scene by JUNYOUNG : Another Scene]",
+   "tm": "11월 1일(토) 1회차 2PM, 2회차 7PM ",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5016,
+   "plc": "올림픽공원 올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-11-01",
+   "endDt": "2025-11-02",
+   "ndTm": "",
+   "seeAge": "만 7세이상",
+   "title": "2025 THE신승훈SHOW 〈SINCERELY 35〉",
+   "tm": "2025년 11월 01일(토) 6PM, 2025년 11월 02일(일) 5PM",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5024,
+   "plc": "티켓링크 라이브 아레나",
+   "plcCd": "03",
+   "beginDt": "2025-11-07",
+   "endDt": "2025-11-09",
+   "ndTm": "130분",
+   "seeAge": "8세이상 관람가능",
+   "title": "2025 LUCY 8TH CONCERT 〈LUCID LINE〉",
+   "tm": "11월 7일(금) 7:30PM(KST), 11월 8일(토) 6PM(KST), 11월 9일(일) 4PM(KST)",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5019,
+   "plc": "올림픽공원 KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-11-08",
+   "endDt": "2025-11-16",
+   "ndTm": "130분",
+   "seeAge": "8세이상 관람가능",
+   "title": "2025 김동률 콘서트 ‘산책’",
+   "tm": "11월 08일(토) 오후 5시, 11월 09일(일) 오후 5시,  11월 10일(월) 오후 7시30분,  11월 13일(목) 오후 7시30분, 11월 14일(금) 오후 7시30분, 11월 15일(토) 오후 5시, 11월 16일(일) 오후 5시 ",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5023,
+   "plc": "올림픽공원 우리금융아트홀",
+   "plcCd": "04",
+   "beginDt": "2025-11-08",
+   "endDt": "2025-11-09",
+   "ndTm": "150분",
+   "seeAge": "8세이상 관람가능",
+   "title": "뮤지컬 〈빨래〉 20주년 콘서트",
+   "tm": "11월 8일(토) 14:00, 18:00 / 11월 9일(일) 15:00",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5022,
+   "plc": "올림픽공원 올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-11-08",
+   "endDt": "2025-11-09",
+   "ndTm": "",
+   "seeAge": "만 9세이상",
+   "title": "2025 ILLIT GLITTER DAY ENCORE",
+   "tm": "11월 8일(토) 6PM,  11월 9일(일) 5PM",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5021,
+   "plc": "올림픽공원 올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-11-15",
+   "endDt": "2025-11-16",
+   "ndTm": "120분",
+   "seeAge": "초등학생이상 관람가",
+   "title": "유다빈밴드 단독 콘서트 ‘우리의 밤 - 커튼콜’",
+   "tm": " 11월 15일(토)-16(일) / 토 6PM, 일 5PM",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5027,
+   "plc": "올림픽공원 우리금융아트홀",
+   "plcCd": "04",
+   "beginDt": "2025-11-15",
+   "endDt": "2025-11-16",
+   "ndTm": "120분",
+   "seeAge": "미취학아동입장불가",
+   "title": "박창근 장르 with Mr.아보카도 - 서울",
+   "tm": "11/15(토) 18시, 11/16(일) 17시",
+   "genre": ""
+  },
+  {
+   "evtSeq": 5020,
+   "plc": "KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-11-21",
+   "endDt": "2025-11-30",
+   "ndTm": "150분",
+   "seeAge": "만 7세이상",
+   "title": "임영웅 IM HERO TOUR 2025 - 서울",
+   "tm": "11월 21일(금) 오후 6시 / 11월 22일(토) 오후 5시 / 11월 23일(일) 오후 5시 /  11월 28일(금) 오후 6시 / 11월 29일(토) 오후 5시 / 11월 30일(일) 오후 5시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5026,
+   "plc": "올림픽공원 올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-11-22",
+   "endDt": "2025-11-23",
+   "ndTm": "120분 (인터미션: 20분)",
+   "seeAge": "8세이상",
+   "title": "2025 이승철 콘서트 <오케스트락3> 서울공연",
+   "tm": "11월 22일(토) ~ 2025년 11월 23일(일)  16시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5039,
+   "plc": " 티켓링크 라이브 아레나 (올림픽공원 핸드볼경기장) ",
+   "plcCd": "03",
+   "beginDt": "2025-11-28",
+   "endDt": "2025-11-28",
+   "ndTm": "",
+   "seeAge": " 미취학아동입장불가",
+   "title": "2025 JUNGWOO FANMEETING [Golden Sugar Time]",
+   "tm": "오후 3시, 8시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5028,
+   "plc": " 올림픽공원 올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-11-29",
+   "endDt": "2025-11-30",
+   "ndTm": "120분",
+   "seeAge": " 만7세이상",
+   "title": "2025 어반자카파 전국투어 콘서트 '겨울' - 서울",
+   "tm": "11월 29일(토) 18시 /  11월 30일(일) 17시​",
+   "genre": ""
+  },
+  {
+   "evtSeq": 5030,
+   "plc": " KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-12-05",
+   "endDt": "2025-12-07",
+   "ndTm": "150분",
+   "seeAge": "8세이상",
+   "title": "2025 god CONCERT < ICONIC BOX > - 서울",
+   "tm": "금 20시 / 토 18시 / 일 17시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5029,
+   "plc": "티켓링크 라이브 아레나 (구 올림픽공원 핸드볼경기장",
+   "plcCd": "03",
+   "beginDt": "2025-12-05",
+   "endDt": "2025-12-07",
+   "ndTm": "150분",
+   "seeAge": "8세이상 관람가능",
+   "title": "2025 정승환의 안녕, 겨울",
+   "tm": "금요일 오후 8시 / 토요일 오후 6시 / 일요일 오후 5시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5040,
+   "plc": "올림픽공원 우리금융아트홀",
+   "plcCd": "04",
+   "beginDt": "2025-12-06",
+   "endDt": "2026-01-25",
+   "ndTm": "75분",
+   "seeAge": "24개월이상 관람가능",
+   "title": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "tm": "화~금 11시, 14시 / 주말&공휴일 11시, 14시, 16시 30분 / 월 공연없음",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5041,
+   "plc": "올림픽공원 올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-12-06",
+   "endDt": "2025-12-07",
+   "ndTm": "150분",
+   "seeAge": " 만 8세이상",
+   "title": "［서울］ 2025 손태진 전국투어 콘서트 〈It‘s Son Time〉",
+   "tm": "(토) 오후 6시 (일) 오후 4시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5033,
+   "plc": "티켓링크 라이브 아레나 (올림픽 핸드볼경기장)",
+   "plcCd": "03",
+   "beginDt": "2025-12-12",
+   "endDt": "2025-12-14",
+   "ndTm": "",
+   "seeAge": "만 7세이상",
+   "title": "2025-26 로이킴 LIVE TOUR ［ja, daumm］ - 서울",
+   "tm": " 12월 12일 (금) 8:00PM(KST) 12월 13일 (토) 6:00PM(KST) 12월 14일 (일) 4:00PM(KST)",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5043,
+   "plc": "올림픽공원 內 올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-12-13",
+   "endDt": "2025-12-14",
+   "ndTm": "총 120분",
+   "seeAge": "초등학생 이상 (미취학아동이상)",
+   "title": "2025 박지현 팬콘서트 멤버쉽 “MEMBERSHIP”",
+   "tm": "(토) 오후 4시 (일) 오후 4시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5032,
+   "plc": "KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-12-13",
+   "endDt": "2025-12-14",
+   "ndTm": "120분",
+   "seeAge": "만 7세이상",
+   "title": "2025 이문세 ‘The Best’",
+   "tm": "12월 13일(토) 오후 6시, 12월 14일(일) 오후 5시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5038,
+   "plc": " 티켓링크 라이브 아레나 (올림픽공원 핸드볼경기장)",
+   "plcCd": "03",
+   "beginDt": "2025-12-19",
+   "endDt": "2025-12-21",
+   "ndTm": "120분",
+   "seeAge": "8세 이상",
+   "title": "2025 N.Flying LIVE ‘&CON4 ENCORE : Let’s Roll &4EVER’",
+   "tm": "금 오후 7시 30분 / 토 오후 6시 / 일 오후 4시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5034,
+   "plc": "올림픽공원 올림픽홀",
+   "plcCd": "01",
+   "beginDt": "2025-12-19",
+   "endDt": "2025-12-21",
+   "ndTm": "120분",
+   "seeAge": "8세이상 관람가능",
+   "title": "2025 규현(KYUHYUN) Concert ‘The Classic’",
+   "tm": "12월 19일 금요일 오후 8시, 12월 20일 토요일 오후 6시, 12월 21일 일요일 오후 5시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5047,
+   "plc": "KSPO DOME(올림픽체조경기장)",
+   "plcCd": "02",
+   "beginDt": "2025-12-19",
+   "endDt": "2025-12-21",
+   "ndTm": "",
+   "seeAge": " 만 7세 이상 (미취학아동입장불가)",
+   "title": "2025 DAY6 Special Concert ‘The Present’",
+   "tm": " 12월 19일(금) 오후 7시, 12월 20일(토) 오후 6시, 12월 21일(일) 오후 5시",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5042,
+   "plc": "올림픽공원 KSPO DOME",
+   "plcCd": "02",
+   "beginDt": "2025-12-25",
+   "endDt": "2025-12-28",
+   "ndTm": "120분",
+   "seeAge": "초등학생이상 관람가",
+   "title": "2025 성시경 연말 콘서트 〈성시경〉",
+   "tm": "12월 25일(목) 6:00PM(KST) | 26일(금) 7:30PM(KST) | 27일(토) 6:00PM(KST) | 28일(일) 6:00PM(KST)",
+   "genre": "ticket"
+  },
+  {
+   "evtSeq": 5035,
+   "plc": "티켓링크 라이브 아레나 (올림픽 핸드볼경기장)",
+   "plcCd": "03",
+   "beginDt": "2025-12-25",
+   "endDt": "2025-12-28",
+   "ndTm": "120분",
+   "seeAge": "12세이상",
+   "title": "2025 에픽하이 콘서트",
+   "tm": "12월 25일(목) 6PM, 26일(금) 8PM, 27일(토) 6PM, 28일(일) 4PM",
+   "genre": "ticket"
+  }
+ ],
+ "list": [
+  {
+   "d": "2024-11-23",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "",
+   "short": "[20집 발매 기념 조용필&위",
+   "run": 130,
+   "seq": 4893
+  },
+  {
+   "d": "2024-11-24",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "",
+   "short": "[20집 발매 기념 조용필&위",
+   "run": 130,
+   "seq": 4893
+  },
+  {
+   "d": "2024-11-30",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "",
+   "short": "[20집 발매 기념 조용필&위",
+   "run": 130,
+   "seq": 4893
+  },
+  {
+   "d": "2024-11-30",
+   "t": "18:00",
+   "venue": "핸드볼경기장",
+   "name": "2024 하현상 콘서트 〈Elegy〉",
+   "short": "하현상",
+   "run": null,
+   "seq": 4894
+  },
+  {
+   "d": "2024-12-01",
+   "t": "17:00",
+   "venue": "핸드볼경기장",
+   "name": "2024 하현상 콘서트 〈Elegy〉",
+   "short": "하현상",
+   "run": null,
+   "seq": 4894
+  },
+  {
+   "d": "2024-12-01",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "",
+   "short": "[20집 발매 기념 조용필&위",
+   "run": 130,
+   "seq": 4893
+  },
+  {
+   "d": "2024-12-06",
+   "t": "20:00",
+   "venue": "KSPO DOME",
+   "name": "INFINITE 15TH ANNIVERSARY CONCERT : LIMITED EDITION",
+   "short": "INFINITE 15TH AN",
+   "run": 150,
+   "seq": 4898
+  },
+  {
+   "d": "2024-12-06",
+   "t": "20:00",
+   "venue": "올림픽홀",
+   "name": "2024 다이나믹 듀오 단독 콘서트 “가끔씩 오래 보자”",
+   "short": "다이나믹 듀오",
+   "run": 120,
+   "seq": 4904
+  },
+  {
+   "d": "2024-12-07",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "INFINITE 15TH ANNIVERSARY CONCERT : LIMITED EDITION",
+   "short": "INFINITE 15TH AN",
+   "run": 150,
+   "seq": 4898
+  },
+  {
+   "d": "2024-12-07",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "2024 다이나믹 듀오 단독 콘서트 “가끔씩 오래 보자”",
+   "short": "다이나믹 듀오",
+   "run": 120,
+   "seq": 4904
+  },
+  {
+   "d": "2024-12-07",
+   "t": "18:00",
+   "venue": "핸드볼경기장",
+   "name": "2024 로이킴 콘서트 〈R♥y actually〉",
+   "short": "로이킴",
+   "run": null,
+   "seq": 4901
+  },
+  {
+   "d": "2024-12-08",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "INFINITE 15TH ANNIVERSARY CONCERT : LIMITED EDITION",
+   "short": "INFINITE 15TH AN",
+   "run": 150,
+   "seq": 4898
+  },
+  {
+   "d": "2024-12-08",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "2024 다이나믹 듀오 단독 콘서트 “가끔씩 오래 보자”",
+   "short": "다이나믹 듀오",
+   "run": 120,
+   "seq": 4904
+  },
+  {
+   "d": "2024-12-08",
+   "t": "17:00",
+   "venue": "핸드볼경기장",
+   "name": "2024 로이킴 콘서트 〈R♥y actually〉",
+   "short": "로이킴",
+   "run": null,
+   "seq": 4901
+  },
+  {
+   "d": "2024-12-13",
+   "t": "19:00",
+   "venue": "KSPO DOME",
+   "name": "2024 이찬원 콘서트 ‘ 찬가(燦歌)’",
+   "short": "이찬원",
+   "run": 120,
+   "seq": 4899
+  },
+  {
+   "d": "2024-12-13",
+   "t": "20:00",
+   "venue": "핸드볼경기장",
+   "name": "2024 권진아 연말 콘서트 〈This Winter〉",
+   "short": "권진아",
+   "run": 120,
+   "seq": 4902
+  },
+  {
+   "d": "2024-12-14",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "2024 이찬원 콘서트 ‘ 찬가(燦歌)’",
+   "short": "이찬원",
+   "run": 120,
+   "seq": 4899
+  },
+  {
+   "d": "2024-12-14",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "GUMMY Tour Concert 2024 〈LOVE〉-서울",
+   "short": "GUMMY",
+   "run": 120,
+   "seq": 4905
+  },
+  {
+   "d": "2024-12-14",
+   "t": "18:00",
+   "venue": "핸드볼경기장",
+   "name": "2024 권진아 연말 콘서트 〈This Winter〉",
+   "short": "권진아",
+   "run": 120,
+   "seq": 4902
+  },
+  {
+   "d": "2024-12-15",
+   "t": "16:00",
+   "venue": "올림픽홀",
+   "name": "GUMMY Tour Concert 2024 〈LOVE〉-서울",
+   "short": "GUMMY",
+   "run": 120,
+   "seq": 4905
+  },
+  {
+   "d": "2024-12-15",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "2024 이찬원 콘서트 ‘ 찬가(燦歌)’",
+   "short": "이찬원",
+   "run": 120,
+   "seq": 4899
+  },
+  {
+   "d": "2024-12-15",
+   "t": "17:00",
+   "venue": "핸드볼경기장",
+   "name": "2024 권진아 연말 콘서트 〈This Winter〉",
+   "short": "권진아",
+   "run": 120,
+   "seq": 4902
+  },
+  {
+   "d": "2024-12-20",
+   "t": "20:00",
+   "venue": "KSPO DOME",
+   "name": "2024 CRUSH CONCERT [CRUSH HOUR : O]",
+   "short": "CRUSH",
+   "run": 120,
+   "seq": 4907
+  },
+  {
+   "d": "2024-12-20",
+   "t": "20:00",
+   "venue": "올림픽홀",
+   "name": "KYUHYUN 10th Anniversary Asia Tour [COLORS]",
+   "short": "KYUHYUN 10th Ann",
+   "run": 120,
+   "seq": 4908
+  },
+  {
+   "d": "2024-12-20",
+   "t": "20:00",
+   "venue": "핸드볼경기장",
+   "name": "2024 에픽하이 콘서트",
+   "short": "에픽하이",
+   "run": 120,
+   "seq": 4903
+  },
+  {
+   "d": "2024-12-21",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "KYUHYUN 10th Anniversary Asia Tour [COLORS]",
+   "short": "KYUHYUN 10th Ann",
+   "run": 120,
+   "seq": 4908
+  },
+  {
+   "d": "2024-12-21",
+   "t": "18:00",
+   "venue": "핸드볼경기장",
+   "name": "2024 에픽하이 콘서트",
+   "short": "에픽하이",
+   "run": 120,
+   "seq": 4903
+  },
+  {
+   "d": "2024-12-21",
+   "t": "19:00",
+   "venue": "KSPO DOME",
+   "name": "2024 CRUSH CONCERT [CRUSH HOUR : O]",
+   "short": "CRUSH",
+   "run": 120,
+   "seq": 4907
+  },
+  {
+   "d": "2024-12-22",
+   "t": "16:00",
+   "venue": "핸드볼경기장",
+   "name": "2024 에픽하이 콘서트",
+   "short": "에픽하이",
+   "run": 120,
+   "seq": 4903
+  },
+  {
+   "d": "2024-12-22",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "KYUHYUN 10th Anniversary Asia Tour [COLORS]",
+   "short": "KYUHYUN 10th Ann",
+   "run": 120,
+   "seq": 4908
+  },
+  {
+   "d": "2024-12-22",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "2024 CRUSH CONCERT [CRUSH HOUR : O]",
+   "short": "CRUSH",
+   "run": 120,
+   "seq": 4907
+  },
+  {
+   "d": "2024-12-27",
+   "t": "19:30",
+   "venue": "KSPO DOME",
+   "name": "2024 성시경 연말 콘서트 〈성시경〉",
+   "short": "성시경",
+   "run": 120,
+   "seq": 4900
+  },
+  {
+   "d": "2024-12-27",
+   "t": "20:00",
+   "venue": "올림픽홀",
+   "name": "박진영 30주년 콘서트 〈Still JYP〉",
+   "short": "박진영",
+   "run": null,
+   "seq": 4906
+  },
+  {
+   "d": "2024-12-27",
+   "t": "20:00",
+   "venue": "핸드볼경기장",
+   "name": "2024 LEE SEUNG YOON CONCERT [YEOK SEONG : 끝을 거슬러]",
+   "short": "LEE SEUNG YOON",
+   "run": 120,
+   "seq": 4949
+  },
+  {
+   "d": "2024-12-28",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "2024 성시경 연말 콘서트 〈성시경〉",
+   "short": "성시경",
+   "run": 120,
+   "seq": 4900
+  },
+  {
+   "d": "2024-12-28",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "박진영 30주년 콘서트 〈Still JYP〉",
+   "short": "박진영",
+   "run": null,
+   "seq": 4906
+  },
+  {
+   "d": "2024-12-28",
+   "t": "18:00",
+   "venue": "핸드볼경기장",
+   "name": "2024 LEE SEUNG YOON CONCERT [YEOK SEONG : 끝을 거슬러]",
+   "short": "LEE SEUNG YOON",
+   "run": 120,
+   "seq": 4949
+  },
+  {
+   "d": "2024-12-29",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "박진영 30주년 콘서트 〈Still JYP〉",
+   "short": "박진영",
+   "run": null,
+   "seq": 4906
+  },
+  {
+   "d": "2024-12-29",
+   "t": "17:00",
+   "venue": "핸드볼경기장",
+   "name": "2024 LEE SEUNG YOON CONCERT [YEOK SEONG : 끝을 거슬러]",
+   "short": "LEE SEUNG YOON",
+   "run": 120,
+   "seq": 4949
+  },
+  {
+   "d": "2024-12-29",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "2024 성시경 연말 콘서트 〈성시경〉",
+   "short": "성시경",
+   "run": 120,
+   "seq": 4900
+  },
+  {
+   "d": "2024-12-29",
+   "t": "21:00",
+   "venue": "KSPO DOME",
+   "name": "2024 성시경 연말 콘서트 〈성시경〉",
+   "short": "성시경",
+   "run": 120,
+   "seq": 4900
+  },
+  {
+   "d": "2024-12-31",
+   "t": "19:00",
+   "venue": "올림픽홀",
+   "name": "김희재 콘서트 ‘HEERE WE GO’",
+   "short": "김희재",
+   "run": 120,
+   "seq": 4909
+  },
+  {
+   "d": "2024-12-31",
+   "t": "21:00",
+   "venue": "KSPO DOME",
+   "name": "2024 성시경 연말 콘서트 〈성시경〉",
+   "short": "성시경",
+   "run": 120,
+   "seq": 4900
+  },
+  {
+   "d": "2025-01-01",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "김희재 콘서트 ‘HEERE WE GO’",
+   "short": "김희재",
+   "run": 120,
+   "seq": 4909
+  },
+  {
+   "d": "2025-01-04",
+   "t": "13:00",
+   "venue": "KSPO DOME",
+   "name": "로드 투 킹덤 : ACE OF ACE 콘서트",
+   "short": "로드 투 킹덤",
+   "run": 150,
+   "seq": 4910
+  },
+  {
+   "d": "2025-01-04",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "김희재 콘서트 ‘HEERE WE GO’",
+   "short": "김희재",
+   "run": 120,
+   "seq": 4909
+  },
+  {
+   "d": "2025-01-04",
+   "t": "19:00",
+   "venue": "KSPO DOME",
+   "name": "로드 투 킹덤 : ACE OF ACE 콘서트",
+   "short": "로드 투 킹덤",
+   "run": 150,
+   "seq": 4910
+  },
+  {
+   "d": "2025-01-05",
+   "t": "13:00",
+   "venue": "KSPO DOME",
+   "name": "로드 투 킹덤 : ACE OF ACE 콘서트",
+   "short": "로드 투 킹덤",
+   "run": 150,
+   "seq": 4910
+  },
+  {
+   "d": "2025-01-05",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "김희재 콘서트 ‘HEERE WE GO’",
+   "short": "김희재",
+   "run": 120,
+   "seq": 4909
+  },
+  {
+   "d": "2025-01-10",
+   "t": "19:30",
+   "venue": "KSPO DOME",
+   "name": "나훈아 ‘2024 고마웠습니다-라스트 콘서트(LAST CONCERT)’",
+   "short": "나훈아",
+   "run": 120,
+   "seq": 4911
+  },
+  {
+   "d": "2025-01-11",
+   "t": "15:00",
+   "venue": "KSPO DOME",
+   "name": "나훈아 ‘2024 고마웠습니다-라스트 콘서트(LAST CONCERT)’",
+   "short": "나훈아",
+   "run": 120,
+   "seq": 4911
+  },
+  {
+   "d": "2025-01-11",
+   "t": "19:30",
+   "venue": "KSPO DOME",
+   "name": "나훈아 ‘2024 고마웠습니다-라스트 콘서트(LAST CONCERT)’",
+   "short": "나훈아",
+   "run": 120,
+   "seq": 4911
+  },
+  {
+   "d": "2025-01-12",
+   "t": "15:00",
+   "venue": "KSPO DOME",
+   "name": "나훈아 ‘2024 고마웠습니다-라스트 콘서트(LAST CONCERT)’",
+   "short": "나훈아",
+   "run": 120,
+   "seq": 4911
+  },
+  {
+   "d": "2025-01-12",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "벤슨 분 첫 단독 내한공연",
+   "short": "벤슨 분 첫",
+   "run": null,
+   "seq": 4913
+  },
+  {
+   "d": "2025-01-12",
+   "t": "19:30",
+   "venue": "KSPO DOME",
+   "name": "나훈아 ‘2024 고마웠습니다-라스트 콘서트(LAST CONCERT)’",
+   "short": "나훈아",
+   "run": 120,
+   "seq": 4911
+  },
+  {
+   "d": "2025-01-17",
+   "t": "20:00",
+   "venue": "올림픽홀",
+   "name": "GFRIEND 10th Anniversary < Season of Memories >",
+   "short": "GFRIEND 10th Ann",
+   "run": 120,
+   "seq": 4918
+  },
+  {
+   "d": "2025-01-17",
+   "t": "20:00",
+   "venue": "핸드볼경기장",
+   "name": "I.M WORLD TOUR 〈Off The Beat〉 FINAL",
+   "short": "I.M",
+   "run": 120,
+   "seq": 4916
+  },
+  {
+   "d": "2025-01-18",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "2025 DAVICHI CONCERT 〈A Stitch in Time〉",
+   "short": "DAVICHI",
+   "run": 120,
+   "seq": 4912
+  },
+  {
+   "d": "2025-01-18",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "GFRIEND 10th Anniversary < Season of Memories >",
+   "short": "GFRIEND 10th Ann",
+   "run": 120,
+   "seq": 4918
+  },
+  {
+   "d": "2025-01-18",
+   "t": "18:00",
+   "venue": "핸드볼경기장",
+   "name": "I.M WORLD TOUR 〈Off The Beat〉 FINAL",
+   "short": "I.M",
+   "run": 120,
+   "seq": 4916
+  },
+  {
+   "d": "2025-01-19",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "2025 DAVICHI CONCERT 〈A Stitch in Time〉",
+   "short": "DAVICHI",
+   "run": 120,
+   "seq": 4912
+  },
+  {
+   "d": "2025-01-19",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "GFRIEND 10th Anniversary < Season of Memories >",
+   "short": "GFRIEND 10th Ann",
+   "run": 120,
+   "seq": 4918
+  },
+  {
+   "d": "2025-01-19",
+   "t": "17:00",
+   "venue": "핸드볼경기장",
+   "name": "I.M WORLD TOUR 〈Off The Beat〉 FINAL",
+   "short": "I.M",
+   "run": 120,
+   "seq": 4916
+  },
+  {
+   "d": "2025-01-25",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "2025 BABYMONSTER 1st WORLD TOUR 〈HELLO MONSTERS〉",
+   "short": "BABYMONSTER 1st",
+   "run": null,
+   "seq": 4915
+  },
+  {
+   "d": "2025-01-25",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "터치드(TOUCHED) 단독 콘서트 ‘HIGHLIGHT Ⅲ’",
+   "short": "터치드",
+   "run": 110,
+   "seq": 4919
+  },
+  {
+   "d": "2025-01-25",
+   "t": "18:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 SUHO CONCERT 〈SU:HOMME〉 ENCORE",
+   "short": "SUHO",
+   "run": null,
+   "seq": 4917
+  },
+  {
+   "d": "2025-01-26",
+   "t": "16:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 SUHO CONCERT 〈SU:HOMME〉 ENCORE",
+   "short": "SUHO",
+   "run": null,
+   "seq": 4917
+  },
+  {
+   "d": "2025-01-26",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "2025 BABYMONSTER 1st WORLD TOUR 〈HELLO MONSTERS〉",
+   "short": "BABYMONSTER 1st",
+   "run": null,
+   "seq": 4915
+  },
+  {
+   "d": "2025-01-26",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "터치드(TOUCHED) 단독 콘서트 ‘HIGHLIGHT Ⅲ’",
+   "short": "터치드",
+   "run": 110,
+   "seq": 4919
+  },
+  {
+   "d": "2025-01-31",
+   "t": "19:00",
+   "venue": "KSPO DOME",
+   "name": "THE BOYZ FAN-CON 〈THE B LAND〉",
+   "short": "THE BOYZ FAN",
+   "run": 150,
+   "seq": 4922
+  },
+  {
+   "d": "2025-02-01",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "THE BOYZ FAN-CON 〈THE B LAND〉",
+   "short": "THE BOYZ FAN",
+   "run": 150,
+   "seq": 4922
+  },
+  {
+   "d": "2025-02-02",
+   "t": "16:00",
+   "venue": "KSPO DOME",
+   "name": "THE BOYZ FAN-CON 〈THE B LAND〉",
+   "short": "THE BOYZ FAN",
+   "run": 150,
+   "seq": 4922
+  },
+  {
+   "d": "2025-02-07",
+   "t": "20:00",
+   "venue": "올림픽홀",
+   "name": "2025 검정치마 단독공연 \"SONGS TO BRING YOU HOME\"",
+   "short": "검정치마",
+   "run": 120,
+   "seq": 4932
+  },
+  {
+   "d": "2025-02-07",
+   "t": "20:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 LEECHANGSUB SOLO CONCERT 〈The Wayfarer〉 ENCORE",
+   "short": "LEECHANGSUB SOLO",
+   "run": 120,
+   "seq": 4927
+  },
+  {
+   "d": "2025-02-08",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "2025 황영웅 앨범 발매 쇼케이스 PANORAMA : SHOWKING",
+   "short": "황영웅 앨범 발매 쇼케이스 P",
+   "run": 120,
+   "seq": 4920
+  },
+  {
+   "d": "2025-02-08",
+   "t": "18:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 LEECHANGSUB SOLO CONCERT 〈The Wayfarer〉 ENCORE",
+   "short": "LEECHANGSUB SOLO",
+   "run": 120,
+   "seq": 4927
+  },
+  {
+   "d": "2025-02-08",
+   "t": "19:00",
+   "venue": "올림픽홀",
+   "name": "2025 검정치마 단독공연 \"SONGS TO BRING YOU HOME\"",
+   "short": "검정치마",
+   "run": 120,
+   "seq": 4932
+  },
+  {
+   "d": "2025-02-09",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "2025 황영웅 앨범 발매 쇼케이스 PANORAMA : SHOWKING",
+   "short": "황영웅 앨범 발매 쇼케이스 P",
+   "run": 120,
+   "seq": 4920
+  },
+  {
+   "d": "2025-02-09",
+   "t": "17:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 LEECHANGSUB SOLO CONCERT 〈The Wayfarer〉 ENCORE",
+   "short": "LEECHANGSUB SOLO",
+   "run": 120,
+   "seq": 4927
+  },
+  {
+   "d": "2025-02-09",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "2025 검정치마 단독공연 \"SONGS TO BRING YOU HOME\"",
+   "short": "검정치마",
+   "run": 120,
+   "seq": 4932
+  },
+  {
+   "d": "2025-02-14",
+   "t": "19:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 TWS 1ST FANMEETING 〈42:CLUB〉",
+   "short": "TWS 1ST",
+   "run": 120,
+   "seq": 4928
+  },
+  {
+   "d": "2025-02-14",
+   "t": "20:00",
+   "venue": "KSPO DOME",
+   "name": "2025 윤하 앵콜 콘서트 〈GROWTH THEORY : Final Edition〉",
+   "short": "윤하 앵콜",
+   "run": 120,
+   "seq": 4923
+  },
+  {
+   "d": "2025-02-15",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "2025 박지현 콘서트 쇼맨쉽 ‘SHOWMANSHIP’",
+   "short": "박지현",
+   "run": 120,
+   "seq": 4933
+  },
+  {
+   "d": "2025-02-15",
+   "t": "18:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 TWS 1ST FANMEETING 〈42:CLUB〉",
+   "short": "TWS 1ST",
+   "run": 120,
+   "seq": 4928
+  },
+  {
+   "d": "2025-02-15",
+   "t": "19:00",
+   "venue": "KSPO DOME",
+   "name": "2025 윤하 앵콜 콘서트 〈GROWTH THEORY : Final Edition〉",
+   "short": "윤하 앵콜",
+   "run": 120,
+   "seq": 4923
+  },
+  {
+   "d": "2025-02-16",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "2025 박지현 콘서트 쇼맨쉽 ‘SHOWMANSHIP’",
+   "short": "박지현",
+   "run": 120,
+   "seq": 4933
+  },
+  {
+   "d": "2025-02-16",
+   "t": "17:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 TWS 1ST FANMEETING 〈42:CLUB〉",
+   "short": "TWS 1ST",
+   "run": 120,
+   "seq": 4928
+  },
+  {
+   "d": "2025-02-16",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "2025 윤하 앵콜 콘서트 〈GROWTH THEORY : Final Edition〉",
+   "short": "윤하 앵콜",
+   "run": 120,
+   "seq": 4923
+  },
+  {
+   "d": "2025-02-22",
+   "t": "15:00",
+   "venue": "KSPO DOME",
+   "name": "2025 영탁 단독 콘서트 “TAK SHOW3” - 앙코르",
+   "short": "영탁",
+   "run": 120,
+   "seq": 4921
+  },
+  {
+   "d": "2025-02-22",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "2025 ONEW CONCERT [ONEW THE LIVE : CONNECTION]",
+   "short": "ONEW",
+   "run": 120,
+   "seq": 4934
+  },
+  {
+   "d": "2025-02-23",
+   "t": "15:00",
+   "venue": "KSPO DOME",
+   "name": "2025 영탁 단독 콘서트 “TAK SHOW3” - 앙코르",
+   "short": "영탁",
+   "run": 120,
+   "seq": 4921
+  },
+  {
+   "d": "2025-02-23",
+   "t": "16:00",
+   "venue": "올림픽홀",
+   "name": "2025 ONEW CONCERT [ONEW THE LIVE : CONNECTION]",
+   "short": "ONEW",
+   "run": 120,
+   "seq": 4934
+  },
+  {
+   "d": "2025-02-28",
+   "t": "19:00",
+   "venue": "KSPO DOME",
+   "name": "j-hope Tour ‘HOPE ON THE STAGE’",
+   "short": "j",
+   "run": 120,
+   "seq": 4924
+  },
+  {
+   "d": "2025-03-01",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "j-hope Tour ‘HOPE ON THE STAGE’",
+   "short": "j",
+   "run": 120,
+   "seq": 4924
+  },
+  {
+   "d": "2025-03-01",
+   "t": "19:00",
+   "venue": "올림픽홀",
+   "name": "keshi: REQUIEM TOUR",
+   "short": "keshi",
+   "run": null,
+   "seq": 4935
+  },
+  {
+   "d": "2025-03-02",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "j-hope Tour ‘HOPE ON THE STAGE’",
+   "short": "j",
+   "run": 120,
+   "seq": 4924
+  },
+  {
+   "d": "2025-03-06",
+   "t": "20:00",
+   "venue": "올림픽홀",
+   "name": "KEHLANI - CRASH WORLD TOUR",
+   "short": "KEHLANI",
+   "run": null,
+   "seq": 4936
+  },
+  {
+   "d": "2025-03-07",
+   "t": "20:00",
+   "venue": "KSPO DOME",
+   "name": "TAEYEON CONCERT - The TENSE",
+   "short": "TAEYEON",
+   "run": null,
+   "seq": 4925
+  },
+  {
+   "d": "2025-03-08",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "TAEYEON CONCERT - The TENSE",
+   "short": "TAEYEON",
+   "run": null,
+   "seq": 4925
+  },
+  {
+   "d": "2025-03-08",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "2025 LEE MINHO ASIA FANMEETING TOUR ‘MINHOVERSE’",
+   "short": "LEE MINHO ASIA",
+   "run": 120,
+   "seq": 4955
+  },
+  {
+   "d": "2025-03-09",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "TAEYEON CONCERT - The TENSE",
+   "short": "TAEYEON",
+   "run": null,
+   "seq": 4925
+  },
+  {
+   "d": "2025-03-15",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "2024-25 aespa LIVE TOUR-SYNK:PARALLEL LINE-ENCORE",
+   "short": "aespa",
+   "run": null,
+   "seq": 4926
+  },
+  {
+   "d": "2025-03-15",
+   "t": "18:00",
+   "venue": "핸드볼경기장",
+   "name": "2025년 이승환 콘서트 〈HEAVEN〉",
+   "short": "년 이승환",
+   "run": 150,
+   "seq": 4929
+  },
+  {
+   "d": "2025-03-15",
+   "t": "19:00",
+   "venue": "올림픽홀",
+   "name": "보이위드우크 첫 단독 내한공연 BoyWithUke BURNOUT WORLD TOUR 2025",
+   "short": "보이위드우크 첫",
+   "run": 90,
+   "seq": 4937
+  },
+  {
+   "d": "2025-03-16",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "2024-25 aespa LIVE TOUR-SYNK:PARALLEL LINE-ENCORE",
+   "short": "aespa",
+   "run": null,
+   "seq": 4926
+  },
+  {
+   "d": "2025-03-16",
+   "t": "17:00",
+   "venue": "핸드볼경기장",
+   "name": "2025년 이승환 콘서트 〈HEAVEN〉",
+   "short": "년 이승환",
+   "run": 150,
+   "seq": 4929
+  },
+  {
+   "d": "2025-03-21",
+   "t": "20:00",
+   "venue": "올림픽홀",
+   "name": "2025 BTOB FAN-CON ‘3,2,1 GO! MELympic’",
+   "short": "BTOB FAN",
+   "run": 120,
+   "seq": 4946
+  },
+  {
+   "d": "2025-03-21",
+   "t": "20:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 NCT WISH ASIA TOUR LOG",
+   "short": "NCT WISH ASIA",
+   "run": null,
+   "seq": 4930
+  },
+  {
+   "d": "2025-03-22",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "2025 ATEEZ WORLD TOUR [TOWARDS THE LIGHT : WILL TO POWER] FINALE",
+   "short": "ATEEZ",
+   "run": null,
+   "seq": 4942
+  },
+  {
+   "d": "2025-03-22",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "2025 BTOB FAN-CON ‘3,2,1 GO! MELympic’",
+   "short": "BTOB FAN",
+   "run": 120,
+   "seq": 4946
+  },
+  {
+   "d": "2025-03-22",
+   "t": "18:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 NCT WISH ASIA TOUR LOG",
+   "short": "NCT WISH ASIA",
+   "run": null,
+   "seq": 4930
+  },
+  {
+   "d": "2025-03-23",
+   "t": "16:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 NCT WISH ASIA TOUR LOG",
+   "short": "NCT WISH ASIA",
+   "run": null,
+   "seq": 4930
+  },
+  {
+   "d": "2025-03-23",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "2025 ATEEZ WORLD TOUR [TOWARDS THE LIGHT : WILL TO POWER] FINALE",
+   "short": "ATEEZ",
+   "run": null,
+   "seq": 4942
+  },
+  {
+   "d": "2025-03-23",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "2025 BTOB FAN-CON ‘3,2,1 GO! MELympic’",
+   "short": "BTOB FAN",
+   "run": 120,
+   "seq": 4946
+  },
+  {
+   "d": "2025-03-28",
+   "t": "19:00",
+   "venue": "올림픽홀",
+   "name": "정동원棟동 이야기話화 3rd 전국투어 콘서트",
+   "short": "정동원棟동 이야기話화 3rd",
+   "run": 150,
+   "seq": 4945
+  },
+  {
+   "d": "2025-03-29",
+   "t": "13:00",
+   "venue": "핸드볼경기장",
+   "name": "〈미스터트롯3〉 전국투어 콘서트",
+   "short": "〈미스터트롯3〉 전국투어 콘서",
+   "run": 120,
+   "seq": 4950
+  },
+  {
+   "d": "2025-03-29",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "정동원棟동 이야기話화 3rd 전국투어 콘서트",
+   "short": "정동원棟동 이야기話화 3rd",
+   "run": 150,
+   "seq": 4945
+  },
+  {
+   "d": "2025-03-29",
+   "t": "18:00",
+   "venue": "핸드볼경기장",
+   "name": "〈미스터트롯3〉 전국투어 콘서트",
+   "short": "〈미스터트롯3〉 전국투어 콘서",
+   "run": 120,
+   "seq": 4950
+  },
+  {
+   "d": "2025-03-30",
+   "t": "13:00",
+   "venue": "핸드볼경기장",
+   "name": "〈미스터트롯3〉 전국투어 콘서트",
+   "short": "〈미스터트롯3〉 전국투어 콘서",
+   "run": 120,
+   "seq": 4950
+  },
+  {
+   "d": "2025-03-30",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "정동원棟동 이야기話화 3rd 전국투어 콘서트",
+   "short": "정동원棟동 이야기話화 3rd",
+   "run": 150,
+   "seq": 4945
+  },
+  {
+   "d": "2025-03-30",
+   "t": "18:00",
+   "venue": "핸드볼경기장",
+   "name": "〈미스터트롯3〉 전국투어 콘서트",
+   "short": "〈미스터트롯3〉 전국투어 콘서",
+   "run": 120,
+   "seq": 4950
+  },
+  {
+   "d": "2025-04-05",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "2025 IVE THE 3RD FAN CONCERT 〈IVE SCOUT〉",
+   "short": "IVE THE 3RD FAN",
+   "run": 120,
+   "seq": 4943
+  },
+  {
+   "d": "2025-04-05",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "EUNHYUK LIVE TOUR 2025 -Limitless: Time- Special",
+   "short": "EUNHYUK",
+   "run": 120,
+   "seq": 4947
+  },
+  {
+   "d": "2025-04-06",
+   "t": "16:00",
+   "venue": "올림픽홀",
+   "name": "EUNHYUK LIVE TOUR 2025 -Limitless: Time- Special",
+   "short": "EUNHYUK",
+   "run": 120,
+   "seq": 4947
+  },
+  {
+   "d": "2025-04-06",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "2025 IVE THE 3RD FAN CONCERT 〈IVE SCOUT〉",
+   "short": "IVE THE 3RD FAN",
+   "run": 120,
+   "seq": 4943
+  },
+  {
+   "d": "2025-04-12",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "2025 2NE1 CONCERT [WELCOME BACK] ENCORE",
+   "short": "2NE1",
+   "run": null,
+   "seq": 4944
+  },
+  {
+   "d": "2025-04-12",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "2025 STAYC TOUR ‘STAY TUNED’",
+   "short": "STAYC",
+   "run": 120,
+   "seq": 4948
+  },
+  {
+   "d": "2025-04-13",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "2025 2NE1 CONCERT [WELCOME BACK] ENCORE",
+   "short": "2NE1",
+   "run": null,
+   "seq": 4944
+  },
+  {
+   "d": "2025-04-13",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "2025 STAYC TOUR ‘STAY TUNED’",
+   "short": "STAYC",
+   "run": 120,
+   "seq": 4948
+  },
+  {
+   "d": "2025-04-18",
+   "t": "19:30",
+   "venue": "KSPO DOME",
+   "name": "2025 ZEROBASEONE FAN-CON[BLUE MANSION]",
+   "short": "ZEROBASEONE FAN",
+   "run": 140,
+   "seq": 4952
+  },
+  {
+   "d": "2025-04-19",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "2025 ZEROBASEONE FAN-CON[BLUE MANSION]",
+   "short": "ZEROBASEONE FAN",
+   "run": 140,
+   "seq": 4952
+  },
+  {
+   "d": "2025-04-19",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "2025 OH MY GIRL CONCERT [Milky Way]",
+   "short": "OH MY GIRL",
+   "run": 120,
+   "seq": 4954
+  },
+  {
+   "d": "2025-04-20",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "2025 ZEROBASEONE FAN-CON[BLUE MANSION]",
+   "short": "ZEROBASEONE FAN",
+   "run": 140,
+   "seq": 4952
+  },
+  {
+   "d": "2025-04-20",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "2025 OH MY GIRL CONCERT [Milky Way]",
+   "short": "OH MY GIRL",
+   "run": 120,
+   "seq": 4954
+  },
+  {
+   "d": "2025-04-26",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "2024-25 TAEMIN WORLD TOUR [Ephemeral Gaze] Finale",
+   "short": "TAEMIN",
+   "run": 120,
+   "seq": 4956
+  },
+  {
+   "d": "2025-04-26",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "DAESUNG 2025 ASIA TOUR:D’s WAVE",
+   "short": "DAESUNG ASIA",
+   "run": 100,
+   "seq": 4957
+  },
+  {
+   "d": "2025-04-27",
+   "t": "16:00",
+   "venue": "KSPO DOME",
+   "name": "2024-25 TAEMIN WORLD TOUR [Ephemeral Gaze] Finale",
+   "short": "TAEMIN",
+   "run": 120,
+   "seq": 4956
+  },
+  {
+   "d": "2025-04-27",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "DAESUNG 2025 ASIA TOUR:D’s WAVE",
+   "short": "DAESUNG ASIA",
+   "run": 100,
+   "seq": 4957
+  },
+  {
+   "d": "2025-05-02",
+   "t": "19:00",
+   "venue": "올림픽홀",
+   "name": "Xdinary Heroes〈Beautiful Mind〉World Tour",
+   "short": "Xdinary Heroes",
+   "run": null,
+   "seq": 4960
+  },
+  {
+   "d": "2025-05-03",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "YUURI ARENA LIVE 2025 at SEOUL",
+   "short": "YUURI ARENA",
+   "run": 90,
+   "seq": 4953
+  },
+  {
+   "d": "2025-05-03",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "Xdinary Heroes〈Beautiful Mind〉World Tour",
+   "short": "Xdinary Heroes",
+   "run": null,
+   "seq": 4960
+  },
+  {
+   "d": "2025-05-04",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "YUURI ARENA LIVE 2025 at SEOUL",
+   "short": "YUURI ARENA",
+   "run": 90,
+   "seq": 4953
+  },
+  {
+   "d": "2025-05-04",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "Xdinary Heroes〈Beautiful Mind〉World Tour",
+   "short": "Xdinary Heroes",
+   "run": null,
+   "seq": 4960
+  },
+  {
+   "d": "2025-05-05",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "Xdinary Heroes〈Beautiful Mind〉World Tour",
+   "short": "Xdinary Heroes",
+   "run": null,
+   "seq": 4960
+  },
+  {
+   "d": "2025-05-09",
+   "t": "19:00",
+   "venue": "KSPO DOME",
+   "name": "DAY6 3RD WORLD TOUR〈FOREVER YOUNG〉FINALE",
+   "short": "DAY6 3RD",
+   "run": null,
+   "seq": 4966
+  },
+  {
+   "d": "2025-05-09",
+   "t": "19:30",
+   "venue": "올림픽홀",
+   "name": "2025 N.Flying LIVE ‘&CON4 : FULL CIRCLE’",
+   "short": "N.Flying",
+   "run": 120,
+   "seq": 4964
+  },
+  {
+   "d": "2025-05-10",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "DAY6 3RD WORLD TOUR〈FOREVER YOUNG〉FINALE",
+   "short": "DAY6 3RD",
+   "run": null,
+   "seq": 4966
+  },
+  {
+   "d": "2025-05-10",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "2025 N.Flying LIVE ‘&CON4 : FULL CIRCLE’",
+   "short": "N.Flying",
+   "run": 120,
+   "seq": 4964
+  },
+  {
+   "d": "2025-05-11",
+   "t": "16:00",
+   "venue": "올림픽홀",
+   "name": "2025 N.Flying LIVE ‘&CON4 : FULL CIRCLE’",
+   "short": "N.Flying",
+   "run": 120,
+   "seq": 4964
+  },
+  {
+   "d": "2025-05-11",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "DAY6 3RD WORLD TOUR〈FOREVER YOUNG〉FINALE",
+   "short": "DAY6 3RD",
+   "run": null,
+   "seq": 4966
+  },
+  {
+   "d": "2025-05-16",
+   "t": "19:00",
+   "venue": "KSPO DOME",
+   "name": "DAY6 3RD WORLD TOUR〈FOREVER YOUNG〉FINALE",
+   "short": "DAY6 3RD",
+   "run": null,
+   "seq": 4966
+  },
+  {
+   "d": "2025-05-16",
+   "t": "20:00",
+   "venue": "올림픽홀",
+   "name": "2025 BIBI 1st WORLD TOUR [EVE]",
+   "short": "BIBI 1st",
+   "run": null,
+   "seq": 4965
+  },
+  {
+   "d": "2025-05-17",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "DAY6 3RD WORLD TOUR〈FOREVER YOUNG〉FINALE",
+   "short": "DAY6 3RD",
+   "run": null,
+   "seq": 4966
+  },
+  {
+   "d": "2025-05-17",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "2025 BIBI 1st WORLD TOUR [EVE]",
+   "short": "BIBI 1st",
+   "run": null,
+   "seq": 4965
+  },
+  {
+   "d": "2025-05-17",
+   "t": "18:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 KAI SOLO CONCERT TOUR 〈KAION〉",
+   "short": "KAI SOLO",
+   "run": null,
+   "seq": 4961
+  },
+  {
+   "d": "2025-05-18",
+   "t": "16:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 KAI SOLO CONCERT TOUR 〈KAION〉",
+   "short": "KAI SOLO",
+   "run": null,
+   "seq": 4961
+  },
+  {
+   "d": "2025-05-18",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "DAY6 3RD WORLD TOUR〈FOREVER YOUNG〉FINALE",
+   "short": "DAY6 3RD",
+   "run": null,
+   "seq": 4966
+  },
+  {
+   "d": "2025-05-18",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "2025 BIBI 1st WORLD TOUR [EVE]",
+   "short": "BIBI 1st",
+   "run": null,
+   "seq": 4965
+  },
+  {
+   "d": "2025-05-18",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "2025 BIBI 1st WORLD TOUR [EVE]",
+   "short": "BIBI 1st",
+   "run": null,
+   "seq": 4965
+  },
+  {
+   "d": "2025-05-23",
+   "t": "19:00",
+   "venue": "KSPO DOME",
+   "name": "SHINee WORLD Ⅶ [E.S.S.A.Y] (Every Stage Shines Around You)",
+   "short": "SHINee WORLD Ⅶ",
+   "run": null,
+   "seq": 4958
+  },
+  {
+   "d": "2025-05-23",
+   "t": "20:00",
+   "venue": "올림픽홀",
+   "name": "2025 멜로망스 전국투어 콘서트 〈Romance Station〉",
+   "short": "멜로망스",
+   "run": 120,
+   "seq": 4967
+  },
+  {
+   "d": "2025-05-24",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "SHINee WORLD Ⅶ [E.S.S.A.Y] (Every Stage Shines Around You)",
+   "short": "SHINee WORLD Ⅶ",
+   "run": null,
+   "seq": 4958
+  },
+  {
+   "d": "2025-05-24",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "2025 멜로망스 전국투어 콘서트 〈Romance Station〉",
+   "short": "멜로망스",
+   "run": 120,
+   "seq": 4967
+  },
+  {
+   "d": "2025-05-24",
+   "t": "18:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 Jay Park World Tour [Serenades & Body Rolls]",
+   "short": "Jay Park",
+   "run": 120,
+   "seq": 4962
+  },
+  {
+   "d": "2025-05-25",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "2025 멜로망스 전국투어 콘서트 〈Romance Station〉",
+   "short": "멜로망스",
+   "run": 120,
+   "seq": 4967
+  },
+  {
+   "d": "2025-05-25",
+   "t": "17:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 Jay Park World Tour [Serenades & Body Rolls]",
+   "short": "Jay Park",
+   "run": 120,
+   "seq": 4962
+  },
+  {
+   "d": "2025-05-25",
+   "t": "17:25",
+   "venue": "KSPO DOME",
+   "name": "SHINee WORLD Ⅶ [E.S.S.A.Y] (Every Stage Shines Around You)",
+   "short": "SHINee WORLD Ⅶ",
+   "run": null,
+   "seq": 4958
+  },
+  {
+   "d": "2025-05-30",
+   "t": "11:00",
+   "venue": "KSPO DOME",
+   "name": "제17회 서울재즈페스티벌 2025",
+   "short": "제17회 서울재즈페스티벌",
+   "run": null,
+   "seq": 4959
+  },
+  {
+   "d": "2025-05-31",
+   "t": "11:00",
+   "venue": "KSPO DOME",
+   "name": "제17회 서울재즈페스티벌 2025",
+   "short": "제17회 서울재즈페스티벌",
+   "run": null,
+   "seq": 4959
+  },
+  {
+   "d": "2025-06-01",
+   "t": "11:00",
+   "venue": "KSPO DOME",
+   "name": "제17회 서울재즈페스티벌 2025",
+   "short": "제17회 서울재즈페스티벌",
+   "run": null,
+   "seq": 4959
+  },
+  {
+   "d": "2025-06-07",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "2025 BAEKHYUN WORLD TOUR 〈Reverie〉",
+   "short": "BAEKHYUN",
+   "run": 120,
+   "seq": 4969
+  },
+  {
+   "d": "2025-06-07",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "2025 ILLIT GLITTER DAY",
+   "short": "ILLIT GLITTER DA",
+   "run": null,
+   "seq": 4972
+  },
+  {
+   "d": "2025-06-08",
+   "t": "16:00",
+   "venue": "KSPO DOME",
+   "name": "2025 BAEKHYUN WORLD TOUR 〈Reverie〉",
+   "short": "BAEKHYUN",
+   "run": 120,
+   "seq": 4969
+  },
+  {
+   "d": "2025-06-08",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "2025 ILLIT GLITTER DAY",
+   "short": "ILLIT GLITTER DA",
+   "run": null,
+   "seq": 4972
+  },
+  {
+   "d": "2025-06-14",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "2025 IRENE & SEULGI Concert Tour [ BALANCE ]",
+   "short": "IRENE & SEULGI",
+   "run": 120,
+   "seq": 4971
+  },
+  {
+   "d": "2025-06-15",
+   "t": "16:00",
+   "venue": "올림픽홀",
+   "name": "2025 IRENE & SEULGI Concert Tour [ BALANCE ]",
+   "short": "IRENE & SEULGI",
+   "run": 120,
+   "seq": 4971
+  },
+  {
+   "d": "2025-06-20",
+   "t": "19:00",
+   "venue": "올림픽홀",
+   "name": "2025 박지현 콘서트 쇼맨쉽 ‘SHOWMANSHIP’",
+   "short": "박지현",
+   "run": 120,
+   "seq": 4978
+  },
+  {
+   "d": "2025-06-21",
+   "t": "16:00",
+   "venue": "올림픽홀",
+   "name": "2025 박지현 콘서트 쇼맨쉽 ‘SHOWMANSHIP’",
+   "short": "박지현",
+   "run": 120,
+   "seq": 4978
+  },
+  {
+   "d": "2025-06-22",
+   "t": "16:00",
+   "venue": "올림픽홀",
+   "name": "2025 박지현 콘서트 쇼맨쉽 ‘SHOWMANSHIP’",
+   "short": "박지현",
+   "run": 120,
+   "seq": 4978
+  },
+  {
+   "d": "2025-06-27",
+   "t": "19:30",
+   "venue": "올림픽홀",
+   "name": "2025 PALMTREE ISLAND 3rd GALA CONCERT",
+   "short": "PALMTREE ISLAND ",
+   "run": 150,
+   "seq": 4979
+  },
+  {
+   "d": "2025-06-28",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "2025 PALMTREE ISLAND 3rd GALA CONCERT",
+   "short": "PALMTREE ISLAND ",
+   "run": 150,
+   "seq": 4979
+  },
+  {
+   "d": "2025-06-29",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "2025 PALMTREE ISLAND 3rd GALA CONCERT",
+   "short": "PALMTREE ISLAND ",
+   "run": 150,
+   "seq": 4979
+  },
+  {
+   "d": "2025-07-04",
+   "t": "20:00",
+   "venue": "KSPO DOME",
+   "name": "2025 RIIZE CONCERT TOUR [RIIZING LOUD]",
+   "short": "RIIZE",
+   "run": null,
+   "seq": 4980
+  },
+  {
+   "d": "2025-07-05",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "2025 RIIZE CONCERT TOUR [RIIZING LOUD]",
+   "short": "RIIZE",
+   "run": null,
+   "seq": 4980
+  },
+  {
+   "d": "2025-07-06",
+   "t": "16:00",
+   "venue": "KSPO DOME",
+   "name": "2025 RIIZE CONCERT TOUR [RIIZING LOUD]",
+   "short": "RIIZE",
+   "run": null,
+   "seq": 4980
+  },
+  {
+   "d": "2025-07-11",
+   "t": "19:30",
+   "venue": "KSPO DOME",
+   "name": "HIGHLIGHT LIVE 2025 [RIDE OR DIE]",
+   "short": "HIGHLIGHT",
+   "run": 120,
+   "seq": 4982
+  },
+  {
+   "d": "2025-07-12",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "HIGHLIGHT LIVE 2025 [RIDE OR DIE]",
+   "short": "HIGHLIGHT",
+   "run": 120,
+   "seq": 4982
+  },
+  {
+   "d": "2025-07-13",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "HIGHLIGHT LIVE 2025 [RIDE OR DIE]",
+   "short": "HIGHLIGHT",
+   "run": 120,
+   "seq": 4982
+  },
+  {
+   "d": "2025-07-18",
+   "t": "19:30",
+   "venue": "올림픽홀",
+   "name": "2025 JUNG YONG HWA LIVE ‘Director’s Cut : Our Fine Days’",
+   "short": "JUNG YONG HWA",
+   "run": 120,
+   "seq": 4987
+  },
+  {
+   "d": "2025-07-18",
+   "t": "20:00",
+   "venue": "KSPO DOME",
+   "name": "2025 MONSTA X CONNECT X",
+   "short": "MONSTA X CONNECT",
+   "run": null,
+   "seq": 4984
+  },
+  {
+   "d": "2025-07-19",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "2025 MONSTA X CONNECT X",
+   "short": "MONSTA X CONNECT",
+   "run": null,
+   "seq": 4984
+  },
+  {
+   "d": "2025-07-19",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "2025 JUNG YONG HWA LIVE ‘Director’s Cut : Our Fine Days’",
+   "short": "JUNG YONG HWA",
+   "run": 120,
+   "seq": 4987
+  },
+  {
+   "d": "2025-07-20",
+   "t": "16:00",
+   "venue": "KSPO DOME",
+   "name": "2025 MONSTA X CONNECT X",
+   "short": "MONSTA X CONNECT",
+   "run": null,
+   "seq": 4984
+  },
+  {
+   "d": "2025-07-20",
+   "t": "16:00",
+   "venue": "올림픽홀",
+   "name": "2025 JUNG YONG HWA LIVE ‘Director’s Cut : Our Fine Days’",
+   "short": "JUNG YONG HWA",
+   "run": 120,
+   "seq": 4987
+  },
+  {
+   "d": "2025-07-25",
+   "t": "19:00",
+   "venue": "KSPO DOME",
+   "name": "BOYNEXTDOOR TOUR ‘KNOCK ON Vol.1’ FINAL",
+   "short": "BOYNEXTDOOR",
+   "run": null,
+   "seq": 4981
+  },
+  {
+   "d": "2025-07-25",
+   "t": "20:00",
+   "venue": "올림픽홀",
+   "name": "2025 WINNER CONCERT [IN OUR CIRCLE]",
+   "short": "WINNER",
+   "run": 120,
+   "seq": 4988
+  },
+  {
+   "d": "2025-07-26",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "BOYNEXTDOOR TOUR ‘KNOCK ON Vol.1’ FINAL",
+   "short": "BOYNEXTDOOR",
+   "run": null,
+   "seq": 4981
+  },
+  {
+   "d": "2025-07-26",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "2025 WINNER CONCERT [IN OUR CIRCLE]",
+   "short": "WINNER",
+   "run": 120,
+   "seq": 4988
+  },
+  {
+   "d": "2025-07-27",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "BOYNEXTDOOR TOUR ‘KNOCK ON Vol.1’ FINAL",
+   "short": "BOYNEXTDOOR",
+   "run": null,
+   "seq": 4981
+  },
+  {
+   "d": "2025-07-27",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "2025 WINNER CONCERT [IN OUR CIRCLE]",
+   "short": "WINNER",
+   "run": 120,
+   "seq": 4988
+  },
+  {
+   "d": "2025-08-02",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "그룹사운드 잔나비 앵콜 콘서트 <모든소년소녀들 2125>",
+   "short": "그룹사운드 잔나비 앵콜",
+   "run": 140,
+   "seq": 4989
+  },
+  {
+   "d": "2025-08-02",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "2025 WayV Concert Tour [NO Way OUT]",
+   "short": "WayV",
+   "run": 120,
+   "seq": 4990
+  },
+  {
+   "d": "2025-08-02",
+   "t": "18:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 ONEW WORLD TOUR [ONEW THE LIVE : PERCENT (%)]",
+   "short": "ONEW",
+   "run": 120,
+   "seq": 4991
+  },
+  {
+   "d": "2025-08-03",
+   "t": "16:00",
+   "venue": "올림픽홀",
+   "name": "2025 WayV Concert Tour [NO Way OUT]",
+   "short": "WayV",
+   "run": 120,
+   "seq": 4990
+  },
+  {
+   "d": "2025-08-03",
+   "t": "16:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 ONEW WORLD TOUR [ONEW THE LIVE : PERCENT (%)]",
+   "short": "ONEW",
+   "run": 120,
+   "seq": 4991
+  },
+  {
+   "d": "2025-08-03",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "그룹사운드 잔나비 앵콜 콘서트 <모든소년소녀들 2125>",
+   "short": "그룹사운드 잔나비 앵콜",
+   "run": 140,
+   "seq": 4989
+  },
+  {
+   "d": "2025-08-08",
+   "t": "19:00",
+   "venue": "KSPO DOME",
+   "name": "THE BOYZ〈THE BLAZE〉WORLD TOUR",
+   "short": "THE BOYZ",
+   "run": null,
+   "seq": 4992
+  },
+  {
+   "d": "2025-08-09",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "THE BOYZ〈THE BLAZE〉WORLD TOUR",
+   "short": "THE BOYZ",
+   "run": null,
+   "seq": 4992
+  },
+  {
+   "d": "2025-08-09",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "2025 KANGDANIEL CONCERT [ACT : NEW EPISODE]",
+   "short": "KANGDANIEL",
+   "run": 120,
+   "seq": 4994
+  },
+  {
+   "d": "2025-08-09",
+   "t": "18:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 10CM 단독공연 〈5.0〉",
+   "short": "10CM",
+   "run": 120,
+   "seq": 4993
+  },
+  {
+   "d": "2025-08-10",
+   "t": "16:00",
+   "venue": "KSPO DOME",
+   "name": "THE BOYZ〈THE BLAZE〉WORLD TOUR",
+   "short": "THE BOYZ",
+   "run": null,
+   "seq": 4992
+  },
+  {
+   "d": "2025-08-10",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "2025 KANGDANIEL CONCERT [ACT : NEW EPISODE]",
+   "short": "KANGDANIEL",
+   "run": 120,
+   "seq": 4994
+  },
+  {
+   "d": "2025-08-10",
+   "t": "17:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 10CM 단독공연 〈5.0〉",
+   "short": "10CM",
+   "run": 120,
+   "seq": 4993
+  },
+  {
+   "d": "2025-08-15",
+   "t": "20:00",
+   "venue": "KSPO DOME",
+   "name": "2025 PLAVE Asia Tour [DASH: Quantum Leap]",
+   "short": "PLAVE Asia",
+   "run": null,
+   "seq": 4995
+  },
+  {
+   "d": "2025-08-16",
+   "t": "17:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 TAEMIN FANMEETING [CLASS-MATE]",
+   "short": "TAEMIN",
+   "run": 100,
+   "seq": 5000
+  },
+  {
+   "d": "2025-08-16",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "2025 PLAVE Asia Tour [DASH: Quantum Leap]",
+   "short": "PLAVE Asia",
+   "run": null,
+   "seq": 4995
+  },
+  {
+   "d": "2025-08-16",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "2025 NAM WOO HYUN CONCERT <식목일5 - 나무高 :TREE HIGH SCHOOL>",
+   "short": "NAM WOO HYUN",
+   "run": 150,
+   "seq": 4996
+  },
+  {
+   "d": "2025-08-17",
+   "t": "16:00",
+   "venue": "올림픽홀",
+   "name": "2025 NAM WOO HYUN CONCERT <식목일5 - 나무高 :TREE HIGH SCHOOL>",
+   "short": "NAM WOO HYUN",
+   "run": 150,
+   "seq": 4996
+  },
+  {
+   "d": "2025-08-17",
+   "t": "16:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 TAEMIN FANMEETING [CLASS-MATE]",
+   "short": "TAEMIN",
+   "run": 100,
+   "seq": 5000
+  },
+  {
+   "d": "2025-08-17",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "2025 PLAVE Asia Tour [DASH: Quantum Leap]",
+   "short": "PLAVE Asia",
+   "run": null,
+   "seq": 4995
+  },
+  {
+   "d": "2025-08-22",
+   "t": "20:00",
+   "venue": "KSPO DOME",
+   "name": "SUPER JUNIOR 20th Anniversary TOUR 〈SUPER SHOW 10〉",
+   "short": "SUPER JUNIOR 20t",
+   "run": null,
+   "seq": 4997
+  },
+  {
+   "d": "2025-08-23",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "SUPER JUNIOR 20th Anniversary TOUR 〈SUPER SHOW 10〉",
+   "short": "SUPER JUNIOR 20t",
+   "run": null,
+   "seq": 4997
+  },
+  {
+   "d": "2025-08-24",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "SUPER JUNIOR 20th Anniversary TOUR 〈SUPER SHOW 10〉",
+   "short": "SUPER JUNIOR 20t",
+   "run": null,
+   "seq": 4997
+  },
+  {
+   "d": "2025-08-29",
+   "t": "20:00",
+   "venue": "KSPO DOME",
+   "name": "2025 aespa LIVE TOUR - SYNK : aeXIS LINE -",
+   "short": "aespa",
+   "run": null,
+   "seq": 4998
+  },
+  {
+   "d": "2025-08-30",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "2025 aespa LIVE TOUR - SYNK : aeXIS LINE -",
+   "short": "aespa",
+   "run": null,
+   "seq": 4998
+  },
+  {
+   "d": "2025-08-30",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "이승환 35주년 콘서트 HEAVEN [ ENCORE ]",
+   "short": "이승환",
+   "run": 150,
+   "seq": 4999
+  },
+  {
+   "d": "2025-08-31",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "2025 aespa LIVE TOUR - SYNK : aeXIS LINE -",
+   "short": "aespa",
+   "run": null,
+   "seq": 4998
+  },
+  {
+   "d": "2025-08-31",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "이승환 35주년 콘서트 HEAVEN [ ENCORE ]",
+   "short": "이승환",
+   "run": 150,
+   "seq": 4999
+  },
+  {
+   "d": "2025-09-06",
+   "t": "19:00",
+   "venue": "KSPO DOME",
+   "name": "크리스토퍼 내한공연 CHRISTOPHER LIVE IN SEOUL 2025",
+   "short": "크리스토퍼 내한공연 CHRIS",
+   "run": 90,
+   "seq": 5005
+  },
+  {
+   "d": "2025-09-13",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "2025 IU FAN MEET-UP [Bye, Summer]",
+   "short": "IU FAN MEET",
+   "run": 120,
+   "seq": 5001
+  },
+  {
+   "d": "2025-09-13",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "Gen Hoshino presents MAD HOPE Asia Tour",
+   "short": "Gen Hoshino pres",
+   "run": 110,
+   "seq": 5007
+  },
+  {
+   "d": "2025-09-14",
+   "t": "16:00",
+   "venue": "KSPO DOME",
+   "name": "2025 IU FAN MEET-UP [Bye, Summer]",
+   "short": "IU FAN MEET",
+   "run": 120,
+   "seq": 5001
+  },
+  {
+   "d": "2025-09-14",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "Gen Hoshino presents MAD HOPE Asia Tour",
+   "short": "Gen Hoshino pres",
+   "run": 110,
+   "seq": 5007
+  },
+  {
+   "d": "2025-09-26",
+   "t": "19:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 KEYLAND : Uncanny Valley",
+   "short": "KEYLAND",
+   "run": null,
+   "seq": 5006
+  },
+  {
+   "d": "2025-09-27",
+   "t": "18:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 KEYLAND : Uncanny Valley",
+   "short": "KEYLAND",
+   "run": null,
+   "seq": 5006
+  },
+  {
+   "d": "2025-09-28",
+   "t": "16:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 KEYLAND : Uncanny Valley",
+   "short": "KEYLAND",
+   "run": null,
+   "seq": 5006
+  },
+  {
+   "d": "2025-10-03",
+   "t": "14:00",
+   "venue": "올림픽홀",
+   "name": "허용별 콘서트 : 보컬 전쟁 시즌2 “The War of Vocalists II“ - 서울 앵콜",
+   "short": "허용별",
+   "run": 120,
+   "seq": 5012
+  },
+  {
+   "d": "2025-10-03",
+   "t": "17:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 QWER 1ST WORLDTOUR [ROCKATION]",
+   "short": "QWER 1ST WORLD",
+   "run": 120,
+   "seq": 5009
+  },
+  {
+   "d": "2025-10-03",
+   "t": "18:30",
+   "venue": "올림픽홀",
+   "name": "허용별 콘서트 : 보컬 전쟁 시즌2 “The War of Vocalists II“ - 서울 앵콜",
+   "short": "허용별",
+   "run": 120,
+   "seq": 5012
+  },
+  {
+   "d": "2025-10-03",
+   "t": "19:30",
+   "venue": "KSPO DOME",
+   "name": "2025 ZEROBASEONE WORLD TOUR [HERE & NOW]",
+   "short": "ZEROBASEONE",
+   "run": null,
+   "seq": 5008
+  },
+  {
+   "d": "2025-10-04",
+   "t": "17:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 QWER 1ST WORLDTOUR [ROCKATION]",
+   "short": "QWER 1ST WORLD",
+   "run": 120,
+   "seq": 5009
+  },
+  {
+   "d": "2025-10-04",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "2025 ZEROBASEONE WORLD TOUR [HERE & NOW]",
+   "short": "ZEROBASEONE",
+   "run": null,
+   "seq": 5008
+  },
+  {
+   "d": "2025-10-05",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "2025 ZEROBASEONE WORLD TOUR [HERE & NOW]",
+   "short": "ZEROBASEONE",
+   "run": null,
+   "seq": 5008
+  },
+  {
+   "d": "2025-10-05",
+   "t": "17:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 QWER 1ST WORLDTOUR [ROCKATION]",
+   "short": "QWER 1ST WORLD",
+   "run": 120,
+   "seq": 5009
+  },
+  {
+   "d": "2025-10-10",
+   "t": "19:00",
+   "venue": "KSPO DOME",
+   "name": "2025-26 TREASURE TOUR[PULSE ON]IN SEOUL",
+   "short": "TREASURE",
+   "run": null,
+   "seq": 5011
+  },
+  {
+   "d": "2025-10-10",
+   "t": "20:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 하현상 콘서트 〈Navy Horizon〉",
+   "short": "하현상",
+   "run": null,
+   "seq": 5010
+  },
+  {
+   "d": "2025-10-11",
+   "t": "14:00",
+   "venue": "올림픽홀",
+   "name": "2025 쎄시봉 [The Last] 콘서트",
+   "short": "쎄시봉",
+   "run": 120,
+   "seq": 5013
+  },
+  {
+   "d": "2025-10-11",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "2025-26 TREASURE TOUR[PULSE ON]IN SEOUL",
+   "short": "TREASURE",
+   "run": null,
+   "seq": 5011
+  },
+  {
+   "d": "2025-10-11",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "2025 쎄시봉 [The Last] 콘서트",
+   "short": "쎄시봉",
+   "run": 120,
+   "seq": 5013
+  },
+  {
+   "d": "2025-10-11",
+   "t": "18:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 하현상 콘서트 〈Navy Horizon〉",
+   "short": "하현상",
+   "run": null,
+   "seq": 5010
+  },
+  {
+   "d": "2025-10-12",
+   "t": "14:00",
+   "venue": "올림픽홀",
+   "name": "2025 쎄시봉 [The Last] 콘서트",
+   "short": "쎄시봉",
+   "run": 120,
+   "seq": 5013
+  },
+  {
+   "d": "2025-10-12",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "2025-26 TREASURE TOUR[PULSE ON]IN SEOUL",
+   "short": "TREASURE",
+   "run": null,
+   "seq": 5011
+  },
+  {
+   "d": "2025-10-12",
+   "t": "17:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 하현상 콘서트 〈Navy Horizon〉",
+   "short": "하현상",
+   "run": null,
+   "seq": 5010
+  },
+  {
+   "d": "2025-10-12",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "2025 쎄시봉 [The Last] 콘서트",
+   "short": "쎄시봉",
+   "run": 120,
+   "seq": 5013
+  },
+  {
+   "d": "2025-10-17",
+   "t": "19:30",
+   "venue": "올림픽홀",
+   "name": "비보쇼 with Friends",
+   "short": "비보쇼 with Friends",
+   "run": 120,
+   "seq": 5014
+  },
+  {
+   "d": "2025-10-18",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "비보쇼 with Friends",
+   "short": "비보쇼 with Friends",
+   "run": 120,
+   "seq": 5014
+  },
+  {
+   "d": "2025-10-19",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "비보쇼 with Friends",
+   "short": "비보쇼 with Friends",
+   "run": 120,
+   "seq": 5014
+  },
+  {
+   "d": "2025-10-24",
+   "t": "19:00",
+   "venue": "KSPO DOME",
+   "name": "ENHYPEN WORLD TOUR ‘WALK THE LINE’ : FINAL",
+   "short": "ENHYPEN",
+   "run": 150,
+   "seq": 5017
+  },
+  {
+   "d": "2025-10-25",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "ENHYPEN WORLD TOUR ‘WALK THE LINE’ : FINAL",
+   "short": "ENHYPEN",
+   "run": 150,
+   "seq": 5017
+  },
+  {
+   "d": "2025-10-25",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "NEXZ SPECIAL CONCERT〈ONE BEAT〉",
+   "short": "NEXZ",
+   "run": null,
+   "seq": 5015
+  },
+  {
+   "d": "2025-10-26",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "ENHYPEN WORLD TOUR ‘WALK THE LINE’ : FINAL",
+   "short": "ENHYPEN",
+   "run": 150,
+   "seq": 5017
+  },
+  {
+   "d": "2025-10-26",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "NEXZ SPECIAL CONCERT〈ONE BEAT〉",
+   "short": "NEXZ",
+   "run": null,
+   "seq": 5015
+  },
+  {
+   "d": "2025-10-31",
+   "t": "19:30",
+   "venue": "KSPO DOME",
+   "name": "IVE WORLD TOUR [SHOW WHAT I AM]",
+   "short": "IVE",
+   "run": 120,
+   "seq": 5018
+  },
+  {
+   "d": "2025-11-01",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "IVE WORLD TOUR [SHOW WHAT I AM]",
+   "short": "IVE",
+   "run": 120,
+   "seq": 5018
+  },
+  {
+   "d": "2025-11-01",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "2025 THE신승훈SHOW 〈SINCERELY 35〉",
+   "short": "THE신승훈SHOW",
+   "run": null,
+   "seq": 5016
+  },
+  {
+   "d": "2025-11-02",
+   "t": "16:00",
+   "venue": "KSPO DOME",
+   "name": "IVE WORLD TOUR [SHOW WHAT I AM]",
+   "short": "IVE",
+   "run": 120,
+   "seq": 5018
+  },
+  {
+   "d": "2025-11-02",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "2025 THE신승훈SHOW 〈SINCERELY 35〉",
+   "short": "THE신승훈SHOW",
+   "run": null,
+   "seq": 5016
+  },
+  {
+   "d": "2025-11-07",
+   "t": "19:30",
+   "venue": "핸드볼경기장",
+   "name": "2025 LUCY 8TH CONCERT 〈LUCID LINE〉",
+   "short": "LUCY 8TH",
+   "run": 130,
+   "seq": 5024
+  },
+  {
+   "d": "2025-11-08",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "2025 김동률 콘서트 ‘산책’",
+   "short": "김동률",
+   "run": 130,
+   "seq": 5019
+  },
+  {
+   "d": "2025-11-08",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "2025 ILLIT GLITTER DAY ENCORE",
+   "short": "ILLIT GLITTER DA",
+   "run": null,
+   "seq": 5022
+  },
+  {
+   "d": "2025-11-08",
+   "t": "18:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 LUCY 8TH CONCERT 〈LUCID LINE〉",
+   "short": "LUCY 8TH",
+   "run": 130,
+   "seq": 5024
+  },
+  {
+   "d": "2025-11-09",
+   "t": "16:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 LUCY 8TH CONCERT 〈LUCID LINE〉",
+   "short": "LUCY 8TH",
+   "run": 130,
+   "seq": 5024
+  },
+  {
+   "d": "2025-11-09",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "2025 김동률 콘서트 ‘산책’",
+   "short": "김동률",
+   "run": 130,
+   "seq": 5019
+  },
+  {
+   "d": "2025-11-09",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "2025 ILLIT GLITTER DAY ENCORE",
+   "short": "ILLIT GLITTER DA",
+   "run": null,
+   "seq": 5022
+  },
+  {
+   "d": "2025-11-10",
+   "t": "19:30",
+   "venue": "KSPO DOME",
+   "name": "2025 김동률 콘서트 ‘산책’",
+   "short": "김동률",
+   "run": 130,
+   "seq": 5019
+  },
+  {
+   "d": "2025-11-13",
+   "t": "19:30",
+   "venue": "KSPO DOME",
+   "name": "2025 김동률 콘서트 ‘산책’",
+   "short": "김동률",
+   "run": 130,
+   "seq": 5019
+  },
+  {
+   "d": "2025-11-14",
+   "t": "19:30",
+   "venue": "KSPO DOME",
+   "name": "2025 김동률 콘서트 ‘산책’",
+   "short": "김동률",
+   "run": 130,
+   "seq": 5019
+  },
+  {
+   "d": "2025-11-15",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "2025 김동률 콘서트 ‘산책’",
+   "short": "김동률",
+   "run": 130,
+   "seq": 5019
+  },
+  {
+   "d": "2025-11-15",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "유다빈밴드 단독 콘서트 ‘우리의 밤 - 커튼콜’",
+   "short": "유다빈밴드",
+   "run": 120,
+   "seq": 5021
+  },
+  {
+   "d": "2025-11-16",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "2025 김동률 콘서트 ‘산책’",
+   "short": "김동률",
+   "run": 130,
+   "seq": 5019
+  },
+  {
+   "d": "2025-11-16",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "유다빈밴드 단독 콘서트 ‘우리의 밤 - 커튼콜’",
+   "short": "유다빈밴드",
+   "run": 120,
+   "seq": 5021
+  },
+  {
+   "d": "2025-11-21",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "임영웅 IM HERO TOUR 2025",
+   "short": "임영웅 IM HERO",
+   "run": 150,
+   "seq": 5020
+  },
+  {
+   "d": "2025-11-22",
+   "t": "16:00",
+   "venue": "올림픽홀",
+   "name": "2025 이승철 콘서트 <오케스트락3> 서울공연",
+   "short": "이승철",
+   "run": 120,
+   "seq": 5026
+  },
+  {
+   "d": "2025-11-22",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "임영웅 IM HERO TOUR 2025",
+   "short": "임영웅 IM HERO",
+   "run": 150,
+   "seq": 5020
+  },
+  {
+   "d": "2025-11-23",
+   "t": "16:00",
+   "venue": "올림픽홀",
+   "name": "2025 이승철 콘서트 <오케스트락3> 서울공연",
+   "short": "이승철",
+   "run": 120,
+   "seq": 5026
+  },
+  {
+   "d": "2025-11-23",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "임영웅 IM HERO TOUR 2025",
+   "short": "임영웅 IM HERO",
+   "run": 150,
+   "seq": 5020
+  },
+  {
+   "d": "2025-11-28",
+   "t": "15:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 JUNGWOO FANMEETING [Golden Sugar Time]",
+   "short": "JUNGWOO",
+   "run": null,
+   "seq": 5039
+  },
+  {
+   "d": "2025-11-28",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "임영웅 IM HERO TOUR 2025",
+   "short": "임영웅 IM HERO",
+   "run": 150,
+   "seq": 5020
+  },
+  {
+   "d": "2025-11-28",
+   "t": "20:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 JUNGWOO FANMEETING [Golden Sugar Time]",
+   "short": "JUNGWOO",
+   "run": null,
+   "seq": 5039
+  },
+  {
+   "d": "2025-11-29",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "임영웅 IM HERO TOUR 2025",
+   "short": "임영웅 IM HERO",
+   "run": 150,
+   "seq": 5020
+  },
+  {
+   "d": "2025-11-29",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "2025 어반자카파 전국투어 콘서트 '겨울'",
+   "short": "어반자카파",
+   "run": 120,
+   "seq": 5028
+  },
+  {
+   "d": "2025-11-30",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "임영웅 IM HERO TOUR 2025",
+   "short": "임영웅 IM HERO",
+   "run": 150,
+   "seq": 5020
+  },
+  {
+   "d": "2025-11-30",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "2025 어반자카파 전국투어 콘서트 '겨울'",
+   "short": "어반자카파",
+   "run": 120,
+   "seq": 5028
+  },
+  {
+   "d": "2025-12-05",
+   "t": "20:00",
+   "venue": "KSPO DOME",
+   "name": "2025 god CONCERT < ICONIC BOX >",
+   "short": "god",
+   "run": 150,
+   "seq": 5030
+  },
+  {
+   "d": "2025-12-05",
+   "t": "20:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 정승환의 안녕, 겨울",
+   "short": "정승환의 안녕, 겨울",
+   "run": 150,
+   "seq": 5029
+  },
+  {
+   "d": "2025-12-06",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "2025 god CONCERT < ICONIC BOX >",
+   "short": "god",
+   "run": 150,
+   "seq": 5030
+  },
+  {
+   "d": "2025-12-06",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "2025 손태진 전국투어 콘서트 〈It‘s Son Time〉",
+   "short": "손태진",
+   "run": 150,
+   "seq": 5041
+  },
+  {
+   "d": "2025-12-06",
+   "t": "18:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 정승환의 안녕, 겨울",
+   "short": "정승환의 안녕, 겨울",
+   "run": 150,
+   "seq": 5029
+  },
+  {
+   "d": "2025-12-07",
+   "t": "16:00",
+   "venue": "올림픽홀",
+   "name": "2025 손태진 전국투어 콘서트 〈It‘s Son Time〉",
+   "short": "손태진",
+   "run": 150,
+   "seq": 5041
+  },
+  {
+   "d": "2025-12-07",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "2025 god CONCERT < ICONIC BOX >",
+   "short": "god",
+   "run": 150,
+   "seq": 5030
+  },
+  {
+   "d": "2025-12-07",
+   "t": "17:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 정승환의 안녕, 겨울",
+   "short": "정승환의 안녕, 겨울",
+   "run": 150,
+   "seq": 5029
+  },
+  {
+   "d": "2025-12-12",
+   "t": "20:00",
+   "venue": "핸드볼경기장",
+   "name": "2025-26 로이킴 LIVE TOUR [ja, daumm]",
+   "short": "로이킴",
+   "run": null,
+   "seq": 5033
+  },
+  {
+   "d": "2025-12-13",
+   "t": "16:00",
+   "venue": "올림픽홀",
+   "name": "2025 박지현 팬콘서트 멤버쉽 “MEMBERSHIP”",
+   "short": "박지현",
+   "run": 120,
+   "seq": 5043
+  },
+  {
+   "d": "2025-12-13",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "2025 이문세 ‘The Best’",
+   "short": "이문세",
+   "run": 120,
+   "seq": 5032
+  },
+  {
+   "d": "2025-12-13",
+   "t": "18:00",
+   "venue": "핸드볼경기장",
+   "name": "2025-26 로이킴 LIVE TOUR [ja, daumm]",
+   "short": "로이킴",
+   "run": null,
+   "seq": 5033
+  },
+  {
+   "d": "2025-12-14",
+   "t": "16:00",
+   "venue": "올림픽홀",
+   "name": "2025 박지현 팬콘서트 멤버쉽 “MEMBERSHIP”",
+   "short": "박지현",
+   "run": 120,
+   "seq": 5043
+  },
+  {
+   "d": "2025-12-14",
+   "t": "16:00",
+   "venue": "핸드볼경기장",
+   "name": "2025-26 로이킴 LIVE TOUR [ja, daumm]",
+   "short": "로이킴",
+   "run": null,
+   "seq": 5033
+  },
+  {
+   "d": "2025-12-14",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "2025 이문세 ‘The Best’",
+   "short": "이문세",
+   "run": 120,
+   "seq": 5032
+  },
+  {
+   "d": "2025-12-19",
+   "t": "19:00",
+   "venue": "KSPO DOME",
+   "name": "2025 DAY6 Special Concert ‘The Present’",
+   "short": "DAY6",
+   "run": null,
+   "seq": 5047
+  },
+  {
+   "d": "2025-12-19",
+   "t": "19:30",
+   "venue": "핸드볼경기장",
+   "name": "2025 N.Flying LIVE ‘&CON4 ENCORE : Let’s Roll &4EVER’",
+   "short": "N.Flying",
+   "run": 120,
+   "seq": 5038
+  },
+  {
+   "d": "2025-12-19",
+   "t": "20:00",
+   "venue": "올림픽홀",
+   "name": "2025 규현(KYUHYUN) Concert ‘The Classic’",
+   "short": "규현",
+   "run": 120,
+   "seq": 5034
+  },
+  {
+   "d": "2025-12-20",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "2025 DAY6 Special Concert ‘The Present’",
+   "short": "DAY6",
+   "run": null,
+   "seq": 5047
+  },
+  {
+   "d": "2025-12-20",
+   "t": "18:00",
+   "venue": "올림픽홀",
+   "name": "2025 규현(KYUHYUN) Concert ‘The Classic’",
+   "short": "규현",
+   "run": 120,
+   "seq": 5034
+  },
+  {
+   "d": "2025-12-20",
+   "t": "18:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 N.Flying LIVE ‘&CON4 ENCORE : Let’s Roll &4EVER’",
+   "short": "N.Flying",
+   "run": 120,
+   "seq": 5038
+  },
+  {
+   "d": "2025-12-21",
+   "t": "16:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 N.Flying LIVE ‘&CON4 ENCORE : Let’s Roll &4EVER’",
+   "short": "N.Flying",
+   "run": 120,
+   "seq": 5038
+  },
+  {
+   "d": "2025-12-21",
+   "t": "17:00",
+   "venue": "KSPO DOME",
+   "name": "2025 DAY6 Special Concert ‘The Present’",
+   "short": "DAY6",
+   "run": null,
+   "seq": 5047
+  },
+  {
+   "d": "2025-12-21",
+   "t": "17:00",
+   "venue": "올림픽홀",
+   "name": "2025 규현(KYUHYUN) Concert ‘The Classic’",
+   "short": "규현",
+   "run": 120,
+   "seq": 5034
+  },
+  {
+   "d": "2025-12-25",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "2025 성시경 연말 콘서트 〈성시경〉",
+   "short": "성시경",
+   "run": 120,
+   "seq": 5042
+  },
+  {
+   "d": "2025-12-25",
+   "t": "18:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 에픽하이 콘서트",
+   "short": "에픽하이",
+   "run": 120,
+   "seq": 5035
+  },
+  {
+   "d": "2025-12-26",
+   "t": "19:30",
+   "venue": "KSPO DOME",
+   "name": "2025 성시경 연말 콘서트 〈성시경〉",
+   "short": "성시경",
+   "run": 120,
+   "seq": 5042
+  },
+  {
+   "d": "2025-12-26",
+   "t": "20:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 에픽하이 콘서트",
+   "short": "에픽하이",
+   "run": 120,
+   "seq": 5035
+  },
+  {
+   "d": "2025-12-27",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "2025 성시경 연말 콘서트 〈성시경〉",
+   "short": "성시경",
+   "run": 120,
+   "seq": 5042
+  },
+  {
+   "d": "2025-12-27",
+   "t": "18:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 에픽하이 콘서트",
+   "short": "에픽하이",
+   "run": 120,
+   "seq": 5035
+  },
+  {
+   "d": "2025-12-28",
+   "t": "16:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 에픽하이 콘서트",
+   "short": "에픽하이",
+   "run": 120,
+   "seq": 5035
+  },
+  {
+   "d": "2025-12-28",
+   "t": "18:00",
+   "venue": "KSPO DOME",
+   "name": "2025 성시경 연말 콘서트 〈성시경〉",
+   "short": "성시경",
+   "run": 120,
+   "seq": 5042
+  },
+  {
+   "d": "2025-12-28",
+   "t": "18:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 에픽하이 콘서트",
+   "short": "에픽하이",
+   "run": 120,
+   "seq": 5035
+  },
+  {
+   "d": "2025-12-28",
+   "t": "19:30",
+   "venue": "KSPO DOME",
+   "name": "2025 성시경 연말 콘서트 〈성시경〉",
+   "short": "성시경",
+   "run": 120,
+   "seq": 5042
+  },
+  {
+   "d": "2025-12-28",
+   "t": "20:00",
+   "venue": "핸드볼경기장",
+   "name": "2025 에픽하이 콘서트",
+   "short": "에픽하이",
+   "run": 120,
+   "seq": 5035
+  }
+ ],
+ "small": [
+  {
+   "d": "2024-11-24",
+   "t": "13:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-11-24",
+   "t": "17:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-11-25",
+   "t": "18:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-11-25",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-11-26",
+   "t": "18:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-11-26",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-11-27",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-11-28",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-11-29",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-11-30",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-11-30",
+   "t": "18:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-01",
+   "t": "13:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-01",
+   "t": "17:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-02",
+   "t": "18:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-02",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-03",
+   "t": "18:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-03",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-04",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-05",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-06",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-07",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-07",
+   "t": "18:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-08",
+   "t": "13:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-08",
+   "t": "17:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-09",
+   "t": "18:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-09",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-10",
+   "t": "18:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-10",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-11",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-12",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-13",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-14",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-14",
+   "t": "18:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-15",
+   "t": "13:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-15",
+   "t": "17:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-16",
+   "t": "18:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-16",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-17",
+   "t": "18:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-17",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-18",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-19",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-20",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-21",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-21",
+   "t": "18:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-22",
+   "t": "13:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-22",
+   "t": "17:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-23",
+   "t": "18:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-23",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-24",
+   "t": "18:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-24",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-25",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-26",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-27",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-28",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-28",
+   "t": "18:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-29",
+   "t": "13:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2024-12-29",
+   "t": "17:00",
+   "venue": "우리금융아트홀",
+   "name": "최현우 19＋I",
+   "run": 100,
+   "seq": 4892
+  },
+  {
+   "d": "2025-01-08",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-08",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-09",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-09",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-10",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-10",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-11",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-11",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-11",
+   "t": "16:30",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-12",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-12",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-14",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-14",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-15",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-15",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-16",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-16",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-17",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-17",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-18",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-18",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-18",
+   "t": "16:30",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-19",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-19",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-21",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-21",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-22",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-22",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-23",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-23",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-24",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-24",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-25",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-25",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-25",
+   "t": "16:30",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-26",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-26",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-28",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-28",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-29",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-29",
+   "t": "16:30",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-30",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-30",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-31",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-01-31",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-01",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-01",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-01",
+   "t": "16:30",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-02",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-02",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-04",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-04",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-05",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-05",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-06",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-06",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-07",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-07",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-08",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-08",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-08",
+   "t": "16:30",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-09",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-09",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-11",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-11",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-12",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-12",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-13",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-13",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-14",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-14",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-15",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-15",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-15",
+   "t": "16:30",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-16",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-16",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "run": 65,
+   "seq": 4914
+  },
+  {
+   "d": "2025-02-21",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-02-21",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-02-21",
+   "t": "15:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-02-22",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-02-22",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-02-22",
+   "t": "16:30",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-02-23",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-02-23",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-02-23",
+   "t": "16:30",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-02-24",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-02-24",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-02-24",
+   "t": "15:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-02-25",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-02-25",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-02-26",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-02-26",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-02-27",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-02-27",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-02-28",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-02-28",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-02-28",
+   "t": "15:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-01",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-01",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-01",
+   "t": "16:30",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-02",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-02",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-02",
+   "t": "16:30",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-03",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-03",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-03",
+   "t": "16:30",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-04",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-04",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-05",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-05",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-06",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-06",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-07",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-07",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-07",
+   "t": "15:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-08",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-08",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-08",
+   "t": "16:30",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-09",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-09",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-09",
+   "t": "16:30",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-10",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-10",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-10",
+   "t": "15:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-11",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-11",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-12",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-12",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-13",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-13",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-14",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-14",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-14",
+   "t": "15:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-15",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-15",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-15",
+   "t": "16:30",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-16",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-16",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-16",
+   "t": "16:30",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-17",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-17",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-17",
+   "t": "15:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-18",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-18",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-19",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-19",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-20",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-20",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-21",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-21",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-21",
+   "t": "15:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-22",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-22",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-22",
+   "t": "16:30",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-23",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-23",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-03-23",
+   "t": "16:30",
+   "venue": "우리금융아트홀",
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "run": 60,
+   "seq": 4938
+  },
+  {
+   "d": "2025-04-05",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-05",
+   "t": "18:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-06",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-06",
+   "t": "18:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-08",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-09",
+   "t": "15:00",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-09",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-10",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-11",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-12",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-12",
+   "t": "18:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-13",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-13",
+   "t": "18:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-15",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-16",
+   "t": "15:00",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-16",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-17",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-18",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-19",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-19",
+   "t": "18:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-20",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-20",
+   "t": "18:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-22",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-23",
+   "t": "15:00",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-23",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-24",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-25",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-26",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-26",
+   "t": "18:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-27",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-27",
+   "t": "18:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-29",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-30",
+   "t": "15:00",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-04-30",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-01",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-02",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-03",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-03",
+   "t": "18:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-04",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-04",
+   "t": "18:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-06",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-07",
+   "t": "15:00",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-07",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-08",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-09",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-10",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-10",
+   "t": "18:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-11",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-11",
+   "t": "18:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-13",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-14",
+   "t": "15:00",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-14",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-15",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-16",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-17",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-17",
+   "t": "18:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-18",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-18",
+   "t": "18:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-20",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-21",
+   "t": "15:00",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-21",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-22",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-23",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-24",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-24",
+   "t": "18:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-25",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-25",
+   "t": "18:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-27",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-28",
+   "t": "15:00",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-28",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-29",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-30",
+   "t": "19:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-31",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-31",
+   "t": "18:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-06-01",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-06-01",
+   "t": "18:30",
+   "venue": "우리금융아트홀",
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "run": 150,
+   "seq": 4951
+  },
+  {
+   "d": "2025-05-03",
+   "t": "14:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-04",
+   "t": "14:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-05",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-06",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-07",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-08",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-09",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-10",
+   "t": "14:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-11",
+   "t": "14:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-12",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-13",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-14",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-15",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-16",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-17",
+   "t": "14:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-18",
+   "t": "14:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-19",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-20",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-21",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-22",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-23",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-24",
+   "t": "14:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-25",
+   "t": "14:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-26",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-27",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-28",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-29",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-30",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-31",
+   "t": "14:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-01",
+   "t": "14:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-02",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-03",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-04",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-05",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-06",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-07",
+   "t": "14:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-08",
+   "t": "14:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-09",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-10",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-11",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-12",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-13",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-14",
+   "t": "14:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-15",
+   "t": "14:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-16",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-17",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-18",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-19",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-20",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-21",
+   "t": "14:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-22",
+   "t": "14:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-23",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-24",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-25",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-26",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-27",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-28",
+   "t": "14:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-29",
+   "t": "14:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-06-30",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-07-01",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-07-02",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-07-03",
+   "t": "11:00",
+   "venue": "올림픽공원 뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 70,
+   "seq": 5076
+  },
+  {
+   "d": "2025-05-03",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-03",
+   "t": "14:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-04",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-04",
+   "t": "14:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-05",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-06",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-07",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-08",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-09",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-10",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-10",
+   "t": "14:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-11",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-11",
+   "t": "14:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-12",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-13",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-14",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-15",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-16",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-17",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-17",
+   "t": "14:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-18",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-18",
+   "t": "14:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-19",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-20",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-21",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-22",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-23",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-24",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-24",
+   "t": "14:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-25",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-25",
+   "t": "14:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-26",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-27",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-28",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-29",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-30",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-31",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-05-31",
+   "t": "14:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-01",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-01",
+   "t": "14:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-02",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-03",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-04",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-05",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-06",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-07",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-07",
+   "t": "14:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-08",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-08",
+   "t": "14:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-09",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-10",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-11",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-12",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-13",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-14",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-14",
+   "t": "14:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-15",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-15",
+   "t": "14:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-16",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-17",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-18",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-19",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-20",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-21",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-21",
+   "t": "14:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-22",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-22",
+   "t": "14:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-23",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-24",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-25",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-26",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-27",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-28",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-28",
+   "t": "14:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-29",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-29",
+   "t": "14:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-30",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-07-01",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-07-02",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-07-03",
+   "t": "11:00",
+   "venue": "뮤즈라이브",
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "run": 75,
+   "seq": 4968
+  },
+  {
+   "d": "2025-06-07",
+   "t": "17:00",
+   "venue": "우리금융아트홀",
+   "name": "윤종신 전국투어 콘서트 ‘그때’ - 서울",
+   "run": 120,
+   "seq": 4976
+  },
+  {
+   "d": "2025-06-08",
+   "t": "16:00",
+   "venue": "우리금융아트홀",
+   "name": "윤종신 전국투어 콘서트 ‘그때’ - 서울",
+   "run": 120,
+   "seq": 4976
+  },
+  {
+   "d": "2025-06-13",
+   "t": "12:00",
+   "venue": "88잔디마당",
+   "name": "뷰티풀 민트 라이프 2025",
+   "run": null,
+   "seq": 4963
+  },
+  {
+   "d": "2025-06-14",
+   "t": "12:00",
+   "venue": "88잔디마당",
+   "name": "뷰티풀 민트 라이프 2025",
+   "run": null,
+   "seq": 4963
+  },
+  {
+   "d": "2025-06-15",
+   "t": "12:00",
+   "venue": "88잔디마당",
+   "name": "뷰티풀 민트 라이프 2025",
+   "run": null,
+   "seq": 4963
+  },
+  {
+   "d": "2025-06-20",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "［서울］뮤지컬 번개맨 시즌2 - 여름맞이 특별공연",
+   "run": 65,
+   "seq": 4977
+  },
+  {
+   "d": "2025-06-20",
+   "t": "16:30",
+   "venue": "우리금융아트홀",
+   "name": "［서울］뮤지컬 번개맨 시즌2 - 여름맞이 특별공연",
+   "run": 65,
+   "seq": 4977
+  },
+  {
+   "d": "2025-06-21",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "［서울］뮤지컬 번개맨 시즌2 - 여름맞이 특별공연",
+   "run": 65,
+   "seq": 4977
+  },
+  {
+   "d": "2025-06-21",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "［서울］뮤지컬 번개맨 시즌2 - 여름맞이 특별공연",
+   "run": 65,
+   "seq": 4977
+  },
+  {
+   "d": "2025-06-21",
+   "t": "16:30",
+   "venue": "우리금융아트홀",
+   "name": "［서울］뮤지컬 번개맨 시즌2 - 여름맞이 특별공연",
+   "run": 65,
+   "seq": 4977
+  },
+  {
+   "d": "2025-06-22",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "［서울］뮤지컬 번개맨 시즌2 - 여름맞이 특별공연",
+   "run": 65,
+   "seq": 4977
+  },
+  {
+   "d": "2025-06-22",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "［서울］뮤지컬 번개맨 시즌2 - 여름맞이 특별공연",
+   "run": 65,
+   "seq": 4977
+  },
+  {
+   "d": "2025-06-22",
+   "t": "16:30",
+   "venue": "우리금융아트홀",
+   "name": "［서울］뮤지컬 번개맨 시즌2 - 여름맞이 특별공연",
+   "run": 65,
+   "seq": 4977
+  },
+  {
+   "d": "2025-07-08",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-08",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-11",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-11",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-12",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-12",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-12",
+   "t": "17:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-13",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-13",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-13",
+   "t": "17:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-15",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-15",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-18",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-18",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-19",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-19",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-19",
+   "t": "17:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-20",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-20",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-20",
+   "t": "17:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-22",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-22",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-25",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-25",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-26",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-26",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-26",
+   "t": "17:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-27",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-27",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-27",
+   "t": "17:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-29",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-29",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-01",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-01",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-02",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-02",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-02",
+   "t": "17:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-03",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-03",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-03",
+   "t": "17:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-05",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-05",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-08",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-08",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-09",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-09",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-09",
+   "t": "17:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-10",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-10",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-10",
+   "t": "17:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-12",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-12",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-15",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-15",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-16",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-16",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-16",
+   "t": "17:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-17",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-17",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-17",
+   "t": "17:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-19",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-19",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-22",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-22",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-23",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-23",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-23",
+   "t": "17:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-24",
+   "t": "11:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-24",
+   "t": "14:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-08-24",
+   "t": "17:00",
+   "venue": "우리금융아트홀",
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "run": 85,
+   "seq": 4986
+  },
+  {
+   "d": "2025-07-12",
+   "t": "17:00",
+   "venue": "올림픽",
+   "name": "2025 FIVE O ONE : 20th Anniversary World Tour In Seoul",
+   "run": 150,
+   "seq": 4985
+  },
+  {
+   "d": "2025-07-13",
+   "t": "17:00",
+   "venue": "올림픽",
+   "name": "2025 FIVE O ONE : 20th Anniversary World Tour In Seoul",
+   "run": 150,
+   "seq": 4985
+  },
+  {
+   "d": "2025-09-06",
+   "t": "12:00",
+   "venue": "올림픽공원 88잔디마당",
+   "name": "Someday Festival 2025 - week 1",
+   "run": 500,
+   "seq": 5003
+  },
+  {
+   "d": "2025-09-07",
+   "t": "12:00",
+   "venue": "올림픽공원 88잔디마당",
+   "name": "Someday Festival 2025 - week 1",
+   "run": 500,
+   "seq": 5003
+  },
+  {
+   "d": "2025-09-20",
+   "t": "13:00",
+   "venue": "올림픽공원 88잔디마당",
+   "name": "KB 조이올팍 페스티벌 2025",
+   "run": 480,
+   "seq": 5004
+  },
+  {
+   "d": "2025-09-21",
+   "t": "13:30",
+   "venue": "올림픽공원 88잔디마당",
+   "name": "KB 조이올팍 페스티벌 2025",
+   "run": 480,
+   "seq": 5004
+  },
+  {
+   "d": "2025-11-01",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "2025 LEE JUN YOUNG ENCORE FANMEETING [Scene by JUNYOUNG : Another Scene]",
+   "run": 120,
+   "seq": 5025
+  },
+  {
+   "d": "2025-11-08",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "뮤지컬 〈빨래〉 20주년 콘서트",
+   "run": 150,
+   "seq": 5023
+  },
+  {
+   "d": "2025-11-08",
+   "t": "18:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "뮤지컬 〈빨래〉 20주년 콘서트",
+   "run": 150,
+   "seq": 5023
+  },
+  {
+   "d": "2025-11-09",
+   "t": "15:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "뮤지컬 〈빨래〉 20주년 콘서트",
+   "run": 150,
+   "seq": 5023
+  },
+  {
+   "d": "2025-11-15",
+   "t": "18:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "박창근 장르 with Mr.아보카도 - 서울",
+   "run": 120,
+   "seq": 5027
+  },
+  {
+   "d": "2025-11-16",
+   "t": "17:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "박창근 장르 with Mr.아보카도 - 서울",
+   "run": 120,
+   "seq": 5027
+  },
+  {
+   "d": "2025-12-06",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-06",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-06",
+   "t": "16:30",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-07",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-07",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-07",
+   "t": "16:30",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-09",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-09",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-12",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-12",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-13",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-13",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-13",
+   "t": "16:30",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-14",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-14",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-14",
+   "t": "16:30",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-16",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-16",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-19",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-19",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-20",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-20",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-20",
+   "t": "16:30",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-21",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-21",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-21",
+   "t": "16:30",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-23",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-23",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-26",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-26",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-27",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-27",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-27",
+   "t": "16:30",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-28",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-28",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-28",
+   "t": "16:30",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-30",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2025-12-30",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-02",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-02",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-03",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-03",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-03",
+   "t": "16:30",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-04",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-04",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-04",
+   "t": "16:30",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-06",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-06",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-09",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-09",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-10",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-10",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-10",
+   "t": "16:30",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-11",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-11",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-11",
+   "t": "16:30",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-13",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-13",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-16",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-16",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-17",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-17",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-17",
+   "t": "16:30",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-18",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-18",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-18",
+   "t": "16:30",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-20",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-20",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-23",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-23",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-24",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-24",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-24",
+   "t": "16:30",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-25",
+   "t": "11:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-25",
+   "t": "14:00",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  },
+  {
+   "d": "2026-01-25",
+   "t": "16:30",
+   "venue": "올림픽공원 우리금융아트홀",
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "run": 75,
+   "seq": 5040
+  }
+ ],
+ "skipped": [
+  {
+   "name": "뮤지컬 〈친구의 전설〉",
+   "venue": "뮤즈라이브",
+   "why": "작은 공연장이라 다루지 않음"
+  },
+  {
+   "name": "최현우 19+I",
+   "venue": "우리금융아트홀",
+   "why": "작은 공연장이라 다루지 않음"
+  },
+  {
+   "name": "2024 성시경 연말 콘서트 〈성시경〉",
+   "venue": "KSPO DOME",
+   "why": "일부 날짜의 시각을 읽지 못함",
+   "days": [
+    "2024-12-30"
+   ]
+  },
+  {
+   "name": "김희재 콘서트 ‘HEERE WE GO’",
+   "venue": "올림픽홀",
+   "why": "일부 날짜의 시각을 읽지 못함",
+   "days": [
+    "2025-01-02",
+    "2025-01-03"
+   ]
+  },
+  {
+   "name": "뮤지컬 [사랑의 하츄핑]",
+   "venue": "우리금융아트홀",
+   "why": "작은 공연장이라 다루지 않음"
+  },
+  {
+   "name": "가족뮤지컬 〈만복이네 떡집〉 2025",
+   "venue": "우리금융아트홀",
+   "why": "작은 공연장이라 다루지 않음"
+  },
+  {
+   "name": "쇼뮤지컬 어게인 <드림하이> (Showmusical Again < DreamHigh >)",
+   "venue": "우리금융아트홀",
+   "why": "작은 공연장이라 다루지 않음"
+  },
+  {
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "venue": "올림픽공원 뮤즈라이브",
+   "why": "작은 공연장이라 다루지 않음"
+  },
+  {
+   "name": "뮤지컬 〈폭풍우 치는 밤에〉",
+   "venue": "뮤즈라이브",
+   "why": "작은 공연장이라 다루지 않음"
+  },
+  {
+   "name": "DAY6 3RD WORLD TOUR〈FOREVER YOUNG〉FINALE",
+   "venue": "KSPO DOME",
+   "why": "일부 날짜의 시각을 읽지 못함",
+   "days": [
+    "2025-05-12",
+    "2025-05-13",
+    "2025-05-14",
+    "2025-05-15"
+   ]
+  },
+  {
+   "name": "윤종신 전국투어 콘서트 ‘그때’",
+   "venue": "우리금융아트홀",
+   "why": "작은 공연장이라 다루지 않음"
+  },
+  {
+   "name": "뷰티풀 민트 라이프 2025",
+   "venue": "88잔디마당",
+   "why": "작은 공연장이라 다루지 않음"
+  },
+  {
+   "name": "뮤지컬 번개맨 시즌2 - 여름맞이 특별공연",
+   "venue": "우리금융아트홀",
+   "why": "작은 공연장이라 다루지 않음"
+  },
+  {
+   "name": "2025 서울파크뮤직페스티벌",
+   "venue": "KSPO DOME",
+   "why": "시작 시각을 읽지 못함",
+   "text": "88잔디마당 14시 ~ 21시30분 KSPO DOME 14시30분 ~ 22시30분"
+  },
+  {
+   "name": "2025년 송승환의 가족뮤지컬 〈정글북〉",
+   "venue": "우리금융아트홀",
+   "why": "작은 공연장이라 다루지 않음"
+  },
+  {
+   "name": "2025 FIVE O ONE : 20th Anniversary World Tour",
+   "venue": "올림픽",
+   "why": "작은 공연장이라 다루지 않음"
+  },
+  {
+   "name": "Someday Festival 2025 - week 1",
+   "venue": "올림픽공원 88잔디마당",
+   "why": "작은 공연장이라 다루지 않음"
+  },
+  {
+   "name": "KB 조이올팍 페스티벌 2025",
+   "venue": "올림픽공원 88잔디마당",
+   "why": "작은 공연장이라 다루지 않음"
+  },
+  {
+   "name": "그랜드 민트 페스티벌 2025",
+   "venue": "올림픽공원",
+   "why": "작은 공연장이라 다루지 않음"
+  },
+  {
+   "name": "2025 LEE JUN YOUNG ENCORE FANMEETING [Scene by JUNYOUNG : Another Scene]",
+   "venue": "올림픽공원 우리금융아트홀",
+   "why": "작은 공연장이라 다루지 않음"
+  },
+  {
+   "name": "2025 김동률 콘서트 ‘산책’",
+   "venue": "KSPO DOME",
+   "why": "일부 날짜의 시각을 읽지 못함",
+   "days": [
+    "2025-11-11",
+    "2025-11-12"
+   ]
+  },
+  {
+   "name": "뮤지컬 〈빨래〉 20주년 콘서트",
+   "venue": "올림픽공원 우리금융아트홀",
+   "why": "작은 공연장이라 다루지 않음"
+  },
+  {
+   "name": "박창근 장르 with Mr.아보카도",
+   "venue": "올림픽공원 우리금융아트홀",
+   "why": "작은 공연장이라 다루지 않음"
+  },
+  {
+   "name": "임영웅 IM HERO TOUR 2025",
+   "venue": "KSPO DOME",
+   "why": "일부 날짜의 시각을 읽지 못함",
+   "days": [
+    "2025-11-24",
+    "2025-11-25",
+    "2025-11-26",
+    "2025-11-27"
+   ]
+  },
+  {
+   "name": "송승환의 가족뮤지컬 〈호두까기인형〉",
+   "venue": "올림픽공원 우리금융아트홀",
+   "why": "작은 공연장이라 다루지 않음"
+  }
+ ]
+}
