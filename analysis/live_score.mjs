@@ -20,6 +20,7 @@ export function say(out) {
     L.push(`\n${d.day}`);
     L.push(`  주차 2시간 앞 예상: ${f(d.car, '대')}` + (d.events.length ? ` / 이상 징후 시간을 빼면 ${f(d.carEx, '대')}` : ''));
     L.push(`  사람 수 2시간 앞 예상: ${f(d.ppl, '명')}` + (d.ppl.n ? `, 서울시 범위 안 ${d.ppl.inband}%` : '') + (d.events.length ? ` / 빼면 ${f(d.pplEx, '명')}` : ''));
+    if (d.pplCar && d.pplCar.n) L.push(`    (견줌) 주차 대수로 낸 예전 방식: ${f(d.pplCar, '명')}, 서울시 범위 안 ${d.pplCar.inband}%`);
     for (const [k, n] of [['warn', '경고'], ['error', '오류'], ['unknown', '미확인']]) for (const e of (d.board ? d.board[k] : [])) L.push(`  ${n}: ${e.text}`);
   }
   L.push(`\n합계  주차: ${f(out.total.car, '대')} / 이상 징후 제외 ${f(out.total.carEx, '대')}`);
