@@ -27,8 +27,8 @@ def text(raw):
     return raw.decode('utf-8', 'replace')
 what = sys.argv[1:] or ['arr', 'fo', 'topis']
 if 'arr' in what:
-    out = gzip.open('analysis/lifemove_arr_2025.csv.gz', 'wt', encoding='utf-8', newline=''); w = csv.writer(out); head = None; n = 0
-    for inf, who in (('OA-22655', 'in'), ('OA-22656', 'forn')):
+    for inf, who, fn in (('OA-22655', 'in', 'analysis/lifemove_arr_2025.csv.gz'), ('OA-22656', 'forn', 'analysis/lifemove_arr_forn_2025.csv.gz')):
+        out = gzip.open(fn, 'wt', encoding='utf-8', newline=''); w = csv.writer(out); head = None; n = 0
         for m in range(1, 13):
             b = get(inf, '2025%02d' % m)
             if not b: continue
@@ -36,12 +36,11 @@ if 'arr' in what:
             for name in sorted(z.namelist()):
                 if not name.endswith('.csv'): continue
                 R = csv.reader(io.StringIO(text(z.read(name)))); h = next(R)
-                if head is None: head = ['who'] + h; w.writerow(head)
-                elif ['who'] + h != head and who == 'in': print('머리줄 다름', name, h, flush=True)
+                if head is None: head = h; w.writerow(h)
+                elif h != head: print('머리줄 다름', name, h, flush=True); continue
                 for r in R:
-                    if r and r[0] in NEAR: w.writerow([who] + r); n += 1
-                if who == 'forn' and h != head[1:]: print('외국인 머리줄', name, h, flush=True)
-    out.close(); print('arr rows', n, flush=True)
+                    if r and r[0] in NEAR: w.writerow(r); n += 1
+        out.close(); print('arr', who, 'rows', n, flush=True)
 if 'fo' in what:
     out = gzip.open('analysis/forn_temp_2025.csv.gz', 'wt', encoding='utf-8', newline=''); w = csv.writer(out); head = None; n = 0
     for m in range(1, 13):
@@ -108,10 +107,13 @@ if 'topis' in what:
         except Exception as e: print('topis', mm, 'fail', e, flush=True); continue
         wb = openpyxl.load_workbook(io.BytesIO(b), read_only=True)
         loc = wb[[s for s in wb.sheetnames if '좌표' in s][0]]
-        for r in list(loc.iter_rows(values_only=True))[1:]:
-            if r and r[0] and r[3] and r[4]:
-                dm = dist(float(r[3]), float(r[4]))
-                if dm <= 4000: spots[r[0]] = dict(name=r[1], la=float(r[3]), lo=float(r[4]), m=round(dm), addr=r[5], inflow=r[7], outflow=r[8])
+        L = list(loc.iter_rows(values_only=True)); H = [str(x or '').replace(' ', '') for x in L[0]]
+        c = {k: next(i for i, x in enumerate(H) if k in x) for k in ('지점번호', '지점명', '위도', '경도')}
+        for r in L[1:]:
+            try: la, lo = float(r[c['위도']]), float(r[c['경도']])
+            except (TypeError, ValueError, IndexError): continue
+            dm = dist(la, lo)
+            if dm <= 4000: spots[r[c['지점번호']]] = dict(name=r[c['지점명']], la=la, lo=lo, m=round(dm), row=[str(x) for x in r])
         ws = wb[[s for s in wb.sheetnames if '년' in s and '월' in s][0]]
         for i, r in enumerate(ws.iter_rows(values_only=True)):
             if i == 0:
