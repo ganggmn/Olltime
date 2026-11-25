@@ -5,14 +5,17 @@
 const BETA={show:[0.98,0.95,0.92,0.89,0.87,0.85,0.84,0.83,0.81,0.78,0.75,0.72,0.68,0.65,0.62,0.59,0.56,0.54,0.52,0.5,0.49,0.48,0.47,0.46],noshow:[0.99,0.97,0.95,0.92,0.9,0.88,0.86,0.84,0.82,0.8,0.77,0.75,0.73,0.71,0.69,0.67,0.66,0.65,0.64,0.63,0.63,0.63,0.63,0.63]};
 /* 실시간 값의 새벽 바닥(1,032대)에서 2025년 입출차 기록의 새벽 값(127대)을 뺀 차이. analysis/crosscheck.py */
 const FLOOR=905;
-/* 차 한 대당 방문객 수(2025년 입출차 기록과 생활인구, 동2·남2·북2문 기준). analysis/coef.py */
-const KC={wk:[[9,3.3],[11,3.7],[13,4.1],[15,4.3],[17,4.4],[19,3.6],[21,3.6]],show:[[9,3.2],[11,4.1],[13,4.8],[15,5.6],[17,7.9],[19,9.5],[21,12.1]]};
-/* 사람 수의 시간대별 모양(새벽 값을 뺀 것): 2025년 생활인구, 공연·공휴일 없는 월~목 174일의 중앙값. p=서울시 구역(공원과 테두리 일부), rim=공원 테두리 750m 칸의 합. analysis/pprof.py */
-const PP={wk:{p:[2,1,0,0,14,203,859,1451,2224,3945,4789,4685,4198,4545,4924,5054,4772,4181,3457,2665,2265,1544,460,64],rim:[-149,-91,-22,0,54,157,716,467,-1993,-3681,-5037,-5174,-4879,-4989,-4474,-3340,-1350,363,1997,3344,3364,3240,1350,392]}};
-/* 실시간 값에 테두리 주민의 오르내림이 섞이는 비율: 2026년 11월 23~24일 실시간 값으로 맞춘 값. 그 뒤 날짜는 이 값을 고정해 두고 채점 */
+/* 사람 수는 차 대수에 계수를 곱해 만들지 않아요. 기지국 기반 인구 자료(서울 생활인구·실시간 도시데이터)만으로 만들어요.
+   입출차 기록은 주차와 차량 쪽(주차 예상, 만차, 출구)에만 써요. */
+/* 사람 수의 시간대별 모양(새벽 값을 뺀 것): 2025년 생활인구를 서울시 '올림픽공원' 구역에 맞춰 더한 값의 날 종류별 중앙값.
+   p=그 구역, rim=공원 테두리 750m 칸의 합. 날 종류: wk 월~목, fri 금, sat 토, hol 일·공휴일, *_show KSPO DOME 공연 날(누리집 일정).
+   wk는 공연·공휴일 없는 월~목 174일(analysis/pprof.py), 나머지는 analysis/pprof2.py. n은 날수 */
+const PP={wk:{n:174,p:[2,1,0,0,14,203,859,1451,2224,3945,4789,4685,4198,4545,4924,5054,4772,4181,3457,2665,2265,1544,460,64],rim:[-149,-91,-22,0,54,157,716,467,-1993,-3681,-5037,-5174,-4879,-4989,-4474,-3340,-1350,363,1997,3344,3364,3240,1350,392]},fri:{n:22,p:[-9,-23,-6,0,21,194,830,1375,2148,3975,5058,5164,4658,5132,5409,5578,5480,4966,4889,4167,3641,2916,1362,410],rim:[-262,-72,-79,0,49,191,915,691,-1982,-3453,-4576,-5068,-4500,-4733,-4110,-2674,-540,1887,4333,5477,5364,4837,2607,897]},sat:{n:7,p:[-37,-32,0,0,9,115,277,827,1573,3220,5273,7069,9450,12181,14708,16700,17844,18952,17514,17251,13842,8235,3116,750],rim:[-617,-138,-101,0,101,76,422,1463,2052,2507,3948,5089,5366,6637,7282,7781,7994,7265,6891,6459,6489,5422,3001,1253]},hol:{n:22,p:[0,21,-7,0,8,36,192,286,727,1711,2844,3769,4347,4940,6211,6759,6369,5297,3591,2423,2067,1120,265,70],rim:[-454,-271,-18,0,44,67,412,489,928,1080,1062,1297,1283,1099,1274,1923,2210,1982,1486,1265,976,909,-162,-494]},fri_show:{n:23,p:[63,23,0,0,0,196,913,1554,2356,4146,5203,5449,5408,6309,7053,7987,8032,8099,8613,10517,10791,10174,6924,3555],rim:[-192,-141,-122,0,74,185,766,430,-1780,-3227,-4229,-4780,-3722,-4151,-3136,-1179,1404,3415,4563,5483,5188,5139,3971,2300]},sat_show:{n:40,p:[22,-2,0,0,14,109,371,802,1346,2848,4244,5486,6114,7039,8671,10054,12424,14089,14823,13397,11412,6707,2125,623],rim:[-273,-191,-60,0,97,217,709,1355,1733,2470,3045,3568,5077,5655,5630,5879,5883,6345,6627,6095,5803,5804,3028,1518]},hol_show:{n:43,p:[0,-15,-9,0,2,31,247,594,1080,2283,3489,4629,5755,7439,9787,13140,13925,14586,13073,12002,8486,3245,1031,507],rim:[-149,-182,-95,0,112,130,358,703,1113,1512,2017,2834,3294,3510,3822,3954,3885,3754,3770,3867,3290,2482,424,-499]}};
+/* 실시간 값에 테두리 주민의 오르내림이 섞이는 비율: 2026년 11월 23~24일 실시간 값으로 맞춘 값. 월~목에만 써요(다른 날은 아직 확인 못 함) */
 const RIMB=0.12;
-/* 사람 수에서 예상과 실제의 차이가 남는 비율(20분 간격): 2025년 생활인구, 1시간 뒤 0.97, 2시간 0.94, 4시간 0.93. analysis/pprof.py */
-const BETAP=[0.99,0.98,0.97,0.96,0.95,0.94,0.94,0.94,0.94,0.94,0.93,0.93,0.93,0.93,0.93,0.93,0.93,0.93,0.93,0.93,0.93,0.93,0.93,0.93];
+/* 사람 수에서 예상과 실제의 차이가 남는 비율(20분 간격, 8시간까지): 2025년 생활인구.
+   wk 월~목(1시간 0.97, 2시간 0.94), noshow 공연 없는 날 전체(0.96, 0.89, 4시간 0.80), show 큰 공연 날(0.93, 0.82, 4시간 0.60, 6시간 0.44) */
+const BETAP={wk:[0.99,0.98,0.97,0.96,0.95,0.94,0.94,0.94,0.94,0.94,0.93,0.93,0.93,0.93,0.93,0.93,0.93,0.93,0.93,0.93,0.93,0.93,0.93,0.93],noshow:[0.99,0.97,0.96,0.94,0.91,0.89,0.87,0.86,0.84,0.83,0.81,0.8,0.79,0.78,0.78,0.77,0.76,0.75,0.75,0.74,0.74,0.74,0.73,0.73],show:[0.98,0.95,0.93,0.89,0.86,0.82,0.78,0.74,0.7,0.67,0.63,0.6,0.57,0.55,0.52,0.49,0.47,0.44,0.44,0.43,0.43,0.43,0.42,0.42]};
 const hAt=(a,m)=>{const x=((m/60-0.5)%24+24)%24,h=Math.floor(x),v=a[h],w=a[(h+1)%24];return v+(w-v)*(x-h)};
 const AHEAD=120;
 /* 큰 공연 일정: [공연장, 시작(0시부터 몇 분), 공연 길이(분, 공연 안내에 있을 때만), 이름]. 첫 화면의 공연 목록과 같아야 해요(자동 점검이 확인). */
@@ -29,7 +32,6 @@ function addShows(list){const ch=[];const toM=t=>{const [a,b]=String(t).split(':
     cur.sort((a,b)=>a[1]-b[1]||(a[0]==='KSPO DOME'?-1:b[0]==='KSPO DOME'?1:0));EVT[d]=cur}
   return ch}
 const bAt=(t,h)=>{if(h<=0)return 1;const x=h/20;if(x<=1)return 1+(t[0]-1)*x;const i=Math.min(t.length-1,Math.floor(x)-1),j=Math.min(t.length-1,i+1);return t[i]+(t[j]-t[i])*(x-i-1)};
-const kAt=(t,m)=>{const h=m/60;if(h<=t[0][0])return t[0][1];for(let i=1;i<t.length;i++)if(h<=t[i][0])return t[i-1][1]+(t[i][1]-t[i-1][1])*(h-t[i-1][0])/(t[i][0]-t[i-1][0]);return t[t.length-1][1]};
 const hm=m=>{m=((Math.round(m)%1440)+1440)%1440;return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0')};
 const num=n=>Math.round(n).toLocaleString('ko-KR');
 const med=a=>{const b=a.slice().sort((x,y)=>x-y);return b.length?b[Math.floor(b.length/2)]:null};
@@ -40,26 +42,24 @@ const clsOf=d=>{const wd=new Date(d+'T12:00:00+09:00').getUTCDay(),base=wd===0?'
 function estimate(rows){const mid=rows.map(r=>(r[1]+r[2])/2),kt=[],kv=[];
   for(let i=1;i<rows.length;i++){const a=rows[i-1],b=rows[i];if(a[1]!==b[1]){const w=a[2]-a[1];if(Math.abs(b[1]-a[1])<=w*1.5||Math.abs(b[2]-a[2])<=w*1.5){kt.push((a[0]+b[0])/2);kv.push(b[1]>a[1]?b[1]:b[2])}else{kt.push(b[0]);kv.push(mid[i])}}}
   return rows.map((r,i)=>{if(kt.length<2||r[0]<kt[0]||r[0]>kt[kt.length-1])return mid[i];let j=1;while(kt[j]<r[0])j++;const v=kv[j-1]+(kv[j]-kv[j-1])*(r[0]-kt[j-1])/(kt[j]-kt[j-1]);return Math.min(r[2],Math.max(r[1],v))})}
-/* 새벽(02:00~04:30)의 주차 대수와 사람 수: 그날의 바닥 */
-function carCtx(rows,car){const pick=(lo,hi)=>[...car].filter(([m])=>m>=lo&&m<=hi).map(x=>x[1]);
-  if(car.size<6||!rows.length)return null;let night=pick(120,270);if(!night.length)night=pick(0,270);if(!night.length)return null;
-  let pn=rows.filter(r=>r[0]>=120&&r[0]<=270).map(r=>(r[1]+r[2])/2);if(!pn.length)pn=rows.filter(r=>r[0]<=270).map(r=>(r[1]+r[2])/2);
-  return{cf:med(night),pf:pn.length?med(pn):rows[0][1]}}
-/* 주차 대수가 있을 때: 주차 대수로 사람 수의 모양을 만들고, 서울시 범위가 한 칸 바뀌는 순간마다 높이를 다시 맞춤 */
-function estimate2(rows,car,tab,ctx){const cf=ctx.cf,pf=ctx.pf;let off=null,lastCar=null;
-  return rows.map((r,i)=>{const c=car.has(r[0])?car.get(r[0]):lastCar;if(c==null)return (r[1]+r[2])/2;lastCar=c;const model=pf+kAt(tab,r[0])*Math.max(0,c-cf);
-    if(off===null)off=(r[1]+r[2])/2-model;
+/* 사람 수 추정: 서울시가 주는 범위 안에서 한 숫자를 고를 때, 2025년 같은 종류 날의 사람 수 모양(base)을 따르고
+   범위가 한 칸 바뀌는 순간마다 그 경계값에 높이를 다시 맞춰요. 차 대수는 쓰지 않아요 */
+function estimate3(rows,base){let off=null;
+  return rows.map((r,i)=>{const model=base(r[0]);if(off===null)off=(r[1]+r[2])/2-model;
     if(i>0){const a=rows[i-1];if(a[1]!==r[1]){const w=a[2]-a[1];off=(Math.abs(r[1]-a[1])<=w*1.5||Math.abs(r[2]-a[2])<=w*1.5)?(r[1]>a[1]?r[1]:r[2])-model:(r[1]+r[2])/2-model}}
     return Math.min(r[2],Math.max(r[1],model+off))})}
 /* 하루 기록 [[분, 주차, 인원 아래, 인원 위, 단계], ...]에서 추정과 예상을 모두 계산.
    단계: ①기록 정리 → ②사람 수 추정 → ③주차 예상 → ④사람 수 예상 */
-function run(list,o){const day=o.day,isToday=!!o.isToday,isShow=bigShow(day),k=clsOf(day),bt=BETA[isShow?'show':'noshow'],tab=KC[isShow?'show':'wk'];
+function run(list,o){const day=o.day,isToday=!!o.isToday,isShow=bigShow(day),k=clsOf(day),bt=BETA[isShow?'show':'noshow'],btp=k==='wk'?BETAP.wk:isShow?BETAP.show:BETAP.noshow;
   /* ① 기록 정리: 값이 없는 줄을 빼고, 앞뒤보다 1.6배 넘게 혼자 튄 인원 값 하나는 뺌 */
   let ppl=list.filter(r=>r[2]!=null&&r[3]!=null).map(r=>[r[0],r[2],r[3]]);
   const odd=ppl.filter((r,i)=>i>0&&i<ppl.length-1&&r[2]>1.6*ppl[i-1][2]&&r[2]>1.6*ppl[i+1][2]);ppl=ppl.filter(r=>!odd.includes(r));
   const car=list.filter(r=>r[1]!=null).map(r=>({m:r[0],v:r[1]})),carMap=new Map(car.map(c=>[c.m,c.v]));
-  /* ② 사람 수 추정 */
-  const ctx=carCtx(ppl,carMap),est2=ctx?estimate2(ppl,carMap,tab,ctx):null,est=est2||estimate(ppl);
+  /* ② 사람 수 추정: 새벽 값(그날의 바닥) + 2025년 같은 종류 날의 모양. 모양이 없으면 범위가 바뀐 순간들을 이음 */
+  const pp=PP[k]||null;
+  const pn=(()=>{let a=ppl.filter(r=>r[0]>=120&&r[0]<=270).map(r=>(r[1]+r[2])/2);if(!a.length)a=ppl.filter(r=>r[0]<=270).map(r=>(r[1]+r[2])/2);return a.length?med(a):(ppl.length?ppl[0][1]:0)})();
+  const cellBase=pp?m=>pn+hAt(pp.p,m)+(k==='wk'?RIMB*hAt(pp.rim,m):0):null;
+  const est=cellBase&&ppl.length?estimate3(ppl,cellBase):estimate(ppl);
   /* ③ 주차 예상: 2025년 같은 종류 날의 중앙값 + (기준 시각의 실제 값과 예상의 차이 × 그 차이가 남는 비율) */
   const profAll=GP.slots_min.map((m,i)=>({m,v:['북2문','동2문','남2문'].reduce((a,g)=>a+GP.gates[g][k][i],0)+FLOOR}));
   const pAt=m=>{const i=Math.max(0,Math.min(71,Math.floor(m/20))),a=profAll[i],b=profAll[Math.min(71,i+1)];return a.v+(b.v-a.v)*(m-a.m)/20};
@@ -67,24 +67,17 @@ function run(list,o){const day=o.day,isToday=!!o.isToday,isShow=bigShow(day),k=c
   const fcCar=(m,c0)=>Math.max(0,pAt(m)+bAt(bt,m-c0.m)*(c0.v-pAt(c0.m)));
   const lastCar=car[car.length-1],slots=GP.slots_min.concat([1440]),carPast=[],carFut=[];
   if(car.length>=6){slots.forEach(m=>{if(m<=lastCar.m){const c0=before(car,m-AHEAD);if(c0)carPast.push({m,v:fcCar(m,c0)})}else if(isToday&&lastCar.m<1400)carFut.push({m,v:fcCar(m,lastCar)})});if(carFut.length)carFut.unshift({m:lastCar.m,v:lastCar.v})}
-  /* ④ 사람 수 예상: 주차 예상에 '차 한 대당 방문객 수'를 곱하고, 기준 시각의 추정값과의 차이를 같은 비율로 더함 */
-  const pe=ppl.map((r,i)=>({m:r[0],v:est[i]})),lastP=pe[pe.length-1],shape=ctx?(m,c)=>ctx.pf+kAt(tab,m)*Math.max(0,c-ctx.cf):null;
-  const fcPpl=(m,c0,e0)=>Math.max(0,shape(m,fcCar(m,c0))+bAt(bt,m-c0.m)*(e0.v-shape(c0.m,c0.v)));
-  /* 공연 없는 월~목: 사람 수 자료 자체를 기준으로 삼음. 2025년 시간대별 모양 + 테두리 주민의 오르내림, 여기에 기준 시각의 추정값과의 차이를 남는 비율만큼 더함.
-     걸어서 드나드는 사람은 주차 대수에 안 잡혀서, 이런 날은 주차 대수를 쓰지 않아요. 주차 기준 예상은 견줘 보려고 pPastCar에 남겨 둠 */
-  const pp=!isShow?PP[k]:null,pmode=pp&&lastP?'cell':'car';
-  const pn=(()=>{let a=ppl.filter(r=>r[0]>=120&&r[0]<=270).map(r=>(r[1]+r[2])/2);if(!a.length)a=ppl.filter(r=>r[0]<=270).map(r=>(r[1]+r[2])/2);return a.length?med(a):(ppl.length?ppl[0][1]:0)})();
-  const cellBase=m=>pn+hAt(pp.p,m)+RIMB*hAt(pp.rim,m),fcCell=(m,e0)=>Math.max(0,cellBase(m)+bAt(BETAP,m-e0.m)*(e0.v-cellBase(e0.m)));
-  const pPast=[],pFut=[],pPastCar=[];
-  if(pmode==='cell'){slots.forEach(m=>{if(m<=lastP.m){const e0=before(pe,m-AHEAD);if(e0)pPast.push({m,v:fcCell(m,e0)})}else if(isToday&&lastP.m<1400)pFut.push({m,v:fcCell(m,lastP)})});if(pFut.length)pFut.unshift({m:lastP.m,v:lastP.v});
-    if(shape&&est2&&car.length>=6)slots.forEach(m=>{if(m<=lastP.m){const c0=before(car,m-AHEAD),e0=before(pe,m-AHEAD);if(c0&&e0)pPastCar.push({m,v:fcPpl(m,c0,e0)})}})}
-  else if(shape&&est2&&car.length>=6&&lastP){slots.forEach(m=>{if(m<=lastP.m){const c0=before(car,m-AHEAD),e0=before(pe,m-AHEAD);if(c0&&e0)pPast.push({m,v:fcPpl(m,c0,e0)})}else if(isToday&&lastP.m<1400)pFut.push({m,v:fcPpl(m,lastCar,lastP)})});if(pFut.length)pFut.unshift({m:lastP.m,v:lastP.v})}
-  return{day,k,isShow,nd:GP.n[k]||0,bt,ppl,odd,car,carMap,ctx,est,hasEst2:!!est2,pe,profAll,pAt,fcCar,carPast,carFut,pPast,pFut,pPastCar,pmode}}
+  /* ④ 사람 수 예상: 사람 수 자료 자체를 기준으로 삼음. 2025년 같은 종류 날의 모양(+월~목은 테두리 주민의 오르내림)에서 출발해,
+     기준 시각의 추정값과의 차이를 남는 비율(btp)만큼 더함. 걸어서 드나드는 사람과 테두리 주민은 주차 대수에 안 잡혀서 차 대수는 쓰지 않아요 */
+  const pe=ppl.map((r,i)=>({m:r[0],v:est[i]})),lastP=pe[pe.length-1],pmode=cellBase&&lastP?'cell':null;
+  const fcCell=(m,e0)=>Math.max(0,cellBase(m)+bAt(btp,m-e0.m)*(e0.v-cellBase(e0.m)));
+  const pPast=[],pFut=[];
+  if(pmode){slots.forEach(m=>{if(m<=lastP.m){const e0=before(pe,m-AHEAD);if(e0)pPast.push({m,v:fcCell(m,e0)})}else if(isToday&&lastP.m<1400)pFut.push({m,v:fcCell(m,lastP)})});if(pFut.length)pFut.unshift({m:lastP.m,v:lastP.v})}
+  return{day,k,isShow,nd:GP.n[k]||0,bt,btp,ppl,odd,car,carMap,est,pn,pe,profAll,pAt,fcCar,carPast,carFut,pPast,pFut,pmode}}
 /* ⑤ 채점용 오차 목록: 2시간 앞서 낸 예상과 실제(주차) 또는 추정(사람 수)의 차이 */
 function errors(R){const rowAt=new Map(R.ppl.map(r=>[r[0],r])),em=new Map(R.pe.map(p=>[p.m,p.v]));
   return{car:R.carPast.filter(p=>R.carMap.has(p.m)).map(p=>({m:p.m,f:p.v,a:R.carMap.get(p.m),e:Math.abs(p.v-R.carMap.get(p.m))})),
-    ppl:R.pPast.filter(p=>em.has(p.m)).map(p=>{const r=rowAt.get(p.m),a=em.get(p.m);return{m:p.m,f:p.v,a,e:Math.abs(p.v-a),inb:p.v>=r[1]&&p.v<=r[2]}}),
-    pplCar:(R.pPastCar||[]).filter(p=>em.has(p.m)).map(p=>{const r=rowAt.get(p.m),a=em.get(p.m);return{m:p.m,f:p.v,a,e:Math.abs(p.v-a),inb:p.v>=r[1]&&p.v<=r[2]}})}}
+    ppl:R.pPast.filter(p=>em.has(p.m)).map(p=>{const r=rowAt.get(p.m),a=em.get(p.m);return{m:p.m,f:p.v,a,e:Math.abs(p.v-a),inb:p.v>=r[1]&&p.v<=r[2]}})}}
 /* ⑥ 이상 징후: 기준은 운영자가 정해요. 비어 있는 기준은 쓰지 않아요.
    rules={win:몇 분 사이, dn:사람 수가 몇 명 넘게 변함, dp:몇 % 넘게 변함, k:평소 오차의 몇 배 넘게 빗나감(소수 한 자리)}, usual={car,ppl}: 평소 오차 */
 function anomalies(R,E,rules,usual){const ev=[],r=rules||{},win=+r.win>0?+r.win:null;
@@ -118,8 +111,7 @@ const stat=(xs)=>{if(!xs.length)return{n:0,mae:null,pct:null};const mae=xs.reduc
 function score(list,o){const R=run(list,{day:o.day,isToday:false}),E=errors(R),ev=anomalies(R,E,o.rules,o.usual);
   const inEv=m=>ev.some(e=>m>=e.from&&m<=e.to+AHEAD),carX=E.car.filter(x=>!inEv(x.m)),pplX=E.ppl.filter(x=>!inEv(x.m));
   const P=stat(E.ppl),PX=stat(pplX);P.inband=E.ppl.length?Math.round(E.ppl.filter(x=>x.inb).length/E.ppl.length*100):null;PX.inband=pplX.length?Math.round(pplX.filter(x=>x.inb).length/pplX.length*100):null;
-  const PC=stat(E.pplCar);PC.inband=E.pplCar.length?Math.round(E.pplCar.filter(x=>x.inb).length/E.pplCar.length*100):null;
-  return{day:o.day,kind:R.k,records:list.length,pmode:R.pmode,car:stat(E.car),carEx:stat(carX),ppl:P,pplEx:PX,pplCar:PC,board:board(R,ev,o.log,o.rules,o.until),events:ev.map(e=>({from:hm(e.from),at:hm(e.m),to:hm(e.to),kind:e.kind,text:e.text})),errs:{car:E.car.map(x=>x.e),ppl:E.ppl.map(x=>x.e)}}}
+  return{day:o.day,kind:R.k,records:list.length,pmode:R.pmode,car:stat(E.car),carEx:stat(carX),ppl:P,pplEx:PX,board:board(R,ev,o.log,o.rules,o.until),events:ev.map(e=>({from:hm(e.from),at:hm(e.m),to:hm(e.to),kind:e.kind,text:e.text})),errs:{car:E.car.map(x=>x.e),ppl:E.ppl.map(x=>x.e)}}}
 /* 여러 날을 한 번에: 평소 오차(모든 날 오차의 중앙값)를 먼저 구하고 그걸로 이상 징후를 판정 */
 function scoreDays(byDay,rules,logs,untils){const days=Object.keys(byDay).sort(),first=days.map(d=>score(byDay[d],{day:d}));
   const usual={car:med(first.flatMap(s=>s.errs.car)),ppl:med(first.flatMap(s=>s.errs.ppl))};
@@ -129,5 +121,5 @@ function scoreDays(byDay,rules,logs,untils){const days=Object.keys(byDay).sort()
 /* 운영자가 넣은 기준을 숫자로: 분·명은 정수, %와 배수는 소수 한 자리 */
 function cleanRules(q){const f=(v,dec,lo,hi)=>{const n=Number(v);if(!isFinite(n)||n<=0)return null;const r=dec?Math.round(n*10)/10:Math.round(n);return Math.min(hi,Math.max(lo,r))};
   return{win:f(q.win,0,5,180),dn:f(q.dn,0,1,100000),dp:f(q.dp,1,0.1,1000),k:f(q.k,1,0.1,100),stale:f(q.stale,0,10,720),gap:f(q.gap,0,10,720)}}
-globalThis.OLL={BETA,BETAP,PP,RIMB,FLOOR,KC,AHEAD,EVT,addShows,bAt,kAt,hm,num,med,bigShow,clsOf,estimate,carCtx,estimate2,run,errors,anomalies,board,score,scoreDays,cleanRules};
+globalThis.OLL={BETA,BETAP,PP,RIMB,FLOOR,AHEAD,EVT,addShows,bAt,hAt,hm,num,med,bigShow,clsOf,estimate,estimate3,run,errors,anomalies,board,score,scoreDays,cleanRules};
 })();
