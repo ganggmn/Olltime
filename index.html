@@ -35,6 +35,7 @@ a{color:inherit;text-underline-offset:3px}
 button,input{font-family:inherit;color:inherit}
 .lbl{font-size:14px;line-height:1.5;color:var(--ink-2)}
 .cap{font-size:13px;line-height:1.5;color:var(--ink-2)}
+.secx{margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}.secx .cap{margin:4px 0 12px}.secx iframe{display:block;width:100%;border:0;height:1500px}
 .num{font-variant-numeric:tabular-nums}
 .ic{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;display:block}
 .wrap{max-width:1272px;margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
@@ -415,6 +416,11 @@ h1{font-size:28px;line-height:1.35}h2{font-size:20px;line-height:1.5}.ins .bign,
   <div>
     <div class="rows" id="showRows"></div>
     <div class="moresh" id="moreShows"></div>
+    <div class="secx">
+      <h3>공연장에서 역과 문까지, 길마다 얼마나 붐비는지</h3>
+      <p class="cap">큰 공연(관객 9천 명 이상) 날 기준이에요. 시각을 옮기고 방향을 누르면 그 길만 진하게 보여요. <a href="/sections">큰 화면으로 보기</a></p>
+      <iframe id="secf" src="/sections?embed=1" loading="lazy" title="구간 혼잡도 지도와 방향별 목록"></iframe>
+    </div>
   </div>
 </div></section>
 
@@ -962,6 +968,7 @@ $('#retry').onclick=()=>{$('#retry').dataset.busy='1';load()};
 /* 열어 둔 채로 있어도 최신으로: 1분마다 '지금' 표시, 5분마다 서울시 데이터를 조용히 다시 받아요 */
 setInterval(()=>{if(VIEW===TODAY)drawNow();renderTrain()},60000);
 setInterval(async()=>{if(document.visibilityState!=='visible'||STATE==='pending')return;try{const c=await getJSON('/api/now',7000);if(!c||!c.now||c.now.lo==null||(STATE==='live'&&c.now.time===N.time))return;const p=await getJSON('/api/parking',7000).catch(()=>null);if(p&&p.ok)PARK=p;STATE='live';CITY=c;derive();renderHero();renderView(false);renderPass(false)}catch(e){}},300000);
+addEventListener('message',e=>{if(e.origin===location.origin&&e.data&&e.data.olltimeH>200){const f=document.getElementById('secf');if(f)f.style.height=e.data.olltimeH+'px'}});
 $('#heroH').setAttribute('tabindex','-1');
 await load();
 })();

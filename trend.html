@@ -20,7 +20,7 @@ details{margin-top:14px;font-size:14px}summary{cursor:pointer;color:var(--ink-2)
 </style></head><body><main>
 <p style="display:flex;justify-content:space-between;align-items:center;margin:0 0 28px"><b style="font-weight:600;font-size:20px">올타임</b><a href="/" style="font-size:14px;color:var(--ink-2);padding:12px 0">처음으로</a></p>
 <h1>오늘의 추이</h1>
-<p class="sub">올림픽공원 안 사람 수와 주차 대수가 하루 동안 어떻게 움직였는지, 남은 시간에는 어떻게 될지 보여 줘요. 실제 값은 5분마다 새로 들어와요.</p>
+<p class="sub">올림픽공원 안 사람 수와 주차 대수가 하루 동안 어떻게 움직였는지, 남은 시간에는 어떻게 될지 보여 줘요. 실제 값은 5분마다 새로 들어오고, 오늘 날짜를 보고 있으면 화면도 5분마다 스스로 바뀌어요.</p>
 <div class="days" id="days" role="group" aria-label="날짜"></div>
 <p class="sub" id="evt"></p>
 <h2>공원 안 사람 수</h2><p class="big" id="pb"></p>
@@ -144,5 +144,6 @@ async function load(){
   $('#tb').innerHTML='<table><tr><th>시각</th><th>사람 수 추정</th><th>서울시 범위</th><th>사람 수 예상</th><th>주차 실제</th><th>주차 예상</th></tr>'+hrs.filter(m=>rm.has(m)||pf2.has(m)||cf2.has(m)).map(m=>{const r=rm.get(m)||[];return `<tr><td>${hm(m)}</td><td>${em.has(m)?num(Math.round(em.get(m)/100)*100):''}</td><td>${r[2]!=null?num(r[2])+'~'+num(r[3]):''}</td><td>${pf2.has(m)?num(Math.round(pf2.get(m)/100)*100):''}</td><td>${r[1]!=null?num(r[1]):''}</td><td>${cf2.has(m)?num(cf2.get(m)):''}</td></tr>`}).join('')+'</table>';
 }
 $('#zone').addEventListener('change',e=>{zone=e.target.value;$('#t2').textContent='';load()});
+setInterval(()=>{if(day===today&&document.visibilityState==='visible')load()},300000);
 $('#days').addEventListener('click',e=>{const b=e.target.closest('button');if(b){day=b.dataset.d;$('#t1').textContent='';$('#t2').textContent='';load()}});load();
 </script></body></html>
