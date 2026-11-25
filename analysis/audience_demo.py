@@ -36,7 +36,9 @@ df = pd.read_csv('inout_2025_full.csv', usecols=['entry_gate', 'entry_time', 'ex
 df = df[~df.entry_gate.str.contains('CMB')]; e = pd.to_datetime(df.entry_time, errors='coerce'); x = pd.to_datetime(df.exit_time, errors='coerce')
 ok = e.notna() & x.notna() & (x >= e); es = np.sort(e[ok].values); xs = np.sort(x[ok].values)
 occ = lambda ts: int(np.searchsorted(es, np.datetime64(ts)) - np.searchsorted(xs, np.datetime64(ts)))
-bad_month = lambda d: d[5:7] in ('08', '09') or (d[5:7] == '11' and int(d[8:]) > 6) or (d[5:7] == '12' and int(d[8:]) > 7)
+import calendar
+# 입출차 원본이 빈 때: 8~9월(4대 중 1대만 남음), 11월 7일 이후, 12월 8일 이후, 매달 마지막 날
+bad_month = lambda d: d[5:7] in ('08', '09') or (d[5:7] == '11' and int(d[8:]) > 6) or (d[5:7] == '12' and int(d[8:]) > 7) or int(d[8:]) == calendar.monthrange(int(d[:4]), int(d[5:7]))[1]
 def carbase(dow, h):
     ds = [d for d in base_days if wd(d) == dow and not bad_month(d) and d not in hol]
     return np.median([occ(pd.Timestamp(d) + pd.Timedelta(hours=h, minutes=30)) for d in ds])
@@ -63,6 +65,11 @@ pd.set_option('display.width', 250); pd.set_option('display.max_rows', 200)
 print(R.to_string(index=False))
 R.to_csv('checks/audience_demo_2025.csv', index=False, encoding='utf-8-sig')
 Q = R.dropna(subset=['cars_per_1000'])
+R2 = R.dropna(subset=['car_excess']).copy()
+R2['grp'] = np.select([R2.a50 + R2.a60 >= 60, R2.a30 + R2.a40 >= 60, R2.a10 + R2.a20 >= 60], ['50대 이상 중심', '30~40대 중심', '10~20대 중심'], '섞임')
+R2['day'] = np.where(R2.wd == '금', '금', np.where(R2.wd.isin(['토', '일']), '토·일', '그 밖'))
+print('\n관객 나이대별, 공연 시작 1시간 뒤 주차장 차가 평소(같은 요일·시각, KSPO DOME 공연 없는 날 중앙값)보다 늘어난 대수')
+print(R2.groupby(['day', 'grp']).agg(날=('d', 'size'), 늘어난_차_중앙값=('car_excess', 'median'), 여성_중앙값=('female', 'median')).round(0).to_string())
 Q = Q[Q.others == 0]  # 다른 공연장 공연이 겹치지 않은 날만
 print('\n차 비교에 쓴 날(다른 공연장과 겹치지 않음, 주차 기록이 온전한 달):', len(Q))
 for c in ['female', 'a20', 'a30', 'a40', 'a50', 'a60']:
