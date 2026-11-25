@@ -1,0 +1,27 @@
+name: 2025년 생활이동·단기외국인·교통량 자료 받기
+on:
+  workflow_dispatch:
+    inputs:
+      what: { description: 'arr, fo, topis, od 중 골라서(빈칸이면 arr fo topis)', default: '' }
+      od_limit: { description: 'od에서 받을 날 수 제한(0이면 전부)', default: '0' }
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -q openpyxl
+      - run: python scripts/fetch_newdata_2025.py ${{ inputs.what }}
+        env:
+          OD_LIMIT: ${{ inputs.od_limit }}
+      - run: |
+          git config user.name "olltime-bot"
+          git config user.email "olltime-bot@users.noreply.github.com"
+          for f in analysis/lifemove_arr_2025.csv.gz analysis/forn_temp_2025.csv.gz analysis/lifemove_od_2025.csv.gz analysis/topis_2025.csv.gz analysis/topis_spots.json; do [ -f $f ] && git add $f; done
+          git diff --cached --quiet || git commit -m "2025년 생활이동·단기외국인·교통량 자료 받음 (${{ inputs.what }})"
+          git pull --rebase -q && git push
