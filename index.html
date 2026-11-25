@@ -579,6 +579,7 @@ const lvWord=l=>l==='여유'?'여유로워요':l==='보통'?'보통이에요':l=
 $$('i[data-ic]').forEach(n=>{n.outerHTML=ic(n.dataset.ic,n.id?` id="${n.id}"`:'')});
 
 /* 머리글 */
+let FLOORP=1030,FLOORD=false;const PCAP0=2200;
 const renderHero=()=>{const live=STATE==='live',pend=STATE==='pending';
  $('#now').setAttribute('aria-busy',String(pend));
  $('#stamp').textContent=live?`서울시 데이터 ${hm(NOWM)} 측정`:pend?'서울시 데이터 불러오는 중':'서울시 데이터 연결 안 됨';
@@ -593,8 +594,8 @@ const renderHero=()=>{const live=STATE==='live',pend=STATE==='pending';
  const r=$('#retry');r.hidden=live||(pend&&!r.dataset.busy);r.disabled=pend;r.textContent=pend?'불러오는 중이에요':'다시 불러오기';
  const cn=$('#carNote');cn.hidden=!S.length;
  if(S.length)cn.innerHTML=`${ic('car')}<span>차로 오면 공연이 끝나고 50분쯤 뒤에 나가는 차가 가장 몰려요<span class="cap">2025년 큰 공연 28일 기록으로는 끝나고 약 2시간 뒤에야 90%가 빠졌어요</span></span>`;
- const ph='<span class="ph"></span>',PCAP=2200,plv=v=>{const r=v/PCAP;return r>=.9?['만차','#B91C1C']:r>=.7?['혼잡','#8F6300']:r>=.5?['다소혼잡','']:['여유','']},pcap='<span class="cap">동2, 남2, 북2문 2,200대 기준. 밤새 서 있는 차 약 1,000대가 들어 있어요</span>';
- const park=PARK?(([l,c])=>`<span style="font-weight:600${c?';color:'+c:''}">${l}</span>, ${num(PARK.sum)}대 (${Math.round(PARK.sum/PCAP*100)}%)${pcap}`)(plv(PARK.sum)):pend?ph+pcap:'지금은 알 수 없어요<span class="cap">주차 현황이 들어오지 않아요</span>';
+ const ph='<span class="ph"></span>',PCAP=2200,plv=v=>{const r=v/PCAP;return r>=.9?['만차','#B91C1C']:r>=.7?['혼잡','#8F6300']:r>=.5?['다소혼잡','']:['여유','']},pcap=PARK?`<span class="cap">한국체육산업개발이 센 값이에요(동2·남2·북2문으로 들어와 아직 나간 기록이 없는 차, 2,200대 기준). 이 가운데 약 ${num(Math.round(FLOORP/10)*10)}대는 ${FLOORD?'오늘 ':''}새벽에도 그대로 남아 있던 값이에요. 장기 주차이거나 나간 기록이 빠진 차예요.</span>`:'<span class="cap">동2, 남2, 북2문 2,200대 기준</span>';
+ const park=PARK?(([l,c])=>`<span style="font-weight:600">장기 주차를 빼면 약 ${num(Math.max(0,Math.round((PARK.sum-FLOORP)/10)*10))}대</span><span class="cap" style="display:block">기관 집계로는 <span style="font-weight:600${c?';color:'+c:''}">${l}</span> 단계, ${num(PARK.sum)}대 (${Math.round(PARK.sum/PCAP*100)}%)</span>${pcap}`)(plv(PARK.sum)):pend?ph+pcap:'지금은 알 수 없어요<span class="cap">주차 현황이 들어오지 않아요</span>';
  const wx=()=>`${N.temp}도`+(N.ptype&&N.ptype!=='없음'?`, ${N.ptype}`:'')+(N.air?`, 미세먼지 ${N.air}`:'');
  const rows=live?[['지금 혼잡',`<span class="${LVC(N.lvl)}" style="font-weight:600">${N.lvl}</span>, ${num(N.lo)}~${num(N.hi)}명`],['주차장 차량',park],['날씨',wx()]]:pend?[['지금 혼잡',ph],['주차장 차량',park],['날씨',ph]]:[['지금 혼잡','불러오지 못했어요'],['주차장 차량',park],['날씨','불러오지 못했어요']];
  $('#facts').innerHTML=rows.map(([a,b])=>`<div><dt>${a}</dt><dd>${b}</dd></div>`).join('');
@@ -823,7 +824,7 @@ const renderPass=say=>{let cap,title,sub,bigT,bigS,why='',rows=[],tips=[],destNa
    rows=[[e-180,'산책하기 좋은 시간','공연 관객이 모이기 전',''],[e,'공연 관객이 모이기 시작해요',shows.map(s=>`${s.t} ${s.short}`).join(', '),'soft'],[l,'다시 한산해져요','공연 관객이 대부분 빠진 시각','']]}
   else{cap='작년 평일 주차장 기록 기준';sub=P.day===TODAY?'오늘, 큰 공연 없음':'큰 공연이 없는 날';rows=[[480,'출근 시간','평일 아침 8시에 입차가 가장 많았어요','soft'],[1080,'퇴근 시간','저녁 6시 무렵 출차가 조금 늘었어요','']]}
   const later=useF?(N.lvl==='여유'?'부터 산책하기 좋아요':'부터 다시 한산해요'):'전후가 산책하기 좋아요';
-  if(org){const C=compare(dest,hour,hol,false),m=C.M.find(x=>x.k===(P.mode||C.rec.k));cmpHtml=modeRows(C.M,m.k);modeTxt=`${MODE[m.k][0]}, 약 ${dur(m.min)}`;why=`${iga(MODE[C.rec.k][0])} 가장 빨라요.`;
+  if(org){const C=compare(dest,hour,hol,false),m=C.M.find(x=>x.k===(P.mode||C.rec.k));cmpHtml=modeRows(C.M,m.k);modeTxt=`${MODE[m.k][0]}, 약 ${dur(m.min)}`;why=`${iga(MODE[C.rec.k][0])} 가장 빨라요.`+(C.rec.k==='car'&&P.day===TODAY&&PARK&&PARK.sum/PCAP0>=.9?` 다만 지금 주차장이 기관 집계로 ${Math.round(PARK.sum/PCAP0*100)}%라 자리를 찾는 데 시간이 걸릴 수 있어요.`:'');
    if(target==='now'){const d=Math.ceil(nowC()/5)*5;bigT=hm(d);bigS=`에 ${org}에서 출발해도 한산해요`;rows.unshift([d,`${org}에서 출발`,`${ro(MODE[m.k][0])} 약 ${dur(m.min)}`,''])}
    else if(target!==null){const dep=r5(target-m.min);bigT=hm(dep);bigS=`에 ${org}에서 출발하세요`;rows.unshift([dep,`${org}에서 출발`,`${ro(MODE[m.k][0])} 약 ${dur(m.min)}, ${hm(target)}${later}`,''])}
    else{bigT='언제든';bigS='가도 괜찮아요'}}
@@ -969,6 +970,7 @@ $('#retry').onclick=()=>{$('#retry').dataset.busy='1';load()};
 setInterval(()=>{if(VIEW===TODAY)drawNow();renderTrain()},60000);
 setInterval(async()=>{if(document.visibilityState!=='visible'||STATE==='pending')return;try{const c=await getJSON('/api/now',7000);if(!c||!c.now||c.now.lo==null||(STATE==='live'&&c.now.time===N.time))return;const p=await getJSON('/api/parking',7000).catch(()=>null);if(p&&p.ok)PARK=p;STATE='live';CITY=c;derive();renderHero();renderView(false);renderPass(false)}catch(e){}},300000);
 addEventListener('message',e=>{if(e.origin===location.origin&&e.data&&e.data.olltimeH>200){const f=document.getElementById('secf');if(f)f.style.height=e.data.olltimeH+'px'}});
+getJSON('/api/trend',7000).then(j=>{const v=(j&&j.ok?j.list:[]).filter(r=>r[1]!=null&&r[0]>=120&&r[0]<=300).map(r=>r[1]).sort((a,b)=>a-b);if(v.length>=6){FLOORP=v[Math.floor(v.length/2)];FLOORD=true;if(STATE==='live')renderHero()}}).catch(()=>{});
 $('#heroH').setAttribute('tabindex','-1');
 await load();
 })();

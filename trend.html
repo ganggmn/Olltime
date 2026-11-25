@@ -129,7 +129,8 @@ async function load(){
    if(!useBase){if(carPast.length)P('path',{d:path(carPast,y),fill:'none',stroke:'#6B6B74','stroke-width':2,'stroke-dasharray':'2 5','stroke-linecap':'round'});
     if(carFut.length)P('path',{d:path(carFut,y),fill:'none',stroke:'#0A0A0A','stroke-width':2,'stroke-dasharray':'7 5'});
     const mx=car.reduce((a,b)=>b.v>a.v?b:a),fx=carFut.reduce((a,b)=>b.v>a.v?b:a,{v:0,m:0});
-    $('#cb').innerHTML=`${isToday?'지금까지 ':''}가장 많았던 때 <b>${hm(mx.m)}, ${num(mx.v)}대</b> (2,200대의 ${Math.round(mx.v/22)}%)`+(fx.v>mx.v?` · 오늘 예상으로는 <b>${hm(fx.m)}에 ${num(fx.v)}대</b> (${Math.round(fx.v/22)}%)`:'');
+    const dawn=car.filter(c=>c.m>=120&&c.m<=300).map(c=>c.v).sort((a,b)=>a-b),fl=dawn.length>=6?dawn[Math.floor(dawn.length/2)]:null;
+    $('#cb').innerHTML=`${isToday?'지금까지 ':''}가장 많았던 때 <b>${hm(mx.m)}, ${num(mx.v)}대</b> (2,200대의 ${Math.round(mx.v/22)}%)`+(fl?` · 새벽에도 남아 있던 약 ${num(Math.round(fl/10)*10)}대(장기 주차 등)를 빼면 <b>약 ${num(Math.round((mx.v-fl)/10)*10)}대</b>`:'')+(fx.v>mx.v?` · 오늘 예상으로는 <b>${hm(fx.m)}에 ${num(fx.v)}대</b> (${Math.round(fx.v/22)}%)`:'');
     let d='';car.forEach((c,i)=>{d+=(i&&c.m-car[i-1].m<=30?'L':'M')+xs(c.m).toFixed(1)+','+y(c.v).toFixed(1)});P('path',{d,fill:'none',stroke:'#0A0A0A','stroke-width':2,'stroke-linejoin':'round'});
     const fm=new Map(carPast.map(p=>[p.m,p.v])),er=carPast.filter(p=>carMap.has(p.m)).map(p=>[Math.abs(p.v-carMap.get(p.m)),carMap.get(p.m)]);
     if(er.length>=6){const a=er.reduce((s,e)=>s+e[0],0)/er.length,r=er.reduce((s,e)=>s+e[0]/e[1],0)/er.length*100;stat=`2시간 앞서 낸 예상 ${er.length}번은 실제와 평균 ${num(a)}대(${r.toFixed(1)}%) 달랐어요.`}
