@@ -1,0 +1,23 @@
+name: 지난 공연 일정 받기
+on:
+  workflow_dispatch:
+    inputs:
+      from: { description: '시작 달 (YYYY-MM)', default: '2025-01' }
+      to: { description: '끝 달 (YYYY-MM)', default: '2025-12' }
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/fetch_shows_history.mjs "${{ inputs.from }}" "${{ inputs.to }}"
+      - run: |
+          git config user.name "olltime-bot"
+          git config user.email "olltime-bot@users.noreply.github.com"
+          git add analysis/shows_site_*.json
+          git diff --cached --quiet || git commit -m "지난 공연 일정 받음 (${{ inputs.from }}~${{ inputs.to }})"
+          git push
