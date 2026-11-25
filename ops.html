@@ -40,8 +40,8 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid 
 <h2>10분마다 역으로 걷는 사람과 문으로 나가는 차</h2>
 <svg id="ch" viewBox="0 0 720 260" role="img" aria-label="10분별 사람과 차"></svg>
 <div class="lg"><span><i style="width:12px;height:12px;background:#0A0A0A"></i>올림픽공원역 방향으로 걷는 사람 (10분, 왼쪽 눈금)</span><span><i style="width:22px;height:0;border-top:3px solid #DC2626"></i>북2·동2·남2문으로 나가는 차, 평소보다 늘어난 만큼 (10분, 오른쪽 눈금)</span></div>
-<p class="note">계산 방법: 2025년 큰 공연(관객 9천 명 이상) 날의 기록에서 구한 10분별 모양을 관객 수에 비례해 키우거나 줄이고, 공연이 여러 개면 더해요. 끝난 뒤 역 방향은 역 승차 기록 60일로 구한 10분별 몫(첫 10분 21%, 25%, 19%, 13%…)이고, 1시간으로 다시 묶으면 실제와 72.6% 일치해요. 문별 차는 입출차 기록의 10분 실제 평균이에요. 시작 전 역 방향은 1시간 값을 6으로 고르게 나눴어요.</p>
-<p class="note">알아 둘 점: 사람 수는 지하철 승하차로 확인되는 만큼이에요(관객의 약 4분의 1). 버스, 택시, 걸어서 가는 사람은 방향을 몰라 빠져 있어서 실제로 걷는 사람은 더 많아요. 올림픽홀과 핸드볼경기장은 단독 공연 날이 적어 KSPO DOME의 모양을 관객 수 비율로 줄여 썼어요(가정). 끝나는 시각을 옮겼을 때의 숫자는 평균 모양을 더한 계산값이고, 실제로 시각을 옮겨 본 기록으로 확인한 것은 아니에요. '겹침'과 '몰림'을 가르는 숫자(걷는 사람 10분에 150명, 차 10분에 35대·55대)는 올타임이 정한 값이에요. '끝난 것으로 보임' 알림은 공원 안 사람 수가 10분에 2,000명 넘게 줄어드는 것을 보고 판단하는데, 공연 날 실시간 기록이 11월 22일 하루뿐이라 아직 한 번만 확인됐어요. 만차 예상은 <a href="/trend" style="color:inherit">오늘의 추이</a>와 같은 방법이에요. 자세한 검증은 <a href="/verify" style="color:inherit">검증 기록</a>에 있어요. 서울특별시 공공데이터, 서울교통공사, 한국체육산업개발 자료.</p>
+<p class="note">계산 방법: 2025년 큰 공연(관객 9천 명 이상) 날의 기록에서 구한 10분별 모양을 관객 수에 비례해 키우거나 줄이고, 공연이 여러 개면 더해요. 끝난 뒤 역 방향은 역 승차 기록 60일로 구한 10분별 몫(첫 10분 21%, 25%, 19%, 13%…)에 승차 증가 합(관객 13,452명일 때 가운데값 3,770명)을 곱한 값이에요. 1시간으로 다시 묶으면 실제와 72.6% 일치해요. 사람과 차는 '끝' 시각의 약 25분 뒤부터 몰려 나온다고 봤어요(2025년 62일: 시작 2시간 55분 뒤가 가운데값). 문별 차는 입출차 기록의 10분 실제 평균이에요. 시작 전 역 방향은 1시간 값을 6으로 고르게 나눴어요.</p>
+<p class="note">알아 둘 점: 사람 수는 지하철 승하차로 확인되는 만큼이에요(관객의 약 28%). 버스, 택시, 걸어서 가는 사람은 방향을 몰라 빠져 있어서 실제로 걷는 사람은 더 많아요. 올림픽홀과 핸드볼경기장은 단독 공연 날이 적어 KSPO DOME의 모양을 관객 수 비율로 줄여 썼어요(가정). 끝나는 시각을 옮겼을 때의 숫자는 평균 모양을 더한 계산값이고, 실제로 시각을 옮겨 본 기록으로 확인한 것은 아니에요. '겹침'과 '몰림'을 가르는 숫자(걷는 사람 10분에 150명, 차 10분에 35대·55대)는 올타임이 정한 값이에요. '사람이 빠져나가고 있어요' 알림은 공원 안 사람 수가 10분에 2,000명 넘게 줄어드는 것을 보고 판단하는데, 공연 날 실시간 기록이 11월 22일 하루뿐이라 아직 한 번만 확인됐어요. 만차 예상은 <a href="/trend" style="color:inherit">오늘의 추이</a>와 같은 방법이에요. 자세한 검증은 <a href="/verify" style="color:inherit">검증 기록</a>에 있어요. 서울특별시 공공데이터, 서울교통공사, 한국체육산업개발 자료.</p>
 </main>
 <script src="/gp.js"></script>
 <script>
@@ -52,7 +52,8 @@ const KER=[0,0,0,21,25,18.8,12.9,8.4,5.3,3.3,2.1,1.3,.8,.5,.3];
 const PRE_E=[680,1070,1040].flatMap(v=>Array(6).fill(v/6)).concat([3,3,3]);
 const GIN={n:[12,10,14,12,10,11,12,13,13,15,14,16,17,19,13,11,6,7,5,4,3],d:[8,8,9,4,9,7,8,9,9,10,11,10,11,11,7,7,6,4,5,1,2],s:[3,4,4,4,4,6,3,9,8,7,11,9,6,8,9,8,7,5,4,4,3]};
 const GOUT={n:[0,1,5,32,57,65,60,49,36,30,24,21,17,15,11],d:[0,2,3,22,43,51,42,35,29,24,21,16,13,11,8],s:[3,6,7,18,30,31,25,19,19,15,14,12,9,6,4]};
-const W_HOT=150,C_WARN=35,C_HOT=55;
+/* TOT: 공연 날 올림픽공원역 승차 증가 합의 가운데값(62일). LAG: 공연 끝(시작+2시간 30분 가정)부터 차가 몰려 나가기 시작할 때까지(시작+2시간 55분이 가운데값) */
+const TOT=3770,LAG=25,W_HOT=150,C_WARN=35,C_HOT=55;
 /* [공연장, 시작(분), 공연 길이(분, 공연 안내에 있을 때만)] */
 const EVT={'2026-11-22':[['KSPO DOME',1020,0,'11월 22일 공연']],'2026-11-27':[['KSPO DOME',1140,130,'조용필'],['올림픽홀',1200,0,'다이나믹 듀오']],'2026-11-28':[['KSPO DOME',1080,130,'조용필'],['올림픽홀',1080,0,'다이나믹 듀오']],'2026-11-29':[['KSPO DOME',1020,130,'조용필'],['올림픽홀',1020,0,'다이나믹 듀오']],'2026-12-04':[['KSPO DOME',1140,120,'이승철']],'2026-12-05':[['KSPO DOME',960,120,'이승철'],['올림픽홀',1080,120,'비']],'2026-12-06':[['KSPO DOME',960,120,'이승철'],['올림픽홀',1020,120,'비']]};
 const kst=()=>new Date(Date.now()+9*3600e3),today=kst().toISOString().slice(0,10),nowM=()=>{const k=kst();return k.getUTCHours()*60+k.getUTCMinutes()};
@@ -61,7 +62,7 @@ let day=DAYS.find(d=>EVT[d])&&!EVT[today]?today:today,shows=[],base=null,live=nu
 const mk=(v,s,run,nm)=>({v,s,e:s+(run||DUR),a:CAP[v],nm:nm||''}),SAVED={};let warn='';
 function calc(list){const B=178,z=()=>new Float64Array(B),o={we:z(),cn:z(),cd:z(),cs:z(),inE:z()};
   const put=(arr,t0,vals,k)=>vals.forEach((v,i)=>{const b=Math.round((t0+i*10)/10);if(b>=0&&b<B)arr[b]+=v*k});
-  list.forEach(x=>{const k=x.a/AUD0;put(o.inE,x.s-180,PRE_E,k);put(o.we,x.e-30,KER.map(p=>2440*p/100),k);put(o.cn,x.e-30,GOUT.n,k);put(o.cd,x.e-30,GOUT.d,k);put(o.cs,x.e-30,GOUT.s,k)});
+  list.forEach(x=>{const k=x.a/AUD0;const t0=x.e+LAG-30;put(o.inE,x.s-180,PRE_E,k);put(o.we,t0,KER.map(p=>TOT*p/100),k);put(o.cn,t0,GOUT.n,k);put(o.cd,t0,GOUT.d,k);put(o.cs,t0,GOUT.s,k)});
   let pk=0,pt=0;o.we.forEach((v,b)=>{if(v>pk){pk=v;pt=b*10}});o.pk=pk;o.pt=pt;return o}
 const runs=(B,f)=>{const out=[];let c=null;for(let b=0;b<B;b++){if(f(b)){if(!c)c={a:b,b};c.b=b}else if(c){out.push(c);c=null}}if(c)out.push(c);return out};
 function render(){
@@ -90,7 +91,7 @@ function render(){
   alerts();
 }
 /* 실시간 알림: 오늘만 */
-const BETA={show:[0.98,0.95,0.92,0.89,0.87,0.85,0.84,0.83,0.81,0.78,0.75,0.72,0.68,0.65,0.62,0.59,0.56,0.54,0.52,0.5,0.49,0.48,0.47,0.46],noshow:[0.99,0.97,0.95,0.92,0.9,0.88,0.86,0.84,0.82,0.8,0.77,0.75,0.73,0.71,0.69,0.67,0.66,0.65,0.64,0.63,0.63,0.63,0.63,0.63]},FLOOR=928;
+const BETA={show:[0.98,0.95,0.92,0.89,0.87,0.85,0.84,0.83,0.81,0.78,0.75,0.72,0.68,0.65,0.62,0.59,0.56,0.54,0.52,0.5,0.49,0.48,0.47,0.46],noshow:[0.99,0.97,0.95,0.92,0.9,0.88,0.86,0.84,0.82,0.8,0.77,0.75,0.73,0.71,0.69,0.67,0.66,0.65,0.64,0.63,0.63,0.63,0.63,0.63]},FLOOR=905;
 const bAt=(t,h)=>{if(h<=0)return 1;const x=h/20;if(x<=1)return 1+(t[0]-1)*x;const i=Math.min(t.length-1,Math.floor(x)-1),j=Math.min(t.length-1,i+1);return t[i]+(t[j]-t[i])*(x-i-1)};
 function alerts(){const sec=$('#live');if(day!==today||!live||!live.length){sec.hidden=true;return}sec.hidden=false;const out=[];
   const car=live.filter(r=>r[1]!=null).map(r=>({m:r[0],v:r[1]})),ppl=live.filter(r=>r[3]!=null).map(r=>({m:r[0],hi:r[3]}));
@@ -101,9 +102,9 @@ function alerts(){const sec=$('#live');if(day!==today||!live||!live.length){sec.
     else if(t90!=null)out.push(['hot',`<b>${hm(t90)}쯤 주차장이 만차 단계(90%)에 닿을 것으로 보여요.</b> 지금부터 약 ${t90-last.m}분 뒤예요. ${hm(last.m)} 기준 ${num(last.v)}대.`]);
     else if(last.v<1540&&t70!=null)out.push(['warn',`<b>${hm(t70)}쯤 주차장이 혼잡 단계(70%)에 닿을 것으로 보여요.</b> ${hm(last.m)} 기준 ${num(last.v)}대, 오늘 최고는 ${hm(mx.m)}쯤 약 ${num(mx.v)}대로 예상돼요.`]);
     else out.push(['',`주차장 ${hm(last.m)} 기준 ${num(last.v)}대(2,200대의 ${Math.round(last.v/22)}%). 남은 시간에 만차 단계에 닿을 것으로 보이지 않아요.`])}
-  shows.forEach((x,i)=>{if(x.det)return out.push(['',`${x.v}: 끝난 시각을 실시간 값(${hm(x.e)})에 맞춰 두었어요.`]);const after=ppl.filter(p=>p.m>=x.s+90);let det=null;for(let j=0;j<after.length&&det==null;j++){const prev=after.filter(p=>p.m<=after[j].m-8&&p.m>=after[j].m-12).pop();if(prev&&prev.hi-after[j].hi>=2000)det=prev.m}
-    if(det!=null){if(Math.abs(det-x.e)>10)out.push(['hot',`<b>${x.v} 공연이 ${hm(det)}쯤 끝난 것으로 보여요.</b> 공원 안 사람 수가 10분 사이 2,000명 넘게 줄었어요. 넣어 둔 끝 시각(${hm(x.e)})과 달라요. <br><button type="button" data-fit="${i}" data-t="${det}">시간표를 ${hm(det)}에 맞추기</button>`]);else out.push(['',`${x.v}: ${hm(det)}쯤 끝난 것으로 보여요. 넣어 둔 시각과 맞아요.`])}
-    else if(ppl.length&&ppl[ppl.length-1].m>x.e+15)out.push(['warn',`<b>${x.v}: 끝날 시각(${hm(x.e)})이 지났는데 사람이 빠지는 신호가 아직 없어요.</b> 공연이 늦어지는 것일 수 있어요. 신호가 잡히면 시간표를 옮길 수 있어요.`])});
+  shows.forEach((x,i)=>{if(x.det)return out.push(['',`${x.v}: 사람이 빠지기 시작한 ${hm(x.e+LAG)}에 맞춰 시간표를 옮겨 두었어요.`]);const after=ppl.filter(p=>p.m>=x.s+90);let det=null;for(let j=0;j<after.length&&det==null;j++){const prev=after.filter(p=>p.m<=after[j].m-8&&p.m>=after[j].m-12).pop();if(prev&&prev.hi-after[j].hi>=2000)det=prev.m}
+    if(det!=null){if(Math.abs(det-(x.e+LAG))>10)out.push(['hot',`<b>${x.v}: ${hm(det)}쯤부터 사람이 빠져나가고 있어요.</b> 공원 안 사람 수가 10분 사이 2,000명 넘게 줄었어요. 시간표는 ${hm(x.e+LAG)}부터 빠진다고 보고 있었어요. <br><button type="button" data-fit="${i}" data-t="${det}">시간표를 ${hm(det)}에 맞추기</button>`]);else out.push(['',`${x.v}: ${hm(det)}쯤부터 사람이 빠져나가고 있어요. 시간표와 맞아요.`])}
+    else if(ppl.length&&ppl[ppl.length-1].m>x.e+LAG+15)out.push(['warn',`<b>${x.v}: 끝날 시각(${hm(x.e)})이 지났는데 사람이 빠지는 신호가 아직 없어요.</b> 공연이 늦어지는 것일 수 있어요. 신호가 잡히면 시간표를 옮길 수 있어요.`])});
   if(!out.length)out.push(['','지금은 알릴 것이 없어요. 값은 5분마다 새로 확인해요.']);$('#al').innerHTML=out.map(([c,t])=>`<li${c?` class="${c}"`:''}>${t}</li>`).join('')}
 async function pull(){if(day!==today){live=null;alerts();return}try{const j=await (await fetch('/api/trend?day='+today)).json();live=j.ok?j.list:null}catch(e){live=null}alerts()}
 function setDay(d){day=d;warn='';const ini=(EVT[d]||[]).map(([v,s,run,nm])=>mk(v,s,run,nm));base=ini.length?calc(ini):null;shows=SAVED[d]||ini;SAVED[d]=shows;render();pull()}
@@ -112,7 +113,7 @@ document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)r
   if(t.dataset.d)return setDay(t.dataset.d);
   if(t.dataset.sh){const x=shows[t.dataset.i];x.e=Math.max(x.s+30,x.e+ +t.dataset.sh);x.det=false;return render()}
   if(t.dataset.rm){shows.splice(+t.dataset.rm,1);return render()}
-  if(t.dataset.fit){const x=shows[t.dataset.fit];x.e=+t.dataset.t;x.det=true;return render()}
+  if(t.dataset.fit){const x=shows[t.dataset.fit];x.e=+t.dataset.t-LAG;x.det=true;return render()}
   if(t.id==='add'){const s=shows.length?shows[shows.length-1].s:1080;shows.push(mk(shows.some(x=>x.v==='올림픽홀')?'핸드볼경기장':shows.length?'올림픽홀':'KSPO DOME',s));if(!base)base=null;return render()}
   if(t.id==='rs'){delete SAVED[day];return setDay(day)}});
 setDay(day);setInterval(pull,300000);
