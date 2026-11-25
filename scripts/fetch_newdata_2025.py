@@ -115,10 +115,14 @@ if 'topis' in what:
             dm = dist(la, lo)
             if dm <= 4000: spots[r[c['지점번호']]] = dict(name=r[c['지점명']], la=la, lo=lo, m=round(dm), row=[str(x) for x in r])
         ws = wb[[s for s in wb.sheetnames if '년' in s and '월' in s][0]]
+        m0 = n; ki = None
         for i, r in enumerate(ws.iter_rows(values_only=True)):
-            if i == 0:
-                if not head: w.writerow(list(r)); head = True
+            if ki is None:
+                H = [str(x or '').replace(' ', '') for x in r]
+                if '지점번호' not in H: continue
+                ki = H.index('지점번호'); hcols = [j for j, x in enumerate(H) if x.endswith('시')]; base_cols = [H.index(k) for k in ('일자', '요일', '지점명', '지점번호', '방향', '구분')]
+                if not head: w.writerow(['일자', '요일', '지점명', '지점번호', '방향', '구분'] + ['%d시' % k for k in range(24)]); head = True
                 continue
-            if r and r[3] in spots: w.writerow(list(r)); n += 1
-        print('topis', mm, '지점', len(spots), flush=True)
+            if r and len(r) > ki and r[ki] in spots: w.writerow([r[j] for j in base_cols] + [r[j] if j < len(r) else None for j in hcols]); n += 1
+        print('topis', mm, '지점', len(spots), '행', n - m0, '머리줄 위치', ki, flush=True)
     out.close(); json.dump(spots, open('analysis/topis_spots.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1); print('topis rows', n, sorted((v['m'], k, v['name']) for k, v in spots.items()), flush=True)
