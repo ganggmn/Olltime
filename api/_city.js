@@ -36,8 +36,17 @@ export function compactCity(raw) {
     .filter(f => f[0] > m)
     .sort((a, b) => a[0] - b[0]);
   const road = (c.ROAD_TRAFFIC_STTS && c.ROAD_TRAFFIC_STTS.AVG_ROAD_DATA) || {};
+  /* 그 구역의 대중교통·자전거·도로: 공연 날 사람이 어디로 빠지는지 보려고 같이 남겨요.
+     버스·지하철은 [최소, 최대] 범위(오늘 누적, 최근 30·10·5분 승차·하차), 따릉이는 [대여소 번호, 세워진 자전거 수], 도로는 평균 속도 */
+  const rng = (o, p, w, x) => { const lo = num(o[p + '_' + w + '_' + x + '_PPLTN_MIN']), hi = num(o[p + '_' + w + '_' + x + '_PPLTN_MAX']); return lo == null && hi == null ? null : [lo, hi]; };
+  const flow = (o, p) => { if (!o || typeof o !== 'object') return null; const r = {}; let any = false; for (const w of ['ACML', '30WTHN', '10WTHN', '5WTHN']) for (const x of ['GTON', 'GTOFF']) { const v = rng(o, p, w, x); r[w.replace('WTHN', '') .toLowerCase() + '_' + (x === 'GTON' ? 'on' : 'off')] = v; if (v) any = true; } return any ? r : null; };
+  const transit = {
+    bus: flow(c.LIVE_BUS_PPLTN, 'BUS'), sub: flow(c.LIVE_SUB_PPLTN, 'SUB'),
+    bike: list(c.SBIKE_STTS).map(b => [String(b.SBIKE_SPOT_ID || ''), num(b.SBIKE_PARKING_CNT)]).filter(b => b[0]),
+    road: { idx: road.ROAD_TRAFFIC_IDX || '', spd: num(road.ROAD_TRAFFIC_SPD) }
+  };
   return {
-    now, fcst,
+    now, fcst, transit,
     actual: [[m, now.lo, now.hi, now.lvl]],
     road: { idx: road.ROAD_TRAFFIC_IDX || '', spd: num(road.ROAD_TRAFFIC_SPD) },
     events: list(c.EVENT_STTS).map(e => ({ name: e.EVENT_NM, period: e.EVENT_PERIOD, place: (e.EVENT_PLACE || '').trim() })),
