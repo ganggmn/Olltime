@@ -21,6 +21,10 @@
 | past3.py, past3b.py | 19 | 2025년 365일을 날짜 종류(월~목·금·토·일·평일 공휴일·명절 × 공연 규모)로 나눠 세 구역 인구(성별·연령 포함), 지하철·버스·따릉이·주차를 세고 서로 맞댐 → past3_2025.json, past3_shows_2025.csv |
 | rt_check.py | 19 | 실시간 '올림픽공원'(2026년 11월 22~25일, 5분)을 2025년 같은 날짜 종류와 견줌(사람 수, 성별·연령) → rt_check_202611.json |
 | sec_flow.py | 19 | 구간 혼잡도의 남·북 방향 사람 수를 테두리 칸 생활인구로만 셈(차 대수는 안 씀) → sec_flow_2025.json |
+| tenmin.py | - | 공원 전체 사람 수 10분 예측 모델 7가지(계단, 직선, 사이트 식, 평균 보존 매끈, 최근 실시간, 섞기, 공연 시각 맞춤)를 실시간 5분 값으로 채점. 11/26~29 예측은 tenmin_forecasts_20261126.json에 미리 고정 |
+| newdata.py | - | 수도권 생활이동(오륜동 도착, 수단·성·연령)과 단기체류 외국인으로 공연 날을 봄. 지하철 도착은 교통카드 하차와, 차량 도착은 주차장 입차와 맞대 자료를 확인 → newdata_shows_modes_2025.csv, newdata_shows_foreign_2025.csv |
+| topis_shows.py | - | 공원에서 가장 가까운 서울시 교통량 지점(2.2~4km)의 공연 날 변화 → topis_shows_2025.csv |
+| (자료) lifemove_arr_2025.csv.gz, lifemove_arr_forn_2025.csv.gz, forn_temp_2025.csv.gz, topis_2025.csv.gz, lifemove_od_2025.csv.gz | - | scripts/fetch_newdata_2025.py가 GitHub 자동 작업으로 받아 공원 쪽만 추린 것. 수단 번호는 4 광역버스, 5 일반버스, 6 지하철, 7 도보, 8 차량, 9 기타로 읽음(자료로 확인) |
 | bt.py | 3 | 2025년 기록만으로 2026년 11월 13~23일의 30분 단위 예측을 만듦(`backtest_20261113_23.json`). 이 파일은 공연 날을 잘못 잡았어요(11/13~15 공연을 빠뜨리고 11/20을 공연 날로) |
 | bt_schedule.py | 3 | bt.py와 같고 공연 날만 올림픽공원 누리집 일정대로 잡음(`backtest_20261113_23_schedule.json`) |
 | score_bt.py | 3 | 위 두 예측 파일을 실제 주차 대수(`actual_parking_20261113_26.csv`: 다른 참가자의 공개 기록 github.com/wkqhd5095/kspo-parking-logger + 11/23 올타임 기록)로 채점. 파이썬 표준 라이브러리만 써서 원자료 없이 누구나 돌릴 수 있어요 |

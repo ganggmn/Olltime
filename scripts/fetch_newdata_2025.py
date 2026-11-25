@@ -5,7 +5,7 @@
 - od:  수도권 생활이동 출도착 행정동별 수단(OA-22657, 일별 약 85MB). 공연 날과 비교할 날만.
        오륜동(공원)에 도착한 이동과 오륜동에서 출발한 이동을 출발·도착 자치구, 시각, 수단, 내·외국인으로 묶어 합침 → analysis/lifemove_od_2025.csv.gz
 - topis: 서울시 교통량 조사자료(TOPIS 지점별 일자별, 월별 xlsx) → 공원에서 4km 안 지점만. analysis/topis_2025.csv.gz, topis_spots.json
-수단 번호(명세서 순서): 1 항공, 2 기차, 3 고속버스, 4 지하철, 5 광역버스, 6 일반버스, 7 도보, 8 차량, 9 기타"""
+수단 번호: 실제 자료로 확인한 읽기는 4 광역버스, 5 일반버스, 6 지하철, 7 도보, 8 차량, 9 기타(analysis/newdata.py 참고)"""
 import csv, gzip, io, json, math, os, sys, urllib.parse, urllib.request, zipfile, collections, datetime
 URL = 'https://datafile.seoul.go.kr/bigfile/iot/inf/nio_download.do?useCache=false&infId={inf}&seqNo=&seq={seq}&infSeq={iseq}'
 UA = {'User-Agent': 'Mozilla/5.0'}
