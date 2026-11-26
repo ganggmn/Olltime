@@ -14,7 +14,8 @@ def weidmann(rho):
     rho = np.maximum(rho, 1e-3); return np.clip(1 - np.exp(-1.913 * (1 / rho - 1 / 5.4)), 0.05, 1.0)
 def draw_params(rng):
     return dict(lag=float(np.clip(rng.normal(20, 15), -5, 60)), mu=float(rng.uniform(6, 15)), early=float(rng.uniform(0.03, 0.12)), linger=float(rng.uniform(0.05, 0.2)),
-                lmu=float(rng.uniform(10, 30)), car=float(rng.uniform(0.15, 0.25)), sub=float(rng.uniform(0.5, 0.65)), late=float(rng.uniform(0.1, 0.4)), cap=float(rng.uniform(200, 400)), w2=W2)
+                lmu=float(rng.uniform(10, 30)), car=float(rng.uniform(0.15, 0.25)), sub=float(rng.uniform(0.5, 0.65)), late=float(rng.uniform(0.1, 0.4)), cap=float(rng.uniform(200, 400)), w2=W2,
+                **({'fast': 1} if os.environ.get('VW_FASTCAR') else {}))
 def evening(seed, st, run, N, wk, P=None):
     """st: 시작(자정부터 분), run: 적힌 공연 시간(분), N: 관객, wk: '평일' 또는 '주말'. 반환: obs(모델용), truth(채점용)"""
     rng = np.random.default_rng(seed); P = P or draw_params(rng)
@@ -44,7 +45,10 @@ def evening(seed, st, run, N, wk, P=None):
     c = np.where(mode == 'car')[0]; rng.shuffle(c); ncar = max(1, int(len(c) / 2.2)); groups = np.array_split(c, ncar)
     arr_car = r['t_dest'] / 60 + end
     ready = np.array([arr_car[g].max() for g in groups]) + rng.uniform(2, 4, ncar) + rng.uniform(0, 10, ncar)
-    late = rng.random(ncar) < P['late']; ready[late] += rng.uniform(20, 40, late.sum()); order = np.argsort(ready, kind='stable'); ready.sort()
+    late = rng.random(ncar) < P['late']; ready[late] += rng.uniform(20, 40, late.sum())
+    if P.get('fast'):  # '차가 빨리 나가는' 세계: 끝난 뒤 차까지 걸리는 시간 절반, 싣기·늦게 출발 없음(난수 순서는 그대로)
+        ready = np.array([end + (arr_car[g].max() - end) * 0.5 for g in groups]) + 1.0
+    order = np.argsort(ready, kind='stable'); ready.sort()
     tc = np.zeros(ncar); last = -1e9
     for i, t in enumerate(ready): last = max(t, last + 1 / 14.0); tc[i] = last
     # ---- 관측

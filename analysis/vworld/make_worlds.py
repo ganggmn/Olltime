@@ -2,7 +2,7 @@
 사용: data 폴더에서 python3 ../analysis/vworld/make_worlds.py <part>   (part: hist, test1, test2, stress, tonight)"""
 import os, sys, pickle, numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import world as W
-OUT = 'checks/vworld'; os.makedirs(OUT, exist_ok=True)
+OUT = os.environ.get('VW_DIR', 'checks/vworld'); os.makedirs(OUT, exist_ok=True)
 def plan(seed, n):
     rng = np.random.default_rng(seed); out = []
     for i in range(n):

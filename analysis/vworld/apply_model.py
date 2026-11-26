@@ -5,7 +5,7 @@
       + E 과거 평균 몫(1시간 끝점만). 걷는 시간 W·사람 모양 압축 C는 과거 저녁의 역 1시간 승차로 골라요. 구간은 지도상 거리 ÷ 1.25m/s(붐빔 모름).
 사용: data 폴더에서 python3 ../analysis/vworld/apply_model.py"""
 import os, pickle, numpy as np, pandas as pd, json
-D = 'checks/vworld'; Hh = pickle.load(open(f'{D}/hist.pkl', 'rb')); HIST, NS = Hh['hist'], Hh['noshow']
+D = os.environ.get('VW_DIR', 'checks/vworld'); Hh = pickle.load(open(f'{D}/hist.pkl', 'rb')); HIST, NS = Hh['hist'], Hh['noshow']
 TEST = pickle.load(open(f'{D}/test1.pkl', 'rb')) + pickle.load(open(f'{D}/test2.pkl', 'rb'))
 STRESS = pickle.load(open(f'{D}/stress.pkl', 'rb')); TONIGHT = pickle.load(open(f'{D}/tonight.pkl', 'rb'))
 G5 = np.arange(0, 360, 5); NS_ = 36; TAU1, TAU2 = 8, 5  # 분: 역에서 거꾸로 S1 시작·S2 시작까지(600m, 350m ÷ 75m/분)
