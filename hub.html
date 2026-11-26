@@ -1,0 +1,85 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>운영·검증 | 올타임</title>
+<meta name="description" content="올림픽공원 공연 날 운영 시간표, 오늘 추이, 구간 혼잡도, 예측 정확도와 검증 기록">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+@font-face{font-family:Pretendard;src:url(/fonts/Pretendard-Regular.subset.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:Pretendard;src:url(/fonts/Pretendard-SemiBold.subset.woff2) format("woff2");font-weight:600;font-display:swap}
+:root{--bg:#FAFAFA;--surface:#FFFFFF;--surface-2:#F4F4F5;--ink:#0A0A0A;--ink-2:#6B6B74;--line:#D4D4D8;--line-weak:#E5E5E5;--pad:36px}
+*{box-sizing:border-box}body{margin:0;font-family:Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;color:var(--ink);background:var(--bg);font-size:16px;line-height:1.75;word-break:keep-all;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-underline-offset:3px}h1,h2,p,ul{margin:0}ul{padding:0;list-style:none}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}[hidden]{display:none!important}
+.wrap{max-width:1272px;margin:0 auto;padding:0 var(--pad)}
+.hd{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+.hd .wrap{display:flex;align-items:center;gap:36px;height:64px}
+.brand{font-size:20px;font-weight:600;letter-spacing:-.02em;text-decoration:none;flex:none}
+.tabs{display:flex;gap:12px;height:100%;margin-right:auto;margin-left:-6px;overflow-x:auto;scrollbar-width:none}
+.tabs a{display:flex;align-items:center;height:100%;padding:0 6px;color:var(--ink-2);text-decoration:none;white-space:nowrap}.tabs a:hover{color:var(--ink)}
+.hubgo{font-size:14px;line-height:1;font-weight:600;text-decoration:none;border:1px solid var(--ink);border-radius:8px;padding:12px 14px;background:var(--ink);color:var(--bg);white-space:nowrap;flex:none}
+main{padding:48px 0 96px}
+h1{font-size:28px;line-height:1.35;font-weight:600;letter-spacing:-.02em}
+.lead{color:var(--ink-2);margin-top:8px;max-width:680px}
+.box{margin-top:24px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.ptabs{display:flex;flex-wrap:wrap;gap:4px;padding:8px;border-bottom:1px solid var(--line-weak)}
+.ptabs button{font:inherit;border:0;background:transparent;color:var(--ink-2);font-size:15px;padding:0 16px;min-height:44px;border-radius:8px;cursor:pointer;white-space:nowrap}
+.ptabs button:hover{background:var(--surface-2);color:var(--ink)}
+.ptabs button[aria-selected=true]{background:var(--ink);color:var(--bg);font-weight:600}
+.pv{padding:24px 28px 28px}
+.pframe{display:block;width:100%;border:0;min-height:560px}
+.data h2{font-size:16px;font-weight:600;margin:24px 0 8px}.data h2:first-child{margin-top:0}
+.data li{padding:6px 0;border-bottom:1px solid var(--line-weak)}.data p{max-width:760px}
+.ft{border-top:1px solid var(--line);padding:32px 0 64px;font-size:14px;color:var(--ink-2)}
+.ft .wrap{display:flex;flex-wrap:wrap;gap:8px 24px}.ft a{display:inline-block;padding:10px 0}
+@media(max-width:760px){:root{--pad:20px}.hd .wrap{height:56px;gap:20px}.tabs{gap:4px}.tabs a{font-size:15px}h1{font-size:22px}.pv{padding:16px 12px 20px}.hubgo{padding:10px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style></head>
+<body>
+<header class="hd"><div class="wrap">
+  <a class="brand" href="/">올타임</a>
+  <nav class="tabs" aria-label="주요 메뉴"><a href="/#now">지금</a><a href="/#plan">방문 계획</a><a href="/#lost">분실물</a></nav>
+  <a class="hubgo" href="/hub" aria-current="page">운영·검증</a>
+</div></header>
+<main><div class="wrap">
+  <h1>운영·검증</h1>
+  <p class="lead">공연 주최 측과 공원 운영 담당자용 화면이에요. 예측이 어떤 자료에서 나왔고 얼마나 맞는지도 여기에 모았어요.</p>
+  <div class="box">
+    <div class="ptabs" role="tablist" aria-label="운영·검증 보기">
+      <button type="button" role="tab" id="t-ops" aria-controls="p-ops">공연 날 시간표·알림</button>
+      <button type="button" role="tab" id="t-trend" aria-controls="p-trend">오늘 추이</button>
+      <button type="button" role="tab" id="t-sections" aria-controls="p-sections">구간 혼잡도</button>
+      <button type="button" role="tab" id="t-accuracy" aria-controls="p-accuracy">예측 정확도</button>
+      <button type="button" role="tab" id="t-verify" aria-controls="p-verify">검증 기록</button>
+      <button type="button" role="tab" id="t-data" aria-controls="p-data">사용한 데이터</button>
+    </div>
+    <div class="pv" id="p-ops" role="tabpanel" aria-labelledby="t-ops" hidden><iframe class="pframe" data-src="/ops?embed=1" title="공연 날 시간표와 알림"></iframe></div>
+    <div class="pv" id="p-trend" role="tabpanel" aria-labelledby="t-trend" hidden><iframe class="pframe" data-src="/trend?embed=1" title="오늘 사람 수와 주차 대수 추이"></iframe></div>
+    <div class="pv" id="p-sections" role="tabpanel" aria-labelledby="t-sections" hidden><iframe class="pframe" data-src="/sections?embed=1" title="구간 혼잡도 지도와 방향별 목록"></iframe></div>
+    <div class="pv" id="p-accuracy" role="tabpanel" aria-labelledby="t-accuracy" hidden><iframe class="pframe" data-src="/?only=story" title="예측 정확도"></iframe></div>
+    <div class="pv" id="p-verify" role="tabpanel" aria-labelledby="t-verify" hidden><iframe class="pframe" data-src="/verify?embed=1" title="검증 기록"></iframe></div>
+    <div class="pv data" id="p-data" role="tabpanel" aria-labelledby="t-data" hidden>
+      <h2>사용한 데이터</h2>
+      <ul><li>한국체육산업개발(주) 올림픽공원 2025 입출차정보</li><li>한국체육산업개발(주) 차량 입출차, 공연, 날씨 연계 데이터</li><li>한국체육산업개발(주) 올림픽공원 실시간 주차 현황</li><li>한국체육산업개발(주) 올림픽공원 공연정보(공연 일정), 공연 시작 시각은 올림픽공원 홈페이지 공연 안내</li><li>한국체육산업개발(주) 주차장 혼잡도 정보(만차 기록)</li><li>서울특별시 공공데이터 서울시 실시간 도시데이터(올림픽공원)</li><li>서울특별시 공공데이터 서울 생활인구(250m 격자, 2025년)</li><li>서울교통공사 역별 일별 시간대별 승하차 인원(2025년)</li><li>서울특별시 공공데이터 서울시 지하철 실시간 도착정보(올림픽공원·한성백제·몽촌토성역)</li><li>올림픽공원 유실물센터 게시판</li><li>수도권 지하철 노선과 역 위치, 공원 안 보행로 위치는 © OpenStreetMap&nbsp;기여자(ODbL)</li><li>서울시 차량통행속도(2025년 평일 시속 21.7km, 휴일 23.9km)와 도시고속도로 평균 시속 50.2km(2024년)</li></ul>
+      <h2>실측과 예상</h2>
+      <p>서울시 실측과 예보는 서울시가 발표한 값 그대로예요. 다만 혼잡 단계 이름은 서울시의 '약간 붐빔', '붐빔'을 '약간 혼잡', '혼잡'으로 바꿔 적었어요. 서울시 인구는 500명 단위 범위로 발표되므로 범위로 표시해요. 예상이라고 적은 값은 작년 공연 날 주차장 기록을 공연 시각에 맞춰 적용해 계산한 값이라 실제와 다를 수 있어요.</p><p style="margin-top:8px">오는 길 시간은 대략적인 추정치예요. 지하철은 역 사이 거리로 계산하고 환승 5분, 첫 열차 대기 4분을 더했어요. 자동차는 서울시 평균 통행속도에 공원 주변 도로의 시간대별 속도 비율을 곱하고, 6km가 넘는 구간의 4분의 3은 도시고속도로로 간다고 가정했어요.</p>
+    </div>
+  </div>
+</div></main>
+<footer class="ft"><div class="wrap"><span>올타임은 한국체육산업개발(주) 공공데이터 활용 경진대회 출품작이며, 올림픽공원 공식 서비스가 아니에요.</span><a href="/privacy">개인정보 처리방침</a><a href="/terms">이용약관</a></div></footer>
+<script>
+/* 탭 하나에 화면 하나. 주소의 #이름으로 탭을 열어요(#ops, #trend, #sections, #accuracy, #verify, #data). 끼워 넣은 화면은 처음 열 때 불러오고 높이를 내용에 맞춰요 */
+{
+  var tabs=[].slice.call(document.querySelectorAll('.ptabs [role=tab]'));
+  function fit(f){try{var b=f.contentDocument&&f.contentDocument.body;if(b)f.style.height=Math.ceil(b.offsetHeight+2)+'px'}catch(e){}}
+  function pick(name,push){
+    if(!document.getElementById('t-'+name))name='ops';
+    tabs.forEach(function(t){var on=t.id==='t-'+name,pv=document.getElementById(t.getAttribute('aria-controls'));
+      t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;pv.hidden=!on;
+      if(!on)return;var f=pv.querySelector('iframe[data-src]');if(!f)return;
+      if(!f.getAttribute('src')){f.addEventListener('load',function(){fit(f);try{new ResizeObserver(function(){fit(f)}).observe(f.contentDocument.body)}catch(e){}});f.setAttribute('src',f.dataset.src)}else fit(f)});
+    if(push&&location.hash!=='#'+name)history.replaceState(null,'','#'+name)}
+  document.querySelector('.ptabs').addEventListener('click',function(e){var t=e.target.closest('[role=tab]');if(t)pick(t.id.slice(2),true)});
+  document.querySelector('.ptabs').addEventListener('keydown',function(e){if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;var i=tabs.indexOf(document.activeElement);if(i<0)return;var n=tabs[(i+(e.key==='ArrowRight'?1:tabs.length-1))%tabs.length];pick(n.id.slice(2),true);n.focus();e.preventDefault()});
+  addEventListener('hashchange',function(){pick(location.hash.slice(1))});
+  pick(location.hash.slice(1)||'ops');
+}
+</script>
+</body></html>

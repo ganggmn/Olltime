@@ -35,7 +35,6 @@ a{color:inherit;text-underline-offset:3px}
 button,input{font-family:inherit;color:inherit}
 .lbl{font-size:14px;line-height:1.5;color:var(--ink-2)}
 .cap{font-size:13px;line-height:1.5;color:var(--ink-2)}
-.secx{margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}.secx .cap{margin:4px 0 12px}.secx iframe{display:block;width:100%;border:0;height:1500px}
 .num{font-variant-numeric:tabular-nums}
 .ic{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;display:block}
 .wrap{max-width:1272px;margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
@@ -86,11 +85,6 @@ button,input{font-family:inherit;color:inherit}
 .pmore summary::-webkit-details-marker{display:none}
 .pmore[open] summary{color:var(--ink)}
 .pmore .cap{display:block;text-align:left;margin-top:6px}
-.golinks{display:grid;gap:8px;margin-top:24px}
-.golinks a{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 16px;border:1px solid var(--line);border-radius:8px;background:var(--surface);text-decoration:none}
-.golinks a:hover{background:var(--surface-2)}
-.golinks b{display:block;font-weight:600}
-.golinks .cap{display:block;margin-top:2px}
 .tips li{padding:12px 0;border-bottom:1px solid var(--line-weak);font-size:16px}
 .tips b{font-weight:600}
 .tips .cap{display:block;margin-top:2px}
@@ -327,14 +321,38 @@ h1{font-size:28px;line-height:1.35}h2{font-size:20px;line-height:1.5}.ins .bign,
 .metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.mt,.mt:nth-child(4){padding:0 0 0 16px;border-left:1px solid var(--line-weak)}.mt:nth-child(odd){padding-left:0;border-left:0}.mt.wide{grid-column:1/-1}.mt .v.big{font-size:24px}}
 @media(max-width:360px){.hd .wrap{gap:14px}.tabs{gap:0}.tabs a{font-size:14px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.hubgo{font-size:14px;line-height:1;text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:var(--surface);white-space:nowrap;flex:none}
+.hubgo:hover{background:var(--surface-2)}
+.ptabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px}
+.ptabs button{border:0;background:transparent;color:var(--ink-2);font-size:15px;padding:0 16px;min-height:44px;border-radius:8px;cursor:pointer;white-space:nowrap}
+.ptabs button:hover{background:var(--surface-2);color:var(--ink)}
+.ptabs button[aria-selected=true]{background:var(--ink);color:var(--bg);font-weight:600}
+.pframe{display:block;width:100%;border:0;min-height:480px}
+html:not(.only-story) #story{display:none}
+.only-story .hd,.only-story .hero,.only-story #plan,.only-story #lost,.only-story .ft,.only-story .skip{display:none}
+.only-story body{background:transparent}.only-story #story{border-top:0;padding:0 0 8px}.only-story #story .wrap{padding:0}
+.planh{margin-bottom:24px}
+.plancard{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.planl{padding:0 28px 28px;border-right:1px solid var(--line-weak)}
+.planl fieldset{margin-top:24px}
+.planr{padding:28px 32px 32px}
+.plancard .pass{position:static}
+.planact{margin-top:24px}
+#dmore{margin-top:4px;min-height:44px}
+.ft .wrap.ft4{grid-template-columns:minmax(0,2fr) repeat(3,minmax(0,1fr))}
+.ft nav li a{display:inline-block;padding:6px 0}
+@media(max-width:960px){.plancard{grid-template-columns:minmax(0,1fr)}.planl{border-right:0;border-bottom:1px solid var(--line-weak)}.ft .wrap.ft4{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.ft4>div{grid-column:1/-1}}
+@media(max-width:760px){.planl{padding:0 20px 24px}.planr{padding:24px 20px}.hubgo{padding:10px 10px}}
 </style>
+<script>if(new URLSearchParams(location.search).get('only')==='story')document.documentElement.classList.add('only-story')</script>
 </head>
 <body>
 <a class="skip" href="#main">본문 바로가기</a>
 <header class="hd"><div class="wrap">
   <a class="brand" href="#now">올타임</a>
-  <nav class="tabs" aria-label="주요 메뉴"><a href="#now">지금</a><a href="#shows">공연</a><a href="#plan">플래너</a><a href="#story">데이터</a><a href="#lost">분실물</a></nav>
+  <nav class="tabs" aria-label="주요 메뉴"><a href="#now">지금</a><a href="#plan">방문 계획</a><a href="#lost">분실물</a></nav>
   <span class="cap" id="stamp">서울시 데이터 불러오는 중</span>
+  <a class="hubgo" href="/hub">운영·검증</a>
 </div></header>
 
 <main id="main" tabindex="-1">
@@ -346,6 +364,8 @@ h1{font-size:28px;line-height:1.35}h2{font-size:20px;line-height:1.5}.ins .bign,
     <div class="acts"><a class="btn" href="#plan">방문 계획 세우기</a><button class="btn sec" type="button" id="retry" hidden>다시 불러오기</button></div>
   </div>
   <div class="h-m">
+    <div class="ptabs" role="tablist" aria-label="지도 영역에 보여줄 내용"><button type="button" role="tab" id="pt-map" aria-selected="true" aria-controls="pv-map">주차·출입문</button><button type="button" role="tab" id="pt-walk" aria-selected="false" aria-controls="pv-walk">걷는 길 혼잡</button><button type="button" role="tab" id="pt-trend" aria-selected="false" aria-controls="pv-trend">오늘 추이</button></div>
+    <div id="pv-map" role="tabpanel" aria-labelledby="pt-map">
     <div class="vsw" id="vsw" role="group" aria-label="지도에 보여줄 날" hidden></div>
     <div class="mapbox">
       <div class="map" id="map"><svg id="svg" viewBox="0 0 1000 720" preserveAspectRatio="xMidYMid meet" role="img" aria-label="올림픽공원 약도. 공연장, 출입문, 주차장, 지하철역 위치">
@@ -406,6 +426,9 @@ h1{font-size:28px;line-height:1.35}h2{font-size:20px;line-height:1.5}.ins .bign,
     </div>
     <div class="metrics" id="metrics"></div>
     <p class="sr" id="srT" aria-live="polite"></p>
+    </div>
+    <div id="pv-walk" role="tabpanel" aria-labelledby="pt-walk" hidden><p class="cap" style="margin-bottom:12px">큰 공연(관객 9천 명 이상) 날 기준이에요. 시간을 바꾸고 방향을 누르면 해당 길만 진하게 표시돼요.</p><iframe class="pframe" data-src="/sections?embed=1" title="구간 혼잡도 지도와 방향별 목록"></iframe></div>
+    <div id="pv-trend" role="tabpanel" aria-labelledby="pt-trend" hidden><iframe class="pframe" data-src="/trend?embed=1" title="오늘 사람 수와 주차 대수 추이"></iframe></div>
   </div>
   <div class="h-i">
     <dl class="facts" id="facts"></dl>
@@ -413,33 +436,19 @@ h1{font-size:28px;line-height:1.35}h2{font-size:20px;line-height:1.5}.ins .bign,
       <li><b>주말 낮 1~3시에 주차장이 가장 자주 차요</b><span class="cap">한국체육산업개발의 만차 기록 263건(2025년 2월~2026년 8월) 중 256건이 토·일요일, 163건이 오후 1~3시대였어요</span></li>
       <li><b>사람만 내려 주고 10분 안에 나가면 주차 요금이 없어요</b><span class="cap">올림픽공원 주차 안내 기준이에요. 들어오는 차 4대 중 1대가 이렇게 다녀가요</span></li>
     </ul>
-    <nav class="golinks" aria-label="더 보기">
-      <a href="/ops"><span><b>공연 주최 측·운영 담당자용 화면</b><span class="cap">공연을 입력하면 사람과 차가 몰리는 시각을 10분 단위 시간표로 만들고, 만차와 공연 종료를 실시간으로 알려 줘요</span></span><i data-ic="arrow-right"></i></a>
-      <a href="/trend"><span><b>오늘 하루 사람 수와 주차 대수 흐름</b><span class="cap">5분마다 기록한 실제 값과 올타임의 예상을 그래프로 보여 줘요</span></span><i data-ic="arrow-right"></i></a>
-    </nav>
     <div class="today" id="today"></div>
     <div class="train" id="train" hidden></div>
   </div>
 </div></section>
 
-<section class="band" id="shows"><div class="wrap split">
-  <div class="side"><h2>공연이 있는 날은 시작 1시간 반 전과 끝나고 50분 뒤가 가장 붐벼요</h2><p class="body">2025년 큰 공연 28일의 주차장 입출차 기록에서 찾은 패턴을 공연 시작 시각에 맞춰 적용해 계산했어요. 들어오는 차는 시작 2시간 40분 전부터 늘고, 나가는 차는 끝나고 2시간 뒤면 거의 다 빠져요. 공연 일정과 시작 시각은 올림픽공원 홈페이지의 일정 안내를 1시간마다 불러와요. 불러오지 못하면 미리 저장해 둔 일정을 보여 줘요.</p></div>
-  <div>
-    <div class="rows" id="showRows"></div>
-    <div class="moresh" id="moreShows"></div>
-    <div class="secx">
-      <h3>공연장에서 역과 문까지, 길마다 얼마나 붐비는지</h3>
-      <p class="cap">큰 공연(관객 9천 명 이상) 날 기준이에요. 시간을 바꾸고 방향을 누르면 해당 길만 진하게 표시돼요. <a href="/sections">큰 화면으로 보기</a></p>
-      <iframe id="secf" src="/sections?embed=1" loading="lazy" title="구간 혼잡도 지도와 방향별 목록"></iframe>
-    </div>
-  </div>
-</div></section>
 
-<section class="band" id="plan"><div class="wrap split">
-  <div class="side nos">
-    <h2>세 가지만 고르면 출발 시각이 나와요</h2>
-    <form id="pf">
-      <fieldset><legend>날짜</legend><div id="qDay"></div><p class="cap" style="margin-top:8px">이후 공연은 위 공연 목록에서 '계획 세우기'를 눌러 주세요</p></fieldset>
+
+<section class="band" id="plan"><div class="wrap">
+  <h2 class="planh">공연을 고르면 출발 시각이 나와요</h2>
+  <div class="plancard">
+    <div class="planl">
+      <form id="pf">
+      <fieldset><legend>날짜</legend><div id="qDay"></div><button class="tnow" type="button" id="dmore" hidden>이후 공연 날짜 더 보기</button></fieldset>
       <fieldset><legend>할 일</legend><div id="qWhat"></div></fieldset>
       <fieldset><legend>출발역</legend>
         <label class="search"><i data-ic="map-pin"></i><input id="org" type="text" placeholder="예: 개봉역" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="orgList" aria-label="출발역" aria-describedby="omsg"></label>
@@ -447,8 +456,9 @@ h1{font-size:28px;line-height:1.35}h2{font-size:20px;line-height:1.5}.ins .bign,
         <p class="cap omsg" id="omsg" aria-live="polite">수도권 지하철역 661곳에서 찾아요</p>
       </fieldset>
     </form>
+    </div>
+    <div class="planr"><article class="pass" id="pass" aria-labelledby="passH"></article><div class="planact"><button class="btn sec" type="button" id="toMap">이 시각을 지도에서 보기</button></div><p class="sr" id="srPass" aria-live="polite"></p></div>
   </div>
-  <div><article class="isl pass" id="pass" aria-labelledby="passH"></article><p class="sr" id="srPass" aria-live="polite"></p></div>
 </div></section>
 
 <section class="band" id="story"><div class="wrap">
@@ -485,10 +495,12 @@ h1{font-size:28px;line-height:1.35}h2{font-size:20px;line-height:1.5}.ins .bign,
 </div></section>
 </main>
 
-<footer class="ft"><div class="wrap">
-  <div><h2>올타임</h2><p>올림픽공원 방문 시간 안내 서비스예요. 한국체육산업개발(주) 공공데이터 활용 경진대회 출품작이며, 올림픽공원 공식 서비스가 아니에요.</p><p id="ftStamp" style="margin-top:8px">서울시 데이터를 불러오는 중이에요.</p><p class="ftl"><a href="/privacy">개인정보 처리방침</a><a href="/terms">이용약관</a></p></div>
-  <div><h2>사용한 데이터</h2><ul><li>한국체육산업개발(주) 올림픽공원 2025 입출차정보</li><li>한국체육산업개발(주) 차량 입출차, 공연, 날씨 연계 데이터</li><li>한국체육산업개발(주) 올림픽공원 실시간 주차 현황</li><li>한국체육산업개발(주) 올림픽공원 공연정보(공연 일정), 공연 시작 시각은 올림픽공원 홈페이지 공연 안내</li><li>한국체육산업개발(주) 주차장 혼잡도 정보(만차 기록)</li><li>서울특별시 공공데이터 서울시 실시간 도시데이터(올림픽공원)</li><li>서울특별시 공공데이터 서울 생활인구(250m 격자, 2025년)</li><li>서울교통공사 역별 일별 시간대별 승하차 인원(2025년)</li><li>서울특별시 공공데이터 서울시 지하철 실시간 도착정보(올림픽공원·한성백제·몽촌토성역)</li><li>올림픽공원 유실물센터 게시판</li><li>수도권 지하철 노선과 역 위치, 공원 안 보행로 위치는 © OpenStreetMap&nbsp;기여자(ODbL)</li><li>서울시 차량통행속도(2025년 평일 시속 21.7km, 휴일 23.9km)와 도시고속도로 평균 시속 50.2km(2024년)</li></ul></div>
-  <div><h2>실측과 예상</h2><p>서울시 실측과 예보는 서울시가 발표한 값 그대로예요. 다만 혼잡 단계 이름은 서울시의 '약간 붐빔', '붐빔'을 '약간 혼잡', '혼잡'으로 바꿔 적었어요. 서울시 인구는 500명 단위 범위로 발표되므로 범위로 표시해요. 예상이라고 적은 값은 작년 공연 날 주차장 기록을 공연 시각에 맞춰 적용해 계산한 값이라 실제와 다를 수 있어요.</p><p style="margin-top:8px">오는 길 시간은 대략적인 추정치예요. 지하철은 역 사이 거리로 계산하고 환승 5분, 첫 열차 대기 4분을 더했어요. 자동차는 서울시 평균 통행속도에 공원 주변 도로의 시간대별 속도 비율을 곱하고, 6km가 넘는 구간의 4분의 3은 도시고속도로로 간다고 가정했어요.</p></div>
+
+<footer class="ft"><div class="wrap ft4">
+  <div><h2>올타임</h2><p>올림픽공원 방문 시간 안내 서비스예요. 한국체육산업개발(주) 공공데이터 활용 경진대회 출품작이며, 올림픽공원 공식 서비스가 아니에요.</p><p id="ftStamp" style="margin-top:8px">서울시 데이터를 불러오는 중이에요.</p><p style="margin-top:8px">데이터: 한국체육산업개발(주), 서울특별시 공공데이터, 서울교통공사, © OpenStreetMap&nbsp;기여자. <a href="/hub#data">전체 목록</a></p></div>
+  <nav aria-label="방문객"><h2>방문객</h2><ul><li><a href="#now">지금</a></li><li><a href="#plan">방문 계획</a></li><li><a href="#lost">분실물</a></li></ul></nav>
+  <nav aria-label="운영·검증"><h2>운영·검증</h2><ul><li><a href="/hub#ops">공연 날 시간표</a></li><li><a href="/hub#accuracy">예측 정확도</a></li><li><a href="/hub#verify">검증 기록</a></li><li><a href="/hub#data">사용한 데이터</a></li></ul></nav>
+  <nav aria-label="약관"><h2>약관</h2><ul><li><a href="/privacy">개인정보 처리방침</a></li><li><a href="/terms">이용약관</a></li></ul></nav>
 </div></footer>
 <noscript><p style="position:fixed;left:0;right:0;bottom:0;margin:0;padding:12px 20px;background:#0A0A0A;color:#FAFAFA;font-size:14px">올타임은 자바스크립트로 지도와 시각을 계산해요. 브라우저에서 자바스크립트를 켜 주세요.</p></noscript>
 <script>
@@ -717,15 +729,6 @@ $('#play').onclick=()=>{if(timer)return stop();userT=true;if(T>=X1)setT(X0);play
 /* 공연 목록 */
 const A0=13*60,A1=25*60,pc=m=>Math.max(0,Math.min(100,(m-A0)/(A1-A0)*100));
 const axis=`<div class="tlax" aria-hidden="true">${[15,18,21,24].map(h=>`<span style="left:${pc(h*60)}%">${h}시</span>`).join('')}</div>`;
-let allShows=false;
-const renderShows=()=>{const up=SHOWS.map((s,i)=>({s,i})).filter(o=>o.s.d>=TODAY),list=allShows?up:up.slice(0,8);
- $('#showRows').innerHTML=list.map(({s,i},k)=>{const p=pred(s);return`<div class="srw" tabindex="-1"><div class="when"><p class="lbl">${esc(s.day.replace(/^\d{4}년 /,''))}${s.d===TODAY?', 오늘':''}</p><h3>${s.t}</h3></div>
-<div class="what"><h4>${esc(s.name)}</h4><p class="lbl">${esc(s.venue)}</p><div class="tl" aria-hidden="true"><i class="a" style="left:${pc(p.inA)}%;width:${pc(p.inB)-pc(p.inA)}%"></i><i class="s" style="left:${pc(p.st)}%;width:${pc(p.end)-pc(p.st)}%"></i><i class="x" style="left:${pc(p.outA)}%;width:${pc(Math.min(p.outB,A1))-pc(p.outA)}%"></i><i class="p" style="left:${pc(p.outPk)}%"></i></div>${k===0?axis:''}
-<ul class="tlk"><li><i class="a"></i><span class="t">${hm(p.inA)}~${hm(p.inB)}</span><span>차가 몰려 들어와요<span class="cap"> 가장 많을 때 ${hm(p.inPk)}</span></span></li><li><i class="s"></i><span class="t">${hm(p.st)}~${hm(p.end)}</span><span>공연<span class="cap"> ${p.assumed?'러닝타임 공지가 없어 150분으로 가정':`러닝타임 ${p.run}분`}</span></span></li><li><i class="x"></i><span class="t">${hm(p.outA)}~${hm(p.outB)}</span><span>차가 몰려 나가요<span class="cap"> 가장 많을 때 ${hm(p.outPk)}</span></span></li></ul></div>
-<button class="btn ghost go" type="button" data-plan="${i}" aria-label="${esc(mdLabel(s.d))} ${esc(s.short)} 공연 계획 세우기">계획 세우기${ic('arrow-right')}</button></div>`}).join('')||'<p class="lbl" style="padding:16px 0">예정된 큰 공연이 아직 없어요.</p>';
- $('#moreShows').innerHTML=up.length>8?(allShows?'<button class="btn sec" type="button" id="msc">공연 목록 접기</button>':`<button class="btn sec" type="button" id="msb">공연 ${up.length-8}개 더 보기</button>`):''};
-$('#moreShows').addEventListener('click',e=>{if(e.target.closest('#msc')){allShows=false;renderShows();$('#shows').scrollIntoView({block:'start'});const b=$('#msb');b&&b.focus({preventScroll:true});return}if(!e.target.closest('#msb'))return;allShows=true;renderShows();const r=$$('#showRows .srw')[8];r&&r.focus()});
-$('#showRows').addEventListener('click',e=>{const b=e.target.closest('[data-plan]');if(!b)return;const s=SHOWS[+b.dataset.plan];P.auto=false;P.day=s.d;P.what='show';P.show=+b.dataset.plan;P.mode=null;renderQ();renderPass(true);$('#plan').scrollIntoView({behavior:smooth()});$('#passH').focus({preventScroll:true})});
 
 const mkTravel=R=>{
  const LN=R.ln,ST=R.st,NL=LN.length*2;
@@ -777,18 +780,21 @@ const dur=m=>m>=60?`${Math.floor(m/60)}시간${m%60?` ${m%60}분`:''}`:`${m}분`
 
 /* 플래너 */
 const P={day:null,what:'show',show:0,org:null,mode:null,auto:true}; /* auto: 아직 날짜와 할 일을 고르지 않았어요 */
-const planDays=()=>{const fut=[...new Set(SHOWS.filter(s=>s.d>TODAY).map(s=>s.d))],d=[TODAY,...fut.slice(0,3)];if(P.day&&P.day!=='none'&&!d.includes(P.day)&&fut.includes(P.day))d.push(P.day);return d};
+let allDays=false;
+const planDays=()=>{const fut=[...new Set(SHOWS.filter(s=>s.d>TODAY).map(s=>s.d))],d=[TODAY,...fut.slice(0,allDays?99:3)];if(P.day&&P.day!=='none'&&!d.includes(P.day)&&fut.includes(P.day))d.push(P.day);return d};
 const opt=(name,val,checked,title,sub,dis)=>`<label class="opt"><input type="radio" name="${name}" value="${val}"${checked?' checked':''}${dis?' disabled':''}><span><b>${title}</b>${sub?`<span class="cap">${sub}</span>`:''}</span></label>`;
 const renderQ=()=>{const a=document.activeElement,keep=a&&a.type==='radio'&&a.closest('#pf')?[a.name,a.value]:null;
  if(P.auto){P.day=TODAY;P.what='show'}else if(!P.day||(P.day!=='none'&&P.day<TODAY))P.day=TODAY;
  $('#qDay').innerHTML=planDays().map(d=>{const n=SHOWS.filter(s=>s.d===d).length;return opt('day',d,P.day===d,d===TODAY?'오늘, '+dayLabel(d):esc(SHOWS.find(s=>s.d===d)?.day||dayLabel(d)),n?`공연 ${n}개`:'큰 공연 없음')}).join('')+opt('day','none',P.day==='none','다른 날','큰 공연이 없는 날');
+ {const nf=new Set(SHOWS.filter(s=>s.d>TODAY).map(s=>s.d)).size,b=$('#dmore');b.hidden=allDays||nf<=3}
  const list=SHOWS.map((s,i)=>({s,i})).filter(o=>o.s.d===P.day);
  if(!list.length)P.what='walk';
  if(P.what==='show'&&!list.some(o=>o.i===P.show))P.show=list[0].i;
- $('#qWhat').innerHTML=list.map(o=>opt('what','s'+o.i,P.what==='show'&&P.show===o.i,esc(o.s.name)+' 공연',`${o.s.t} 시작, ${esc(o.s.venue)}`)).join('')+opt('what','walk',P.what==='walk','산책이나 운동','공연은 보지 않아요');
+ $('#qWhat').innerHTML=list.map(o=>(p=>opt('what','s'+o.i,P.what==='show'&&P.show===o.i,esc(o.s.name)+' 공연',`${o.s.t} 시작, ${esc(o.s.venue)}<br>입차 몰림 ${hm(p.inA)}~${hm(p.inB)} · 출차 몰림 ${hm(p.outA)}~${hmT(p.outB)}`))(pred(o.s))).join('')+opt('what','walk',P.what==='walk','산책이나 운동','공연은 보지 않아요');
  if(keep){const el=$(`#pf input[name="${keep[0]}"][value="${keep[1]}"]`);el&&el.focus()}};
 $('#pf').addEventListener('change',e=>{const t=e.target;P.auto=false;if(t.name==='day')P.day=t.value;else if(t.name==='what'){if(t.value==='walk')P.what='walk';else{P.what='show';P.show=+t.value.slice(1)}}else return;P.mode=null;renderQ();renderPass(true)});
 $('#pf').addEventListener('submit',e=>e.preventDefault());
+$('#dmore').onclick=()=>{allDays=true;renderQ();const f=$('#qDay input:checked');f&&f.focus()};
 /* 출발역 찾기 */
 {const inp=$('#org'),box=$('#orgList'),msg=$('#omsg'),DEF='수도권 지하철역 661곳에서 찾아요';let hits=[],cur=-1;
  const nq=q=>q.replace(/\(.*?(\)|$)/g,'').replace(/\s/g,'').replace(/역$/,'');
@@ -901,7 +907,7 @@ mk('#f4',`한 시간 동안 들어온 차량 수. 눈이 온 12월 4일 저녁 7
 if(ACC){const H=ACC.horizon,h3=H.find(x=>x.h===3)||H[0],nF=H.reduce((a,x)=>a+x.n,0),pd=ACC.period;
  const fd=s=>`${+s.slice(5,7)}월 ${+s.slice(8,10)}일 ${+s.slice(11,13)}시`;
  const man=v=>v>=10000?(v/10000).toFixed(v%10000?1:0)+'만':v>=1000?(v/1000)+'천':String(v);
- $('#acc1').innerHTML=`서울시의 3시간 후 예보는 혼잡 단계가 ${h3.level}% 맞았어요. <a href="#acc">정확도 자세히</a>`;
+ $('#acc1').innerHTML=`서울시의 3시간 후 예보는 혼잡 단계가 ${h3.level}% 맞았어요. <a href="/hub#accuracy">정확도 자세히</a>`;
  $('#accLead').textContent=`주차장 예측은 2025년 입출차 기록 1년 치로 검증했어요. 그 아래 '공연 날 혼잡한 시간'과 '서울시 혼잡 예보'는 올타임이 ${fd(pd[0])}부터 ${fd(pd[1])}까지 모은 서울시 실시간 도시데이터로 계산한 값이에요. 그 뒤의 기록은 '오늘의 추이'에 5분마다 쌓이고 있어요.`;
  const S=ACC.show;
  if(S&&S.days){const R=S.detail.flatMap(d=>d.rows),n=R.length,both=R.filter(r=>r.ok_seoul&&r.ok_ours).length,fix=R.filter(r=>!r.ok_seoul&&r.ok_ours),worse=R.filter(r=>r.ok_seoul&&!r.ok_ours).length,miss=n-both-fix.length-worse,pc=v=>Math.round(100*v/n);
@@ -948,19 +954,31 @@ $('#lf').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)r
 $('#lq').addEventListener('input',renderLost);
 $('#lmore').addEventListener('click',e=>{if(e.target.closest('#lmb')){showAll=true;renderLost();const r=$$('#items .lr')[12];r&&r.focus()}});
 
+/* 지도 영역 탭: 주차·출입문 / 걷는 길 혼잡 / 오늘 추이. 끼워 넣은 화면은 처음 열 때 불러오고 높이를 내용에 맞춰요 */
+{const fit=f=>{try{const b=f.contentDocument&&f.contentDocument.body;if(b)f.style.height=Math.ceil(b.offsetHeight+2)+'px'}catch(e){}};
+ const tabs=$$('.ptabs [role=tab]');
+ const pick=id=>{tabs.forEach(t=>{const on=t.id===id,pv=document.getElementById(t.getAttribute('aria-controls'));t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;pv.hidden=!on;
+   if(on){const f=pv.querySelector('iframe[data-src]');if(f&&!f.src){f.addEventListener('load',()=>{fit(f);try{new ResizeObserver(()=>fit(f)).observe(f.contentDocument.body)}catch(e){}});f.src=f.dataset.src}else if(f)fit(f)}})};
+ $('.ptabs').addEventListener('click',e=>{const t=e.target.closest('[role=tab]');if(t)pick(t.id)});
+ $('.ptabs').addEventListener('keydown',e=>{if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;const i=tabs.indexOf(document.activeElement);if(i<0)return;const n=tabs[(i+(e.key==='ArrowRight'?1:tabs.length-1))%tabs.length];pick(n.id);n.focus();e.preventDefault()});
+ pick('pt-map');
+ /* 방문 계획에서 고른 날과 시각을 위 지도로 */
+ $('#toMap').onclick=()=>{const d=!P.day||P.day==='none'?TODAY:P.day,sh=P.what==='show'?SHOWS[P.show]:null,t=sh?pred(sh).inPk:d===TODAY?nowC():900;
+  if(timer)stop();pick('pt-map');setView(d);userT=true;renderView(true);setT(t);sayT();$('#now').scrollIntoView({behavior:smooth()});$('#tr').focus({preventScroll:true})}}
+
 /* 탭 위치 */
-{const secs=['now','shows','plan','story','lost'].map(id=>document.getElementById(id));const tabs=$$('.tabs a');
+{const secs=['now','plan','lost'].map(id=>document.getElementById(id));const tabs=$$('.tabs a');
  const spy=()=>{const y=window.scrollY+window.innerHeight*.3;let cur=secs[0];for(const s of secs)if(s.offsetTop<=y)cur=s;tabs.forEach(a=>a.setAttribute('aria-current',a.getAttribute('href')==='#'+cur.id))};
  addEventListener('scroll',spy,{passive:true});spy()}
 
 /* 처음 그리기: 서울시 데이터 없이 먼저 그리고, 들어오면 다시 그려요 */
-CITY=blankCity();derive();renderHero();renderView(true);renderShows();renderQ();renderPass(false);renderLost();
+CITY=blankCity();derive();renderHero();renderView(true);renderQ();renderPass(false);renderLost();
 const load=async()=>{STATE='pending';renderHero();
  const[cr,pr]=await Promise.allSettled([getJSON('/api/now',7000),getJSON('/api/parking',7000)]);
  const ok=cr.status==='fulfilled'&&cr.value&&cr.value.now&&cr.value.now.time&&cr.value.now.lo!=null;
  PARK=pr.status==='fulfilled'&&pr.value&&pr.value.ok?pr.value:null;STATE=ok?'live':'fail';CITY=ok?cr.value:blankCity();derive();
  const hadF=document.activeElement===$('#retry');
- renderHero();renderView(false);renderShows();renderQ();renderPass(false);
+ renderHero();renderView(false);renderQ();renderPass(false);
  if(hadF)(STATE==='fail'?$('#retry'):$('#heroH')).focus()};
 /* 올림픽공원역 다음 열차: 서울시가 정보를 만든 시각(recptnDt)에서 지난 시간만큼 당겨서 보여줘요 */
 let TRAIN=null;

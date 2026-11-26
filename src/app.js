@@ -187,15 +187,6 @@ $('#play').onclick=()=>{if(timer)return stop();userT=true;if(T>=X1)setT(X0);play
 /* 공연 목록 */
 const A0=13*60,A1=25*60,pc=m=>Math.max(0,Math.min(100,(m-A0)/(A1-A0)*100));
 const axis=`<div class="tlax" aria-hidden="true">${[15,18,21,24].map(h=>`<span style="left:${pc(h*60)}%">${h}시</span>`).join('')}</div>`;
-let allShows=false;
-const renderShows=()=>{const up=SHOWS.map((s,i)=>({s,i})).filter(o=>o.s.d>=TODAY),list=allShows?up:up.slice(0,8);
- $('#showRows').innerHTML=list.map(({s,i},k)=>{const p=pred(s);return`<div class="srw" tabindex="-1"><div class="when"><p class="lbl">${esc(s.day.replace(/^\d{4}년 /,''))}${s.d===TODAY?', 오늘':''}</p><h3>${s.t}</h3></div>
-<div class="what"><h4>${esc(s.name)}</h4><p class="lbl">${esc(s.venue)}</p><div class="tl" aria-hidden="true"><i class="a" style="left:${pc(p.inA)}%;width:${pc(p.inB)-pc(p.inA)}%"></i><i class="s" style="left:${pc(p.st)}%;width:${pc(p.end)-pc(p.st)}%"></i><i class="x" style="left:${pc(p.outA)}%;width:${pc(Math.min(p.outB,A1))-pc(p.outA)}%"></i><i class="p" style="left:${pc(p.outPk)}%"></i></div>${k===0?axis:''}
-<ul class="tlk"><li><i class="a"></i><span class="t">${hm(p.inA)}~${hm(p.inB)}</span><span>차가 몰려 들어와요<span class="cap"> 가장 많을 때 ${hm(p.inPk)}</span></span></li><li><i class="s"></i><span class="t">${hm(p.st)}~${hm(p.end)}</span><span>공연<span class="cap"> ${p.assumed?'러닝타임 공지가 없어 150분으로 가정':`러닝타임 ${p.run}분`}</span></span></li><li><i class="x"></i><span class="t">${hm(p.outA)}~${hm(p.outB)}</span><span>차가 몰려 나가요<span class="cap"> 가장 많을 때 ${hm(p.outPk)}</span></span></li></ul></div>
-<button class="btn ghost go" type="button" data-plan="${i}" aria-label="${esc(mdLabel(s.d))} ${esc(s.short)} 공연 계획 세우기">계획 세우기${ic('arrow-right')}</button></div>`}).join('')||'<p class="lbl" style="padding:16px 0">예정된 큰 공연이 아직 없어요.</p>';
- $('#moreShows').innerHTML=up.length>8?(allShows?'<button class="btn sec" type="button" id="msc">공연 목록 접기</button>':`<button class="btn sec" type="button" id="msb">공연 ${up.length-8}개 더 보기</button>`):''};
-$('#moreShows').addEventListener('click',e=>{if(e.target.closest('#msc')){allShows=false;renderShows();$('#shows').scrollIntoView({block:'start'});const b=$('#msb');b&&b.focus({preventScroll:true});return}if(!e.target.closest('#msb'))return;allShows=true;renderShows();const r=$$('#showRows .srw')[8];r&&r.focus()});
-$('#showRows').addEventListener('click',e=>{const b=e.target.closest('[data-plan]');if(!b)return;const s=SHOWS[+b.dataset.plan];P.auto=false;P.day=s.d;P.what='show';P.show=+b.dataset.plan;P.mode=null;renderQ();renderPass(true);$('#plan').scrollIntoView({behavior:smooth()});$('#passH').focus({preventScroll:true})});
 
 __TRAVEL__
 const DEST={'KSPO DOME':[37.5192,127.1272],'올림픽홀':[37.5146,127.1268],'핸드볼경기장':[37.5170,127.1270],'park':[37.5185,127.1220]};
@@ -208,18 +199,21 @@ const dur=m=>m>=60?`${Math.floor(m/60)}시간${m%60?` ${m%60}분`:''}`:`${m}분`
 
 /* 플래너 */
 const P={day:null,what:'show',show:0,org:null,mode:null,auto:true}; /* auto: 아직 날짜와 할 일을 고르지 않았어요 */
-const planDays=()=>{const fut=[...new Set(SHOWS.filter(s=>s.d>TODAY).map(s=>s.d))],d=[TODAY,...fut.slice(0,3)];if(P.day&&P.day!=='none'&&!d.includes(P.day)&&fut.includes(P.day))d.push(P.day);return d};
+let allDays=false;
+const planDays=()=>{const fut=[...new Set(SHOWS.filter(s=>s.d>TODAY).map(s=>s.d))],d=[TODAY,...fut.slice(0,allDays?99:3)];if(P.day&&P.day!=='none'&&!d.includes(P.day)&&fut.includes(P.day))d.push(P.day);return d};
 const opt=(name,val,checked,title,sub,dis)=>`<label class="opt"><input type="radio" name="${name}" value="${val}"${checked?' checked':''}${dis?' disabled':''}><span><b>${title}</b>${sub?`<span class="cap">${sub}</span>`:''}</span></label>`;
 const renderQ=()=>{const a=document.activeElement,keep=a&&a.type==='radio'&&a.closest('#pf')?[a.name,a.value]:null;
  if(P.auto){P.day=TODAY;P.what='show'}else if(!P.day||(P.day!=='none'&&P.day<TODAY))P.day=TODAY;
  $('#qDay').innerHTML=planDays().map(d=>{const n=SHOWS.filter(s=>s.d===d).length;return opt('day',d,P.day===d,d===TODAY?'오늘, '+dayLabel(d):esc(SHOWS.find(s=>s.d===d)?.day||dayLabel(d)),n?`공연 ${n}개`:'큰 공연 없음')}).join('')+opt('day','none',P.day==='none','다른 날','큰 공연이 없는 날');
+ {const nf=new Set(SHOWS.filter(s=>s.d>TODAY).map(s=>s.d)).size,b=$('#dmore');b.hidden=allDays||nf<=3}
  const list=SHOWS.map((s,i)=>({s,i})).filter(o=>o.s.d===P.day);
  if(!list.length)P.what='walk';
  if(P.what==='show'&&!list.some(o=>o.i===P.show))P.show=list[0].i;
- $('#qWhat').innerHTML=list.map(o=>opt('what','s'+o.i,P.what==='show'&&P.show===o.i,esc(o.s.name)+' 공연',`${o.s.t} 시작, ${esc(o.s.venue)}`)).join('')+opt('what','walk',P.what==='walk','산책이나 운동','공연은 보지 않아요');
+ $('#qWhat').innerHTML=list.map(o=>(p=>opt('what','s'+o.i,P.what==='show'&&P.show===o.i,esc(o.s.name)+' 공연',`${o.s.t} 시작, ${esc(o.s.venue)}<br>입차 몰림 ${hm(p.inA)}~${hm(p.inB)} · 출차 몰림 ${hm(p.outA)}~${hmT(p.outB)}`))(pred(o.s))).join('')+opt('what','walk',P.what==='walk','산책이나 운동','공연은 보지 않아요');
  if(keep){const el=$(`#pf input[name="${keep[0]}"][value="${keep[1]}"]`);el&&el.focus()}};
 $('#pf').addEventListener('change',e=>{const t=e.target;P.auto=false;if(t.name==='day')P.day=t.value;else if(t.name==='what'){if(t.value==='walk')P.what='walk';else{P.what='show';P.show=+t.value.slice(1)}}else return;P.mode=null;renderQ();renderPass(true)});
 $('#pf').addEventListener('submit',e=>e.preventDefault());
+$('#dmore').onclick=()=>{allDays=true;renderQ();const f=$('#qDay input:checked');f&&f.focus()};
 /* 출발역 찾기 */
 {const inp=$('#org'),box=$('#orgList'),msg=$('#omsg'),DEF='수도권 지하철역 661곳에서 찾아요';let hits=[],cur=-1;
  const nq=q=>q.replace(/\(.*?(\)|$)/g,'').replace(/\s/g,'').replace(/역$/,'');
@@ -332,7 +326,7 @@ mk('#f4',`한 시간 동안 들어온 차량 수. 눈이 온 12월 4일 저녁 7
 if(ACC){const H=ACC.horizon,h3=H.find(x=>x.h===3)||H[0],nF=H.reduce((a,x)=>a+x.n,0),pd=ACC.period;
  const fd=s=>`${+s.slice(5,7)}월 ${+s.slice(8,10)}일 ${+s.slice(11,13)}시`;
  const man=v=>v>=10000?(v/10000).toFixed(v%10000?1:0)+'만':v>=1000?(v/1000)+'천':String(v);
- $('#acc1').innerHTML=`서울시의 3시간 후 예보는 혼잡 단계가 ${h3.level}% 맞았어요. <a href="#acc">정확도 자세히</a>`;
+ $('#acc1').innerHTML=`서울시의 3시간 후 예보는 혼잡 단계가 ${h3.level}% 맞았어요. <a href="/hub#accuracy">정확도 자세히</a>`;
  $('#accLead').textContent=`주차장 예측은 2025년 입출차 기록 1년 치로 검증했어요. 그 아래 '공연 날 혼잡한 시간'과 '서울시 혼잡 예보'는 올타임이 ${fd(pd[0])}부터 ${fd(pd[1])}까지 모은 서울시 실시간 도시데이터로 계산한 값이에요. 그 뒤의 기록은 '오늘의 추이'에 5분마다 쌓이고 있어요.`;
  const S=ACC.show;
  if(S&&S.days){const R=S.detail.flatMap(d=>d.rows),n=R.length,both=R.filter(r=>r.ok_seoul&&r.ok_ours).length,fix=R.filter(r=>!r.ok_seoul&&r.ok_ours),worse=R.filter(r=>r.ok_seoul&&!r.ok_ours).length,miss=n-both-fix.length-worse,pc=v=>Math.round(100*v/n);
@@ -379,19 +373,31 @@ $('#lf').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)r
 $('#lq').addEventListener('input',renderLost);
 $('#lmore').addEventListener('click',e=>{if(e.target.closest('#lmb')){showAll=true;renderLost();const r=$$('#items .lr')[12];r&&r.focus()}});
 
+/* 지도 영역 탭: 주차·출입문 / 걷는 길 혼잡 / 오늘 추이. 끼워 넣은 화면은 처음 열 때 불러오고 높이를 내용에 맞춰요 */
+{const fit=f=>{try{const b=f.contentDocument&&f.contentDocument.body;if(b)f.style.height=Math.ceil(b.offsetHeight+2)+'px'}catch(e){}};
+ const tabs=$$('.ptabs [role=tab]');
+ const pick=id=>{tabs.forEach(t=>{const on=t.id===id,pv=document.getElementById(t.getAttribute('aria-controls'));t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;pv.hidden=!on;
+   if(on){const f=pv.querySelector('iframe[data-src]');if(f&&!f.src){f.addEventListener('load',()=>{fit(f);try{new ResizeObserver(()=>fit(f)).observe(f.contentDocument.body)}catch(e){}});f.src=f.dataset.src}else if(f)fit(f)}})};
+ $('.ptabs').addEventListener('click',e=>{const t=e.target.closest('[role=tab]');if(t)pick(t.id)});
+ $('.ptabs').addEventListener('keydown',e=>{if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;const i=tabs.indexOf(document.activeElement);if(i<0)return;const n=tabs[(i+(e.key==='ArrowRight'?1:tabs.length-1))%tabs.length];pick(n.id);n.focus();e.preventDefault()});
+ pick('pt-map');
+ /* 방문 계획에서 고른 날과 시각을 위 지도로 */
+ $('#toMap').onclick=()=>{const d=!P.day||P.day==='none'?TODAY:P.day,sh=P.what==='show'?SHOWS[P.show]:null,t=sh?pred(sh).inPk:d===TODAY?nowC():900;
+  if(timer)stop();pick('pt-map');setView(d);userT=true;renderView(true);setT(t);sayT();$('#now').scrollIntoView({behavior:smooth()});$('#tr').focus({preventScroll:true})}}
+
 /* 탭 위치 */
-{const secs=['now','shows','plan','story','lost'].map(id=>document.getElementById(id));const tabs=$$('.tabs a');
+{const secs=['now','plan','lost'].map(id=>document.getElementById(id));const tabs=$$('.tabs a');
  const spy=()=>{const y=window.scrollY+window.innerHeight*.3;let cur=secs[0];for(const s of secs)if(s.offsetTop<=y)cur=s;tabs.forEach(a=>a.setAttribute('aria-current',a.getAttribute('href')==='#'+cur.id))};
  addEventListener('scroll',spy,{passive:true});spy()}
 
 /* 처음 그리기: 서울시 데이터 없이 먼저 그리고, 들어오면 다시 그려요 */
-CITY=blankCity();derive();renderHero();renderView(true);renderShows();renderQ();renderPass(false);renderLost();
+CITY=blankCity();derive();renderHero();renderView(true);renderQ();renderPass(false);renderLost();
 const load=async()=>{STATE='pending';renderHero();
  const[cr,pr]=await Promise.allSettled([getJSON('/api/now',7000),getJSON('/api/parking',7000)]);
  const ok=cr.status==='fulfilled'&&cr.value&&cr.value.now&&cr.value.now.time&&cr.value.now.lo!=null;
  PARK=pr.status==='fulfilled'&&pr.value&&pr.value.ok?pr.value:null;STATE=ok?'live':'fail';CITY=ok?cr.value:blankCity();derive();
  const hadF=document.activeElement===$('#retry');
- renderHero();renderView(false);renderShows();renderQ();renderPass(false);
+ renderHero();renderView(false);renderQ();renderPass(false);
  if(hadF)(STATE==='fail'?$('#retry'):$('#heroH')).focus()};
 /* 올림픽공원역 다음 열차: 서울시가 정보를 만든 시각(recptnDt)에서 지난 시간만큼 당겨서 보여줘요 */
 let TRAIN=null;

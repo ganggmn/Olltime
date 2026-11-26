@@ -14,7 +14,7 @@ const constOf = (src, name) => { const m = src.match(new RegExp('const ' + name 
 
 await import(path.join(ROOT, 'gp.js')); await import(path.join(ROOT, 'model.js'));
 const OLL = globalThis.OLL, GP = globalThis.GP;
-const PAGES = ['index.html', 'trend.html', 'ops.html', 'sections.html', 'verify.html', 'privacy.html', 'terms.html'];
+const PAGES = ['index.html', 'hub.html', 'trend.html', 'ops.html', 'sections.html', 'verify.html', 'privacy.html', 'terms.html'];
 console.log('1. 화면 코드');
 for (const f of PAGES) await test(`${f}: 스크립트 문법`, () => { for (const s of scripts(rd(f))) new Function('return (async()=>{' + s.replace(/^\s*\(async\(\)=>\{/, '').replace(/\}\)\(\);?\s*$/, '') + '\n})'); });
 await test('미완성 표시가 남아 있지 않음', () => { for (const f of PAGES) { const h = rd(f); for (const w of ['[운영자 이름]', '[연락 이메일]', '반영 중', 'TODO']) ok(!h.includes(w), `${f}에 "${w}"`); } ok(!/<h1>[^<]*시안/.test(rd('sections.html')), 'sections 제목에 시안'); });
