@@ -27,7 +27,8 @@ dome = lambda d: [b for b in SHOW.get(d, {}).get('big', []) if 'KSPO' in b['venu
 noshow = [d for d in alld if not dome(d) and not bad(d) and not SHOW.get(d)]
 def series(d):  # 그날 0시부터 5분 순유출 400칸
     idx = pd.date_range(d, periods=400, freq='5min'); return NET.reindex(idx).fillna(0).values  # 다음 날 새벽까지
-BASE = {g: np.median(np.vstack([series(d) for d in noshow if wkg(d) == g]), axis=0) for g in ('평일', '주말·공휴일')}
+BASED = {g: np.vstack([series(d) for d in noshow if wkg(d) == g]) for g in ('평일', '주말·공휴일')}  # 공연 없는 날 하나하나
+BASE = {g: np.median(v, axis=0) for g, v in BASED.items()}
 G5 = np.arange(0, 360, 5)  # 시작 뒤 분(72칸)
 NS = len(G5) // 2  # 10분 칸 36개
 rows = []
@@ -40,9 +41,10 @@ for e in EV:
     if len(exc) < 24 or exc.sum() <= 0: continue
     rows.append(dict(d=d, seq=b[0]['seq'], st=st, run=run, onset=on, fire=e.get('fire'), g=wkg(d), shape=exc / exc.sum(), size=float(exc.sum())))
 EVN = pd.DataFrame(rows)
-# '혼잡' 기준: 2025 저녁들의 출차 시작 뒤 2시간 10분 순유출(바닥 포함) 분포의 중앙값과 상위 20%
+# 기준(시험용): 혼잡 = 공연 없는 저녁 18~24시 10분 순유출의 상위 5%(평소엔 거의 안 넘음), 매우 혼잡 = 2025 출차 시작 뒤 2시간 10분 순유출의 상위 20%
 _post = np.concatenate([to10(series(r.d)[int(r.st + r.onset) // 5: int(r.st + r.onset) // 5 + 24]) for r in EVN.itertuples()])
-THR = {'혼잡': float(np.round(np.percentile(_post, 50), -1)), '매우 혼잡': float(np.round(np.percentile(_post, 80), -1))}
+_norm = np.concatenate([to10(v[:, 18 * 12: 24 * 12]).ravel() if v.ndim == 1 else np.concatenate([to10(r[18 * 12: 24 * 12]) for r in v]) for v in BASED.values()])
+THR = {'혼잡': float(np.round(np.percentile(_norm, 95), -1)), '매우 혼잡': float(np.round(np.percentile(_post, 80), -1))}
 def kde(vals, grid=G5, bw=10):
     v = np.asarray(vals, float); w = np.exp(-0.5 * ((grid[:, None] - v[None]) / bw) ** 2).sum(1); return w / w.sum()
 def day_diffs(train):
@@ -66,15 +68,21 @@ def forecast(train, st, run, g, how, pdist=None, prev=None):
     p5 = onset_dist(train, st, run, how, prev) if pdist is None else pdist; p = to10(p5); p = p / p.sum() if p.sum() > 0 else p
     base = to10(BASE[g][int(st) // 5: int(st) // 5 + 2 * NS])
     C = np.vstack([to10(sz * sh) for sz, sh in zip(train['size'], train['shape'])])  # 후보마다 출차 시작 뒤 12칸(120분)
-    exp = base.copy(); pc = np.zeros(NS); pv = np.zeros(NS)
+    # 칸 m의 혼잡 확률 = Σ_i P(출차 시작 = i) × (후보 저녁 중 바닥[m] + 늘어난 차[m−i] ≥ 기준인 몫).
+    # 출차 시작 전(m < i)이나 2시간이 지난 뒤(m − i ≥ 12)는 늘어난 차 0, 즉 바닥만으로 판단. (2026-11-27 고침: 처음 판은 이 두 경우를 빠뜨렸음)
+    # 바닥도 하나로 두지 않고, 같은 요일 무리 공연 없는 날 하나하나를 후보로(후보 저녁과 짝지어 300쌍, 씨앗 고정)
+    J = C.shape[1]; exp = base.copy(); pc = np.zeros(NS); pv = np.zeros(NS)
+    BD = np.vstack([to10(r[int(st) // 5: int(st) // 5 + 2 * NS]) for r in BASED[g]])
+    rng = np.random.default_rng(int(st) * 7 + len(train)); kb = rng.integers(0, len(BD), 300); kc = rng.integers(0, len(C), 300)
+    Bk = BD[kb]; Ck = np.hstack([C[kc], np.zeros((300, NS))])  # j ≥ 12면 0
     for i in range(NS):
         if p[i] <= 0: continue
-        for j in range(C.shape[1]):
-            if i + j >= NS: break
-            col = C[:, j]; exp[i + j] += p[i] * col.mean()
-            pc[i + j] += p[i] * np.mean(base[i + j] + col >= THR['혼잡']); pv[i + j] += p[i] * np.mean(base[i + j] + col >= THR['매우 혼잡'])
-    # 출차 시작 전 칸(혹은 시작이 안 온 경우)은 바닥만으로 혼잡 여부
-    pc += (1 - np.cumsum(p) + p) * 0 ; return p, exp, pc, pv, base
+        for j in range(J): 
+            if i + j < NS: exp[i + j] += p[i] * C[:, j].mean()
+        add = np.zeros((300, NS)); L = NS - i; add[:, i:] = Ck[:, :L]
+        tot = Bk + add; pc += p[i] * (tot >= THR['혼잡']).mean(0); pv += p[i] * (tot >= THR['매우 혼잡']).mean(0)
+    rest = max(0.0, 1 - p.sum()); pc += rest * (Bk >= THR['혼잡']).mean(0); pv += rest * (Bk >= THR['매우 혼잡']).mean(0)
+    return p, exp, pc, pv, base
 def censor(p, T, fired_at=None, lagdist=None):
     q = p.copy()
     if fired_at is None: q[G5 <= T - 15] = 0
@@ -91,7 +99,7 @@ def score_rows(r, p, exp, pc, pv):
                 mae=float(np.mean(np.abs(exp[k] - act[k]))), sumabs=float(np.sum(np.abs(exp[k] - act[k]))), sumy=float(np.sum(np.abs(act[k]))),
                 brier_c=float(np.mean((pc[k] - (act[k] >= THR['혼잡'])) ** 2)), brier_v=float(np.mean((pv[k] - (act[k] >= THR['매우 혼잡'])) ** 2))), act[k], exp[k], pc[k], pv[k]
 if __name__ == '__main__' and sys.argv[1] == 'backtest':
-    print('2025 저녁 %d개, 투어 %d개, 적힌 공연 시간 있음 %d개 | 기준: 혼잡 ≥ %.0f대/10분, 매우 혼잡 ≥ %.0f대/10분(출차 시작 뒤 2시간 10분 순유출의 중앙값·상위 20%%)' % (len(EVN), EVN.seq.nunique(), EVN.run.notna().sum(), THR['혼잡'], THR['매우 혼잡']))
+    print('2025 저녁 %d개, 투어 %d개, 적힌 공연 시간 있음 %d개 | 기준: 혼잡 ≥ %.0f대/10분, 매우 혼잡 ≥ %.0f대/10분(혼잡 = 공연 없는 저녁 18~24시 상위 5%%, 매우 혼잡 = 출차 시작 뒤 2시간의 상위 20%%)' % (len(EVN), EVN.seq.nunique(), EVN.run.notna().sum(), THR['혼잡'], THR['매우 혼잡']))
     res = []; SL = []
     for r in EVN.itertuples():
         train = EVN[EVN.seq != r.seq]
@@ -112,8 +120,10 @@ if __name__ == '__main__' and sys.argv[1] == 'backtest':
     def table(R, SL, title):
         print('\n== ' + title)
         print('  %-20s %7s %7s %6s %8s %7s %8s %8s' % ('방식', '로그점수', '80%적중', '폭', '10분MAE', '정확도', '혼잡Brier', '매우Brier'))
+        full = R.d.nunique() == EVN.d.nunique()
         for name in R.how.unique():
             x = R[R.how == name]
+            if full and name in ('P3 전날 같은 공연', '점: 전날 출차 시작'): continue  # 41저녁에만 있음 → 아래 표에서
             if name == '바닥만(공연 몫 없음)': print('  %-20s %7s %7s %6s %7.1f대 %6.1f%% %8.3f %8.3f' % (name, '-', '-', '-', x.mae.mean(), 100 * (1 - x.sumabs.sum() / x.sumy.sum()), x.brier_c.mean(), x.brier_v.mean())); continue
             print('  %-20s %7.2f %6.0f%% %5.0f분 %7.1f대 %6.1f%% %8.3f %8.3f' % (name, x.logp.mean(), 100 * x.cover80.mean(), x.width80.median(), x.mae.mean(), 100 * (1 - x.sumabs.sum() / x.sumy.sum()), x.brier_c.mean(), x.brier_v.mean()))
         print('  (로그점수 기준: 36칸 고르게 나누면 %.2f)' % np.log(1 / 36))
@@ -135,9 +145,10 @@ if __name__ == '__main__' and sys.argv[1] == 'backtest':
     table(Rp, SLp, '같은 공연 전날(3일 안)이 있는 %d저녁만 — 둘째 날부터' % Rp.d.nunique())
     print('  이틀 연속 출차 시작 차이(전부): 중앙값 %+.0f분, 10~90%% %+.0f ~ %+.0f분, n=%d' % (np.median(day_diffs(EVN)), *np.percentile(day_diffs(EVN), [10, 90]), len(day_diffs(EVN))))
     for a_, b_ in (('P3 전날 같은 공연', 'P0 전부'), ('P3 전날 같은 공연', '점: 전날 출차 시작'), ('P3 전날 같은 공연', '정답 시작을 안다면')): cmp(SLp, a_, b_)
-    for name in ('P1 시작 시각별', 'P2 적힌 시간+지연'):
-        s_ = SL[SL.how == name].copy(); s_['bin'] = pd.cut(s_.pv, [-0.01, 0.1, 0.3, 0.5, 0.7, 1.0])
-        print('  %s "매우 혼잡" 눈금: ' % name + ' | '.join('예측 %.2f→실제 %.2f(%d칸)' % (v.pv.mean(), (v.y >= THR['매우 혼잡']).mean(), len(v)) for k, v in s_.groupby('bin', observed=True)))
+    for name in ('P0 전부', 'P2 적힌 시간+지연'):
+        for col, lab in (('pc', '혼잡'), ('pv', '매우 혼잡')):
+            s_ = SL[SL.how == name].copy(); s_['bin'] = pd.cut(s_[col], [-0.01, 0.1, 0.3, 0.5, 0.7, 1.0])
+            print('  %s "%s" 눈금: ' % (name, lab) + ' | '.join('예측 %.2f→실제 %.2f(%d칸)' % (v[col].mean(), (v.y >= THR[lab]).mean(), len(v)) for k, v in s_.groupby('bin', observed=True)))
     print('\n== "아직 안 끝남" 고침(P1, 판단 시각 T 이후 칸만)')
     U = []
     for r in EVN.itertuples():
@@ -193,7 +204,7 @@ if __name__ == '__main__' and sys.argv[1] == 'prereg':
             shape_size='출차 시작 뒤 2시간 모양·크기: 2025 저녁 하나하나를 후보로(같은 무게), 크기 중앙값 %.0f대(2025 단위), 판매수 안 씀' % np.median(EVN['size']),
             baseline='같은 요일 무리(평일 / 주말·공휴일) 공연 없는 날의 같은 시각 순유출 중앙값',
             scale='2026 parking_sum 단위 = 2025 × %.3f (공연 없는 평일 하루 변동폭 1335 / 2056)' % K_SCALE,
-            thresholds='혼잡 ≥ %.0f대/10분, 매우 혼잡 ≥ %.0f대/10분(2025 단위; 2025 출차 시작 뒤 2시간 순유출의 중앙값·상위 20%%). 2026 단위는 × K. 실제 서비스 기준은 운영자가 정함 — 이건 시험용.' % (THR['혼잡'], THR['매우 혼잡']),
+            thresholds='혼잡 ≥ %.0f대/10분(공연 없는 저녁 18~24시 10분 순유출의 상위 5%%), 매우 혼잡 ≥ %.0f대/10분(2025 출차 시작 뒤 2시간의 상위 20%%), 2025 단위. 2026 단위는 × K. 바닥도 공연 없는 날 하나하나를 후보로 둠. 실제 서비스 기준은 운영자가 정함 — 이건 시험용.' % (THR['혼잡'], THR['매우 혼잡']),
             update='"아직 안 끝남" 고침: 판단 시각 T(시작+150·180분)까지 주차 감지(10분에 6.5%% 감소, end_detect_prereg)가 안 울렸으면 출차 시작 > T−15분만 남기고 다시 나눔, 울렸으면 감지 − (2025 감지−출차 시작) 분포로 바꿈. T까지의 자료만 쓰므로 공연 뒤에 계산해도 됨.'),
         scoring=dict(
             truth='end_detect_live.park_onset(그날 parking_sum) — 이미 고정된 정의',
