@@ -59,7 +59,7 @@ def ymd(d):
 
 
 def main(what):
-    kst = dt.datetime.utcnow() + dt.timedelta(hours=9)
+    kst = dt.datetime.now(dt.timezone.utc) + dt.timedelta(hours=9)
     today = kst.date()
     if what == 'test':
         shows = json.load(open('analysis/shows_site_2024-12_2025-12.json', encoding='utf-8'))['list']
@@ -70,7 +70,7 @@ def main(what):
         for d in pick:
             j = ask(d, d, raw=(d == pick[0]))
             out['one_day'][d] = j
-            print(d, j.get('ok'), j.get('note', ''), [(r.get('prfnmplc'), r.get('prfdtcnt'), r.get('totnmrs')) for r in j.get('rows') or []])
+            print(d, j.get('ok'), j.get('note', ''), j.get('body', '')[:200], [(r.get('prfnmplc'), r.get('prfdtcnt'), r.get('totnmrs')) for r in j.get('rows') or []])
             time.sleep(0.5)
         out['month'] = ask('20251101', '20251130')
         print('2025-11 한 달', [(r.get('prfnmplc'), r.get('prfdtcnt'), r.get('totnmrs')) for r in out['month'].get('rows') or []])

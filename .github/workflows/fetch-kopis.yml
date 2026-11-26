@@ -18,6 +18,6 @@ jobs:
       - run: |
           git config user.name "olltime-bot"
           git config user.email "olltime-bot@users.noreply.github.com"
-          git add analysis/kopis_*.json analysis/kopis_*.csv 2>/dev/null || true
+          for f in analysis/kopis_*.json analysis/kopis_*.csv; do [ -f "$f" ] && git add "$f"; done
           git diff --cached --quiet || git commit -m "KOPIS 티켓 판매수 받음 (${{ inputs.what }}) · 출처: 공연예술통합전산망(KOPIS)"
           git pull --rebase -q && git push

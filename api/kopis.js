@@ -17,7 +17,7 @@ export function range(from, to) {
 const unesc = s => s.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&').trim();
 const TEXT = new Set(['prfnmfct', 'prfnmplc', 'fcltynm', 'prfplcnm', 'errmsg', 'returncode', 'returnmsg']);
 export function parse(xml) {
-  return [...xml.matchAll(/<db>([\s\S]*?)<\/db>/g)].map(m => Object.fromEntries([...m[1].matchAll(/<(\w+)>([\s\S]*?)<\/\1>/g)].map(([, k, v]) => { v = unesc(v); const n = v.replace(/,/g, ''); return [k, !TEXT.has(k) && /^-?\d+(\.\d+)?$/.test(n) ? +n : v]; })));
+  return [...xml.matchAll(/<(db|prfst)>([\s\S]*?)<\/\1>/g)].map(m => Object.fromEntries([...m[2].matchAll(/<(\w+)>([\s\S]*?)<\/\1>/g)].map(([, k, v]) => { v = unesc(v); const n = v.replace(/,/g, ''); return [k, !TEXT.has(k) && /^-?\d+(\.\d+)?$/.test(n) ? +n : v]; })));
 }
 export default async function handler(req, res) {
   const { KOPIS_KEY } = process.env, q = req.query || {};
@@ -27,17 +27,17 @@ export default async function handler(req, res) {
   if (bad) { res.setHeader('Cache-Control', 'no-store'); return res.status(400).json({ ok: false, note: bad }); }
   const hide = t => String(t).split(KOPIS_KEY).join('***').split(encodeURIComponent(KOPIS_KEY)).join('***');
   const path = `/openApi/restful/prfstsPrfByFct?service=${encodeURIComponent(KOPIS_KEY)}&stdate=${from}&eddate=${to}&cpage=1&rows=100&shprfnmfct=${encodeURIComponent(name)}`;
-  let xml = null, why = '';
+  let xml = null, why = '', via = '';
   for (const host of ['https://www.kopis.or.kr', 'http://www.kopis.or.kr']) {
-    try { const r = await fetch(host + path, { signal: AbortSignal.timeout(9000) }); if (!r.ok) { why = `서버 응답 ${r.status}`; continue; } xml = await r.text(); break; } catch (e) { why = 'KOPIS에 닿지 못했어요'; }
+    try { const r = await fetch(host + path, { signal: AbortSignal.timeout(8000) }); if (!r.ok) { why = `서버 응답 ${r.status}`; continue; } xml = await r.text(); via = host.split(':')[0]; break; } catch (e) { why = 'KOPIS에 닿지 못했어요'; }
   }
   res.setHeader('Cache-Control', 'no-store');
   if (xml === null) return res.status(502).json({ ok: false, note: why });
-  if (!/<dbs?[\s>]/.test(xml)) return res.status(502).json({ ok: false, note: '형식이 다른 응답이에요', head: hide(xml.slice(0, 300)) });
+  if (!/<(dbs?|prfsts?)[\s>]/.test(xml)) return res.status(502).json({ ok: false, note: '형식이 다른 응답이에요', head: hide(xml.slice(0, 300)) });
   const rows = parse(xml), err = rows.find(r => r.errmsg || (r.returncode !== undefined && String(r.returncode) !== '00'));
   if (err) return res.status(502).json({ ok: false, note: 'KOPIS가 오류를 돌려줬어요', err: hide(JSON.stringify(err)).slice(0, 200) });
   res.setHeader('Cache-Control', day(to) < kstToday() ? 's-maxage=86400' : 's-maxage=600');
-  const out = { ok: true, source: SOURCE, from, to, q: name, read_at: new Date().toISOString(), rows };
+  const out = { ok: true, source: SOURCE, from, to, q: name, via, read_at: new Date().toISOString(), rows };
   if (q.raw === '1') out.raw = hide(xml.slice(0, 4000));
   return res.status(200).json(out);
 }
