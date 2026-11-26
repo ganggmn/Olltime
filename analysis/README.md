@@ -24,6 +24,7 @@
 | tenmin.py | - | 공원 전체 사람 수 10분 예측 모델 7가지(계단, 직선, 사이트 식, 평균 보존 매끈, 최근 실시간, 섞기, 공연 시각 맞춤)를 실시간 5분 값으로 채점. 11/26~29 예측은 tenmin_forecasts_20261126.json에 미리 고정 |
 | newdata.py | - | 수도권 생활이동(오륜동 도착, 수단·성·연령)과 단기체류 외국인으로 공연 날을 봄. 지하철 도착은 교통카드 하차와, 차량 도착은 주차장 입차와 맞대 자료를 확인 → newdata_shows_modes_2025.csv, newdata_shows_foreign_2025.csv |
 | topis_shows.py | - | 공원에서 가장 가까운 서울시 교통량 지점(2.2~4km)의 공연 날 변화 → topis_shows_2025.csv |
+| od_shows.py | - | 수도권 생활이동 출도착(일별)으로 공연 날 관객이 어디서 와서(시작 4시간 전~시작) 어디로 가는지(끝난 뒤 2시간), 수단·내외국인·걸린 시간 |
 | (자료) lifemove_arr_2025.csv.gz, lifemove_arr_forn_2025.csv.gz, forn_temp_2025.csv.gz, topis_2025.csv.gz, lifemove_od_2025.csv.gz | - | scripts/fetch_newdata_2025.py가 GitHub 자동 작업으로 받아 공원 쪽만 추린 것. 수단 번호는 4 광역버스, 5 일반버스, 6 지하철, 7 도보, 8 차량, 9 기타로 읽음(자료로 확인) |
 | bt.py | 3 | 2025년 기록만으로 2026년 11월 13~23일의 30분 단위 예측을 만듦(`backtest_20261113_23.json`). 이 파일은 공연 날을 잘못 잡았어요(11/13~15 공연을 빠뜨리고 11/20을 공연 날로) |
 | bt_schedule.py | 3 | bt.py와 같고 공연 날만 올림픽공원 누리집 일정대로 잡음(`backtest_20261113_23_schedule.json`) |

@@ -75,7 +75,7 @@ if 'od' in what:
         for name in z.namelist():
             with z.open(name) as f0: first = f0.read(65536)
             try: first.decode('utf-8-sig'); enc = 'utf-8-sig'
-            except UnicodeDecodeError: enc = 'cp949'
+            except UnicodeDecodeError as e: enc = 'utf-8-sig' if e.start >= len(first) - 4 else 'cp949'  # 64KB 끝에서 글자가 잘린 경우는 utf-8
             with z.open(name) as f:
                 R = csv.reader(io.TextIOWrapper(f, encoding=enc, errors='replace')); h = next(R); ix = {c: i for i, c in enumerate(h)}
                 io_, id_, ist, ifn, iwho, imd, idist, itm, icnt = (ix[c] for c in ('o_admdong_cd', 'd_admdong_cd', 'st_time_cd', 'fns_time_cd', 'in_forn_div_nm', 'move_trans', 'move_dist', 'move_time', 'cnt'))
