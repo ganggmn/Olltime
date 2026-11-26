@@ -12,13 +12,17 @@ DEFW = {'floor': 3.0, 'lower': 2.4, 'upper': 1.8}
 X['w'] = [w if (w == w and w >= 1.2) else DEFW[g] for w, g in zip(X.door_w, X.grp)]
 TIER2GRP = {'바닥석(접이식)': ['floor', 'lower'], '아래층': ['lower'], '위층': ['upper']}
 H_F, H_M = 159.6, 172.5; WREL = {1: H_F / H_M, 0: 1.0}; VFREE = {1: 1.32, 0: 1.41}
-def run(N=10000, pf=0.74, q=1.3, W_out=40.0, start='all0', seed=0, car_share=0.15, sub_share=0.60, ppl_car=2.2, gate_cpm=26.0, aisle=0.6, outdoor=0.8, ret=False):
+def run(N=10000, pf=0.74, q=1.3, W_out=40.0, start='all0', seed=0, car_share=0.15, sub_share=0.60, ppl_car=2.2, gate_cpm=26.0, aisle=0.6, outdoor=0.8, ret=False,
+        mu=3.0, early=0.15, linger=0.0, linger_mu=20.0):
     rng = np.random.default_rng(seed)
     idx = rng.choice(len(S), N, replace=N > len(S)); s = S.iloc[idx].reset_index(drop=True)
     fem = (rng.random(N) < pf).astype(int); wrel = np.where(fem == 1, WREL[1], WREL[0]); v = np.where(fem == 1, VFREE[1], VFREE[0]) * rng.normal(1, 0.1, N).clip(0.7, 1.3)
     if start == 'all0': t0 = np.zeros(N)
-    else:  # 앙코르 중 먼저 나가는 15%(끝나기 10분 전~끝), 나머지는 끝난 뒤 평균 3분(감마)
-        early = rng.random(N) < 0.15; t0 = np.where(early, -rng.uniform(0, 600, N), rng.gamma(2.0, 90.0, N))
+    elif start == 'real':  # 앙코르 중 먼저 나가는 15%(끝나기 10분 전~끝), 나머지는 끝난 뒤 평균 3분(감마)
+        e_ = rng.random(N) < 0.15; t0 = np.where(e_, -rng.uniform(0, 600, N), rng.gamma(2.0, 90.0, N))
+    else:  # 'param': 먼저 나감 early(끝나기 10분 전~끝), 남아 있다 늦게 감 linger(지수, 평균 linger_mu분), 나머지 감마(모양 2, 평균 mu분)
+        u0 = rng.random(N)
+        t0 = np.where(u0 < early, -rng.uniform(0, 600, N), np.where(u0 < early + linger, rng.exponential(linger_mu * 60, N), rng.gamma(2.0, max(mu, 1e-3) * 30.0, N)))
     # 가장 가까운 출구(같은 층 무리), 거리 = 수평 × 1.2 + 높이 차 × 2(계단)
     ex = np.full(N, -1); dist = np.zeros(N)
     for tier, grps in TIER2GRP.items():
