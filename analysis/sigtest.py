@@ -22,7 +22,7 @@ def boot_diff(err_new, err_old, actual, cluster, B=B_DEFAULT, seed=0):
     sA = A[idx].sum(1); D = acc(En[idx].sum(1), sA) - acc(Eo[idx].sum(1), sA)
     lo95, hi95 = np.percentile(D, [2.5, 97.5]); lo99, hi99 = np.percentile(D, [0.5, 99.5])
     p = min(1.0, 2 * min((D <= 0).mean(), (D >= 0).mean())); p = max(p, 1 / B)
-    return dict(new=round(acc(En.sum(), A.sum()), 2), old=round(acc(Eo.sum(), A.sum()), 2), diff=round(float(d0), 2),
+    return dict(new=round(float(acc(En.sum(), A.sum())), 4), old=round(float(acc(Eo.sum(), A.sum())), 4), diff=round(float(d0), 4),
                 ci95=[round(float(lo95), 2), round(float(hi95), 2)], ci99=[round(float(lo99), 2), round(float(hi99), 2)], p=float(p), clusters=int(k))
 
 
