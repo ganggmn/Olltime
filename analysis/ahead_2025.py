@@ -21,6 +21,11 @@ CL = {d: cls(d) for d in days}
 BETA = lambda k: 0.82 if k.endswith('_show') else 0.94 if k == 'wk' else 0.89
 GROUP = lambda k: '큰 공연 날' if k.endswith('_show') else '월~목' if k == 'wk' else '금' if k == 'fri' else '주말·공휴일'
 H = list(range(7, 24))
+SHOW_FALLBACK = {'wk_show': ['fri_show', 'sat_show', 'hol_show'], 'fri_show': ['wk_show', 'sat_show', 'hol_show'], 'sat_show': ['hol_show', 'fri_show', 'wk_show'], 'hol_show': ['sat_show', 'fri_show', 'wk_show']}  # 학습할 날이 모자란 공연 날 종류는 가까운 종류 순서로 대신 씀(실행마다 바뀌지 않게, 2026-11-27 고침)
+def pick_fb(k, prof):
+    if k in prof: return k
+    if not k.endswith('_show'): return 'wk'
+    return next((x for x in SHOW_FALLBACK[k] if x in prof), 'wk')
 def run_month(m):
     tr = [d for d in days if int(d[5:7]) < m]; te = [d for d in days if int(d[5:7]) == m]
     prof, sd = {}, {}
@@ -28,7 +33,7 @@ def run_month(m):
         A = INC.loc[[d for d in tr if CL[d] == k]].values
         if len(A) < 3: continue
         prof[k] = np.median(A, axis=0); sd[k] = np.std(A - prof[k], axis=0)
-    fb = lambda k: k if k in prof else ('wk' if not k.endswith('_show') else next((x for x in prof if x.endswith('_show')), 'wk'))
+    fb = lambda k: pick_fb(k, prof)
     rows = []
     for d in te:
         k = fb(CL[d]); p = prof[k]; s = sd[k]; b = BETA(CL[d]); y = Y.loc[d].values; base = DAWN[d] + p

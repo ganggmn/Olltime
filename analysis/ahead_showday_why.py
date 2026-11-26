@@ -24,6 +24,11 @@ BETA = lambda k: 0.82 if k.endswith('_show') else 0.94 if k == 'wk' else 0.89
 def st(d):
     b = SHOW[d]['big'][0]; hh, mm = map(int, b['t'].split(':')); return hh + mm / 60, (b.get('run') or 150) / 60
 HH = np.arange(24); H = list(range(7, 24))
+SHOW_FALLBACK = {'wk_show': ['fri_show', 'sat_show', 'hol_show'], 'fri_show': ['wk_show', 'sat_show', 'hol_show'], 'sat_show': ['hol_show', 'fri_show', 'wk_show'], 'hol_show': ['sat_show', 'fri_show', 'wk_show']}  # 학습할 날이 모자란 공연 날 종류는 가까운 종류 순서로 대신 씀(실행마다 바뀌지 않게, 2026-11-27 고침)
+def pick_fb(k, prof):
+    if k in prof: return k
+    if not k.endswith('_show'): return 'wk'
+    return next((x for x in SHOW_FALLBACK[k] if x in prof), 'wk')
 def phase(rel, run):
     if rel < -3: return '1 아침~낮'
     if rel < 0: return '2 시작 3시간 전'
@@ -40,8 +45,8 @@ def run_month(m):
         if k.endswith('_show'): s0[k] = np.median([st(d)[0] for d in dd])
     rows = []
     for d in te:
-        k = CL[d] if CL[d] in prof else next((x for x in prof if x.endswith('_show')), None)
-        if k is None: continue
+        k = pick_fb(CL[d], prof)
+        if k not in prof: continue
         p = prof[k]; b = BETA(CL[d]); y = Y.loc[d].values; dawn = DAWN[d]; inc = INC.loc[d].values
         s, run = st(d)
         pt = np.interp(HH - (s - s0[k]), HH, p)                      # 시작 시각에 맞춰 옮긴 모양(미리 앎)
