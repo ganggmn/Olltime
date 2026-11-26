@@ -125,12 +125,12 @@ def main(what):
                     time.sleep(0.3)
                     if len(rows) < 100: break
                 print(y, m, '누적', len(seen))
-        keep = [k for k, r in seen.items() if k and any(w in (r.get('fcltynm') or '') for w in ('KSPO', '체조', '핸드볼', '올림픽홀', '티켓링크 라이브'))]
-        print('목록', len(seen), '큰 공연장', len(keep))
+        keep = [k for k in seen if k]  # 목록의 시설명은 '올림픽공원'뿐이라 공연장(KSPO DOME 등)은 상세에서 봐요
+        print('목록', len(seen))
         out = []
         for k in keep:
             j = ask(None, None, t='detail', id=k); r = (j.get('rows') or [{}])[0]
-            x = {**seen[k], **{kk: v for kk, v in r.items() if isinstance(v, (str, int, float)) and '<' not in str(v)}}
+            x = {**{'list_' + kk: v for kk, v in seen[k].items()}, **{kk: v for kk, v in r.items() if isinstance(v, (str, int, float)) and '<' not in str(v)}}
             out.append(x); time.sleep(0.3)
         cols = sorted({c for x in out for c in x})
         with open(f'analysis/kopis_meta_{y0}_{y1}.csv', 'w', newline='', encoding='utf-8') as fh:
