@@ -95,7 +95,7 @@ for r in T.itertuples():
          '과거 평균 몫(2025)': (avg / avg.sum(), pkc / pkc.sum()),
          '점: 시작 시각별 중앙값': None, '점: 적힌 시간+42분': None,
          '음성 대조(2025 다른 저녁의 끝)': None}
-    for k, s0 in (('점: 시작 시각별 중앙값', med), ('점: 적힌 시간+42분', (r.run or 150) + 42), ('음성 대조(2025 다른 저녁의 끝)', float(oth.onset.iloc[int(r.d.replace('-', '')) % len(oth)]))):
+    for k, s0 in (('점: 시작 시각별 중앙값', med), ('점: 적힌 시간+42분', (r.run if r.run == r.run and r.run else 150) + 42), ('음성 대조(2025 다른 저녁의 끝)', float(oth.onset.iloc[int(r.d.replace('-', '')) % len(oth)]))):
         v = pred_share(kde([s0], bw=0.1), r.st, shape, W_FIX, H); F[k] = (v, np.eye(len(H))[int(np.argmax(v))])
     for k, (v, pp) in F.items():
         rows.append(dict(d=r.d, seq=r.seq, t=r.t, how=k, tv=tv(v, a), se=float(((v - a) ** 2).sum()), br=float(((pp - np.eye(len(H))[pk]) ** 2).sum()), hit=int(np.argmax(v) == pk)))
