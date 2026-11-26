@@ -1,0 +1,514 @@
+{
+ "read_at": "2026-11-26T14:07:04.159898+00:00",
+ "base": "https://olltime.vercel.app",
+ "one_day": {
+  "20251101": {
+   "ok": true,
+   "source": "공연예술통합전산망(KOPIS) 공연시설별 통계",
+   "from": "20251101",
+   "to": "20251101",
+   "q": "올림픽공원",
+   "via": "https",
+   "read_at": "2026-11-26T05:07:04.723Z",
+   "rows": [
+    {
+     "prfprocnt": 0,
+     "prfdtcnt": 1,
+     "totnmrs": 9629,
+     "prfnmplc": "KSPO DOME(체조경기장)",
+     "prfnmfct": "올림픽공원",
+     "seatcnt": 15000,
+     "prfcnt": 1
+    },
+    {
+     "prfprocnt": 0,
+     "prfdtcnt": 0,
+     "totnmrs": 0,
+     "prfnmplc": "티켓링크 라이브 아레나 (핸드볼경기장)",
+     "prfnmfct": "올림픽공원",
+     "seatcnt": 5003,
+     "prfcnt": 0
+    },
+    {
+     "prfprocnt": 1,
+     "prfdtcnt": 1,
+     "totnmrs": 2501,
+     "prfnmplc": "올림픽홀",
+     "prfnmfct": "올림픽공원",
+     "seatcnt": 2452,
+     "prfcnt": 1
+    },
+    {
+     "prfprocnt": 0,
+     "prfdtcnt": 2,
+     "totnmrs": 71,
+     "prfnmplc": "뮤즈라이브",
+     "prfnmfct": "올림픽공원",
+     "seatcnt": 237,
+     "prfcnt": 1
+    },
+    {
+     "prfprocnt": 0,
+     "prfdtcnt": 0,
+     "totnmrs": 0,
+     "prfnmplc": "우리금융아트홀(역도경기장)",
+     "prfnmfct": "올림픽공원",
+     "seatcnt": 1184,
+     "prfcnt": 0
+    },
+    {
+     "prfprocnt": 0,
+     "prfdtcnt": 0,
+     "totnmrs": 0,
+     "prfnmplc": "K-아트홀",
+     "prfnmfct": "올림픽공원",
+     "seatcnt": 500,
+     "prfcnt": 0
+    },
+    {
+     "prfprocnt": 0,
+     "prfdtcnt": 0,
+     "totnmrs": 0,
+     "prfnmplc": "야외(88잔디마당)",
+     "prfnmfct": "올림픽공원",
+     "seatcnt": 10000,
+     "prfcnt": 0
+    },
+    {
+     "prfprocnt": 0,
+     "prfdtcnt": 0,
+     "totnmrs": 0,
+     "prfnmplc": "야외(수변무대)",
+     "prfnmfct": "올림픽공원",
+     "seatcnt": 1000,
+     "prfcnt": 0
+    },
+    {
+     "prfprocnt": 0,
+     "prfdtcnt": 0,
+     "totnmrs": 0,
+     "prfnmplc": "벨로드롬(경륜경기장)",
+     "prfnmfct": "올림픽공원",
+     "seatcnt": 6000,
+     "prfcnt": 0
+    },
+    {
+     "prfprocnt": 0,
+     "prfdtcnt": 0,
+     "totnmrs": 0,
+     "prfnmplc": "평화광장",
+     "prfnmfct": "올림픽공원",
+     "seatcnt": 0,
+     "prfcnt": 0
+    },
+    {
+     "prfprocnt": 0,
+     "prfdtcnt": 0,
+     "totnmrs": 0,
+     "prfnmplc": "일대",
+     "prfnmfct": "올림픽공원",
+     "seatcnt": 0,
+     "prfcnt": 0
+    },
+    {
+     "prfprocnt": 0,
+     "prfdtcnt": 0,
+     "totnmrs": 0,
+     "prfnmplc": "한성백제박물관",
+     "prfnmfct": "올림픽공원",
+     "seatcnt": 0,
+     "prfcnt": 0
+    }
+   ],
+   "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><prfsts><prfst><prfprocnt>0</prfprocnt><prfdtcnt>1</prfdtcnt><totnmrs>9629</totnmrs><prfnmplc>KSPO DOME(체조경기장)</prfnmplc><prfnmfct>올림픽공원</prfnmfct><seatcnt>15000</seatcnt><prfcnt>1</prfcnt></prfst><prfst><prfprocnt>0</prfprocnt><prfdtcnt>0</prfdtcnt><totnmrs>0</totnmrs><prfnmplc>티켓링크 라이브 아레나 (핸드볼경기장)</prfnmplc><prfnmfct>올림픽공원</prfnmfct><seatcnt>5003</seatcnt><prfcnt>0</prfcnt></prfst><prfst><prfprocnt>1</prfprocnt><prfdtcnt>1</prfdtcnt><totnmrs>2501</totnmrs><prfnmplc>올림픽홀</prfnmplc><prfnmfct>올림픽공원</prfnmfct><seatcnt>2452</seatcnt><prfcnt>1</prfcnt></prfst><prfst><prfprocnt>0</prfprocnt><prfdtcnt>2</prfdtcnt><totnmrs>71</totnmrs><prfnmplc>뮤즈라이브</prfnmplc><prfnmfct>올림픽공원</prfnmfct><seatcnt>237</seatcnt><prfcnt>1</prfcnt></prfst><prfst><prfprocnt>0</prfprocnt><prfdtcnt>0</prfdtcnt><totnmrs>0</totnmrs><prfnmplc>우리금융아트홀(역도경기장)</prfnmplc><prfnmfct>올림픽공원</prfnmfct><seatcnt>1184</seatcnt><prfcnt>0</prfcnt></prfst><prfst><prfprocnt>0</prfprocnt><prfdtcnt>0</prfdtcnt><totnmrs>0</totnmrs><prfnmplc>K-아트홀</prfnmplc><prfnmfct>올림픽공원</prfnmfct><seatcnt>500</seatcnt><prfcnt>0</prfcnt></prfst><prfst><prfprocnt>0</prfprocnt><prfdtcnt>0</prfdtcnt><totnmrs>0</totnmrs><prfnmplc>야외(88잔디마당)</prfnmplc><prfnmfct>올림픽공원</prfnmfct><seatcnt>10000</seatcnt><prfcnt>0</prfcnt></prfst><prfst><prfprocnt>0</prfprocnt><prfdtcnt>0</prfdtcnt><totnmrs>0</totnmrs><prfnmplc>야외(수변무대)</prfnmplc><prfnmfct>올림픽공원</prfnmfct><seatcnt>1000</seatcnt><prfcnt>0</prfcnt></prfst><prfst><prfprocnt>0</prfprocnt><prfdtcnt>0</prfdtcnt><totnmrs>0</totnmrs><prfnmplc>벨로드롬(경륜경기장)</prfnmplc><prfnmfct>올림픽공원</prfnmfct><seatcnt>6000</seatcnt><prfcnt>0</prfcnt></prfst><prfst><prfprocnt>0</prfprocnt><prfdtcnt>0</prfdtcnt><totnmrs>0</totnmrs><prfnmplc>평화광장</prfnmplc><prfnmfct>올림픽공원</prfnmfct><seatcnt>0</seatcnt><prfcnt>0</prfcnt></prfst><prfst><prfprocnt>0</prfprocnt><prfdtcnt>0</prfdtcnt><totnmrs>0</totnmrs><prfnmplc>일대</prfnmplc><prfnmfct>올림픽공원</prfnmfct><seatcnt>0</seatcnt><prfcnt>0</prfcnt></prfst><prfst><prfprocnt>0</prfprocnt><prfdtcnt>0</prfdtcnt><totnmrs>0</totnmrs><prfnmplc>한성백제박물관</prfnmplc><prfnmfct>올림픽공원</prfnmfct><seatcnt>0</seatcnt><prfcnt>0</prfcnt></prfst></prfsts>"
+  },
+  "20251102": {
+   "ok": true,
+   "source": "공연예술통합전산망(KOPIS) 공연시설별 통계",
+   "from": "20251102",
+   "to": "20251102",
+   "q": "올림픽공원",
+   "via": "https",
+   "read_at": "2026-11-26T05:07:05.693Z",
+   "rows": [
+    {
+     "prfprocnt": 0,
+     "prfdtcnt": 1,
+     "totnmrs": 9587,
+     "prfnmplc": "KSPO DOME(체조경기장)",
+     "prfnmfct": "올림픽공원",
+     "seatcnt": 15000,
+     "prfcnt": 1
+    },
+    {
+     "prfprocnt": 0,
+     "prfdtcnt": 0,
+     "totnmrs": 0,
+     "prfnmplc": "티켓링크 라이브 아레나 (핸드볼경기장)",
+     "prfnmfct": "올림픽공원",
+     "seatcnt": 5003,
+     "prfcnt": 0
+    },
+    {
+     "prfprocnt": 0,
+     "prfdtcnt": 1,
+     "totnmrs": 2494,
+     "prfnmplc": "올림픽홀",
+     "prfnmfct": "올림픽공원",
+     "seatcnt": 2452,
+     "prfcnt": 1
+    },
+    {
+     "prfprocnt": 0,
+     "prfdtcnt": 2,
+     "totnmrs": 86,
+     "prfnmplc": "뮤즈라이브",
+     "prfnmfct": "올림픽공원",
+     "seatcnt": 237,
+     "prfcnt": 1
+    },
+    {
+     "prfprocnt": 0,
+     "prfdtcnt": 0,
+     "totnmrs": 0,
+     "prfnmplc": "우리금융아트홀(역도경기장)",
+     "prfnmfct": "올림픽공원",
+     "seatcnt": 1184,
+     "prfcnt": 0
+    },
+    {
+     "prfprocnt": 0,
+     "prfdtcnt": 0,
+     "totnmrs": 0,
+     "prfnmplc": "K-아트홀",
+     "prfnmfct": "올림픽공원",
+     "seatcnt": 500,
+     "prfcnt": 0
+    },
+    {
+     "prfprocnt": 0,
+     "prfdtcnt": 0,
+     "totnmrs": 0,
+     "prfnmplc": "야외(88잔디마당)",
+     "prfnmfct": "올림픽공원",
+     "seatcnt": 10000,
+     "prfcnt": 0
+    },
+    {
+     "prfprocnt": 0,
+     "prfdtcnt": 0,
+     "totnmrs": 0,
+     "prfnmplc": "야외(수변무대)",
+     "prfnmfct": "올림픽공원",
+     "seatcnt": 1000,
+     "prfcnt": 0
+    },
+    {
+     "prfprocnt": 0,
+     "prfdtcnt": 0,
+     "totnmrs": 0,
+     "prfnmplc": "벨로드롬(경륜경기장)",
+     "prfnmfct": "올림픽공원",
+     "seatcnt": 6000,
+     "prfcnt": 0
+    },
+    {
+     "prfprocnt": 0,
+     "prfdtcnt": 0,
+     "totnmrs": 0,
+     "prfnmplc": "평화광장",
+     "prfnmfct": "올림픽공원",
+     "seatcnt": 0,
+     "prfcnt": 0
+    },
+    {
+     "prfprocnt": 0,
+     "prfdtcnt": 0,
+     "totnmrs": 0,
+     "prfnmplc": "일대",
+     "prfnmfct": "올림픽공원",
+     "seatcnt": 0,
+     "prfcnt": 0
+    },
+    {
+     "prfprocnt": 0,
+     "prfdtcnt": 0,
+     "totnmrs": 0,
+     "prfnmplc": "한성백제박물관",
+     "prfnmfct": "올림픽공원",
+     "seatcnt": 0,
+     "prfcnt": 0
+    }
+   ]
+  },
+  "20251103": {
+   "ok": true,
+   "source": "공연예술통합전산망(KOPIS) 공연시설별 통계",
+   "from": "20251103",
+   "to": "20251103",
+   "q": "올림픽공원",
+   "via": "http",
+   "read_at": "2026-11-26T05:07:06.641Z",
+   "rows": [],
+   "note": "그 기간에는 KOPIS 자료가 없어요"
+  },
+  "20251104": {
+   "ok": true,
+   "source": "공연예술통합전산망(KOPIS) 공연시설별 통계",
+   "from": "20251104",
+   "to": "20251104",
+   "q": "올림픽공원",
+   "via": "https",
+   "read_at": "2026-11-26T05:07:07.593Z",
+   "rows": [],
+   "note": "그 기간에는 KOPIS 자료가 없어요"
+  },
+  "20261126": {
+   "ok": true,
+   "source": "공연예술통합전산망(KOPIS) 공연시설별 통계",
+   "from": "20261126",
+   "to": "20261126",
+   "q": "올림픽공원",
+   "via": "https",
+   "read_at": "2026-11-26T05:07:08.522Z",
+   "rows": [],
+   "note": "그 기간에는 KOPIS 자료가 없어요"
+  },
+  "20261127": {
+   "ok": true,
+   "source": "공연예술통합전산망(KOPIS) 공연시설별 통계",
+   "from": "20261127",
+   "to": "20261127",
+   "q": "올림픽공원",
+   "via": "http",
+   "read_at": "2026-11-26T05:07:09.366Z",
+   "rows": [],
+   "note": "그 기간에는 KOPIS 자료가 없어요"
+  },
+  "20261128": {
+   "ok": true,
+   "source": "공연예술통합전산망(KOPIS) 공연시설별 통계",
+   "from": "20261128",
+   "to": "20261128",
+   "q": "올림픽공원",
+   "via": "https",
+   "read_at": "2026-11-26T05:07:10.192Z",
+   "rows": [],
+   "note": "그 기간에는 KOPIS 자료가 없어요"
+  },
+  "20261129": {
+   "ok": true,
+   "source": "공연예술통합전산망(KOPIS) 공연시설별 통계",
+   "from": "20261129",
+   "to": "20261129",
+   "q": "올림픽공원",
+   "via": "https",
+   "read_at": "2026-11-26T05:07:11.118Z",
+   "rows": [],
+   "note": "그 기간에는 KOPIS 자료가 없어요"
+  }
+ },
+ "month": {
+  "ok": true,
+  "source": "공연예술통합전산망(KOPIS) 공연시설별 통계",
+  "from": "20251101",
+  "to": "20251130",
+  "q": "올림픽공원",
+  "via": "https",
+  "read_at": "2026-11-26T05:07:11.915Z",
+  "rows": [
+   {
+    "prfprocnt": 2,
+    "prfdtcnt": 15,
+    "totnmrs": 149970,
+    "prfnmplc": "KSPO DOME(체조경기장)",
+    "prfnmfct": "올림픽공원",
+    "seatcnt": 15000,
+    "prfcnt": 3
+   },
+   {
+    "prfprocnt": 1,
+    "prfdtcnt": 3,
+    "totnmrs": 12340,
+    "prfnmplc": "티켓링크 라이브 아레나 (핸드볼경기장)",
+    "prfnmfct": "올림픽공원",
+    "seatcnt": 5003,
+    "prfcnt": 1
+   },
+   {
+    "prfprocnt": 4,
+    "prfdtcnt": 9,
+    "totnmrs": 15913,
+    "prfnmplc": "올림픽홀",
+    "prfnmfct": "올림픽공원",
+    "seatcnt": 2452,
+    "prfcnt": 4
+   },
+   {
+    "prfprocnt": 0,
+    "prfdtcnt": 21,
+    "totnmrs": 813,
+    "prfnmplc": "뮤즈라이브",
+    "prfnmfct": "올림픽공원",
+    "seatcnt": 237,
+    "prfcnt": 1
+   },
+   {
+    "prfprocnt": 3,
+    "prfdtcnt": 8,
+    "totnmrs": 6128,
+    "prfnmplc": "우리금융아트홀(역도경기장)",
+    "prfnmfct": "올림픽공원",
+    "seatcnt": 1184,
+    "prfcnt": 3
+   },
+   {
+    "prfprocnt": 0,
+    "prfdtcnt": 0,
+    "totnmrs": 0,
+    "prfnmplc": "K-아트홀",
+    "prfnmfct": "올림픽공원",
+    "seatcnt": 500,
+    "prfcnt": 0
+   },
+   {
+    "prfprocnt": 0,
+    "prfdtcnt": 0,
+    "totnmrs": 0,
+    "prfnmplc": "야외(88잔디마당)",
+    "prfnmfct": "올림픽공원",
+    "seatcnt": 10000,
+    "prfcnt": 0
+   },
+   {
+    "prfprocnt": 0,
+    "prfdtcnt": 0,
+    "totnmrs": 0,
+    "prfnmplc": "야외(수변무대)",
+    "prfnmfct": "올림픽공원",
+    "seatcnt": 1000,
+    "prfcnt": 0
+   },
+   {
+    "prfprocnt": 0,
+    "prfdtcnt": 0,
+    "totnmrs": 0,
+    "prfnmplc": "벨로드롬(경륜경기장)",
+    "prfnmfct": "올림픽공원",
+    "seatcnt": 6000,
+    "prfcnt": 0
+   },
+   {
+    "prfprocnt": 0,
+    "prfdtcnt": 0,
+    "totnmrs": 0,
+    "prfnmplc": "평화광장",
+    "prfnmfct": "올림픽공원",
+    "seatcnt": 0,
+    "prfcnt": 0
+   },
+   {
+    "prfprocnt": 0,
+    "prfdtcnt": 0,
+    "totnmrs": 0,
+    "prfnmplc": "일대",
+    "prfnmfct": "올림픽공원",
+    "seatcnt": 0,
+    "prfcnt": 0
+   },
+   {
+    "prfprocnt": 0,
+    "prfdtcnt": 0,
+    "totnmrs": 0,
+    "prfnmplc": "한성백제박물관",
+    "prfnmfct": "올림픽공원",
+    "seatcnt": 0,
+    "prfcnt": 0
+   }
+  ]
+ },
+ "names": {
+  "KSPO": {
+   "ok": true,
+   "source": "공연예술통합전산망(KOPIS) 공연시설별 통계",
+   "from": "20251101",
+   "to": "20251101",
+   "q": "KSPO",
+   "via": "https",
+   "read_at": "2026-11-26T05:07:12.232Z",
+   "rows": [],
+   "note": "그 기간에는 KOPIS 자료가 없어요"
+  },
+  "체조경기장": {
+   "ok": true,
+   "source": "공연예술통합전산망(KOPIS) 공연시설별 통계",
+   "from": "20251101",
+   "to": "20251101",
+   "q": "체조경기장",
+   "via": "https",
+   "read_at": "2026-11-26T05:07:13.059Z",
+   "rows": [],
+   "note": "그 기간에는 KOPIS 자료가 없어요"
+  },
+  "핸드볼": {
+   "ok": true,
+   "source": "공연예술통합전산망(KOPIS) 공연시설별 통계",
+   "from": "20251101",
+   "to": "20251101",
+   "q": "핸드볼",
+   "via": "https",
+   "read_at": "2026-11-26T05:07:13.880Z",
+   "rows": [],
+   "note": "그 기간에는 KOPIS 자료가 없어요"
+  },
+  "올림픽홀": {
+   "ok": true,
+   "source": "공연예술통합전산망(KOPIS) 공연시설별 통계",
+   "from": "20251101",
+   "to": "20251101",
+   "q": "올림픽홀",
+   "via": "https",
+   "read_at": "2026-11-26T05:07:14.710Z",
+   "rows": [],
+   "note": "그 기간에는 KOPIS 자료가 없어요"
+  },
+  "티켓링크": {
+   "ok": true,
+   "source": "공연예술통합전산망(KOPIS) 공연시설별 통계",
+   "from": "20251101",
+   "to": "20251101",
+   "q": "티켓링크",
+   "via": "https",
+   "read_at": "2026-11-26T05:07:15.518Z",
+   "rows": [
+    {
+     "prfprocnt": 1,
+     "prfdtcnt": 1,
+     "totnmrs": 409,
+     "prfnmplc": "티켓링크 1975 씨어터(구.무지개극장)",
+     "prfnmfct": "티켓링크 1975 씨어터(구.능동 어린이회관)",
+     "seatcnt": 1010,
+     "prfcnt": 1
+    },
+    {
+     "prfprocnt": 0,
+     "prfdtcnt": 0,
+     "totnmrs": 0,
+     "prfnmplc": "이벤트홀",
+     "prfnmfct": "티켓링크 1975 씨어터(구.능동 어린이회관)",
+     "seatcnt": 100,
+     "prfcnt": 0
+    },
+    {
+     "prfprocnt": 0,
+     "prfdtcnt": 0,
+     "totnmrs": 0,
+     "prfnmplc": "유니아트센터",
+     "prfnmfct": "티켓링크 1975 씨어터(구.능동 어린이회관)",
+     "seatcnt": 0,
+     "prfcnt": 0
+    }
+   ]
+  }
+ }
+}
