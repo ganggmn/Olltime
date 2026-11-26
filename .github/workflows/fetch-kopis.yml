@@ -1,0 +1,23 @@
+name: KOPIS 티켓 판매수 받기
+on:
+  workflow_dispatch:
+    inputs:
+      what: { description: 'test, 2025, upcoming 중 하나', default: 'test' }
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/fetch_kopis.py ${{ inputs.what }}
+      - run: |
+          git config user.name "olltime-bot"
+          git config user.email "olltime-bot@users.noreply.github.com"
+          git add analysis/kopis_*.json analysis/kopis_*.csv 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "KOPIS 티켓 판매수 받음 (${{ inputs.what }}) · 출처: 공연예술통합전산망(KOPIS)"
+          git pull --rebase -q && git push
