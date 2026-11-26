@@ -29,7 +29,7 @@ const toM=t=>{const[a,b]=t.split(':').map(Number);return a*60+b};
 const num=n=>Math.round(n).toLocaleString('ko-KR');
 const kst=()=>{const d=new Date(Date.now()+9*36e5);return{date:d.toISOString().slice(0,10),m:d.getUTCHours()*60+d.getUTCMinutes()}};
 const getJSON=async(u,ms)=>{const c=new AbortController(),t=setTimeout(()=>c.abort(),ms);try{const r=await fetch(u,{signal:c.signal});if(!r.ok)throw new Error(String(r.status));return await r.json()}finally{clearTimeout(t)}};
-/* 공연 일정: 올림픽공원 누리집에서 읽어 온 것을 적어 둔 목록에 더함(같은 공연장·같은 시각이면 적어 둔 것을 둠, 시각이 바뀌었으면 누리집 것으로). 못 받으면 적어 둔 목록 그대로 */
+/* 공연 일정: 올림픽공원 홈페이지에서 읽어 온 것을 적어 둔 목록에 더함(같은 공연장·같은 시각이면 적어 둔 것을 둠, 시각이 바뀌었으면 홈페이지 것으로). 못 받으면 적어 둔 목록 그대로 */
 let SHOWSRC='';
 const mergeShows=list=>{const yr=kst().date.slice(0,4),lab=d=>(d.slice(0,4)!==yr?d.slice(0,4)+'년 ':'')+dayLabel(d);let n=0;
  for(const g of list||[]){if(!g||!/^\d{4}-\d{2}-\d{2}$/.test(g.d)||!/^\d{2}:\d{2}$/.test(g.t)||!VENOK.has(g.venue))continue;
@@ -87,8 +87,8 @@ const renderHero=()=>{const live=STATE==='live',pend=STATE==='pending';
  const r=$('#retry');r.hidden=live||(pend&&!r.dataset.busy);r.disabled=pend;r.textContent=pend?'불러오는 중이에요':'다시 불러오기';
  const cn=$('#carNote');cn.hidden=!S.length;
  if(S.length)cn.innerHTML=`${ic('car')}<span>차로 오면 공연이 끝나고 50분쯤 뒤에 나가는 차가 가장 몰려요<span class="cap">2025년 큰 공연 28일 기록으로는 끝나고 약 2시간 뒤에야 90%가 빠졌어요</span></span>`;
- const ph='<span class="ph"></span>',PCAP=2200,plv=v=>{const r=v/PCAP;return r>=.9?['만차','#B91C1C']:r>=.7?['혼잡','#8F6300']:r>=.5?['다소혼잡','']:['여유','']},pcap=PARK?`<span class="cap">한국체육산업개발이 센 값이에요(동2·남2·북2문으로 들어와 아직 나간 기록이 없는 차, 2,200대 기준). 이 가운데 약 ${num(Math.round(FLOORP/10)*10)}대는 ${FLOORD?'오늘 ':''}새벽에도 그대로 남아 있던 값이에요. 장기 주차이거나 나간 기록이 빠진 차예요.</span>`:'<span class="cap">동2, 남2, 북2문 2,200대 기준</span>';
- const park=PARK?(([l,c])=>`<span style="font-weight:600">장기 주차를 빼면 약 ${num(Math.max(0,Math.round((PARK.sum-FLOORP)/10)*10))}대</span><span class="cap" style="display:block">기관 집계로는 <span style="font-weight:600${c?';color:'+c:''}">${l}</span> 단계, ${num(PARK.sum)}대 (${Math.round(PARK.sum/PCAP*100)}%)</span>${pcap}`)(plv(PARK.sum)):pend?ph+pcap:'지금은 알 수 없어요<span class="cap">주차 현황이 들어오지 않아요</span>';
+ const ph='<span class="ph"></span>',PCAP=2200,plv=v=>{const r=v/PCAP;return r>=.9?['만차','#B91C1C']:r>=.7?['혼잡','#8F6300']:r>=.5?['다소혼잡','']:['여유','']},pcap=PARK?`<details class="pmore"><summary>자세히</summary><span class="cap">한국체육산업개발이 집계한 값이에요(동2·남2·북2문으로 들어와 아직 출차 기록이 없는 차, 2,200대 기준). 이 중 약 ${num(Math.round(FLOORP/10)*10)}대는 ${FLOORD?'오늘 ':''}새벽에도 줄지 않았어요. 장기 주차 차량이거나 출차 기록이 누락된 차량이에요.</span></details>`:'<span class="cap">동2, 남2, 북2문 2,200대 기준</span>';
+ const park=PARK?(([l,c])=>`<span style="font-weight:600">장기 주차를 빼면 약 ${num(Math.max(0,Math.round((PARK.sum-FLOORP)/10)*10))}대</span><span class="cap" style="display:block">한국체육산업개발 집계로는 <span style="font-weight:600${c?';color:'+c:''}">${l}</span> 단계, ${num(PARK.sum)}대 (${Math.round(PARK.sum/PCAP*100)}%)</span>${pcap}`)(plv(PARK.sum)):pend?ph+pcap:'지금은 알 수 없어요<span class="cap">주차 현황이 들어오지 않아요</span>';
  const wx=()=>`${N.temp}도`+(N.ptype&&N.ptype!=='없음'?`, ${N.ptype}`:'')+(N.air?`, 미세먼지 ${N.air}`:'');
  const rows=live?[['지금 혼잡',`<span class="${LVC(N.lvl)}" style="font-weight:600">${N.lvl}</span>, ${num(N.lo)}~${num(N.hi)}명`],['주차장 차량',park],['날씨',wx()]]:pend?[['지금 혼잡',ph],['주차장 차량',park],['날씨',ph]]:[['지금 혼잡','불러오지 못했어요'],['주차장 차량',park],['날씨','불러오지 못했어요']];
  $('#facts').innerHTML=rows.map(([a,b])=>`<div><dt>${a}</dt><dd>${b}</dd></div>`).join('');
@@ -143,10 +143,10 @@ const drawMetrics=()=>{const pp=people(T),row=refAt(TREF,T),sh=showAt(T),p=sh?pr
  const lbl1=VIEW!==TODAY?`${mdLabel(VIEW)} 미리 보기`:Math.abs(T-nowC())<10?'지금':T<nowC()?'지난 시각':'앞으로';
  let ppl,cong;if(!pp.none){cong=`<p class="v big ${LVC(pp.lvl)}">${pp.lvl}</p><p class="cap">서울시 ${hmT(pp.at)} ${pp.src}</p>`;ppl=`<p class="v">${num(pp.lo)}~<wbr>${num(pp.hi)}명</p><p class="cap">서울시 발표 범위</p>`}
  else{const M=NONE[pp.none]||(pp.none==='before'?['기록 없음',`서울시 실측은 ${hm(pp.at)}부터 있어요`]:['예보 없음',CITY.fcst.length?`서울시 예보는 ${hmT(pp.at)}까지예요`:'서울시가 예보를 내지 않았어요']);cong=`<p class="v big" style="color:var(--ink-2)">${M[0]}</p><p class="cap">${M[1]}</p>`;ppl=`<p class="v">-</p><p class="cap">서울시 값이 없어요</p>`}
- $('#metrics').innerHTML=`<div class="mt"><p class="lbl">${lbl1}</p><p class="v big">${hmN(T)}</p><p class="cap">${st?esc(sh.venue)+', '+st:viewShows.length?'공연과 상관없는 시간':'공연이 없는 날이에요'}</p></div>
+ $('#metrics').innerHTML=`<div class="mt"><p class="lbl">${lbl1}</p><p class="v big">${hmN(T)}</p><p class="cap">${VIEW===TODAY&&nowC()<X0?`지금은 ${hm(nowC())}, 막대는 5시부터예요`:st?esc(sh.venue)+', '+st:viewShows.length?'공연과 상관없는 시간':'공연이 없는 날이에요'}</p></div>
  <div class="mt"><p class="lbl">혼잡도</p>${cong}</div>
- <div class="mt"><p class="lbl">공원 안 인구</p>${ppl}</div>
- <div class="mt"><p class="lbl">오늘 들어와 있는 차 (장기 주차 제외)</p><p class="v">약 ${num(row[1])}대</p><div class="bar"><i style="width:${Math.min(100,row[1]/OCCMAX*100)}%"></i></div><p class="cap">예상, ${REFNAME[TREF.key]}. 공원의 모든 문을 합친 입출차 기록 기준이라, 위쪽의 기관 집계(동2·남2·북2문, 밤새 서 있는 차 포함)와 숫자가 달라요</p></div>
+ <div class="mt"><p class="lbl">공원 안 인원</p>${ppl}</div>
+ <div class="mt"><p class="lbl">주차 중인 차 예상 (장기 주차 제외)</p><p class="v">약 ${num(row[1])}대</p><div class="bar"><i style="width:${Math.min(100,row[1]/OCCMAX*100)}%"></i></div><p class="cap">${REFNAME[TREF.key]} 기준 예상이에요. 모든 출입문 기록을 합친 값이라 위의 한국체육산업개발 집계(동2·남2·북2문, 장기 주차 포함)와 다를 수 있어요</p></div>
  <div class="mt wide"><p class="lbl">출구별 10분 출차</p><div class="gts">${gs.map(([n,v])=>`<div><span>${n}</span><span class="bar"><i style="width:${Math.min(1,v/(GQ[n]?GQ[n][2]:124))*100}%;background:${gateC(n,v)==='#A1A1AA'?'':gateC(n,v)}"></i><b></b></span><span>${Math.round(v)}</span></div>`).join('')}</div><p class="cap">예상, 단위 대</p></div>`};
 const sayT=()=>{const pp=people(T),sh=showAt(T),st=venueState(sh?pred(sh):null,T),row=refAt(TREF,T);
  $('#srT').textContent=`${VIEW!==TODAY?mdLabel(VIEW)+' ':''}${hmT(T)}. `+(st?`${sh.venue} ${st}. `:'')+(pp.none?'':`공원 안 ${num(pp.lo)}에서 ${num(pp.hi)}명, ${pp.lvl}. `)+`주차장 안 차량 약 ${num(row[1])}대 예상.`};
@@ -167,7 +167,7 @@ const renderView=reset=>{
  /* 붐비는 때만 막대 바로 아래에 시각을 적어요. 30분 이하 틈은 이어 붙여요 */
  const BB=[];for(const b of busy){const l=BB[BB.length-1];if(l&&b[0]-l[1]<=30){l[1]=b[1];l[2]=Math.max(l[2],b[2])}else BB.push([...b])}
  const bw=v=>v===9?'출차 몰림':v===3?'혼잡':'약간 혼잡';
- $('#blab').innerHTML=BB.length?BB.map(([a,b,v])=>`<span class="b${v}" style="left:${pct((a+b)/2)}%">${hm(a)}~${hm(b)} ${bw(v)}</span>`).join(''):(VIEW===TODAY&&STATE==='live'?'<em>붐비는 시간이 없어요</em>':'');
+ $('#blab').innerHTML=BB.length?BB.map(([a,b,v])=>`<span class="b${v}" style="left:${pct((a+b)/2)}%">${hm(a)}~${hm(b)} ${bw(v)}</span>`).join(''):(VIEW===TODAY&&STATE==='live'?'<em>혼잡한 시간이 없어요</em>':'');
  placeBlab();
  $('#strip').innerHTML=segs(L);
  const mk=$('#showmk');if(viewShows.length){const ps=viewShows.map(pred),a=Math.min(...ps.map(p=>p.st)),b=Math.max(...ps.map(p=>p.end));mk.hidden=false;Object.assign(mk.style,{left:pct(a)+'%',width:(pct(Math.min(b,X1))-pct(a))+'%'})}else mk.hidden=true;
@@ -178,7 +178,7 @@ const renderView=reset=>{
 const placeBlab=()=>{const box=$('#blab'),pr=box.getBoundingClientRect();let prev=null,alt=false;for(const sp of box.querySelectorAll('span')){sp.style.transform='translateX(-50%)';sp.classList.remove('alt');let r=sp.getBoundingClientRect();const dx=r.left<pr.left?pr.left-r.left:r.right>pr.right?pr.right-r.right:0;if(dx)sp.style.transform=`translateX(calc(-50% + ${dx}px))`;r=sp.getBoundingClientRect();if(prev&&r.left<prev.right+8&&!prev.alt){sp.classList.add('alt');alt=true;r={right:r.right,alt:true}}prev=r}box.classList.toggle('two',alt)};
 new ResizeObserver(()=>placeBlab()).observe($('#blab'));
 const drawNow=()=>{const nm=$('#nowmk'),n=nowC();nm.hidden=VIEW!==TODAY||n<X0||n>X1;nm.style.left=pct(Math.min(X1,Math.max(X0,n)))+'%';nm.classList.toggle('flip',pct(n)<12)};
-const setT=t=>{T=Math.max(X0,Math.min(X1,Math.round(+t/10)*10));tr.value=T;tr.setAttribute('aria-valuetext',`${VIEW!==TODAY?mdLabel(VIEW)+' ':''}${hmT(T)}`);const tn=$('#tnow');if(tn)tn.hidden=!(VIEW===TODAY&&Math.abs(T-nowC())>=10);drawMap();drawMetrics()};
+const setT=t=>{T=Math.max(X0,Math.min(X1,Math.round(+t/10)*10));tr.value=T;tr.setAttribute('aria-valuetext',`${VIEW!==TODAY?mdLabel(VIEW)+' ':''}${hmT(T)}`);const tn=$('#tnow'),nw=nowC();if(tn)tn.hidden=!(VIEW===TODAY&&nw>=X0&&nw<=X1&&Math.abs(T-nw)>=10);drawMap();drawMetrics()};
 $('#tnow').onclick=()=>{if(timer)stop();userT=false;setT(nowC());sayT()};
 tr.addEventListener('input',()=>{userT=true;setT(tr.value)});tr.addEventListener('change',sayT);
 $('#vsw').addEventListener('click',e=>{const b=e.target.closest('[data-v]');if(!b)return;setView(b.dataset.v);userT=false;renderView(true);const f=$(`#vsw [data-v="${VIEW}"]`);f&&f.focus();sayT()});
@@ -243,7 +243,7 @@ const compare=(dest,hour,hol,show)=>{const o=P.org,t=TR.transit(o,dest),c=TR.car
  const late=show&&t?show.end+15+t.min>=1440:false; /* 공연 끝나고 역까지 15분, 자정 넘어 도착하면 막차가 끊겼을 수 있어요 */
  const M=[
   {k:'pt',min:t?t.min:999,ok:!!t,txt:t?(t.legs.length?t.legs.map(l=>l.line+(l.exp?' 급행':'')).join(', ')+` 타고 ${TR.name(t.to)}역, 걸어서 ${t.walk}분`:`${TR.name(t.to)}역에서 걸어서 ${t.walk}분`)+(t.legs.length>1?`. ${t.legs.slice(1).map(l=>l.from).join(', ')}에서 갈아타요`:'')+(late?'. 돌아올 때 자정을 넘겨요, 막차를 꼭 확인하세요':''):'지하철로 가는 길을 찾지 못했어요'},
-  {k:'car',min:c.min,ok:true,txt:`도로 약 ${c.km}km, 시속 ${c.v}km 안팎 예상, 주차와 걷기 8분 포함`+(c.night?'. 저녁 6시 뒤 도로 속도 자료가 없어 6시 속도로 어림했어요':'')},
+  {k:'car',min:c.min,ok:true,txt:`도로 약 ${c.km}km, 시속 ${c.v}km 안팎 예상, 주차와 걷기 8분 포함`+(c.night?'. 저녁 6시 뒤 도로 속도 자료가 없어 6시 속도로 추정했어요':'')},
   {k:'bike',min:b.min,ok:b.min<=50&&!badWx,txt:b.min>50?`약 ${b.km}km라 오래 걸려요`:badWx?'오늘은 비나 눈, 추위 때문에 권하지 않아요':`약 ${b.km}km, 시속 13km 기준, 빌리고 반납 6분 포함`},
   {k:'walk',min:w.min,ok:w.min<=40,txt:w.min>40?`약 ${w.km}km라 오래 걸려요`:`약 ${w.km}km`}];
  const score=m=>m.min+(back?back[m.k]:0);
@@ -279,14 +279,14 @@ const renderPass=say=>{let cap,title,sub,bigT,bigS,why='',rows=[],tips=[],destNa
    rows=[[e-180,'산책하기 좋은 시간','공연 관객이 모이기 전',''],[e,'공연 관객이 모이기 시작해요',shows.map(s=>`${s.t} ${s.short}`).join(', '),'soft'],[l,'다시 한산해져요','공연 관객이 대부분 빠진 시각','']]}
   else{cap='작년 평일 주차장 기록 기준';sub=P.day===TODAY?'오늘, 큰 공연 없음':'큰 공연이 없는 날';rows=[[480,'출근 시간','평일 아침 8시에 입차가 가장 많았어요','soft'],[1080,'퇴근 시간','저녁 6시 무렵 출차가 조금 늘었어요','']]}
   const later=useF?(N.lvl==='여유'?'부터 산책하기 좋아요':'부터 다시 한산해요'):'전후가 산책하기 좋아요';
-  if(org){const C=compare(dest,hour,hol,false),m=C.M.find(x=>x.k===(P.mode||C.rec.k));cmpHtml=modeRows(C.M,m.k);modeTxt=`${MODE[m.k][0]}, 약 ${dur(m.min)}`;why=`${iga(MODE[C.rec.k][0])} 가장 빨라요.`+(C.rec.k==='car'&&P.day===TODAY&&PARK&&PARK.sum/PCAP0>=.9?` 다만 지금 주차장이 기관 집계로 ${Math.round(PARK.sum/PCAP0*100)}%라 자리를 찾는 데 시간이 걸릴 수 있어요.`:'');
+  if(org){const C=compare(dest,hour,hol,false),m=C.M.find(x=>x.k===(P.mode||C.rec.k));cmpHtml=modeRows(C.M,m.k);modeTxt=`${MODE[m.k][0]}, 약 ${dur(m.min)}`;why=`${iga(MODE[C.rec.k][0])} 가장 빨라요.`+(C.rec.k==='car'&&P.day===TODAY&&PARK&&PARK.sum/PCAP0>=.9?` 다만 지금 주차장이 한국체육산업개발 집계로 ${Math.round(PARK.sum/PCAP0*100)}%라 자리를 찾는 데 시간이 걸릴 수 있어요.`:'');
    if(target==='now'){const d=Math.ceil(nowC()/5)*5;bigT=hm(d);bigS=`에 ${org}에서 출발해도 한산해요`;rows.unshift([d,`${org}에서 출발`,`${ro(MODE[m.k][0])} 약 ${dur(m.min)}`,''])}
    else if(target!==null){const dep=r5(target-m.min);bigT=hm(dep);bigS=`에 ${org}에서 출발하세요`;rows.unshift([dep,`${org}에서 출발`,`${ro(MODE[m.k][0])} 약 ${dur(m.min)}, ${hm(target)}${later}`,''])}
    else{bigT='언제든';bigS='가도 괜찮아요'}}
   else{why='출발역을 넣으면 무엇을 타고 몇 시에 나서면 되는지 알려드려요.';
    if(target==='now'){bigT=hm(Math.ceil(nowC()/5)*5);bigS='지금 가도 한산해요'}else if(target!==null){bigT=hm(target);bigS=later}else{bigT='언제든';bigS='공연 관객이 몰리지 않아요'}}
   tips=tips.map(esc)}
- tips.push(esc(org?'자동차 시간은 서울시 평균 통행속도와 공원 주변 도로의 시간대별 속도로 어림한 값이에요. 실제 길은 지도 앱에서 확인하세요.':'주차장은 북2문, 동2문, 남2문, 서2문 쪽에 있어요. 지하철은 올림픽공원역(5호선, 9호선), 한성백제역(9호선), 몽촌토성역(8호선)이 가까워요.'));
+ tips.push(esc(org?'자동차 시간은 서울시 평균 통행속도와 공원 주변 도로의 시간대별 속도로 추정한 값이에요. 실제 길은 지도 앱에서 확인하세요.':'주차장은 북2문, 동2문, 남2문, 서2문 쪽에 있어요. 지하철은 올림픽공원역(5호선, 9호선), 한성백제역(9호선), 몽촌토성역(8호선)이 가까워요.'));
  if(P.day===TODAY&&STATE==='live'&&N.ptype&&N.ptype!=='없음')tips.push(esc(`오늘은 ${N.ptype} 예보가 있어요. 작년 눈 온 저녁엔 들어오는 차가 평소보다 62% 적었어요.`));
  const kakao=org?`https://map.kakao.com/link/from/${encodeURIComponent(org)},${TR.ll(P.org).join(',')}/to/${encodeURIComponent(destName)},${dest.join(',')}`:`https://map.kakao.com/link/search/${encodeURIComponent(destName)}`;
  const a=document.activeElement,km=a&&a.closest&&a.closest('#pass .md')?a.dataset.m:null;
@@ -326,8 +326,8 @@ mk('#f4',`한 시간 동안 들어온 차량 수. 눈이 온 12월 4일 저녁 7
  const by=G.reduce((m,[n,t])=>{(m[t]=m[t]||[]).push(n);return m},{}),ks=Object.keys(by).map(Number).sort((a,b)=>a-b);
  $('#i3t').textContent=`작년 12월 6일 출차의 80%가 끝난 시각은 ${ks.map(t=>`${by[t].join('과 ')} ${hm(t)}`).join(', ')}이었어요. 이날은 ${by[ks[ks.length-1]].join(', ')} 쪽이 가장 늦게 빠졌어요.`}
 
-/* 주차장 예측 정확도: 2025년 입출차 1년치, 한 달씩 숨기고 맞히는 검증 (2026-11-24 계산) */
-{const LAD=[['시간대만',79.8,'하루 중 몇 시인지만 보고 예측',''],['요일',83.7,'평일, 금요일, 토요일, 일요일을 구분','앞 단계보다 나아진 게 우연 아님(α=0.01)'],['공휴일과 명절',86.0,'공휴일, 평일에 낀 공휴일, 설·추석을 구분','앞 단계보다 나아진 게 우연 아님(α=0.01)'],['공연 정보',86.7,'그날 공연이 있는지와 관객 규모 (한국체육산업개발 공연 자료)','앞 단계보다 나아진 게 우연 아님(α=0.01)'],['지난주 실측',87.7,'예측하는 날 직전 7일 동안 실제로 주차된 대수','앞 단계보다 0.9%p 높지만 우연일 수 있음'],['2시간 전 실제 값',92.3,'예측하려는 시각의 2시간 전에 실제로 몇 대였는지 보고(기관 실시간 주차현황), 예측을 그만큼 올리거나 내림','앞 단계보다 나아진 게 우연 아님(α=0.01)']];
+/* 주차장 예측 정확도: 2025년 입출차 1년치, 한 달씩 빼 두고 예측하는 검증 (2026-11-24 계산) */
+{const LAD=[['시간대만',79.8,'하루 중 몇 시인지만 보고 예측',''],['요일',83.7,'평일, 금요일, 토요일, 일요일을 구분','앞 단계보다 개선, 통계적으로 유의(유의수준 1%)'],['공휴일과 명절',86.0,'공휴일, 평일에 낀 공휴일, 설·추석을 구분','앞 단계보다 개선, 통계적으로 유의(유의수준 1%)'],['공연 정보',86.7,'그날 공연이 있는지와 관객 규모 (한국체육산업개발 공연 자료)','앞 단계보다 개선, 통계적으로 유의(유의수준 1%)'],['지난주 실측',87.7,'예측하는 날 직전 7일 동안 실제로 주차된 대수','앞 단계보다 0.9%p 높지만 통계적으로 유의하지 않음'],['2시간 전 실제 값',92.3,'예측하려는 시각의 2시간 전에 실제로 몇 대였는지 보고(한국체육산업개발 실시간 주차현황), 예측을 그만큼 올리거나 내림','앞 단계보다 개선, 통계적으로 유의(유의수준 1%)']];
  $('#lad').innerHTML=LAD.map(([n,v,d,j],i)=>`<li><span class="n">${i?'+ ':''}${n}<span class="cap">${d}${j?`<br>${j}`:''}</span></span><span class="bar"><i style="width:${v}%${i>=4?';background:var(--ink)':''}"></i></span><b>${v.toFixed(1)}%</b></li>`).join('');
  $('#lad').setAttribute('aria-label',LAD.map(([n,v])=>`${n} ${v}%`).join(', '))}
 
@@ -336,30 +336,30 @@ if(ACC){const H=ACC.horizon,h3=H.find(x=>x.h===3)||H[0],nF=H.reduce((a,x)=>a+x.n
  const fd=s=>`${+s.slice(5,7)}월 ${+s.slice(8,10)}일 ${+s.slice(11,13)}시`;
  const man=v=>v>=10000?(v/10000).toFixed(v%10000?1:0)+'만':v>=1000?(v/1000)+'천':String(v);
  $('#acc1').innerHTML=`서울시 3시간 앞 예보는 혼잡 단계가 ${h3.level}% 맞았어요. <a href="#acc">정확도 자세히</a>`;
- $('#accLead').textContent=`주차장 예측은 2025년 입출차 기록 1년 치로 검증했어요. 그 아래 '공연 날 붐비는 시간'과 '서울시 혼잡 예보'는 올타임이 ${fd(pd[0])}부터 ${fd(pd[1])}까지 모은 서울시 실시간 도시데이터로 계산한 값이에요. 그 뒤의 기록은 '오늘의 추이'에 5분마다 쌓이고 있어요.`;
+ $('#accLead').textContent=`주차장 예측은 2025년 입출차 기록 1년 치로 검증했어요. 그 아래 '공연 날 혼잡한 시간'과 '서울시 혼잡 예보'는 올타임이 ${fd(pd[0])}부터 ${fd(pd[1])}까지 모은 서울시 실시간 도시데이터로 계산한 값이에요. 그 뒤의 기록은 '오늘의 추이'에 5분마다 쌓이고 있어요.`;
  const S=ACC.show;
  if(S&&S.days){const R=S.detail.flatMap(d=>d.rows),n=R.length,both=R.filter(r=>r.ok_seoul&&r.ok_ours).length,fix=R.filter(r=>!r.ok_seoul&&r.ok_ours),worse=R.filter(r=>r.ok_seoul&&!r.ok_ours).length,miss=n-both-fix.length-worse,pc=v=>Math.round(100*v/n);
   $('#a1').textContent=`${S.seoul}% → ${S.ours}%`;
-  $('#a1t').textContent=`공연이 있던 ${S.detail.map(d=>mdLabel(d.date)).join(', ')} 14시부터 23시까지 ${n}개 정시에 붐비는지를 맞힌 비율이에요. 서울시 예보(3시간 전 발표)만 쓰면 ${S.seoul}%였어요. 한국체육산업개발 공연정보로 공연 시작 30분 전부터 끝나고 30분 뒤까지를 붐비는 시간으로 더하자 ${fix.length?fix.map(r=>+r.t.slice(0,2)+'시').join(', ')+'를 바로잡아 ':''}${S.ours}%가 됐어요.${S.days<3?` 아직 공연 ${S.days}일 기준이에요.`:''}`;
-  const seg=[[both,'#0A0A0A',`서울시 예보로 맞힘 ${pc(both)}%`],[fix.length,'#2563EB',`공연정보로 바로잡음 +${pc(fix.length)}%`],[worse,'#FCA5A5',`공연정보 때문에 틀림 ${pc(worse)}%`],[miss,'#E5E5E5',`못 맞힘 ${pc(miss)}%`]].filter(x=>x[0]);
+  $('#a1t').textContent=`공연이 있던 ${S.detail.map(d=>mdLabel(d.date)).join(', ')} 14시부터 23시까지 ${n}개 정시에 붐비는지를 맞힌 비율이에요. 서울시 예보(3시간 전 발표)만 쓰면 ${S.seoul}%였어요. 한국체육산업개발 공연정보로 공연 시작 30분 전부터 끝나고 30분 뒤까지를 혼잡한 시간으로 더하자 ${fix.length?fix.map(r=>+r.t.slice(0,2)+'시').join(', ')+' 예측이 맞게 바뀌어 ':''}${S.ours}%가 됐어요.${S.days<3?` 아직 공연 ${S.days}일 기준이에요.`:''}`;
+  const seg=[[both,'#0A0A0A',`서울시 예보로 맞힘 ${pc(both)}%`],[fix.length,'#6B6B74',`공연정보로 보정 +${pc(fix.length)}%`],[worse,'#FCA5A5',`공연정보 때문에 틀림 ${pc(worse)}%`],[miss,'#E5E5E5',`못 맞힘 ${pc(miss)}%`]].filter(x=>x[0]);
   $('#a1b').innerHTML=seg.map(([v,c])=>`<span style="flex:${v};background:${c}"></span>`).join('');$('#a1b').setAttribute('aria-label',seg.map(x=>x[2]).join(', '));
   $('#a1l').innerHTML=seg.map(([v,c,t])=>`<span><i style="width:12px;height:12px;border:0;background:${c}"></i>${t}</span>`).join('')}
  const C=ACC.case;
  if(C){const sh=C.shows[0],st=toM(sh.t),w0=st-30,w1=st+(sh.run||150)+30,mid=r=>(r[1]+r[2])/2;
-  $('#a1c').textContent=`${mdLabel(C.date)} ${sh.name} 공연 날 공원 안 인구, 서울시 예보는 ${C.issued} 발표, 실측은 5분 값의 앞뒤 3개 중간값`;
+  $('#a1c').textContent=`${mdLabel(C.date)} ${sh.name} 공연 날 공원 안 인구, 서울시 예보는 ${C.issued} 발표, 실측은 5분 간격 값 3개의 중앙값`;
   const pk=C.fcst.reduce((m,r)=>r[2]>m[2]?r:m,C.fcst[0]),apk=C.actual.reduce((m,r)=>r[2]>m[2]?r:m,C.actual[0]);
   mk('#a1f',`서울시는 ${C.issued}에 ${hm(pk[0])} 무렵 ${num(pk[1])}~${num(pk[2])}명으로 가장 붐빈다고 예보했어요. 실제로는 ${hm(apk[0])} 무렵 ${num(apk[1])}~${num(apk[2])}명이 가장 많았고, 공연 시작 30분 전부터 끝나고 30분 뒤까지와 거의 겹쳤어요.`,(W,Hh)=>{const L=48,R=8,T=8,B=30,x0=720,x1=1410,ym=20000,X=t=>L+(t-x0)/(x1-x0)*(W-L-R),Y=v=>T+(1-v/ym)*(Hh-T-B);
-   const a0=C.actual.filter(r=>r[0]>=x0&&r[0]<=x1),a=a0.map((r,i)=>{const v=[a0[i-1]||r,r,a0[i+1]||r].map(mid).sort((p,q)=>p-q)[1];return[r[0],v,v]}); /* 한 번 튀는 값은 앞뒤 3개 중간값으로 걸러요 */
-   return unit(W,R,'단위: 명')+`<rect x="${X(w0)}" y="${T}" width="${X(Math.min(w1,x1))-X(w0)}" height="${Y(0)-T}" fill="#DBEAFE"/><text x="${X(w0)+6}" y="${T+16}" style="fill:#1D4ED8">${esc(sh.name)} ${sh.t} 공연</text>`+yax([0,5000,10000,15000,20000],L,R,W,Y,man)+`<line x1="${L}" x2="${W-R}" y1="${Y(0)}" y2="${Y(0)}" stroke="#D4D4D8"/>`+ln(C.fcst.map(r=>[X(r[0]),Y(mid(r))]),{c:'#6B6B74',dash:1})+ln(a.map(r=>[X(r[0]),Y(mid(r))]))+xax(W<520?[780,1020,1260]:[780,900,1020,1140,1260,1380],X,Hh,B,t=>t/60+'시')})}
+   const a0=C.actual.filter(r=>r[0]>=x0&&r[0]<=x1),a=a0.map((r,i)=>{const v=[a0[i-1]||r,r,a0[i+1]||r].map(mid).sort((p,q)=>p-q)[1];return[r[0],v,v]}); /* 한 번 튀는 값은 앞뒤 3개의 중앙값으로 걸러요 */
+   return unit(W,R,'단위: 명')+`<rect x="${X(w0)}" y="${T}" width="${X(Math.min(w1,x1))-X(w0)}" height="${Y(0)-T}" fill="#EEEEF0"/><text x="${X(w0)+6}" y="${T+16}" style="fill:#0A0A0A">${esc(sh.name)} ${sh.t} 공연</text>`+yax([0,5000,10000,15000,20000],L,R,W,Y,man)+`<line x1="${L}" x2="${W-R}" y1="${Y(0)}" y2="${Y(0)}" stroke="#D4D4D8"/>`+ln(C.fcst.map(r=>[X(r[0]),Y(mid(r))]),{c:'#6B6B74',dash:1})+ln(a.map(r=>[X(r[0]),Y(mid(r))]))+xax(W<520?[780,1020,1260]:[780,900,1020,1140,1260,1380],X,Hh,B,t=>t/60+'시')})}
  const sel=[1,3,6,12];
  $('#a2').textContent=`10번 중 ${Math.round(Math.min(...H.map(x=>x.level))/10)}~${Math.round(Math.max(...H.map(x=>x.level))/10)}번`;
- $('#a2t').textContent=`서울시가 1~12시간 앞을 예보한 혼잡 단계(여유, 보통, 약간 혼잡, 혼잡)가 실제와 같았던 비율이에요. 예보 ${num(nF)}건을 비교했고, 3시간 앞 예보는 ${h3.level}%가 맞았어요. 인원 구간까지 똑같이 맞은 건 ${Math.min(...H.map(x=>x.band))}~${Math.max(...H.map(x=>x.band))}%뿐이고 평균 ${num(Math.min(...H.map(x=>x.err)))}~${num(Math.max(...H.map(x=>x.err)))}명 차이가 났어요. 그래서 인원 수는 참고로 보고 혼잡 단계를 먼저 보시길 권해요.`;
+ $('#a2t').textContent=`서울시가 1~12시간 앞을 예보한 혼잡 단계(여유, 보통, 약간 혼잡, 혼잡)가 실제와 같았던 비율이에요. 예보 ${num(nF)}건을 비교했고, 3시간 앞 예보는 ${h3.level}%가 맞았어요. 인원 구간까지 똑같이 맞은 건 ${Math.min(...H.map(x=>x.band))}~${Math.max(...H.map(x=>x.band))}%뿐이고 평균 ${num(Math.min(...H.map(x=>x.err)))}~${num(Math.max(...H.map(x=>x.err)))}명 차이가 났어요. 그래서 인원 수는 참고만 하고 혼잡 단계를 먼저 확인하세요.`;
  mk('#a2f',H.map(x=>`${x.h}시간 앞 ${x.level}%`).join(', '),(W,Hh)=>{const L=40,R=8,T=20,B=30,n=H.length,bw=(W-L-R)/n,Y=v=>T+(1-v/100)*(Hh-T-B);
   return yax([0,50,100],L,R,W,Y,v=>v+'%')+H.map((x,i)=>{const xx=L+i*bw+bw*.2,w=bw*.6;return`<rect x="${xx}" y="${Y(x.level)}" width="${w}" height="${Y(0)-Y(x.level)}" rx="2" fill="${x.h===3?'#0A0A0A':'#A1A1AA'}"/>`+(sel.includes(x.h)?`<text class="v" x="${xx+w/2}" y="${Y(x.level)-6}" text-anchor="middle">${x.level}%</text><text x="${xx+w/2}" y="${Hh-B+22}" text-anchor="middle">${x.h}시간</text>`:'')}).join('')});
  const M=ACC.share;
  if(M&&M.subway_pct!==null){const tot=M.subway+M.bus;
   $('#a3').textContent=`대중교통 중 지하철 ${M.subway_pct}%`;
-  $('#a3t').textContent=`금요일 KSPO DOME 공연 날(${M.days.map(d=>mdLabel(d)).join(', ')}) 공원 주변 역과 정류장에서 교통카드로 내린 사람이 평소 금요일보다 ${num(tot)}명 늘었어요. 그중 지하철이 ${M.subway_pct}%, 버스가 ${100-M.subway_pct}%였어요. 관객 전체 가운데 지하철을 탄 비율이 아니에요. 교통카드로 내린 사람만 센 값이라 자동차, 택시, 걸어서 온 사람은 빠져 있어요.`;
+  $('#a3t').textContent=`금요일 KSPO DOME 공연 날(${M.days.map(d=>mdLabel(d)).join(', ')}) 공원 주변 역과 정류장에서 교통카드로 내린 사람이 평소 금요일보다 ${num(tot)}명 늘었어요. 그중 지하철이 ${M.subway_pct}%, 버스가 ${100-M.subway_pct}%였어요. 전체 관객 중 지하철 이용 비율은 아니에요. 교통카드로 내린 사람만 집계한 값이라 자동차, 택시, 걸어서 온 사람은 빠져 있어요.`;
   mk('#a3f',`지하철 ${num(M.subway)}명, ${M.subway_pct}%. 버스 ${num(M.bus)}명, ${100-M.subway_pct}%.`,(W,Hh)=>{const L=0,R=0,w=W-L-R,a=w*M.subway/tot;
    return`<rect x="${L}" y="20" width="${a-1}" height="28" rx="2" fill="#0A0A0A"/><rect x="${L+a+1}" y="20" width="${w-a-1}" height="28" rx="2" fill="#A1A1AA"/><text class="v" x="${L}" y="72">지하철 ${M.subway_pct}%</text><text x="${L}" y="92">${num(M.subway)}명</text><text class="v" x="${W}" y="72" text-anchor="end">버스 ${100-M.subway_pct}%</text><text x="${W}" y="92" text-anchor="end">${num(M.bus)}명</text>`})}}
 

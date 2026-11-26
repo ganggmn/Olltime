@@ -1,4 +1,4 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>운영판 | 올타임</title>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>운영자 화면 | 올타임</title>
 <meta name="description" content="올림픽공원 공연 날 운영 시간표와 실시간 알림">
 <style>
 @font-face{font-family:Pretendard;src:url(/fonts/Pretendard-Regular.subset.woff2) format("woff2");font-weight:400;font-display:swap}
@@ -25,12 +25,12 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid 
 </style></head>
 <body><main>
 <p style="display:flex;justify-content:space-between;align-items:center;margin:0 0 28px"><b style="font-weight:600;font-size:20px">올타임</b><span style="display:flex;flex-wrap:wrap;gap:0 14px;justify-content:flex-end;font-size:14px"><a href="/" style="color:var(--ink-2);padding:12px 0">처음</a><a href="/trend" style="color:var(--ink-2);padding:12px 0">오늘의 추이</a><a href="/sections" style="color:var(--ink-2);padding:12px 0">구간 혼잡도</a><a href="/verify" style="color:var(--ink-2);padding:12px 0">검증 기록</a></span></p>
-<h1>운영판</h1>
+<h1>운영자 화면</h1>
 <p class="sub">공연을 넣으면 그날 사람과 차가 언제 어디에 몰릴지 10분 단위 시간표로 만들어 줘요. 공연 주최 측과 공원 운영 담당자용이에요.</p>
 <div class="days" id="days" role="group" aria-label="날짜"></div>
 <section id="live" hidden><h2>지금 알림</h2><ul class="al" id="al"></ul></section>
 <h2>공연</h2>
-<p class="sub">끝나는 시각을 10분씩 옮기면 아래 시간표가 바로 다시 계산돼요. 처음 들어 있는 끝 시각은 공연 안내의 공연 길이를 따랐고, 안내에 없으면 2시간 30분으로 넣었어요(첫 화면과 같은 가정). 관객 수는 임시로 넣은 값이니 실제 예매 수로 고쳐 주세요.</p>
+<p class="sub">끝나는 시각을 10분씩 옮기면 아래 시간표가 바로 다시 계산돼요. 처음 들어 있는 끝 시각은 공연 안내의 공연 길이를 따랐고, 안내에 없으면 2시간 30분으로 넣었어요(첫 화면과 같은 가정). 관객 수는 임시로 넣은 값이니 실제 예매 수로 바꿔 주세요.</p>
 <div id="shows"></div>
 <p class="sub" id="evsrc" role="status"></p>
 <button type="button" class="add" id="add">공연 추가</button>
@@ -41,8 +41,8 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid 
 <h2>10분마다 역으로 걷는 사람과 문으로 나가는 차</h2>
 <svg id="ch" viewBox="0 0 720 260" role="img" aria-label="10분별 사람과 차"></svg>
 <div class="lg"><span><i style="width:12px;height:12px;background:#0A0A0A"></i>올림픽공원역 방향으로 걷는 사람 (10분, 왼쪽 눈금)</span><span><i style="width:22px;height:0;border-top:3px solid #DC2626"></i>북2·동2·남2문으로 나가는 차, 평소보다 늘어난 만큼 (10분, 오른쪽 눈금)</span></div>
-<h2 id="score">알림판과 자동 채점</h2>
-<p class="sub">5분마다 쌓이는 실제 값으로 '2시간 앞서 낸 예상'을 날마다 다시 채점하고, 눈여겨볼 일을 세 가지로 나눠 알려 줘요. <b>경고</b>는 값은 제대로 들어왔는데 숫자가 크게 튄 것, <b>오류</b>는 값을 받지 못했고 그 이유가 기록에 남은 것, <b>미확인</b>은 이상하지만 실제 변화인지 자료 문제인지 가릴 수 없는 것이에요. 무엇을 알릴지는 아래 칸에 직접 정해요. 비워 둔 칸의 기준은 쓰지 않아요.</p>
+<h2 id="score">알림판과 자동 평가</h2>
+<p class="sub">5분마다 쌓이는 실제 값으로 '2시간 앞서 낸 예상'을 날마다 다시 평가하고, 눈여겨볼 일을 세 가지로 나눠 알려 줘요. <b>경고</b>는 값은 제대로 들어왔는데 숫자가 크게 튄 것, <b>오류</b>는 값을 받지 못했고 그 이유가 기록에 남은 것, <b>미확인</b>은 이상하지만 실제 변화인지 자료 문제인지 가릴 수 없는 것이에요. 무엇을 알릴지는 아래 입력란에서 직접 정해요. 비워 둔 항목은 기준으로 쓰지 않아요.</p>
 <div class="show" style="border-bottom:1px solid var(--line)">
   <label>몇 분 사이에<input type="number" inputmode="numeric" min="5" max="180" step="5" id="r_win" placeholder="예: 10"></label>
   <label>사람 수가 몇 명 넘게 변하면<input type="number" inputmode="numeric" min="1" step="100" id="r_dn" placeholder="예: 2000"></label>
@@ -51,12 +51,12 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid 
   <label>낮에 주차 대수가 몇 분째 그대로면<input type="number" inputmode="numeric" min="10" max="720" step="10" id="r_stale" placeholder="예: 60"></label>
   <label>값이 몇 분 넘게 안 들어오면<input type="number" inputmode="numeric" min="10" max="720" step="5" id="r_gap" placeholder="예: 20"></label>
 </div>
-<p style="display:flex;gap:8px;flex-wrap:wrap;margin:0"><button type="button" class="add" id="r_go">이 기준으로 채점</button><button type="button" class="add" id="r_clear">기준 지우기</button></p>
+<p style="display:flex;gap:8px;flex-wrap:wrap;margin:0"><button type="button" class="add" id="r_go">이 기준으로 평가</button><button type="button" class="add" id="r_clear">기준 지우기</button></p>
 <p class="sum" id="sc_sum" role="status"></p>
 <div id="sc_tb" style="overflow-x:auto"></div>
 <div id="sc_ev"></div>
-<p class="note">채점 방법: 20분마다, 그 시각보다 2시간 전까지의 값만 보고 낸 예상을 실제 주차 대수(한국체육산업개발 실시간 주차현황)와 견줘요. 사람 수는 서울시가 범위로만 알려 주므로 올타임이 범위 안에서 한 숫자로 좁힌 값과 견주고, 서울시 범위 안에 든 비율을 함께 적어요. '평소 오차'는 채점한 날 전체 오차의 중앙값이에요. '이상 징후 제외'는 사람 수가 튀었거나 예상이 크게 빗나간 때부터 끝나고 2시간 뒤까지를 뺀 값이에요. 튀었다가 1시간 안에 되돌아온 변화는 경고가 아니라 미확인으로 가요. 오류는 5분마다 값을 받을 때 실패한 이유를 남긴 기록에서 가져와요(2026년 11월 25일 저녁부터 남기기 시작했어요. 그 전의 빈칸은 이유가 없어 미확인이에요). 기준을 느슨하게 잡으면 빼는 시간이 늘어 오차가 작아 보이니, 전체 값과 함께 봐 주세요. 기준은 이 브라우저에만 저장돼요. 같은 채점을 직접 해 보려면 저장소의 <code>analysis/live_score.mjs</code>를 돌리면 돼요.</p>
-<p class="note">계산 방법: 2025년 큰 공연(관객 9천 명 이상) 날의 기록에서 구한 10분별 모양을 관객 수에 비례해 키우거나 줄이고, 공연이 여러 개면 더해요. 끝난 뒤 역 방향은 역 승차 기록 60일로 구한 10분별 몫(첫 10분 21%, 25%, 19%, 13%…)에 승차 증가 합(관객 13,452명일 때 중앙값 3,770명)을 곱한 값이에요. 1시간으로 다시 묶으면 실제와 72.6% 일치해요. 사람과 차는 '끝' 시각의 약 25분 뒤부터 몰려 나온다고 봤어요(2025년 62일: 시작 2시간 55분 뒤가 중앙값). 문별 차는 입출차 기록의 10분 실제 평균이에요. 시작 전 역 방향은 1시간 값을 6으로 고르게 나눴어요.</p>
+<p class="note">평가 방법: 20분마다, 그 시각보다 2시간 전까지의 값만 보고 낸 예상을 실제 주차 대수(한국체육산업개발 실시간 주차현황)와 비교해요. 사람 수는 서울시가 범위로만 알려 주므로 올타임이 범위 안에서 한 숫자로 좁힌 값과 비교하고, 서울시 범위 안에 든 비율을 함께 적어요. '평소 오차'는 평가한 날 전체 오차의 중앙값이에요. '이상 징후 제외'는 사람 수가 튀었거나 예상이 크게 빗나간 때부터 끝나고 2시간 뒤까지를 뺀 값이에요. 튀었다가 1시간 안에 되돌아온 변화는 경고가 아니라 미확인으로 가요. 오류는 5분마다 값을 받을 때 실패한 이유를 남긴 기록에서 가져와요(2026년 11월 25일 저녁부터 남기기 시작했어요. 그 전의 빈칸은 이유가 없어 미확인이에요). 기준을 느슨하게 잡으면 빼는 시간이 늘어 오차가 작아 보이니, 전체 값과 함께 봐 주세요. 기준은 이 브라우저에만 저장돼요. 같은 평가를 직접 해 보려면 저장소의 <code>analysis/live_score.mjs</code>를 돌리면 돼요.</p>
+<p class="note">계산 방법: 2025년 큰 공연(관객 9천 명 이상) 날의 기록에서 구한 10분별 모양을 관객 수에 비례해 키우거나 줄이고, 공연이 여러 개면 더해요. 끝난 뒤 역 방향은 역 승차 기록 60일로 구한 10분 단위 비율(첫 10분 21%, 25%, 19%, 13%…)에 승차 증가 합(관객 13,452명일 때 중앙값 3,770명)을 곱한 값이에요. 1시간으로 다시 묶으면 실제와 72.6% 일치해요. 사람과 차는 '끝' 시각의 약 25분 뒤부터 몰려 나온다고 봤어요(2025년 62일: 시작 2시간 55분 뒤가 중앙값). 문별 차는 입출차 기록의 10분 실제 평균이에요. 시작 전 역 방향은 1시간 값을 6으로 고르게 나눴어요.</p>
 <p class="note">알아 둘 점: 사람 수는 지하철 승하차로 확인되는 만큼이에요(관객의 약 28%). 버스, 택시, 걸어서 가는 사람은 방향을 몰라 빠져 있어서 실제로 걷는 사람은 더 많아요. 관객 수 기본값은 KSPO DOME 13,000명(2025년 큰 공연 관객의 중앙값 13,452명에 가까운 값, 시설 수용 인원은 15,000석), 올림픽홀 3,000명, 핸드볼경기장 5,000명(시설 수용 인원)이에요. 올림픽홀과 핸드볼경기장은 단독 공연 날이 적어 KSPO DOME의 모양을 관객 수 비율로 줄여 썼어요(가정). 끝나는 시각을 옮겼을 때의 숫자는 평균 모양을 더한 계산값이고, 실제로 시각을 옮겨 본 기록으로 확인한 것은 아니에요. '겹침'과 '몰림'을 가르는 숫자(걷는 사람 10분에 150명, 차 10분에 35대·55대)는 올타임이 정한 값이고, 걷기 불편한 정도를 재는 표준 기준은 아니에요. '사람이 빠져나가고 있어요' 알림은 공원 안 사람 수가 10분에 2,000명 넘게 줄어드는 것을 보고 판단하는데, 공연 날 실시간 기록이 11월 22일 하루뿐이라 아직 한 번만 확인됐어요. 만차 예상은 <a href="/trend" style="color:inherit">오늘의 추이</a>와 같은 방법이에요. 자세한 검증은 <a href="/verify" style="color:inherit">검증 기록</a>에 있어요. 서울특별시 공공데이터, 서울교통공사, 한국체육산업개발 자료.</p>
 </main>
 <script src="/gp.js"></script>
@@ -125,8 +125,8 @@ function alerts(){const sec=$('#live');if(day!==today||!live||!live.length){sec.
   if(!out.length)out.push(['','지금은 알릴 것이 없어요. 값은 5분마다 새로 확인해요.']);$('#al').innerHTML=out.map(([c,t])=>`<li${c?` class="${c}"`:''}>${t}</li>`).join('')}
 async function pull(){if(day!==today){live=null;alerts();return}try{const j=await (await fetch('/api/trend?day='+today)).json();live=j.ok?j.list:null}catch(e){live=null}alerts()}
 function setDay(d){day=d;warn='';const ini=(EVT[d]||[]).map(([v,s,run,nm])=>mk(v,s,run,nm));base=ini.length?calc(ini):null;if(!SAVED[d])INI[d]=JSON.stringify(ini);shows=SAVED[d]||ini;SAVED[d]=shows;render();pull()}
-/* 공연 일정을 올림픽공원 누리집에서 읽어 와 더함. 운영자가 손대지 않은 날만 새 일정으로 바꿔요 */
-async function syncShows(){const el=$('#evsrc');try{const j=await (await fetch('/api/shows')).json();if(!j.ok)throw 0;const ch=OLL.addShows(j.list);for(const c of ch)if(SAVED[c.d]&&INI[c.d]===JSON.stringify(SAVED[c.d]))delete SAVED[c.d];if(ch.length){DAYS=mkDays();setDay(day)}const t=new Date(new Date(j.read_at).getTime()+9*3600e3);el.textContent=`공연 일정은 올림픽공원 누리집 일정안내에서 읽어 왔어요(${t.getUTCMonth()+1}월 ${t.getUTCDate()}일 ${hm(t.getUTCHours()*60+t.getUTCMinutes())} 기준, 한 시간마다 다시 읽음).`+(j.skipped.some(x=>x.days||x.text)?' 시각을 읽지 못한 공연이 있어요: '+j.skipped.filter(x=>x.days||x.text).map(x=>x.name).join(', ')+'.':'')}catch(e){el.textContent='올림픽공원 누리집의 공연 일정을 읽지 못해서 미리 적어 둔 일정으로 보여 드려요.'}}
+/* 공연 일정을 올림픽공원 홈페이지에서 읽어 와 더함. 운영자가 손대지 않은 날만 새 일정으로 바꿔요 */
+async function syncShows(){const el=$('#evsrc');try{const j=await (await fetch('/api/shows')).json();if(!j.ok)throw 0;const ch=OLL.addShows(j.list);for(const c of ch)if(SAVED[c.d]&&INI[c.d]===JSON.stringify(SAVED[c.d]))delete SAVED[c.d];if(ch.length){DAYS=mkDays();setDay(day)}const t=new Date(new Date(j.read_at).getTime()+9*3600e3);el.textContent=`공연 일정은 올림픽공원 홈페이지 일정 안내에서 불러왔어요(${t.getUTCMonth()+1}월 ${t.getUTCDate()}일 ${hm(t.getUTCHours()*60+t.getUTCMinutes())} 기준, 한 시간마다 다시 읽음).`+(j.skipped.some(x=>x.days||x.text)?' 시각을 읽지 못한 공연이 있어요: '+j.skipped.filter(x=>x.days||x.text).map(x=>x.name).join(', ')+'.':'')}catch(e){el.textContent='올림픽공원 홈페이지의 공연 일정을 불러오지 못해서 미리 저장해 둔 일정으로 보여 드려요.'}}
 document.addEventListener('change',e=>{const t=e.target,i=t.dataset.i;if(i==null)return;const x=shows[i],f=t.dataset.f;if(f==='v'){x.v=t.value;x.a=CAP[x.v]}else if(f==='a'){const v=+t.value||x.a;x.a=Math.min(60000,Math.max(500,v));warn=v!==x.a?'관객 수는 500명에서 60,000명 사이로 넣을 수 있어요. 가까운 값으로 바꿨어요.':''}else if(t.value){const m=toM(t.value);if(f==='s'){x.e+=m-x.s;x.s=m;warn=''}else{const e=m<=x.s&&m<360?m+1440:m;if(e<x.s+30||e>x.s+480){warn=`끝나는 시각은 시작(${hm(x.s)})보다 30분에서 8시간 뒤여야 해요. 바꾸지 않았어요.`}else{x.e=e;x.det=false;warn=''}}}render()});
 document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)return;
   if(t.dataset.d)return setDay(t.dataset.d);
@@ -135,13 +135,13 @@ document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)r
   if(t.dataset.fit){const x=shows[t.dataset.fit];x.e=+t.dataset.t-LAG;x.det=true;return render()}
   if(t.id==='add'){const s=shows.length?shows[shows.length-1].s:1080;shows.push(mk(shows.some(x=>x.v==='올림픽홀')?'핸드볼경기장':shows.length?'올림픽홀':'KSPO DOME',s));if(!base)base=null;return render()}
   if(t.id==='rs'){delete SAVED[day];return setDay(day)}});
-/* 자동 채점 */
+/* 자동 평가 */
 const RK=['win','dn','dp','k','stale','gap'],rget=()=>{try{return JSON.parse(localStorage.getItem('olltime_rules')||'{}')}catch(e){return{}}},rset=o=>{try{localStorage.setItem('olltime_rules',JSON.stringify(o))}catch(e){}};
 let scoreOut=null;
 const fmt=(s,u)=>s&&s.n?`${num(s.mae)}${u} (${s.pct}%)`:'-';
 async function loadScore(){const raw={};RK.forEach(k=>{const v=$('#r_'+k).value;if(v!=='')raw[k]=v});const r=OLL.cleanRules(raw);RK.forEach(k=>{$('#r_'+k).value=r[k]==null?'':(k==='dp'||k==='k'?r[k].toFixed(1):r[k])});rset(r);
-  $('#sc_sum').textContent='채점하는 중이에요.';let j;try{j=await (await fetch('/api/score?days=7&'+RK.filter(k=>r[k]!=null).map(k=>k+'='+r[k]).join('&'))).json()}catch(e){j={ok:false}}
-  if(!j.ok||!j.days||!j.days.length){scoreOut=null;$('#sc_sum').textContent='채점할 기록을 불러오지 못했어요.';$('#sc_tb').innerHTML='';$('#sc_ev').innerHTML='';return}
+  $('#sc_sum').textContent='평가하는 중이에요.';let j;try{j=await (await fetch('/api/score?days=7&'+RK.filter(k=>r[k]!=null).map(k=>k+'='+r[k]).join('&'))).json()}catch(e){j={ok:false}}
+  if(!j.ok||!j.days||!j.days.length){scoreOut=null;$('#sc_sum').textContent='평가할 기록을 불러오지 못했어요.';$('#sc_tb').innerHTML='';$('#sc_ev').innerHTML='';return}
   scoreOut=j;const any=j.days.some(d=>d.events.length),t=j.total;
   $('#sc_sum').innerHTML=`최근 ${j.days.length}일, 2시간 앞 예상: 주차는 평균 <b>${fmt(t.car,'대')}</b>, 사람 수는 평균 <b>${fmt(t.ppl,'명')}</b> 달랐어요.`+(any?` 이상 징후로 표시된 시간을 빼면 주차 ${fmt(t.carEx,'대')}, 사람 수 ${fmt(t.pplEx,'명')}이에요.`:(RK.some(k=>r[k]!=null)?' 정한 기준에 걸린 시간은 없었어요.':' 이상 징후 기준은 아직 정하지 않았어요.'));
   $('#sc_tb').innerHTML='<table style="border-collapse:collapse;width:100%;font-size:13px;min-width:520px"><tr>'+['날짜','주차 예상 오차','이상 징후 제외','사람 수 예상 오차','이상 징후 제외','알림'].map((h,i)=>`<th style="text-align:${i?'right':'left'};padding:6px 8px;border-bottom:1px solid var(--line);color:var(--ink-2);font-weight:600">${h}</th>`).join('')+'</tr>'+j.days.map(d=>'<tr>'+[`${+d.day.slice(5,7)}월 ${+d.day.slice(8)}일`,fmt(d.car,'대'),d.events.length?fmt(d.carEx,'대'):'',fmt(d.ppl,'명'),d.events.length?fmt(d.pplEx,'명'):'',d.events.length?d.events.length+'건':''].map((c,i)=>`<td style="text-align:${i?'right':'left'};padding:6px 8px;border-bottom:1px solid var(--line-weak);font-variant-numeric:tabular-nums">${c}</td>`).join('')+'</tr>').join('')+'</table>';
