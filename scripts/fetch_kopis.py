@@ -4,6 +4,7 @@
   python scripts/fetch_kopis.py test       # 몇 날짜만 받아 기준(공연일/예매일)과 미리 나오는지 확인 → analysis/kopis_test.json
   python scripts/fetch_kopis.py 2025       # 2025년 모든 날(하루씩) + 달마다 → analysis/kopis_daily_2025.csv, kopis_monthly_2025.csv
   python scripts/fetch_kopis.py upcoming   # 오늘부터 40일 하루씩 → analysis/kopis_upcoming_<오늘>.csv
+  python scripts/fetch_kopis.py range 20241101 20241231   # 정한 기간 하루씩 → analysis/kopis_daily_<시작>_<끝>.csv
 """
 import csv, json, os, sys, time, urllib.error, urllib.request, urllib.parse, datetime as dt
 
@@ -105,8 +106,15 @@ def main(what):
             rows += rows_of(ask(ymd(d), ymd(d)), ymd(d), ymd(d))
             time.sleep(0.3)
         save(f'analysis/kopis_upcoming_{ymd(today)}.csv', rows)
+    elif what == 'range':
+        a, b = (dt.datetime.strptime(x, '%Y%m%d').date() for x in sys.argv[2:4])
+        rows = []
+        for d in days(a, b):
+            rows += rows_of(ask(ymd(d), ymd(d)), ymd(d), ymd(d))
+            time.sleep(0.3)
+        save(f'analysis/kopis_daily_{ymd(a)}_{ymd(b)}.csv', rows)
     else:
-        sys.exit('test, 2025, upcoming 중 하나')
+        sys.exit('test, 2025, upcoming, range 중 하나')
 
 
 if __name__ == '__main__':
