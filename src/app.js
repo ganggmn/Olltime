@@ -85,9 +85,7 @@ const renderHero=()=>{const live=STATE==='live',pend=STATE==='pending';
  else lead=pend?`공원 인구와 서울시 예보를 가져오고 있어요.${showS} 공연 예상과 플래너는 바로 쓸 수 있어요.`:`서울시 데이터가 잠시 들어오지 않아요.${showS} 공연 예상과 플래너는 작년 기록으로 그대로 쓸 수 있어요.`;
  $('#heroLead').textContent=lead;
  const r=$('#retry');r.hidden=live||(pend&&!r.dataset.busy);r.disabled=pend;r.textContent=pend?'불러오는 중이에요':'다시 불러오기';
- const cn=$('#carNote');cn.hidden=!S.length;
- if(S.length)cn.innerHTML=`${ic('car')}<span>차로 오면 공연이 끝나고 50분쯤 뒤에 나가는 차가 가장 몰려요<span class="cap">2025년 큰 공연 28일 기록으로는 끝나고 약 2시간 뒤에야 90%가 빠졌어요</span></span>`;
- const ph='<span class="ph"></span>',PCAP=2200,plv=v=>{const r=v/PCAP;return r>=.9?['만차','#B91C1C']:r>=.7?['혼잡','#8F6300']:r>=.5?['다소혼잡','']:['여유','']},pcap=PARK?`<details class="pmore"><summary>자세히</summary><span class="cap">한국체육산업개발이 집계한 값이에요(동2·남2·북2문으로 들어와 아직 출차 기록이 없는 차, 2,200대 기준). 이 중 약 ${num(Math.round(FLOORP/10)*10)}대는 ${FLOORD?'오늘 ':''}새벽에도 줄지 않았어요. 장기 주차 차량이거나 출차 기록이 누락된 차량이에요.</span></details>`:'<span class="cap">동2, 남2, 북2문 2,200대 기준</span>';
+ const ph='<span class="ph"></span>',PCAP=2200,plv=v=>{const r=v/PCAP;return r>=.9?['만차','#B91C1C']:r>=.7?['혼잡','#8F6300']:r>=.5?['다소 혼잡','']:['여유','']},pcap=PARK?`<details class="pmore"><summary>자세히</summary><span class="cap">한국체육산업개발이 집계한 값이에요(동2·남2·북2문으로 들어와 아직 출차 기록이 없는 차, 2,200대 기준). 이 중 약 ${num(Math.round(FLOORP/10)*10)}대는 ${FLOORD?'오늘 ':''}새벽에도 줄지 않았어요. 장기 주차 차량이거나 출차 기록이 누락된 차량이에요.</span></details>`:'<span class="cap">동2, 남2, 북2문 2,200대 기준</span>';
  const park=PARK?(([l,c])=>`<span style="font-weight:600">장기 주차를 빼면 약 ${num(Math.max(0,Math.round((PARK.sum-FLOORP)/10)*10))}대</span><span class="cap" style="display:block">한국체육산업개발 집계로는 <span style="font-weight:600${c?';color:'+c:''}">${l}</span> 단계, ${num(PARK.sum)}대 (${Math.round(PARK.sum/PCAP*100)}%)</span>${pcap}`)(plv(PARK.sum)):pend?ph+pcap:'지금은 알 수 없어요<span class="cap">주차 현황이 들어오지 않아요</span>';
  const wx=()=>`${N.temp}도`+(N.ptype&&N.ptype!=='없음'?`, ${N.ptype}`:'')+(N.air?`, 미세먼지 ${N.air}`:'');
  const rows=live?[['지금 혼잡',`<span class="${LVC(N.lvl)}" style="font-weight:600">${N.lvl}</span>, ${num(N.lo)}~${num(N.hi)}명`],['주차장 차량',park],['날씨',wx()]]:pend?[['지금 혼잡',ph],['주차장 차량',park],['날씨',ph]]:[['지금 혼잡','불러오지 못했어요'],['주차장 차량',park],['날씨','불러오지 못했어요']];
@@ -137,7 +135,7 @@ new ResizeObserver(fit).observe($('#map'));
  const up=()=>{d=null;m.classList.remove('drag')};m.addEventListener('pointerup',up);m.addEventListener('pointercancel',up)}
 
 /* 지표 */
-const NONE={pending:['불러오는 중','서울시 데이터를 기다려요'],fail:['알 수 없어요','서울시 데이터를 불러오지 못했어요'],preview:['예보 전','서울시 예보는 12시간 앞까지만 나와요']};
+const NONE={pending:['불러오는 중','서울시 데이터를 기다려요'],fail:['알 수 없어요','서울시 데이터를 불러오지 못했어요'],preview:['예보 전','서울시 예보는 12시간 후까지만 나와요']};
 const drawMetrics=()=>{const pp=people(T),row=refAt(TREF,T),sh=showAt(T),p=sh?pred(sh):null,st=venueState(p,T);
  const gs=[['북2문',row[3]],['동2문',row[4]],['남2문',row[5]],['서2문',row[6]]];
  const lbl1=VIEW!==TODAY?`${mdLabel(VIEW)} 미리 보기`:Math.abs(T-nowC())<10?'지금':T<nowC()?'지난 시각':'앞으로';
@@ -146,7 +144,7 @@ const drawMetrics=()=>{const pp=people(T),row=refAt(TREF,T),sh=showAt(T),p=sh?pr
  $('#metrics').innerHTML=`<div class="mt"><p class="lbl">${lbl1}</p><p class="v big">${hmN(T)}</p><p class="cap">${VIEW===TODAY&&nowC()<X0?`지금은 ${hm(nowC())}, 막대는 5시부터예요`:st?esc(sh.venue)+', '+st:viewShows.length?'공연과 상관없는 시간':'공연이 없는 날이에요'}</p></div>
  <div class="mt"><p class="lbl">혼잡도</p>${cong}</div>
  <div class="mt"><p class="lbl">공원 안 인원</p>${ppl}</div>
- <div class="mt"><p class="lbl">주차 중인 차 예상 (장기 주차 제외)</p><p class="v">약 ${num(row[1])}대</p><div class="bar"><i style="width:${Math.min(100,row[1]/OCCMAX*100)}%"></i></div><p class="cap">${REFNAME[TREF.key]} 기준 예상이에요. 모든 출입문 기록을 합친 값이라 위의 한국체육산업개발 집계(동2·남2·북2문, 장기 주차 포함)와 다를 수 있어요</p></div>
+ <div class="mt"><p class="lbl">주차 중인 차 예상 (장기 주차 제외)</p><p class="v">약 ${num(row[1])}대</p><div class="bar"><i style="width:${Math.min(100,row[1]/OCCMAX*100)}%"></i></div><p class="cap">${REFNAME[TREF.key]} 기준 예상</p></div>
  <div class="mt wide"><p class="lbl">출구별 10분 출차</p><div class="gts">${gs.map(([n,v])=>`<div><span>${n}</span><span class="bar"><i style="width:${Math.min(1,v/(GQ[n]?GQ[n][2]:124))*100}%;background:${gateC(n,v)==='#A1A1AA'?'':gateC(n,v)}"></i><b></b></span><span>${Math.round(v)}</span></div>`).join('')}</div><p class="cap">예상, 단위 대</p></div>`};
 const sayT=()=>{const pp=people(T),sh=showAt(T),st=venueState(sh?pred(sh):null,T),row=refAt(TREF,T);
  $('#srT').textContent=`${VIEW!==TODAY?mdLabel(VIEW)+' ':''}${hmT(T)}. `+(st?`${sh.venue} ${st}. `:'')+(pp.none?'':`공원 안 ${num(pp.lo)}에서 ${num(pp.hi)}명, ${pp.lvl}. `)+`주차장 안 차량 약 ${num(row[1])}대 예상.`};
@@ -159,11 +157,11 @@ const renderView=reset=>{
  const sw=$('#vsw');if(!todayShows.length&&NEXTD){sw.hidden=false;sw.innerHTML=[[TODAY,'오늘'],[NEXTD,`${mdLabel(NEXTD)} 공연 날 미리 보기`]].map(([d,t])=>`<button type="button" data-v="${d}" aria-pressed="${VIEW===d}">${t}</button>`).join('')}else sw.hidden=true;
  const L=[],busy=[];
  if(VIEW===TODAY){for(let t=X0;t<X1;t+=30){const pp=people(t+15);L.push([t,t+30,pp.none?'#FFFFFF':LVG[pp.lvl]]);if(!pp.none&&LVN[pp.lvl]>=2)busy.push([t,t+30,LVN[pp.lvl]])}
-  $('#sleg').innerHTML=SW(LVG['여유'],'여유·보통')+SW(LVG['약간 혼잡'],'약간 혼잡')+SW(LVG['혼잡'],'혼잡')+'<span>‘지금’ 뒤는 서울시 예보</span>';
-  $('#mapleg').textContent='출입문 원은 그 시각 10분 동안 나가는 차 예상이에요. 많을수록 커지고, 그 문의 1년 중 상위 10%면 노랑, 상위 1%면 빨강이에요.'}
+  $('#sleg').innerHTML=SW(LVG['여유'],'여유·보통')+SW(LVG['약간 혼잡'],'약간 혼잡')+SW(LVG['혼잡'],'혼잡')+'<span>‘지금’ 이후는 서울시 예보</span>';
+  $('#mapleg').textContent='출입문의 원은 그 시각 10분 동안 나갈 것으로 예상되는 차량 수예요. 클수록 많고, 그 문의 1년 기록 중 상위 10%면 노랑, 상위 1%면 빨강으로 표시해요.'}
  else{const ps=viewShows.map(pred);for(let t=X0;t<X1;t+=10){const m=t+5;let bg='#FFFFFF';if(ps.some(p=>m>=p.st&&m<p.end))bg=C_SHOW;else if(ps.some(p=>m>=p.inA&&m<p.inB))bg=C_IN;else if(ps.some(p=>m>=p.outA&&m<p.outB)){bg=C_OUT;busy.push([t,t+10,9])}L.push([t,t+10,bg])}
   $('#sleg').innerHTML=SW(C_IN,'차가 몰려 들어와요')+SW(C_SHOW,'공연')+SW(C_OUT,'차가 몰려 나가요')+'<span>작년 공연 날 기록으로 예상</span>';
-  $('#mapleg').textContent='출입문 원은 작년 공연 날 기록으로 예상한, 그 시각 10분 동안 나가는 차예요. 많을수록 커지고, 그 문의 1년 중 상위 10%면 노랑, 상위 1%면 빨강이에요.'}
+  $('#mapleg').textContent='출입문의 원은 작년 공연 날 기록으로 예상한 10분간 출차 대수예요. 클수록 많고, 그 문의 1년 기록 중 상위 10%면 노랑, 상위 1%면 빨강으로 표시해요.'}
  /* 붐비는 때만 막대 바로 아래에 시각을 적어요. 30분 이하 틈은 이어 붙여요 */
  const BB=[];for(const b of busy){const l=BB[BB.length-1];if(l&&b[0]-l[1]<=30){l[1]=b[1];l[2]=Math.max(l[2],b[2])}else BB.push([...b])}
  const bw=v=>v===9?'출차 몰림':v===3?'혼잡':'약간 혼잡';
@@ -191,9 +189,9 @@ const A0=13*60,A1=25*60,pc=m=>Math.max(0,Math.min(100,(m-A0)/(A1-A0)*100));
 const axis=`<div class="tlax" aria-hidden="true">${[15,18,21,24].map(h=>`<span style="left:${pc(h*60)}%">${h}시</span>`).join('')}</div>`;
 let allShows=false;
 const renderShows=()=>{const up=SHOWS.map((s,i)=>({s,i})).filter(o=>o.s.d>=TODAY),list=allShows?up:up.slice(0,8);
- $('#showRows').innerHTML=list.map(({s,i},k)=>{const p=pred(s);const same=SHOWS.filter(o=>o.d===s.d&&o.t===s.t).length>1;return`<div class="srw" tabindex="-1"><div class="when"><p class="lbl">${esc(s.day.replace(/^\d{4}년 /,''))}${s.d===TODAY?', 오늘':''}</p><h3>${s.t}</h3></div>
+ $('#showRows').innerHTML=list.map(({s,i},k)=>{const p=pred(s);return`<div class="srw" tabindex="-1"><div class="when"><p class="lbl">${esc(s.day.replace(/^\d{4}년 /,''))}${s.d===TODAY?', 오늘':''}</p><h3>${s.t}</h3></div>
 <div class="what"><h4>${esc(s.name)}</h4><p class="lbl">${esc(s.venue)}</p><div class="tl" aria-hidden="true"><i class="a" style="left:${pc(p.inA)}%;width:${pc(p.inB)-pc(p.inA)}%"></i><i class="s" style="left:${pc(p.st)}%;width:${pc(p.end)-pc(p.st)}%"></i><i class="x" style="left:${pc(p.outA)}%;width:${pc(Math.min(p.outB,A1))-pc(p.outA)}%"></i><i class="p" style="left:${pc(p.outPk)}%"></i></div>${k===0?axis:''}
-<ul class="tlk"><li><i class="a"></i><span class="t">${hm(p.inA)}~${hm(p.inB)}</span><span>차가 몰려 들어와요<span class="cap"> 가장 많을 때 ${hm(p.inPk)}</span></span></li><li><i class="s"></i><span class="t">${hm(p.st)}~${hm(p.end)}</span><span>공연<span class="cap"> ${p.assumed?'러닝타임 공지가 없어 150분으로 가정':`러닝타임 ${p.run}분`}</span></span></li><li><i class="x"></i><span class="t">${hm(p.outA)}~${hm(p.outB)}</span><span>차가 몰려 나가요<span class="cap"> 가장 많을 때 ${hm(p.outPk)}</span></span></li></ul>${same?'<p class="meta">같은 시각에 다른 공연장도 시작해요.</p>':''}</div>
+<ul class="tlk"><li><i class="a"></i><span class="t">${hm(p.inA)}~${hm(p.inB)}</span><span>차가 몰려 들어와요<span class="cap"> 가장 많을 때 ${hm(p.inPk)}</span></span></li><li><i class="s"></i><span class="t">${hm(p.st)}~${hm(p.end)}</span><span>공연<span class="cap"> ${p.assumed?'러닝타임 공지가 없어 150분으로 가정':`러닝타임 ${p.run}분`}</span></span></li><li><i class="x"></i><span class="t">${hm(p.outA)}~${hm(p.outB)}</span><span>차가 몰려 나가요<span class="cap"> 가장 많을 때 ${hm(p.outPk)}</span></span></li></ul></div>
 <button class="btn ghost go" type="button" data-plan="${i}" aria-label="${esc(mdLabel(s.d))} ${esc(s.short)} 공연 계획 세우기">계획 세우기${ic('arrow-right')}</button></div>`}).join('')||'<p class="lbl" style="padding:16px 0">예정된 큰 공연이 아직 없어요.</p>';
  $('#moreShows').innerHTML=up.length>8?(allShows?'<button class="btn sec" type="button" id="msc">공연 목록 접기</button>':`<button class="btn sec" type="button" id="msb">공연 ${up.length-8}개 더 보기</button>`):''};
 $('#moreShows').addEventListener('click',e=>{if(e.target.closest('#msc')){allShows=false;renderShows();$('#shows').scrollIntoView({block:'start'});const b=$('#msb');b&&b.focus({preventScroll:true});return}if(!e.target.closest('#msb'))return;allShows=true;renderShows();const r=$$('#showRows .srw')[8];r&&r.focus()});
@@ -244,7 +242,7 @@ const compare=(dest,hour,hol,show)=>{const o=P.org,t=TR.transit(o,dest),c=TR.car
  const M=[
   {k:'pt',min:t?t.min:999,ok:!!t,txt:t?(t.legs.length?t.legs.map(l=>l.line+(l.exp?' 급행':'')).join(', ')+` 타고 ${TR.name(t.to)}역, 걸어서 ${t.walk}분`:`${TR.name(t.to)}역에서 걸어서 ${t.walk}분`)+(t.legs.length>1?`. ${t.legs.slice(1).map(l=>l.from).join(', ')}에서 갈아타요`:'')+(late?'. 돌아올 때 자정을 넘겨요, 막차를 꼭 확인하세요':''):'지하철로 가는 길을 찾지 못했어요'},
   {k:'car',min:c.min,ok:true,txt:`도로 약 ${c.km}km, 시속 ${c.v}km 안팎 예상, 주차와 걷기 8분 포함`+(c.night?'. 저녁 6시 뒤 도로 속도 자료가 없어 6시 속도로 추정했어요':'')},
-  {k:'bike',min:b.min,ok:b.min<=50&&!badWx,txt:b.min>50?`약 ${b.km}km라 오래 걸려요`:badWx?'오늘은 비나 눈, 추위 때문에 권하지 않아요':`약 ${b.km}km, 시속 13km 기준, 빌리고 반납 6분 포함`},
+  {k:'bike',min:b.min,ok:b.min<=50&&!badWx,txt:b.min>50?`약 ${b.km}km라 오래 걸려요`:badWx?'오늘은 비나 눈, 추위 때문에 권하지 않아요':`약 ${b.km}km, 시속 13km 기준, 대여·반납 6분 포함`},
   {k:'walk',min:w.min,ok:w.min<=40,txt:w.min>40?`약 ${w.km}km라 오래 걸려요`:`약 ${w.km}km`}];
  const score=m=>m.min+(back?back[m.k]:0);
  const rec=M.filter(m=>m.ok).sort((a,b)=>score(a)-score(b))[0]||M[0];
@@ -253,7 +251,6 @@ const modeRows=(M,sel)=>`<div class="modes" role="group" aria-label="교통수�
 $('#pass').addEventListener('click',e=>{const b=e.target.closest('.md');if(!b)return;P.mode=b.dataset.m;renderPass(true)});
 
 const stg=rows=>`<ol class="stg">${rows.map((r,i)=>`<li class="${i===rows.length-1?'end':r[3]==='soft'?'soft':''}"><span class="t">${hmN(r[0])}</span>${esc(r[1])}${r[2]?`<span class="cap">${esc(r[2])}</span>`:''}</li>`).join('')}</ol>`;
-const LOSTTIP=`공원에서 물건을 잃어버렸다면 <a href="#lost">분실물</a>에서 찾아보세요. 안내센터는 09:00~19:00에 열어요.`;
 const renderPass=say=>{let cap,title,sub,bigT,bigS,why='',rows=[],tips=[],destName='올림픽공원',dest=DEST.park,cmpHtml='',modeTxt='';
  const org=P.org!==null?TR.name(P.org)+'역':null,hol=isHol(P.day);
  if(P.what==='show'){const s=SHOWS[P.show],p=pred(s);destName=s.venue;dest=DEST[s.venue]||DEST.park;title=s.name;sub=`${s.day}, ${s.venue}, ${s.t} 시작`;cap='예상, 작년 공연 날 기록과 서울시 교통 데이터 기준';
@@ -261,14 +258,14 @@ const renderPass=say=>{let cap,title,sub,bigT,bigS,why='',rows=[],tips=[],destNa
    const arr=k==='car'?p.st-120:p.st-45,dep=r5(arr-m.min);bigT=hm(dep);bigS=`에 ${org}에서 출발하세요`;modeTxt=`${MODE[k][0]}, 약 ${dur(m.min)}`;
    why=`${iga(MODE[C.rec.k][0])} 가장 나아요. `+(C.back?`가는 데 ${dur(C.rec.min)}, 돌아올 때 ${dur(C.back[C.rec.k])} 예상이에요${C.rec.k==='pt'?'(공연장을 나와 역까지 가는 15분 포함)':''}.`+(C.rec.k!=='car'?` 자동차는 끝나고 출차를 기다리는 시간까지 돌아올 때 약 ${dur(C.back.car)} 걸려요.`:''):'');
    cmpHtml=modeRows(C.M,k);
-   if(k==='car')rows=[[dep,`${org}에서 출발`,`자동차로 약 ${dur(m.min)}`,''],[p.st-120,'주차장 도착',`들어오는 차가 가장 많은 ${hm(p.inPk)}보다 30분 먼저 닿도록 잡았어요. 입차는 ${hm(p.inA)}부터 늘어요`,''],[p.st,'공연 시작','',''],[p.end,'공연 종료',runTxt(p),'soft'],[p.end+EXITP50,'주차장을 빠져나와요',`작년 관객 차량 절반이 예정 종료 ${EXITP50}분 뒤에 나갔어요`,'soft'],[p.end+EXITP50+C.c.min-8,`${org} 근처 도착`,'','']];
+   if(k==='car')rows=[[dep,`${org}에서 출발`,`자동차로 약 ${dur(m.min)}`,''],[p.st-120,'주차장 도착',`들어오는 차가 가장 많은 ${hm(p.inPk)}보다 30분 일찍 도착하도록 계산했어요. 입차는 ${hm(p.inA)}부터 늘어요`,''],[p.st,'공연 시작','',''],[p.end,'공연 종료',runTxt(p),'soft'],[p.end+EXITP50,'주차장을 빠져나와요',`작년 관객 차량 절반이 예정 종료 ${EXITP50}분 뒤에 나갔어요`,'soft'],[p.end+EXITP50+C.c.min-8,`${org} 근처 도착`,'','']];
    else if(k==='pt'){const t=C.t;rows=[[dep,`${org}에서 출발`,t.legs.map(l=>`${l.line}${l.exp?' 급행':''} ${l.from}에서 ${l.to}까지`).join(', ')||'',''],[dep+t.min-t.walk,`${TR.name(t.to)}역 도착`,`${destName}까지 걸어서 ${t.walk}분`,'soft'],[p.st-45,`${destName} 도착`,'','soft'],[p.st,'공연 시작','',''],[p.end,'공연 종료',runTxt(p),'soft'],[p.end+15+t.min,`${org} 도착`,C.late?'자정을 넘겨요. 막차가 끊겼을 수 있으니 출발 전에 막차 시간을 꼭 확인하세요':'올림픽공원역이 붐비면 한성백제역(9호선)과 몽촌토성역(8호선)도 있어요','']]}
    else rows=[[dep,`${org}에서 출발`,`${ro(MODE[k][0])} 약 ${dur(m.min)}`,''],[p.st-45,`${destName} 도착`,k==='bike'?'공원 근처에 따릉이 대여소가 12곳 있어요. 남은 대수는 수시로 바뀌니 따릉이 앱에서 확인하세요':'','soft'],[p.st,'공연 시작','',''],[p.end,'공연 종료',runTxt(p),'soft'],[p.end+m.min,`${org} 도착`,'','']];
    if(k==='car')tips=['2025년 큰 공연 76일 기록으로는 밤 8시 이후 나가는 차의 71%가 북2문과 동2문으로 몰렸어요. 남2문은 16%만 썼어요.','공연이 끝나고 바로 나가기보다 공원을 걷거나 식사하고 출발하면 덜 기다려요.']}
-  else{const wk=s.venue==='KSPO DOME'?8:Math.max(5,(TR.transit(OPS,dest)||{walk:8}).walk);bigT=hm(p.st-45);bigS=`까지 ${s.venue}에 도착하세요`;why='출발역을 넣으면 무엇을 타고 몇 시에 나서면 되는지 알려드려요.';
+  else{const wk=s.venue==='KSPO DOME'?8:Math.max(5,(TR.transit(OPS,dest)||{walk:8}).walk);bigT=hm(p.st-45);bigS=`까지 ${s.venue}에 도착하세요`;why='출발역을 입력하면 교통수단과 출발 시각을 알려드려요.';
    rows=[[p.inA,'공연 관객 차량이 늘기 시작해요',`${hm(p.inPk)} 전후가 가장 많아요. 자동차라면 일찍 들어가세요`,'soft'],[p.st-45-wk,'올림픽공원역 도착',s.venue==='KSPO DOME'?'3번 출구에서 KSPO DOME까지 걸어서 약 8분':`5호선과 9호선, ${s.venue}까지 걸어서 약 ${wk}분`,'soft'],[p.st-45,`${s.venue} 도착`,'',''],[p.st,'공연 시작','',''],[p.end,'공연 종료',runTxt(p),'soft'],[p.outPk,'출차가 가장 몰려요','2025년 큰 공연 28일 기록으로는 끝나고 약 50분 뒤예요','']]}
   if(SHOWS.filter(o=>o.d===s.d&&o.t===s.t).length>1)tips.push('같은 시각에 다른 공연장도 시작해요. 작년 이런 날 입차와 출차가 가장 많았어요.');
-  tips=tips.map(esc);tips.push(LOSTTIP)}
+  tips=tips.map(esc)}
  else{const shows=SHOWS.filter(s=>s.d===P.day);title='산책이나 운동';let target=null,hour=14;
   const useF=P.day===TODAY&&STATE==='live'&&CITY.fcst.length>0;
   if(useF){cap='서울시 예보 기준';sub='오늘, '+dayLabel(TODAY);const day_=m=>(m%1440)>=360&&(m%1440)<1320,NC=nowC();const calm=CITY.fcst.filter(f=>f[3]==='여유'&&f[0]>NC&&day_(f[0]));
@@ -283,7 +280,7 @@ const renderPass=say=>{let cap,title,sub,bigT,bigS,why='',rows=[],tips=[],destNa
    if(target==='now'){const d=Math.ceil(nowC()/5)*5;bigT=hm(d);bigS=`에 ${org}에서 출발해도 한산해요`;rows.unshift([d,`${org}에서 출발`,`${ro(MODE[m.k][0])} 약 ${dur(m.min)}`,''])}
    else if(target!==null){const dep=r5(target-m.min);bigT=hm(dep);bigS=`에 ${org}에서 출발하세요`;rows.unshift([dep,`${org}에서 출발`,`${ro(MODE[m.k][0])} 약 ${dur(m.min)}, ${hm(target)}${later}`,''])}
    else{bigT='언제든';bigS='가도 괜찮아요'}}
-  else{why='출발역을 넣으면 무엇을 타고 몇 시에 나서면 되는지 알려드려요.';
+  else{why='출발역을 입력하면 교통수단과 출발 시각을 알려드려요.';
    if(target==='now'){bigT=hm(Math.ceil(nowC()/5)*5);bigS='지금 가도 한산해요'}else if(target!==null){bigT=hm(target);bigS=later}else{bigT='언제든';bigS='공연 관객이 몰리지 않아요'}}
   tips=tips.map(esc)}
  tips.push(esc(org?'자동차 시간은 서울시 평균 통행속도와 공원 주변 도로의 시간대별 속도로 추정한 값이에요. 실제 길은 지도 앱에서 확인하세요.':'주차장은 북2문, 동2문, 남2문, 서2문 쪽에 있어요. 지하철은 올림픽공원역(5호선, 9호선), 한성백제역(9호선), 몽촌토성역(8호선)이 가까워요.'));
@@ -327,7 +324,7 @@ mk('#f4',`한 시간 동안 들어온 차량 수. 눈이 온 12월 4일 저녁 7
  $('#i3t').textContent=`작년 12월 6일 출차의 80%가 끝난 시각은 ${ks.map(t=>`${by[t].join('과 ')} ${hm(t)}`).join(', ')}이었어요. 이날은 ${by[ks[ks.length-1]].join(', ')} 쪽이 가장 늦게 빠졌어요.`}
 
 /* 주차장 예측 정확도: 2025년 입출차 1년치, 한 달씩 빼 두고 예측하는 검증 (2026-11-24 계산) */
-{const LAD=[['시간대만',79.8,'하루 중 몇 시인지만 보고 예측',''],['요일',83.7,'평일, 금요일, 토요일, 일요일을 구분','앞 단계보다 개선, 통계적으로 유의(유의수준 1%)'],['공휴일과 명절',86.0,'공휴일, 평일에 낀 공휴일, 설·추석을 구분','앞 단계보다 개선, 통계적으로 유의(유의수준 1%)'],['공연 정보',86.7,'그날 공연이 있는지와 관객 규모 (한국체육산업개발 공연 자료)','앞 단계보다 개선, 통계적으로 유의(유의수준 1%)'],['지난주 실측',87.7,'예측하는 날 직전 7일 동안 실제로 주차된 대수','앞 단계보다 0.9%p 높지만 통계적으로 유의하지 않음'],['2시간 전 실제 값',92.3,'예측하려는 시각의 2시간 전에 실제로 몇 대였는지 보고(한국체육산업개발 실시간 주차현황), 예측을 그만큼 올리거나 내림','앞 단계보다 개선, 통계적으로 유의(유의수준 1%)']];
+{const LAD=[['시간대만',79.8,'하루 중 몇 시인지만 보고 예측',''],['요일',83.7,'평일, 금요일, 토요일, 일요일을 구분','통계적으로 유의'],['공휴일과 명절',86.0,'공휴일, 평일에 낀 공휴일, 설·추석을 구분','통계적으로 유의'],['공연 정보',86.7,'그날 공연이 있는지와 관객 규모 (한국체육산업개발 공연 자료)','통계적으로 유의'],['지난주 실측',87.7,'예측하는 날 직전 7일 동안 실제로 주차된 대수','0.9%p 올랐지만 유의하지 않음'],['2시간 전 실제 값',92.3,'예측하려는 시각의 2시간 전에 실제로 몇 대였는지 보고(한국체육산업개발 실시간 주차현황), 예측을 그만큼 올리거나 내림','통계적으로 유의']];
  $('#lad').innerHTML=LAD.map(([n,v,d,j],i)=>`<li><span class="n">${i?'+ ':''}${n}<span class="cap">${d}${j?`<br>${j}`:''}</span></span><span class="bar"><i style="width:${v}%${i>=4?';background:var(--ink)':''}"></i></span><b>${v.toFixed(1)}%</b></li>`).join('');
  $('#lad').setAttribute('aria-label',LAD.map(([n,v])=>`${n} ${v}%`).join(', '))}
 
@@ -335,12 +332,12 @@ mk('#f4',`한 시간 동안 들어온 차량 수. 눈이 온 12월 4일 저녁 7
 if(ACC){const H=ACC.horizon,h3=H.find(x=>x.h===3)||H[0],nF=H.reduce((a,x)=>a+x.n,0),pd=ACC.period;
  const fd=s=>`${+s.slice(5,7)}월 ${+s.slice(8,10)}일 ${+s.slice(11,13)}시`;
  const man=v=>v>=10000?(v/10000).toFixed(v%10000?1:0)+'만':v>=1000?(v/1000)+'천':String(v);
- $('#acc1').innerHTML=`서울시 3시간 앞 예보는 혼잡 단계가 ${h3.level}% 맞았어요. <a href="#acc">정확도 자세히</a>`;
+ $('#acc1').innerHTML=`서울시의 3시간 후 예보는 혼잡 단계가 ${h3.level}% 맞았어요. <a href="#acc">정확도 자세히</a>`;
  $('#accLead').textContent=`주차장 예측은 2025년 입출차 기록 1년 치로 검증했어요. 그 아래 '공연 날 혼잡한 시간'과 '서울시 혼잡 예보'는 올타임이 ${fd(pd[0])}부터 ${fd(pd[1])}까지 모은 서울시 실시간 도시데이터로 계산한 값이에요. 그 뒤의 기록은 '오늘의 추이'에 5분마다 쌓이고 있어요.`;
  const S=ACC.show;
  if(S&&S.days){const R=S.detail.flatMap(d=>d.rows),n=R.length,both=R.filter(r=>r.ok_seoul&&r.ok_ours).length,fix=R.filter(r=>!r.ok_seoul&&r.ok_ours),worse=R.filter(r=>r.ok_seoul&&!r.ok_ours).length,miss=n-both-fix.length-worse,pc=v=>Math.round(100*v/n);
   $('#a1').textContent=`${S.seoul}% → ${S.ours}%`;
-  $('#a1t').textContent=`공연이 있던 ${S.detail.map(d=>mdLabel(d.date)).join(', ')} 14시부터 23시까지 ${n}개 정시에 붐비는지를 맞힌 비율이에요. 서울시 예보(3시간 전 발표)만 쓰면 ${S.seoul}%였어요. 한국체육산업개발 공연정보로 공연 시작 30분 전부터 끝나고 30분 뒤까지를 혼잡한 시간으로 더하자 ${fix.length?fix.map(r=>+r.t.slice(0,2)+'시').join(', ')+' 예측이 맞게 바뀌어 ':''}${S.ours}%가 됐어요.${S.days<3?` 아직 공연 ${S.days}일 기준이에요.`:''}`;
+  $('#a1t').textContent=`공연이 있던 ${S.detail.map(d=>mdLabel(d.date)).join(', ')} 14시부터 23시까지 ${n}개 정시의 혼잡 여부를 맞힌 비율이에요. 서울시 예보(3시간 전 발표)만 쓰면 ${S.seoul}%였어요. 한국체육산업개발 공연정보로 공연 시작 30분 전부터 끝나고 30분 뒤까지를 혼잡한 시간으로 더하자 ${fix.length?fix.map(r=>+r.t.slice(0,2)+'시').join(', ')+' 예측이 맞게 바뀌어 ':''}${S.ours}%가 됐어요.${S.days<3?` 아직 공연 ${S.days}일 기준이에요.`:''}`;
   const seg=[[both,'#0A0A0A',`서울시 예보로 맞힘 ${pc(both)}%`],[fix.length,'#6B6B74',`공연정보로 보정 +${pc(fix.length)}%`],[worse,'#FCA5A5',`공연정보 때문에 틀림 ${pc(worse)}%`],[miss,'#E5E5E5',`못 맞힘 ${pc(miss)}%`]].filter(x=>x[0]);
   $('#a1b').innerHTML=seg.map(([v,c])=>`<span style="flex:${v};background:${c}"></span>`).join('');$('#a1b').setAttribute('aria-label',seg.map(x=>x[2]).join(', '));
   $('#a1l').innerHTML=seg.map(([v,c,t])=>`<span><i style="width:12px;height:12px;border:0;background:${c}"></i>${t}</span>`).join('')}
@@ -353,8 +350,8 @@ if(ACC){const H=ACC.horizon,h3=H.find(x=>x.h===3)||H[0],nF=H.reduce((a,x)=>a+x.n
    return unit(W,R,'단위: 명')+`<rect x="${X(w0)}" y="${T}" width="${X(Math.min(w1,x1))-X(w0)}" height="${Y(0)-T}" fill="#EEEEF0"/><text x="${X(w0)+6}" y="${T+16}" style="fill:#0A0A0A">${esc(sh.name)} ${sh.t} 공연</text>`+yax([0,5000,10000,15000,20000],L,R,W,Y,man)+`<line x1="${L}" x2="${W-R}" y1="${Y(0)}" y2="${Y(0)}" stroke="#D4D4D8"/>`+ln(C.fcst.map(r=>[X(r[0]),Y(mid(r))]),{c:'#6B6B74',dash:1})+ln(a.map(r=>[X(r[0]),Y(mid(r))]))+xax(W<520?[780,1020,1260]:[780,900,1020,1140,1260,1380],X,Hh,B,t=>t/60+'시')})}
  const sel=[1,3,6,12];
  $('#a2').textContent=`10번 중 ${Math.round(Math.min(...H.map(x=>x.level))/10)}~${Math.round(Math.max(...H.map(x=>x.level))/10)}번`;
- $('#a2t').textContent=`서울시가 1~12시간 앞을 예보한 혼잡 단계(여유, 보통, 약간 혼잡, 혼잡)가 실제와 같았던 비율이에요. 예보 ${num(nF)}건을 비교했고, 3시간 앞 예보는 ${h3.level}%가 맞았어요. 인원 구간까지 똑같이 맞은 건 ${Math.min(...H.map(x=>x.band))}~${Math.max(...H.map(x=>x.band))}%뿐이고 평균 ${num(Math.min(...H.map(x=>x.err)))}~${num(Math.max(...H.map(x=>x.err)))}명 차이가 났어요. 그래서 인원 수는 참고만 하고 혼잡 단계를 먼저 확인하세요.`;
- mk('#a2f',H.map(x=>`${x.h}시간 앞 ${x.level}%`).join(', '),(W,Hh)=>{const L=40,R=8,T=20,B=30,n=H.length,bw=(W-L-R)/n,Y=v=>T+(1-v/100)*(Hh-T-B);
+ $('#a2t').textContent=`서울시가 1~12시간 후를 예보한 혼잡 단계(여유, 보통, 약간 혼잡, 혼잡)가 실제와 같았던 비율이에요. 예보 ${num(nF)}건을 비교했고, 3시간 후 예보는 ${h3.level}%가 맞았어요. 인원 구간까지 똑같이 맞은 건 ${Math.min(...H.map(x=>x.band))}~${Math.max(...H.map(x=>x.band))}%뿐이고 평균 ${num(Math.min(...H.map(x=>x.err)))}~${num(Math.max(...H.map(x=>x.err)))}명 차이가 났어요. 그래서 인원 수는 참고만 하고 혼잡 단계를 먼저 확인하세요.`;
+ mk('#a2f',H.map(x=>`${x.h}시간 후 ${x.level}%`).join(', '),(W,Hh)=>{const L=40,R=8,T=20,B=30,n=H.length,bw=(W-L-R)/n,Y=v=>T+(1-v/100)*(Hh-T-B);
   return yax([0,50,100],L,R,W,Y,v=>v+'%')+H.map((x,i)=>{const xx=L+i*bw+bw*.2,w=bw*.6;return`<rect x="${xx}" y="${Y(x.level)}" width="${w}" height="${Y(0)-Y(x.level)}" rx="2" fill="${x.h===3?'#0A0A0A':'#A1A1AA'}"/>`+(sel.includes(x.h)?`<text class="v" x="${xx+w/2}" y="${Y(x.level)-6}" text-anchor="middle">${x.level}%</text><text x="${xx+w/2}" y="${Hh-B+22}" text-anchor="middle">${x.h}시간</text>`:'')}).join('')});
  const M=ACC.share;
  if(M&&M.subway_pct!==null){const tot=M.subway+M.bus;
@@ -417,7 +414,8 @@ const renderTrain=()=>{const box=$('#train');
  const rows=[...G.values()].sort((a,b)=>a.id.localeCompare(b.id)||a.way.localeCompare(b.way)).map(g=>{const ts=g.ts.sort((a,b)=>a.s-b.s).slice(0,2);
   return`<li><span class="t">${g.ln}</span><span>${esc(g.way)}<span class="cap">${[...new Set(ts.map(x=>x.d))].map(esc).join(', ')}</span></span><span class="eta">${ts.map((x,i)=>i?`<span>${x.x}</span>`:`<b>${x.x}</b>`).join('')}</span></li>`}).join('');
  const at=TRAIN.list.map(t=>t.at).sort().pop()||'';
- box.hidden=false;box.innerHTML=`<h2 class="h-sub">올림픽공원역 다음 열차</h2>${rows?`<ul class="shl trl">${rows}</ul>`:'<p class="sum">지금은 들어오는 열차 정보가 없어요.</p>'}<p class="cap">서울시 지하철 실시간 도착정보${at?`, ${esc(at.slice(11,16))} 기준`:''}</p>`};
+ if(!rows){box.hidden=true;return}
+ box.hidden=false;box.innerHTML=`<h2 class="h-sub">올림픽공원역 다음 열차</h2><ul class="shl trl">${rows}</ul><p class="cap">서울시 지하철 실시간 도착정보${at?`, ${esc(at.slice(11,16))} 기준`:''}</p>`};
 const loadTrain=async()=>{try{TRAIN=await getJSON('/api/subway',7000)}catch(e){}renderTrain()};
 loadTrain();
 setInterval(()=>{if(document.visibilityState==='visible')loadTrain();else renderTrain()},30000);

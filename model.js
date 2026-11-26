@@ -95,7 +95,7 @@ function board(R,ev,log,rules,until){const r=rules||{},warn=[],error=[],unknown=
   for(const e of ev){if(e.kind!=='jump'){warn.push({from:hm(e.from),to:hm(e.to),text:e.text});continue}
     const a=pe.find(p=>p.m>=e.from),b=pe.find(p=>p.m>=e.m);if(!a||!b){warn.push({from:hm(e.from),to:hm(e.to),text:e.text});continue}
     const d=b.v-a.v,back=pe.some(p=>p.m>e.to&&p.m<=e.to+60&&Math.abs(p.v-a.v)<=0.3*Math.abs(d)),ret=pe.some(p=>p.m<e.from&&p.m>=e.from-60&&Math.abs(p.v-b.v)<=0.3*Math.abs(d));
-    if(back||ret)unknown.push({from:hm(e.from),to:hm(e.to),text:e.text+(back?'. 그런데 1시간 안에 원래 수준으로 돌아왔어요':'. 1시간 전 수준으로 되돌아온 변화예요')+'. 실제로 사람이 움직인 것인지 자료가 흔들린 것인지 가릴 수 없어요'});
+    if(back||ret)unknown.push({from:hm(e.from),to:hm(e.to),text:e.text+(back?'. 그런데 1시간 안에 원래 수준으로 돌아왔어요':'. 1시간 전 수준으로 되돌아온 변화예요')+'. 실제 인원 변화인지 자료 오류인지 구분할 수 없어요'});
     else warn.push({from:hm(e.from),to:hm(e.to),text:e.text})}
   /* 오류: 수집 기록에 이유가 남은 실패. 같은 이유로 이어지면 하나로 */
   const SRC=[['parking','주차 대수(한국체육산업개발)'],['city','공원 안 사람 수(서울시)']],bad={parking:[],city:[]};

@@ -12,7 +12,6 @@
     <p class="cap" id="heroCap">서울시 실시간 도시데이터를 불러오는 중이에요</p>
     <h1 id="heroH">지금 혼잡도를 불러오는 중이에요</h1>
     <p class="lead" id="heroLead">서울시가 공개하는 공원 인구와 예보를 가져오고 있어요. 공연 예상과 플래너는 바로 쓸 수 있어요.</p>
-    <p class="note" id="carNote" hidden></p>
     <div class="acts"><a class="btn" href="#plan">방문 계획 세우기</a><button class="btn sec" type="button" id="retry" hidden>다시 불러오기</button></div>
   </div>
   <div class="h-m">
@@ -36,12 +35,12 @@
   </div>
   <div class="h-i">
     <dl class="facts" id="facts"></dl>
-    <ul class="tips" aria-label="주차 알아두기">
+    <ul class="tips" aria-label="주차 안내">
       <li><b>주말 낮 1~3시에 주차장이 가장 자주 차요</b><span class="cap">한국체육산업개발의 만차 기록 263건(2025년 2월~2026년 8월) 중 256건이 토·일요일, 163건이 오후 1~3시대였어요</span></li>
-      <li><b>내려 주기만 한다면 10분 안에 나오면 주차 요금이 없어요</b><span class="cap">올림픽공원 주차 안내 기준이에요. 들어오는 차 4대 중 1대가 이렇게 다녀가요</span></li>
+      <li><b>사람만 내려 주고 10분 안에 나가면 주차 요금이 없어요</b><span class="cap">올림픽공원 주차 안내 기준이에요. 들어오는 차 4대 중 1대가 이렇게 다녀가요</span></li>
     </ul>
     <nav class="golinks" aria-label="더 보기">
-      <a href="/ops"><span><b>공연 주최 측·운영 담당자용 화면</b><span class="cap">공연을 넣으면 사람과 차가 몰리는 시각을 10분 단위 시간표로 만들고, 만차와 공연 종료를 실시간으로 알려 줘요</span></span><i data-ic="arrow-right"></i></a>
+      <a href="/ops"><span><b>공연 주최 측·운영 담당자용 화면</b><span class="cap">공연을 입력하면 사람과 차가 몰리는 시각을 10분 단위 시간표로 만들고, 만차와 공연 종료를 실시간으로 알려 줘요</span></span><i data-ic="arrow-right"></i></a>
       <a href="/trend"><span><b>오늘 하루 사람 수와 주차 대수 흐름</b><span class="cap">5분마다 기록한 실제 값과 올타임의 예상을 그래프로 보여 줘요</span></span><i data-ic="arrow-right"></i></a>
     </nav>
     <div class="today" id="today"></div>
@@ -50,13 +49,13 @@
 </div></section>
 
 <section class="band" id="shows"><div class="wrap split">
-  <div class="side"><h2>공연이 있는 날은 시작 1시간 반 전과 끝나고 50분 뒤가 가장 붐벼요</h2><p class="body">2025년 큰 공연 28일의 주차장 입출차 기록에서 찾은 규칙을 공연 시작 시각에 맞춰 옮겨 계산했어요. 들어오는 차는 시작 2시간 40분 전부터 늘고, 나가는 차는 끝나고 2시간 뒤면 거의 다 빠져요. 공연 일정과 시작 시각은 올림픽공원 홈페이지의 일정 안내를 1시간마다 불러와요. 불러오지 못하면 미리 저장해 둔 일정을 보여 줘요.</p></div>
+  <div class="side"><h2>공연이 있는 날은 시작 1시간 반 전과 끝나고 50분 뒤가 가장 붐벼요</h2><p class="body">2025년 큰 공연 28일의 주차장 입출차 기록에서 찾은 패턴을 공연 시작 시각에 맞춰 적용해 계산했어요. 들어오는 차는 시작 2시간 40분 전부터 늘고, 나가는 차는 끝나고 2시간 뒤면 거의 다 빠져요. 공연 일정과 시작 시각은 올림픽공원 홈페이지의 일정 안내를 1시간마다 불러와요. 불러오지 못하면 미리 저장해 둔 일정을 보여 줘요.</p></div>
   <div>
     <div class="rows" id="showRows"></div>
     <div class="moresh" id="moreShows"></div>
     <div class="secx">
       <h3>공연장에서 역과 문까지, 길마다 얼마나 붐비는지</h3>
-      <p class="cap">큰 공연(관객 9천 명 이상) 날 기준이에요. 시각을 옮기고 방향을 누르면 그 길만 진하게 보여요. <a href="/sections">큰 화면으로 보기</a></p>
+      <p class="cap">큰 공연(관객 9천 명 이상) 날 기준이에요. 시간을 바꾸고 방향을 누르면 해당 길만 진하게 표시돼요. <a href="/sections">큰 화면으로 보기</a></p>
       <iframe id="secf" src="/sections?embed=1" loading="lazy" title="구간 혼잡도 지도와 방향별 목록"></iframe>
     </div>
   </div>
@@ -80,13 +79,13 @@
 
 <section class="band" id="story"><div class="wrap">
   <div class="split" style="margin-bottom:48px"><h2 id="acc" tabindex="-1">올타임은 얼마나 맞나요</h2><p style="align-self:end;max-width:680px" id="accLead"></p></div>
-  <div class="ins"><div><p class="lbl">주차장 예측</p><p class="bign">87.7% → 92.3%</p><p>주차장에 있는 차량 수를 시간대별로 예측한 정확도예요. 예측과 실제의 차이를 모두 더해 실제 대수의 합으로 나눈 값을 100%에서 뺐어요. 2025년 입출차 기록 241만 건으로, 한 달씩 빼 두고 나머지 달로 학습한 뒤, 빼 둔 달을 예측해 쟀어요(월 단위 교차검증).</p><p style="margin-top:12px">내일 이후를 미리 예측하면 87.7%이고, 시간당 평균 오차는 188대예요(실제 평균 1,524대). 2시간 뒤를 예측할 때는 지금 실제로 주차된 대수(한국체육산업개발 실시간 주차현황)를 보고 예측을 보정할 수 있어서 92.3%(평균 117대)까지 올라가요.</p><p style="margin-top:12px">설·추석(69%)과 평일에 낀 공휴일(66%)은 덜 맞아요. 8월과 9월은 원본 기록이 약 4분의 1만 남아 있어 복원해 학습에만 쓰고, 정확도 평가는 1~7월과 10월로 했어요.</p></div><figure class="fg" style="margin:0"><p class="fgt">예측에 쓰는 정보를 하나씩 더할 때의 정확도</p><ol class="lad" id="lad"></ol><p class="cap" style="margin-top:14px;text-align:left">단계마다 날짜를 다시 뽑아 개선이 통계적으로 유의한지 확인했어요(검증 기록 20). <a href="/verify">자료와 방법, 한계까지 적은 검증 기록 20건 보기</a></p></figure></div>
+  <div class="ins"><div><p class="lbl">주차장 예측</p><p class="bign">87.7% → 92.3%</p><p>주차장에 있는 차량 수를 시간대별로 예측한 정확도예요. 2025년 입출차 기록 241만 건으로, 한 달씩 빼 두고 나머지 달로 학습한 뒤, 빼 둔 달을 예측해 쟀어요(월 단위 교차검증).</p><p style="margin-top:12px">내일 이후를 미리 예측하면 87.7%이고, 시간당 평균 오차는 188대예요(실제 평균 1,524대). 2시간 뒤를 예측할 때는 지금 실제로 주차된 대수(한국체육산업개발 실시간 주차현황)를 보고 예측을 보정할 수 있어서 92.3%(평균 117대)까지 올라가요.</p><p style="margin-top:12px">설·추석(69%)과 평일에 낀 공휴일(66%)은 정확도가 낮아요. 8월과 9월은 원본 기록이 약 4분의 1만 남아 있어 복원해 학습에만 쓰고, 정확도 평가는 1~7월과 10월로 했어요.</p></div><figure class="fg" style="margin:0"><p class="fgt">예측에 쓰는 정보를 하나씩 더할 때의 정확도</p><ol class="lad" id="lad"></ol><p class="cap" style="margin-top:14px;text-align:left">‘통계적으로 유의’는 날짜를 다시 뽑아 검정했을 때 유의수준 1%에서 앞 단계보다 나아진 경우예요(검증 기록 20). <a href="/verify">자료와 방법, 한계까지 적은 검증 기록 20건 보기</a></p></figure></div>
   <div class="ins"><div><p class="lbl">공연 날 혼잡한 시간 (공연 하루, 10개 시각 기준)</p><p class="bign" id="a1"></p><p id="a1t"></p><div class="attr" id="a1b" role="img"></div><div class="fgl al" id="a1l" aria-hidden="true"></div></div><figure class="fg" style="margin:0"><p class="fgt" id="a1c"></p><div class="fgl" aria-hidden="true"><span><i></i>서울시 실측</span><span><i class="d"></i>서울시 예보</span><span><i class="k"></i>올타임이 혼잡하다고 본 시간</span></div><div class="fig"><svg id="a1f" role="img"></svg></div></figure></div>
-  <div class="ins"><div><p class="lbl">서울시 혼잡 예보</p><p class="bign" id="a2"></p><p id="a2t"></p></div><figure class="fg" style="margin:0"><p class="fgt">몇 시간 앞을 예보했는지에 따라 혼잡 단계가 맞은 비율</p><div class="fig" style="height:200px"><svg id="a2f" role="img"></svg></div></figure></div>
+  <div class="ins"><div><p class="lbl">서울시 혼잡 예보</p><p class="bign" id="a2"></p><p id="a2t"></p></div><figure class="fg" style="margin:0"><p class="fgt">몇 시간 후를 예보했는지에 따른 혼잡 단계 적중률</p><div class="fig" style="height:200px"><svg id="a2f" role="img"></svg></div></figure></div>
   <div class="ins"><div><p class="lbl">공연 보러 오는 길</p><p class="bign" id="a3"></p><p id="a3t"></p></div><figure class="fg" style="margin:0"><p class="fgt">공연 날 평소보다 늘어난 교통카드 하차</p><div class="fig" style="height:120px"><svg id="a3f" role="img"></svg></div></figure></div>
-  <div class="split" style="margin:96px 0 48px"><h2>공연 날 하루를 10분 단위로 보면</h2><p style="align-self:end;max-width:680px">한국체육산업개발이 공개한 2025년 11월과 12월 입출차 기록 10만 건에서, 하루가 온전히 남아 있는 9일을 골라 본 사례예요. 아래는 하루 단위 사례라서, 1년 전체 결과와 다른 부분은 해당 항목에 따로 적었어요. 1년 치 결과는 <a href="/verify">검증 기록</a>에 있어요.</p></div>
+  <div class="split" style="margin:96px 0 48px"><h2>공연 날 하루를 10분 단위로 보면</h2><p style="align-self:end;max-width:680px">한국체육산업개발이 공개한 2025년 11월과 12월 입출차 기록 10만 건에서, 하루 기록이 모두 남아 있는 9일을 골라 분석한 사례예요. 아래는 하루 단위 사례라서, 1년 전체 결과와 다른 부분은 해당 항목에 따로 적었어요. 1년 치 결과는 <a href="/verify">검증 기록</a>에 있어요.</p></div>
   <div class="ins"><div><p class="lbl">공연 날 저녁</p><p class="bign" id="i1"></p><p id="i1t"></p></div><figure class="fg" style="margin:0"><p class="fgt">주차장 안에 있는 차량 수, 10분 간격</p><div class="fgl" aria-hidden="true"><span><i></i>2025년 12월 6일 토요일 공연 날</span><span><i class="d"></i>공연 없는 평일 평균</span></div><div class="fig"><svg id="f1" role="img"></svg></div></figure></div>
-  <div class="ins"><div><p class="lbl">공연 시작 앞뒤</p><p class="bign">2시간 전부터</p><p>입차는 공연 시작 2시간 전부터 꾸준히 많았고, 가장 많은 때는 50~70분 전이었어요. 공연 중에는 들어오는 차가 10분에 20~30대로 줄었어요. 이날 출차는 예정 종료 80분 뒤에 가장 많았어요. 2025년 큰 공연 28일의 중앙값은 시작 1시간 반 전에 가장 많이 들어오고, 끝나고 약 50분 뒤에 가장 많이 나가요.</p></div><figure class="fg" style="margin:0"><p class="fgt">10분 동안 들어오고 나간 차량 수, 12월 6일</p><div class="fgl" aria-hidden="true"><span><i></i>들어온 차</span><span><i class="g"></i>나간 차</span><span><i class="b"></i>공연 시간</span></div><div class="fig"><svg id="f2" role="img"></svg></div></figure></div>
+  <div class="ins"><div><p class="lbl">공연 시작 앞뒤</p><p class="bign">2시간 전부터</p><p>입차는 공연 시작 2시간 전부터 꾸준히 많았고, 가장 많은 때는 50~70분 전이었어요. 공연 중에는 들어오는 차가 10분에 20~30대로 줄었어요. 이날 출차는 예정 종료 80분 뒤에 가장 많았어요. 2025년 큰 공연 28일의 중앙값으로 보면, 시작 1시간 반 전에 가장 많이 들어오고 끝나고 약 50분 뒤에 가장 많이 나가요.</p></div><figure class="fg" style="margin:0"><p class="fgt">10분 동안 들어오고 나간 차량 수, 12월 6일</p><div class="fgl" aria-hidden="true"><span><i></i>들어온 차</span><span><i class="g"></i>나간 차</span><span><i class="b"></i>공연 시간</span></div><div class="fig"><svg id="f2" role="img"></svg></div></figure></div>
   <div class="ins"><div><p class="lbl">출구별 출차</p><p class="bign">10분에 124대</p><p>이날은 공연이 끝나고 남2문으로 차가 몰려, 10분에 124대에서 더 늘지 않았어요. 동2문과 북2문은 가장 많을 때도 93~99대였어요.</p><p style="margin-top:12px">1년 치 큰 공연 76일로 보면 반대예요. 밤 8시 이후 나가는 차의 71%가 북2문과 동2문으로 몰리고, 남2문은 16%만 써요.</p><p id="i3t" style="margin-top:12px"></p></div><figure class="fg" style="margin:0"><p class="fgt">공연 뒤 10분 동안 각 출구로 나간 가장 많은 차량 수</p><div class="fig" style="height:176px"><svg id="f3" role="img"></svg></div></figure></div>
   <div class="ins"><div><p class="lbl">눈 오는 날</p><p class="bign">62% 적게</p><p>눈이 내린 12월 4일 저녁 7시에는 평소보다 차가 62% 적게 들어왔어요. 다음 날 아침 8시도 37% 적었어요.</p></div><figure class="fg" style="margin:0"><p class="fgt">한 시간 동안 들어온 차량 수</p><div class="fgl" aria-hidden="true"><span><i></i>12월 4일 목요일, 저녁부터 눈</span><span><i class="d"></i>공연 없는 평일 평균</span></div><div class="fig"><svg id="f4" role="img"></svg></div></figure></div>
 </div></section>
@@ -104,7 +103,7 @@
   </div>
   <div class="lostmain">
     <div class="lostbar"><label class="search"><i data-ic="search"></i><input id="lq" type="search" placeholder="예: 곰말다리 근처 카드지갑" aria-label="잃어버린 물건 찾기" aria-describedby="lm"></label></div>
-    <div class="lf" id="lf" role="group" aria-label="상태로 거르기"></div>
+    <div class="lf" id="lf" role="group" aria-label="상태별로 보기"></div>
     <p class="lmsg lbl" id="lm" aria-live="polite"></p>
     <div id="items"></div>
     <div class="more" id="lmore"></div>
@@ -115,6 +114,6 @@
 <footer class="ft"><div class="wrap">
   <div><h2>올타임</h2><p>올림픽공원 방문 시간 안내 서비스예요. 한국체육산업개발(주) 공공데이터 활용 경진대회 출품작이며, 올림픽공원 공식 서비스가 아니에요.</p><p id="ftStamp" style="margin-top:8px">서울시 데이터를 불러오는 중이에요.</p><p class="ftl"><a href="/privacy">개인정보 처리방침</a><a href="/terms">이용약관</a></p></div>
   <div><h2>사용한 데이터</h2><ul><li>한국체육산업개발(주) 올림픽공원 2025 입출차정보</li><li>한국체육산업개발(주) 차량 입출차, 공연, 날씨 연계 데이터</li><li>한국체육산업개발(주) 올림픽공원 실시간 주차 현황</li><li>한국체육산업개발(주) 올림픽공원 공연정보(공연 일정), 공연 시작 시각은 올림픽공원 홈페이지 공연 안내</li><li>한국체육산업개발(주) 주차장 혼잡도 정보(만차 기록)</li><li>서울특별시 공공데이터 서울시 실시간 도시데이터(올림픽공원)</li><li>서울특별시 공공데이터 서울 생활인구(250m 격자, 2025년)</li><li>서울교통공사 역별 일별 시간대별 승하차 인원(2025년)</li><li>서울특별시 공공데이터 서울시 지하철 실시간 도착정보(올림픽공원·한성백제·몽촌토성역)</li><li>올림픽공원 유실물센터 게시판</li><li>수도권 지하철 노선과 역 위치, 공원 안 보행로 위치는 © OpenStreetMap&nbsp;기여자(ODbL)</li><li>서울시 차량통행속도(2025년 평일 시속 21.7km, 휴일 23.9km)와 도시고속도로 평균 시속 50.2km(2024년)</li></ul></div>
-  <div><h2>실측과 예상</h2><p>서울시 실측과 예보는 서울시가 발표한 값 그대로예요. 다만 혼잡 단계 이름은 서울시의 '약간 붐빔', '붐빔'을 '약간 혼잡', '혼잡'으로 바꿔 적었어요. 서울시 인구는 500명 단위 구간으로 나와서 그대로 보여드려요. 예상이라고 적은 값은 작년 공연 날 주차장 기록을 공연 시각에 맞춰 옮겨 계산한 값이라 실제와 다를 수 있어요.</p><p style="margin-top:8px">오는 길 시간은 대략적인 추정치예요. 지하철은 역 사이 거리로 계산하고 환승 5분, 첫 열차 대기 4분을 더했어요. 자동차는 서울시 평균 통행속도에 공원 주변 도로의 시간대별 속도 비율을 곱하고, 6km가 넘는 구간의 4분의 3은 도시고속도로로 간다고 가정했어요.</p></div>
+  <div><h2>실측과 예상</h2><p>서울시 실측과 예보는 서울시가 발표한 값 그대로예요. 다만 혼잡 단계 이름은 서울시의 '약간 붐빔', '붐빔'을 '약간 혼잡', '혼잡'으로 바꿔 적었어요. 서울시 인구는 500명 단위 범위로 발표되므로 범위로 표시해요. 예상이라고 적은 값은 작년 공연 날 주차장 기록을 공연 시각에 맞춰 적용해 계산한 값이라 실제와 다를 수 있어요.</p><p style="margin-top:8px">오는 길 시간은 대략적인 추정치예요. 지하철은 역 사이 거리로 계산하고 환승 5분, 첫 열차 대기 4분을 더했어요. 자동차는 서울시 평균 통행속도에 공원 주변 도로의 시간대별 속도 비율을 곱하고, 6km가 넘는 구간의 4분의 3은 도시고속도로로 간다고 가정했어요.</p></div>
 </div></footer>
 <noscript><p style="position:fixed;left:0;right:0;bottom:0;margin:0;padding:12px 20px;background:#0A0A0A;color:#FAFAFA;font-size:14px">올타임은 자바스크립트로 지도와 시각을 계산해요. 브라우저에서 자바스크립트를 켜 주세요.</p></noscript>
