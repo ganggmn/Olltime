@@ -12,8 +12,8 @@ BASE = os.environ.get('OLLTIME', 'https://olltime.vercel.app').rstrip('/')
 COLS = ['from', 'to', 'prfnmfct', 'prfnmplc', 'seatcnt', 'prfcnt', 'prfprocnt', 'prfdtcnt', 'totnmrs']
 
 
-def ask(a, b, q='올림픽공원', raw=False):
-    u = f"{BASE}/api/kopis?" + urllib.parse.urlencode({'from': a, 'to': b, 'q': q, **({'raw': '1'} if raw else {})})
+def ask(a, b, q='올림픽공원', raw=False, **kw):
+    u = f"{BASE}/api/kopis?" + urllib.parse.urlencode({**({'from': a, 'to': b, 'q': q} if a else {}), **kw, **({'raw': '1'} if raw else {})})
     for i in range(3):
         try:
             with urllib.request.urlopen(u, timeout=30) as r:
@@ -113,8 +113,31 @@ def main(what):
             rows += rows_of(ask(ymd(d), ymd(d)), ymd(d), ymd(d))
             time.sleep(0.3)
         save(f'analysis/kopis_daily_{ymd(a)}_{ymd(b)}.csv', rows)
+    elif what == 'meta':
+        y0, y1 = int(sys.argv[2]), int(sys.argv[3])
+        seen = {}
+        for y in range(y0, y1 + 1):
+            for m in range(1, 13):
+                a = dt.date(y, m, 1); b = (a.replace(day=28) + dt.timedelta(days=4)).replace(day=1) - dt.timedelta(days=1)
+                for pg in range(1, 21):
+                    j = ask(ymd(a), ymd(b), t='list', page=str(pg)); rows = j.get('rows') or []
+                    for r in rows: seen.setdefault(r.get('mt20id'), r)
+                    time.sleep(0.3)
+                    if len(rows) < 100: break
+                print(y, m, '누적', len(seen))
+        keep = [k for k, r in seen.items() if k and any(w in (r.get('fcltynm') or '') for w in ('KSPO', '체조', '핸드볼', '올림픽홀', '티켓링크 라이브'))]
+        print('목록', len(seen), '큰 공연장', len(keep))
+        out = []
+        for k in keep:
+            j = ask(None, None, t='detail', id=k); r = (j.get('rows') or [{}])[0]
+            x = {**seen[k], **{kk: v for kk, v in r.items() if isinstance(v, (str, int, float)) and '<' not in str(v)}}
+            out.append(x); time.sleep(0.3)
+        cols = sorted({c for x in out for c in x})
+        with open(f'analysis/kopis_meta_{y0}_{y1}.csv', 'w', newline='', encoding='utf-8') as fh:
+            w = csv.DictWriter(fh, fieldnames=cols); w.writeheader(); w.writerows(out)
+        print('저장', len(out), '공연', cols)
     else:
-        sys.exit('test, 2025, upcoming, range 중 하나')
+        sys.exit('test, 2025, upcoming, range, meta 중 하나')
 
 
 if __name__ == '__main__':
