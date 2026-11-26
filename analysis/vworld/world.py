@@ -44,7 +44,7 @@ def evening(seed, st, run, N, wk, P=None):
     c = np.where(mode == 'car')[0]; rng.shuffle(c); ncar = max(1, int(len(c) / 2.2)); groups = np.array_split(c, ncar)
     arr_car = r['t_dest'] / 60 + end
     ready = np.array([arr_car[g].max() for g in groups]) + rng.uniform(2, 4, ncar) + rng.uniform(0, 10, ncar)
-    late = rng.random(ncar) < P['late']; ready[late] += rng.uniform(20, 40, late.sum()); ready.sort()
+    late = rng.random(ncar) < P['late']; ready[late] += rng.uniform(20, 40, late.sum()); order = np.argsort(ready, kind='stable'); ready.sort()
     tc = np.zeros(ncar); last = -1e9
     for i, t in enumerate(ready): last = max(t, last + 1 / 14.0); tc[i] = last
     # ---- 관측
@@ -53,6 +53,16 @@ def evening(seed, st, run, N, wk, P=None):
     park = park + rng.normal(0, np.sqrt(np.abs(bgp)) + 2)
     bgs = BG['stn_wk' if wk == '평일' else 'stn_we'] * rng.uniform(0.9, 1.1)
     stn = bgs.copy(); hb = (board // 60).astype(int); np.add.at(stn, hb[hb < len(stn)], 1); stn = stn + rng.normal(0, np.sqrt(bgs) * 1.5)
+    # ---- 공원 인구(서울시 실시간처럼 5분, 500명 단위) — 따로 뽑은 난수라 위 정답은 그대로
+    rp = np.random.default_rng(seed + 777); leave = np.full(N, np.nan)
+    leave[sub] = t_s2[:len(sub)]                                   # 동2문을 지나면 공원 밖
+    oth_s1 = who[len(sub):]; leave[oth_s1] = t_arr[len(sub):]      # 버스·택시 절반: S1 끝
+    rest = np.where(np.isnan(leave) & (mode == 'oth'))[0]; leave[rest] = r['t_dest'][rest] / 60 + end
+    for gi, ti in zip(order, tc): leave[groups[gi]] = ti           # 차: 차가 나갈 때
+    leave[np.isnan(leave)] = (r['t_dest'] / 60 + end)[np.isnan(leave)]
+    grid = np.arange(0, 2000, 5); base_pop = rp.uniform(3000, 6000) + rp.normal(0, 300, len(grid)).cumsum() * 0.05
+    gone = np.searchsorted(np.sort(leave), grid, side='right'); pop = base_pop + N - gone
+    pop5 = np.round(pop / 500) * 500
     # ---- 정답(시작 기준 10분 칸, 0~360분)
     edges = st + np.arange(0, 370, 10)
     def per_slot(times): return np.histogram(times[~np.isnan(times)], bins=edges)[0].astype(float)
@@ -61,7 +71,7 @@ def evening(seed, st, run, N, wk, P=None):
     truth = dict(end=end, P=P, s1_in=per_slot(t0), s2_in=per_slot(t_s2[:len(sub)]), stn_in=per_slot(board), s1_occ=occ_slot(occ1), s2_occ=occ_slot(occ2),
                  s2_rho=np.array([rho2max[(T >= a) & (T < b)].max() if ((T >= a) & (T < b)).any() else 0.0 for a, b in zip(edges[:-1], edges[1:])]),
                  n_sub=len(sub), n_s1=len(who), ncar=ncar, show_board_hour=np.bincount(hb[hb < 30], minlength=30))
-    obs = dict(st=st, run=run, N=N, wk=wk, park5=park, stn_hour=stn)
+    obs = dict(st=st, run=run, N=N, wk=wk, park5=park, stn_hour=stn, pop5=pop5)
     return obs, truth
 def noshow(seed, wk):
     rng = np.random.default_rng(seed)
