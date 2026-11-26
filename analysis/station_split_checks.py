@@ -42,7 +42,7 @@ def run(E_, act, WS, label, extra=None):
         F = {'확률표P0': (onset_dist(trv, r.st, r.run, 'P0'), None), '과거평균': (None, (avg / avg.sum(), pkc / pkc.sum())),
              '양성대조(그 저녁 실제 끝)': (kde([r.onset], bw=0.1), None)}
         oth = [q for q in EVN[(EVN.seq != r.seq) & ((EVN.st // 60) == r.st // 60)].itertuples()]
-        if oth: F['음성대조(다른 저녁 실제 끝)'] = (kde([oth[(hash(r.d) % len(oth))].onset], bw=0.1), None)
+        if oth: F['음성대조(다른 저녁 실제 끝)'] = (kde([oth[int(r.d.replace('-', '')) % len(oth)].onset], bw=0.1), None)
         mine = EVN[(EVN.seq == r.seq) & (EVN.d < r.d)].sort_values('d')
         if len(mine) and (pd.Timestamp(r.d) - pd.Timestamp(mine.d.iloc[-1])).days <= 3:
             F['P3전날'] = (onset_dist(trv, r.st, r.run, 'P3', prev=float(mine.onset.iloc[-1])), None)
