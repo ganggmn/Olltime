@@ -33,11 +33,12 @@ export default async function handler(req, res) {
   }
   res.setHeader('Cache-Control', 'no-store');
   if (xml === null) return res.status(502).json({ ok: false, note: why });
-  if (!/<(dbs?|prfsts?)[\s>]/.test(xml)) return res.status(502).json({ ok: false, note: '형식이 다른 응답이에요', head: hide(xml.slice(0, 300)) });
+  const empty = !xml.trim() || /<(dbs|prfsts)\s*\/>/.test(xml) || /<(dbs|prfsts)>\s*<\/\1>/.test(xml);
+  if (!empty && !/<(dbs?|prfsts?)[\s>]/.test(xml)) return res.status(502).json({ ok: false, note: '형식이 다른 응답이에요', head: hide(xml.slice(0, 300)) });
   const rows = parse(xml), err = rows.find(r => r.errmsg || (r.returncode !== undefined && String(r.returncode) !== '00'));
   if (err) return res.status(502).json({ ok: false, note: 'KOPIS가 오류를 돌려줬어요', err: hide(JSON.stringify(err)).slice(0, 200) });
   res.setHeader('Cache-Control', day(to) < kstToday() ? 's-maxage=86400' : 's-maxage=600');
-  const out = { ok: true, source: SOURCE, from, to, q: name, via, read_at: new Date().toISOString(), rows };
+  const out = { ok: true, source: SOURCE, from, to, q: name, via, read_at: new Date().toISOString(), rows, ...(rows.length ? {} : { note: '그 기간에는 KOPIS 자료가 없어요' }) };
   if (q.raw === '1') out.raw = hide(xml.slice(0, 4000));
   return res.status(200).json(out);
 }
