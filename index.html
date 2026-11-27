@@ -975,7 +975,7 @@ if(ACC){const H=ACC.horizon,h3=H.find(x=>x.h===3)||H[0],nF=H.reduce((a,x)=>a+x.n
  if(C){const sh=C.shows[0],st=toM(sh.t),w0=st-30,w1=st+(sh.run||150)+30,mid=r=>(r[1]+r[2])/2;
   $('#a1c').textContent=`${mdLabel(C.date)} ${sh.name} · 공원 인구 (명) · 예보 발표 ${C.issued} · 실측 = 5분 값 3개 중앙값`;
   const pk=C.fcst.reduce((m,r)=>r[2]>m[2]?r:m,C.fcst[0]),apk=C.actual.reduce((m,r)=>r[2]>m[2]?r:m,C.actual[0]);
-  mk('#a1f',`서울시는 ${C.issued}에 ${hm(pk[0])} 무렵 ${num(pk[1])}~${num(pk[2])}명으로 가장 붐빈다고 예보했어요. 실제로는 ${hm(apk[0])} 무렵 ${num(apk[1])}~${num(apk[2])}명이 가장 많았고, 공연 시작 30분 전부터 끝나고 30분 뒤까지와 거의 겹쳤어요.`,(W,Hh)=>{const L=48,R=8,T=8,B=30,x0=720,x1=1410,ym=20000,X=t=>L+(t-x0)/(x1-x0)*(W-L-R),Y=v=>T+(1-v/ym)*(Hh-T-B);
+  mk('#a1f',`예보 최대 ${hm(pk[0])} ${num(pk[1])}~${num(pk[2])}명 (발표 ${C.issued}) · 실측 최대 ${hm(apk[0])} ${num(apk[1])}~${num(apk[2])}명`,(W,Hh)=>{const L=48,R=8,T=8,B=30,x0=720,x1=1410,ym=20000,X=t=>L+(t-x0)/(x1-x0)*(W-L-R),Y=v=>T+(1-v/ym)*(Hh-T-B);
    const a0=C.actual.filter(r=>r[0]>=x0&&r[0]<=x1),a=a0.map((r,i)=>{const v=[a0[i-1]||r,r,a0[i+1]||r].map(mid).sort((p,q)=>p-q)[1];return[r[0],v,v]}); /* 한 번 튀는 값은 앞뒤 3개의 중앙값으로 걸러요 */
    return unit(W,R,'단위: 명')+`<rect x="${X(w0)}" y="${T}" width="${X(Math.min(w1,x1))-X(w0)}" height="${Y(0)-T}" fill="#EEEEF0"/><text x="${X(w0)+6}" y="${T+16}" style="fill:#0A0A0A">${esc(sh.name)} ${sh.t} 공연</text>`+yax([0,5000,10000,15000,20000],L,R,W,Y,man)+`<line x1="${L}" x2="${W-R}" y1="${Y(0)}" y2="${Y(0)}" stroke="#D4D4D8"/>`+ln(C.fcst.map(r=>[X(r[0]),Y(mid(r))]),{c:'#6B6B74',dash:1})+ln(a.map(r=>[X(r[0]),Y(mid(r))]))+xax(W<520?[780,1020,1260]:[780,900,1020,1140,1260,1380],X,Hh,B,t=>t/60+'시')})}
  const sel=[1,3,6,12],per0=`${+pd[0].slice(5,7)}/${+pd[0].slice(8,10)}–${+pd[1].slice(5,7)}/${+pd[1].slice(8,10)}`;let A2H=H;
@@ -1016,7 +1016,7 @@ $('#lq').addEventListener('input',renderLost);
 $('#lmore').addEventListener('click',e=>{if(e.target.closest('#lmb')){showAll=true;renderLost();const r=$$('#items .lr')[12];r&&r.focus()}});
 
 /* 지도 영역 탭: 주차·출입문 / 걷는 길 혼잡 / 오늘 추이. 끼워 넣은 화면은 처음 열 때 불러오고 높이를 내용에 맞춰요 */
-{const fit=f=>{try{const b=f.contentDocument&&f.contentDocument.body;if(b)f.style.height=Math.ceil(b.offsetHeight+2)+'px'}catch(e){}};
+{const fit=f=>{try{const d=f.contentDocument;if(d&&d.body)f.style.height=Math.ceil(Math.max(d.body.offsetHeight,d.documentElement.scrollHeight)+2)+'px'}catch(e){}};
  const tabs=$$('.ptabs [role=tab]');
  const pick=id=>{tabs.forEach(t=>{const on=t.id===id,pv=document.getElementById(t.getAttribute('aria-controls'));t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;pv.hidden=!on;
    if(on){const f=pv.querySelector('iframe[data-src]');if(f&&!f.src){f.addEventListener('load',()=>{fit(f);try{new ResizeObserver(()=>fit(f)).observe(f.contentDocument.body)}catch(e){}});f.src=f.dataset.src}else if(f)fit(f)}})};

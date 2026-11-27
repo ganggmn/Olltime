@@ -32,6 +32,7 @@ h1{font-size:28px;line-height:1.35;font-weight:600;letter-spacing:-.02em}
 .ft{border-top:1px solid var(--line);padding:32px 0 64px;font-size:14px;color:var(--ink-2)}
 .ft .wrap{display:flex;flex-wrap:wrap;gap:8px 24px}.ft a{display:inline-block;padding:10px 0}
 @media(max-width:760px){:root{--pad:20px}.hd .wrap{height:56px;gap:20px}.tabs{gap:4px}.tabs a{font-size:15px}h1{font-size:22px}.pv{padding:16px 16px 20px}.hubgo{padding:10px}}
+.kv{margin:8px 0 0;display:grid;border-top:1px solid var(--line-weak, #E5E5E5)}.kv div{display:grid;grid-template-columns:minmax(0,12em) minmax(0,1fr);gap:12px;padding:7px 0;border-bottom:1px solid var(--line-weak, #E5E5E5);font-size:14px;line-height:1.55}.kv dt{color:var(--ink-2)}.kv dd{margin:0;font-variant-numeric:tabular-nums}@media(max-width:560px){.kv div{grid-template-columns:minmax(0,1fr);gap:2px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style></head>
 <body>
@@ -42,7 +43,7 @@ h1{font-size:28px;line-height:1.35;font-weight:600;letter-spacing:-.02em}
 </div></header>
 <main><div class="wrap">
   <h1>운영·검증</h1>
-  <p class="lead">공연 주최 측과 공원 운영 담당자용 화면이에요. 예측이 어떤 자료에서 나왔고 얼마나 맞는지도 여기에 모았어요.</p>
+  <p class="lead">운영자용 · 시간표 · 추이 · 구간 · 정확도 · 검증 기록 · 자료</p>
   <div class="box">
     <div class="ptabs" role="tablist" aria-label="운영·검증 보기">
       <button type="button" role="tab" id="t-ops" aria-controls="p-ops">공연 날 시간표·알림</button>
@@ -61,16 +62,16 @@ h1{font-size:28px;line-height:1.35;font-weight:600;letter-spacing:-.02em}
       <h2>사용한 데이터</h2>
       <ul><li>한국체육산업개발(주) 올림픽공원 2025 입출차정보</li><li>한국체육산업개발(주) 차량 입출차, 공연, 날씨 연계 데이터</li><li>한국체육산업개발(주) 올림픽공원 실시간 주차 현황</li><li>한국체육산업개발(주) 올림픽공원 공연정보(공연 일정), 공연 시작 시각은 올림픽공원 홈페이지 공연 안내</li><li>한국체육산업개발(주) 주차장 혼잡도 정보(만차 기록)</li><li>서울특별시 공공데이터 서울시 실시간 도시데이터(올림픽공원)</li><li>서울특별시 공공데이터 서울 생활인구(250m 격자, 2025년)</li><li>서울교통공사 역별 일별 시간대별 승하차 인원(2025년)</li><li>서울특별시 공공데이터 서울시 지하철 실시간 도착정보(올림픽공원·한성백제·몽촌토성역)</li><li>올림픽공원 유실물센터 게시판</li><li>수도권 지하철 노선과 역 위치, 공원 안 보행로 위치는 © OpenStreetMap&nbsp;기여자(ODbL)</li><li>서울시 차량통행속도(2025년 평일 시속 21.7km, 휴일 23.9km)와 도시고속도로 평균 시속 50.2km(2024년)</li></ul>
       <h2>실측과 예상</h2>
-      <p>서울시 실측과 예보는 서울시가 발표한 값 그대로예요. 다만 혼잡 단계 이름은 서울시의 '약간 붐빔', '붐빔'을 '약간 혼잡', '혼잡'으로 바꿔 적었어요. 서울시 인구는 500명 단위 범위로 발표되므로 범위로 표시해요. 예상이라고 적은 값은 작년 공연 날 주차장 기록을 공연 시각에 맞춰 적용해 계산한 값이라 실제와 다를 수 있어요.</p><p style="margin-top:8px">오는 길 시간은 대략적인 추정치예요. 지하철은 역 사이 거리로 계산하고 환승 5분, 첫 열차 대기 4분을 더했어요. 자동차는 서울시 평균 통행속도에 공원 주변 도로의 시간대별 속도 비율을 곱하고, 6km가 넘는 구간의 4분의 3은 도시고속도로로 간다고 가정했어요.</p>
+      <dl class="kv"><div><dt>서울시 실측·예보</dt><dd>발표값 그대로 · 단계명: 약간 붐빔 → 약간 혼잡, 붐빔 → 혼잡</dd></div><div><dt>서울시 인구</dt><dd>500명 단위 범위</dd></div><div><dt>예상</dt><dd>2025 공연 날 주차 기록 × 공연 시각 정렬</dd></div><div><dt>지하철 시간</dt><dd>역간 거리 + 환승 5분 + 첫 대기 4분</dd></div><div><dt>자동차 시간</dt><dd>서울시 평균 통행속도 × 주변 도로 시간대 비율 · 6km 초과 구간의 3/4 = 도시고속도로</dd></div></dl>
     </div>
   </div>
 </div></main>
-<footer class="ft"><div class="wrap"><span>올타임은 한국체육산업개발(주) 공공데이터 활용 경진대회 출품작이며, 올림픽공원 공식 서비스가 아니에요.</span><a href="/privacy">개인정보 처리방침</a><a href="/terms">이용약관</a></div></footer>
+<footer class="ft"><div class="wrap"><span>한국체육산업개발(주) 공공데이터 활용 경진대회 출품작 · 올림픽공원 공식 서비스 아님</span><a href="/privacy">개인정보 처리방침</a><a href="/terms">이용약관</a></div></footer>
 <script>
 /* 탭 하나에 화면 하나. 주소의 #이름으로 탭을 열어요(#ops, #trend, #sections, #accuracy, #verify, #data). 끼워 넣은 화면은 처음 열 때 불러오고 높이를 내용에 맞춰요 */
 {
   var tabs=[].slice.call(document.querySelectorAll('.ptabs [role=tab]'));
-  function fit(f){try{var b=f.contentDocument&&f.contentDocument.body;if(b)f.style.height=Math.ceil(b.offsetHeight+2)+'px'}catch(e){}}
+  function fit(f){try{var d=f.contentDocument;if(d&&d.body)f.style.height=Math.ceil(Math.max(d.body.offsetHeight,d.documentElement.scrollHeight)+2)+'px'}catch(e){}}
   function pick(name,push){
     if(!document.getElementById('t-'+name))name='ops';
     tabs.forEach(function(t){var on=t.id==='t-'+name,pv=document.getElementById(t.getAttribute('aria-controls'));
