@@ -61,7 +61,15 @@ export default async function handler(req, res) {
     return res.status(502).json({ ok: false, note: '저장소에 닿지 못했어요' });
   }
 
-  const [c, p, rim] = await Promise.allSettled([city(SEOUL_KEY), parking(), Promise.allSettled(RIM.map(a => city(SEOUL_KEY, a)))]);
+  let [c, p, rim] = await Promise.allSettled([city(SEOUL_KEY), parking(), Promise.allSettled(RIM.map(a => city(SEOUL_KEY, a)))]);
+  /* 못 받은 것만 한 번 더 받아요. 11/26~28 서버 기록의 실패 7번(서울시 정각 '형식이 다른 응답' 3번, 기관 주차 '응답 시간 초과' 4번)은
+     맥 수집기가 같은 분에 18~19초 늦게 부른 값으로는 모두 받아졌어요. 그래서 잠깐(기본 10초) 기다렸다 다시 불러요. */
+  if (c.status !== 'fulfilled' || p.status !== 'fulfilled') {
+    const wait = process.env.COLLECT_RETRY_MS != null ? +process.env.COLLECT_RETRY_MS : 10000;
+    await new Promise(r => setTimeout(r, wait));
+    const [c2, p2] = await Promise.allSettled([c.status === 'fulfilled' ? Promise.resolve(c.value) : city(SEOUL_KEY), p.status === 'fulfilled' ? Promise.resolve(p.value) : parking()]);
+    c = c2; p = p2;
+  }
   /* 하나라도 못 받았으면 이유를 수집 기록(collect_log)에 남겨요. 알림판이 '오류'와 '미확인'을 가르는 데 써요. */
   if (c.status !== 'fulfilled' || p.status !== 'fulfilled') {
     try {
