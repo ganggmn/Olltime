@@ -1,4 +1,4 @@
 # forecast_log 사슬 끝 지문(외부 기준점). 이 줄이 커밋된 시각보다 앞선 예측 기록은 뒤에 바뀌면 지문이 어긋나요.
 # 확인: analysis/forecast_log.sql 맨 아래 쿼리로 다시 계산한 hash가 아래 값과 같아야 해요.
 # 커밋 시각(KST)            id   기록 시각(KST)          hash
-2026-11-28 07:3x            5    2026-11-28 07:25:00    f1bf356b58c3107ffcf93f17f2fae9950f26b7d9e2aedfcf0e87e713938af8ed
+2026-11-28 07:26            5    2026-11-28 07:25:00    f1bf356b58c3107ffcf93f17f2fae9950f26b7d9e2aedfcf0e87e713938af8ed
