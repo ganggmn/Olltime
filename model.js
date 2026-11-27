@@ -83,7 +83,10 @@ function run(list,o){const day=o.day,isToday=!!o.isToday,isShow=bigShow(day),k=c
      기준 시각의 추정값과의 차이를 남는 비율(btp)만큼 더함. 걸어서 드나드는 사람과 테두리 주민은 주차 대수에 안 잡혀서 차 대수는 쓰지 않아요 */
   const pe=ppl.map((r,i)=>({m:r[0],v:est[i]})),lastP=pe[pe.length-1],pmode=cellBase&&lastP?'cell':null;
   const E=pa?ev[1]+(ev[2]?ev[2]+POST.lag:POST.onset):null;
-  const fcCell=(m,e0)=>{const f=Math.max(0,cellBase(m)+bAt(btp,m-e0.m)*(e0.v-cellBase(e0.m)));if(!pa||m-SLAG<=E)return f;
+  /* 공연 중에는 늘지 않음: 2025년 61개 공연에서 공연 중 최고점은 56번이 시작 직후였고, 그 뒤 1시간 변화 77번 중 76번이 감소,
+     10% 넘게 는 공연 0번(99% 상한 7.3%). 그래서 기준 시각이 공연 중(시작+30분 뒤)이면 예상 끝 전까지는 지금 값을 넘지 않게 해요 */
+  const fcCell=(m,e0)=>{const f=Math.max(0,cellBase(m)+bAt(btp,m-e0.m)*(e0.v-cellBase(e0.m)));if(!pa)return f;
+    if(m-SLAG<=E){const t0=e0.m-SLAG;return t0>=ev[1]+30&&t0<=E?Math.min(f,e0.v):f}
     /* 예상 끝 뒤: 기준 시각이 공연 중이면 그 값을, 아니면 그 시각 모양으로 낸 끝 직전 값을 공연 중 수준으로 */
     const t0=e0.m-SLAG,inShow=t0>=ev[1]+30&&t0<=E,plat=inShow?e0.v:Math.max(0,cellBase(E+SLAG-15)+bAt(btp,E+SLAG-15-e0.m)*(e0.v-cellBase(e0.m)));
     return Math.max(0,plat*(1-(1-POST.ratio)*gAt(m-SLAG-E)))};
