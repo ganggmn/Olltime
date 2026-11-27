@@ -65,7 +65,7 @@ const OCCMAX=Math.max(...REF.sat.rows.map(r=>r[1]),...REF.fri.rows.map(r=>r[1]))
 /* 공원 안 인구: 서울시가 낸 값(500명 단위 구간)만 그대로 써요. 실측 사이나 예보 사이를 이어 붙이지 않아요 */
 const people=t=>{if(VIEW!==TODAY)return{none:'preview'};if(STATE!=='live')return{none:STATE};
  if(Math.abs(t-NOWM)<=5)return{lo:N.lo,hi:N.hi,lvl:N.lvl,src:'실측',at:NOWM};
- if(t<=NOWM){const A=CITY.actual;if(!A.length||t<A[0][0]-10)return{none:'before',at:A.length?A[0][0]:NOWM};let a=A[0];for(const x of A)if(x[0]<=t)a=x;return{lo:a[1],hi:a[2],lvl:a[3],src:'실측',at:a[0]}}
+ if(t<=NOWM){const A=CITY.actual.length>1||!PP.length?CITY.actual:PP.filter(r=>r[0]<NOWM).concat(CITY.actual);if(!A.length||t<A[0][0]-10)return{none:'before',at:A.length?A[0][0]:NOWM};let a=A[0];for(const x of A)if(x[0]<=t)a=x;return{lo:a[1],hi:a[2],lvl:a[3],src:'실측',at:a[0]}}
  const pts=[[NOWM,N.lo,N.hi,N.lvl,'실측'],...CITY.fcst.map(f=>[f[0],f[1],f[2],f[3],'예보'])],last=pts[pts.length-1];
  if(t>last[0]+30)return{none:'after',at:last[0]};
  let b=pts[0];for(const p of pts)if(Math.abs(p[0]-t)<Math.abs(b[0]-t))b=p;return{lo:b[1],hi:b[2],lvl:b[3],src:b[4],at:b[0]}};
@@ -77,7 +77,7 @@ const exitOf=s=>{const x=EXITS[s.d+' '+s.t];if(x)return{lbl:'출차 시작',a:x[
 $$('i[data-ic]').forEach(n=>{n.outerHTML=ic(n.dataset.ic,n.id?` id="${n.id}"`:'')});
 
 /* 머리글 */
-let FLOORP=1030,FLOORD=false,PT=[];const PCAP0=2200;
+let FLOORP=1030,FLOORD=false,PT=[],PP=[];const PCAP0=2200;
 const renderHero=()=>{const live=STATE==='live',pend=STATE==='pending';
  $('#now').setAttribute('aria-busy',String(pend));
  $('#stamp').textContent=live?syncTxt(NOWM):pend?'동기화 중':'동기화 실패';
@@ -488,7 +488,9 @@ $('#retry').onclick=()=>{$('#retry').dataset.busy='1';load()};
 setInterval(()=>{if(VIEW===TODAY)drawNow();renderTrain()},60000);
 setInterval(async()=>{if(document.visibilityState!=='visible'||STATE==='pending')return;try{const c=await getJSON('/api/now',7000);if(!c||!c.now||c.now.lo==null||(STATE==='live'&&c.now.time===N.time))return;const p=await getJSON('/api/parking',7000).catch(()=>null);if(p&&p.ok)PARK=p;STATE='live';CITY=c;derive();renderHero();renderView(false);renderPass(false)}catch(e){}},300000);
 addEventListener('message',e=>{if(e.origin===location.origin&&e.data&&e.data.olltimeH>200){const f=document.getElementById('secf');if(f)f.style.height=e.data.olltimeH+'px'}});
-getJSON('/api/trend',7000).then(j=>{PT=(j&&j.ok?j.list:[]).filter(r=>r[1]!=null).map(r=>[r[0],r[1]]);if(STATE==='live'&&PT.length)renderView(false);const v=(j&&j.ok?j.list:[]).filter(r=>r[1]!=null&&r[0]>=120&&r[0]<=300).map(r=>r[1]).sort((a,b)=>a-b);if(v.length>=6){FLOORP=v[Math.floor(v.length/2)];FLOORD=true;if(STATE==='live')renderHero()}}).catch(()=>{});
+getJSON('/api/trend',7000).then(j=>{PT=(j&&j.ok?j.list:[]).filter(r=>r[1]!=null).map(r=>[r[0],r[1]]);
+ /* 지난 시간 인원: 서울시가 측정한 시각 기준 (예전 기록은 저장 시각 − 30분) */
+ {const seen=new Set();PP=(j&&j.ok?j.list:[]).filter(r=>r[2]!=null&&r[4]).map(r=>[r[5]!=null?r[5]:r[0]-30,r[2],r[3],NLV(r[4])]).filter(r=>!seen.has(r[0])&&seen.add(r[0])).sort((a,b)=>a[0]-b[0])}if(STATE==='live'&&PT.length)renderView(false);const v=(j&&j.ok?j.list:[]).filter(r=>r[1]!=null&&r[0]>=120&&r[0]<=300).map(r=>r[1]).sort((a,b)=>a-b);if(v.length>=6){FLOORP=v[Math.floor(v.length/2)];FLOORD=true;if(STATE==='live')renderHero()}}).catch(()=>{});
 $('#heroH').setAttribute('tabindex','-1');
 await load();
 })();

@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   const day = /^\d{4}-\d{2}-\d{2}$/.test(String(req.query.day || '')) ? req.query.day : kst.toISOString().slice(0, 10);
   const from = new Date(`${day}T00:00:00+09:00`).toISOString();
   const to = new Date(Date.parse(from) + 864e5).toISOString();
-  const q = `select=ts,parking,ppl_lo,ppl_hi,lvl&ts=gte.${encodeURIComponent(from)}&ts=lt.${encodeURIComponent(to)}&order=ts.asc&limit=400`;
+  const q = `select=ts,parking,ppl_lo,ppl_hi,lvl,ppl_time&ts=gte.${encodeURIComponent(from)}&ts=lt.${encodeURIComponent(to)}&order=ts.asc&limit=400`;
   try {
     const r = await fetch(`${SUPABASE_URL.replace(/\/$/, '')}/rest/v1/samples?${q}`, {
       headers: { apikey: SUPABASE_SERVICE_KEY, Authorization: `Bearer ${SUPABASE_SERVICE_KEY}` },
@@ -20,8 +20,9 @@ export default async function handler(req, res) {
     });
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const rows = await r.json();
-    /* [0시부터 몇 분, 주차 대수, 인원 아래, 인원 위, 단계] */
-    const list = rows.map(x => [Math.round((Date.parse(x.ts) - Date.parse(from)) / 60000), x.parking, x.ppl_lo, x.ppl_hi, x.lvl]);
+    /* [0시부터 몇 분, 주차 대수, 인원 아래, 인원 위, 단계, 서울시 측정 시각(0시부터 몇 분)] */
+    const pm = t => { const v = Date.parse(String(t || '').replace(' ', 'T') + ':00+09:00'); return Number.isFinite(v) ? Math.round((v - Date.parse(from)) / 60000) : null; };
+    const list = rows.map(x => [Math.round((Date.parse(x.ts) - Date.parse(from)) / 60000), x.parking, x.ppl_lo, x.ppl_hi, x.lvl, pm(x.ppl_time)]);
     res.setHeader('Cache-Control', 's-maxage=120, stale-while-revalidate=300');
     return res.status(200).json({ ok: true, day, n: list.length, list });
   } catch (e) {
