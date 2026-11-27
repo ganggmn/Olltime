@@ -410,6 +410,34 @@ html:not(.only-story) #story{display:none}
 .fx .cap{text-align:right;margin-top:0}
 .blab span.b2{color:var(--warn)}
 @media(max-width:560px){.shl.x li{grid-template-columns:52px minmax(0,1fr)}.shl .xo{grid-column:2;text-align:left;display:flex;flex-wrap:wrap;gap:0 8px;align-items:baseline;margin-top:-6px;white-space:normal}.shl .xo b{display:inline}.shl .xo .cap{text-align:left}}
+/* 3판 3차: 1시간 칸 타임라인 */
+.tnowrow{gap:20px;align-items:center}
+.tnow.pl{display:inline-flex;align-items:center;gap:4px;text-decoration:none;color:var(--ink)}
+.tnow.pl .ic{width:14px;height:14px}
+.scrub{display:block;margin-top:4px}
+.shows{position:relative;height:24px}
+.shows .sb{position:absolute;bottom:0;height:8px;border:1px solid var(--ink);border-bottom:0;box-sizing:border-box}
+.shows .sb.open{border-right:0;border-top-style:dashed}
+.shows .sb b{position:absolute;left:-1px;bottom:9px;font-size:13px;line-height:1.2;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
+.track{height:28px;margin-top:2px}
+.strip,.strip.cells{top:7px;height:14px;outline:0;background:transparent}
+.strip.cells{gap:2px}
+.strip.cells span{flex:1;height:100%}
+.strip.cells span.na{box-shadow:inset 0 0 0 1px var(--line)}
+.nowmk{top:0;height:28px;width:2px;margin-left:-1px;background:var(--ink)}
+.nowmk.dim{background:var(--ink-3,#A1A1AA)}
+#tr{top:0;height:28px}
+#tr::-webkit-slider-runnable-track{height:28px}
+#tr::-webkit-slider-thumb{width:14px;height:28px;margin-top:0;border:0;border-radius:0;box-shadow:none;background:linear-gradient(90deg,transparent 5px,var(--ink) 5px,var(--ink) 9px,transparent 9px)}
+#tr::-moz-range-thumb{width:14px;height:28px;border:0;border-radius:0;box-shadow:none;background:linear-gradient(90deg,transparent 5px,var(--ink) 5px,var(--ink) 9px,transparent 9px)}
+#tr:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--ink)}
+#tr:focus-visible::-moz-range-thumb{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--ink)}
+.xb{height:10px}
+.xb span{top:3px;height:5px}
+.tlab{position:relative;height:22px}
+.tlab span{position:absolute;top:2px;font-size:13px;line-height:1.4;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
+.ticks{height:20px}
+.sleg i.na{background:transparent;outline:1px solid var(--line)}
 </style>
 <script>if(new URLSearchParams(location.search).get('only')==='story')document.documentElement.classList.add('only-story')</script>
 </head>

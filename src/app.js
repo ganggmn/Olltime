@@ -13,7 +13,7 @@ const dayLabel=d=>{const x=new Date(d+'T12:00:00+09:00');return`${x.getUTCMonth(
 const mdLabel=d=>dayLabel(d).replace(/ \S+요일$/,'');
 /* 혼잡 단계: 무채색에서 빨강으로. 붐빌수록 진하고 붉게 */
 /* 혼잡 막대: 여유·보통은 색 없이, 약간 혼잡은 노랑, 혼잡은 빨강 (각 원색 70%를 흰 바탕에 얹은 값) */
-const LVG={'여유':'#EEEEF0','보통':'#EEEEF0','약간 혼잡':'#FFD64D','혼잡':'#E76767'},LVN={'여유':0,'보통':1,'약간 혼잡':2,'혼잡':3};
+const LVG={'여유':'#EEEEF0','보통':'#D4D4D8','약간 혼잡':'#FFD64D','혼잡':'#E76767'},LVN={'여유':0,'보통':1,'약간 혼잡':2,'혼잡':3};
 const LVC=l=>'lv-'+(l==='약간 혼잡'?'약간':l);
 const HATCH=c=>`repeating-linear-gradient(45deg,${c} 0 2.5px,#FFFFFF 2.5px 4px)`;
 const C_IN='#A1A1AA',C_SHOW='#D9D9DE',C_OUT='#E76767';
@@ -152,35 +152,45 @@ const tr=$('#tr'),X0=300,X1=1560,pct=m=>(m-X0)/(X1-X0)*100;
 const segs=list=>{const out=[];for(const s of list){const l=out[out.length-1];if(l&&l[2]===s[2])l[1]=s[1];else out.push([...s])}return out.map(([a,b,bg])=>`<span style="width:${(b-a)/(X1-X0)*100}%;background:${bg}"></span>`).join('')};
 const SW=(bg,t)=>`<span><i style="background:${bg}"></i>${t}</span>`;
 const MAPLEG='<span><i style="background:#A1A1AA"></i>원 클수록 출차 많음 (대/10분, 예상)</span><span><i style="background:#FFD64D"></i>문별 상위 10%</span><span><i style="background:#E76767"></i>상위 1%</span>';
+const SHORT=n=>n.split(/\s*(?:&|〈|\[|\(|LIVE|스페셜|단독|연말|팬콘서트|콘서트|\d+주년)/)[0].trim()||n;
 const renderView=reset=>{
  const sw=$('#vsw');if(!todayShows.length&&NEXTD){sw.hidden=false;sw.innerHTML=[[TODAY,'오늘'],[NEXTD,`${mdLabel(NEXTD)} 공연 날 미리 보기`]].map(([d,t])=>`<button type="button" data-v="${d}" aria-pressed="${VIEW===d}">${t}</button>`).join('')}else sw.hidden=true;
- const L=[],busy=[];
- if(VIEW===TODAY){for(let t=X0;t<X1;t+=30){const pp=people(t+15);L.push([t,t+30,pp.none?'#FFFFFF':LVG[pp.lvl]]);if(!pp.none&&LVN[pp.lvl]>=2)busy.push([t,t+30,LVN[pp.lvl]])}
-  $('#sleg').innerHTML=SW(LVG['여유'],'여유·보통')+SW(LVG['약간 혼잡'],'약간 혼잡')+SW(LVG['혼잡'],'혼잡')+(viewShows.length?'<span><i class="xk"></i>출차 시작·몰림</span>':'')+'<span>지금 이후 = 서울시 예보</span>';
+ const st=$('#strip'),X=VIEW===TODAY?viewShows.map(exitOf):[];
+ if(VIEW===TODAY){
+  /* 1시간 = 1칸. 칸 색 = 그 1시간 안 서울시 값 중 가장 높은 단계 */
+  const cells=[];for(let h=X0;h<X1;h+=60){let v=-1;for(let t=h+5;t<h+60;t+=10){const pp=people(t);if(!pp.none)v=Math.max(v,LVN[pp.lvl])}cells.push(v)}
+  const LVK=['여유','보통','약간 혼잡','혼잡'];
+  st.className='strip cells';st.innerHTML=cells.map((v,k)=>`<span${v<0?' class="na"':` style="background:${LVG[LVK[v]]}"`} title="${hm(X0+k*60)}–${hmX(X0+k*60+60)} ${v<0?'자료 없음':LVK[v]}"></span>`).join('');
+  const used=new Set(cells);
+  $('#sleg').innerHTML=SW(LVG['여유'],'여유')+SW(LVG['보통'],'보통')+SW(LVG['약간 혼잡'],'약간 혼잡')+SW(LVG['혼잡'],'혼잡')+(used.has(-1)?'<span><i class="na"></i>자료 없음</span>':'')+(X.length?`<span><i class="xk"></i>출차 ${X.map(x=>rng(x.a,x.b)).join(' · ')}</span>`:'')+'<span>지금 이후 = 서울시 예보</span>';
   $('#mapleg').innerHTML=MAPLEG}
- else{const ps=viewShows.map(pred);for(let t=X0;t<X1;t+=10){const m=t+5;let bg='#FFFFFF';if(ps.some(p=>m>=p.st&&m<p.end))bg=C_SHOW;else if(ps.some(p=>m>=p.inA&&m<p.inB))bg=C_IN;else if(ps.some(p=>m>=p.outA&&m<p.outB)){bg=C_OUT;busy.push([t,t+10,9])}L.push([t,t+10,bg])}
+ else{const L=[],ps=viewShows.map(pred);for(let t=X0;t<X1;t+=10){const m=t+5;let bg='#FFFFFF';if(ps.some(p=>m>=p.st&&m<p.end))bg=C_SHOW;else if(ps.some(p=>m>=p.inA&&m<p.inB))bg=C_IN;else if(ps.some(p=>m>=p.outA&&m<p.outB))bg=C_OUT;L.push([t,t+10,bg])}
+  st.className='strip';st.innerHTML=segs(L);
   $('#sleg').innerHTML=SW(C_IN,'입차 몰림')+SW(C_SHOW,'공연')+SW(C_OUT,'출차 몰림')+'<span>예상 · 2025 공연 날 기록</span>';
   $('#mapleg').innerHTML=MAPLEG}
- $('#xb').innerHTML=VIEW===TODAY?viewShows.map(s=>{const x=exitOf(s);return`<span style="left:${pct(Math.max(X0,x.a))}%;width:${Math.max(.5,pct(Math.min(X1,x.b))-pct(Math.max(X0,x.a)))}%"></span>`}).join(''):'';
- /* 붐비는 때만 막대 바로 아래에 시각을 적어요. 30분 이하 틈은 이어 붙여요 */
- const BB=[];for(const b of busy){const l=BB[BB.length-1];if(l&&b[0]-l[1]<=30){l[1]=b[1];l[2]=Math.max(l[2],b[2])}else BB.push([...b])}
- const bw=v=>v===9?'출차 몰림':v===3?'혼잡':'약간 혼잡';
- $('#blab').innerHTML=BB.length?BB.map(([a,b,v])=>`<span class="b${v}" style="left:${pct((a+b)/2)}%">${hm(a)}~${hm(b)} ${bw(v)}</span>`).join(''):(VIEW===TODAY&&STATE==='live'?'<em>혼잡 없음</em>':'');
- placeBlab();
- $('#strip').innerHTML=segs(L);
- const mk=$('#showmk');if(viewShows.length){const ps=viewShows.map(pred),a=Math.min(...ps.map(p=>p.st)),b=Math.max(...ps.map(p=>p.end));mk.hidden=false;Object.assign(mk.style,{left:pct(a)+'%',width:(pct(Math.min(b,X1))-pct(a))+'%'})}else mk.hidden=true;
+ $('#xb').innerHTML=X.map(x=>`<span style="left:${pct(Math.max(X0,x.a))}%;width:${Math.max(.5,pct(Math.min(X1,x.b))-pct(Math.max(X0,x.a)))}%"></span>`).join('');
+ /* 공연 괄호: 이름 + 시작–끝. 끝 미정이면 오른쪽을 열어 둬요 */
+ $('#shows').innerHTML=viewShows.map(s=>{const p=pred(s),b=Math.min(X1,p.end);return`<div class="sb${s.run?'':' open'}" style="left:${pct(p.st)}%;width:${pct(b)-pct(p.st)}%"><b>${esc(SHORT(s.name))} ${s.t}${s.run?'–'+hmX(p.end):'~'}</b></div>`}).join('');
+ placeShows();
  drawNow();
  $('#ticks').innerHTML=[360,540,720,900,1080,1260,1440].map(m=>`<span style="left:${pct(m)}%">${m===1440?'24시':m/60+'시'}</span>`).join('');
  tr.setAttribute('aria-label',VIEW===TODAY?'오늘 지도와 지표의 시각':`${mdLabel(VIEW)} 지도와 지표의 시각`);
  if(reset||!userT)T=VIEW===TODAY?nowC():viewShows.length?pred(viewShows[0]).inPk:900;setT(T)};
-const placeBlab=()=>{const box=$('#blab'),pr=box.getBoundingClientRect();let prev=null,alt=false;for(const sp of box.querySelectorAll('span')){sp.style.transform='translateX(-50%)';sp.classList.remove('alt');let r=sp.getBoundingClientRect();const dx=r.left<pr.left?pr.left-r.left:r.right>pr.right?pr.right-r.right:0;if(dx)sp.style.transform=`translateX(calc(-50% + ${dx}px))`;r=sp.getBoundingClientRect();if(prev&&r.left<prev.right+8&&!prev.alt){sp.classList.add('alt');alt=true;r={right:r.right,alt:true}}prev=r}box.classList.toggle('two',alt)};
-new ResizeObserver(()=>placeBlab()).observe($('#blab'));
-const drawNow=()=>{const nm=$('#nowmk'),n=nowC();nm.hidden=VIEW!==TODAY||n<X0||n>X1;nm.style.left=pct(Math.min(X1,Math.max(X0,n)))+'%';nm.classList.toggle('flip',pct(n)<12)};
-const setT=t=>{T=Math.max(X0,Math.min(X1,Math.round(+t/10)*10));tr.value=T;tr.setAttribute('aria-valuetext',`${VIEW!==TODAY?mdLabel(VIEW)+' ':''}${hmT(T)}`);const tn=$('#tnow'),nw=nowC();if(tn)tn.hidden=!(VIEW===TODAY&&nw>=X0&&nw<=X1&&Math.abs(T-nw)>=10);drawMap();drawMetrics()};
+/* 괄호 이름이 겹치면 한 줄 위로, 오른쪽 끝을 넘으면 안으로 당겨요 */
+const placeShows=()=>{const box=$('#shows'),W=box.clientWidth,rows=[];let top=0;
+ for(const sb of box.querySelectorAll('.sb')){const b=sb.querySelector('b');b.style.transform='';const x0=sb.offsetLeft,bw=b.offsetWidth,dx=Math.max(0,x0+bw-W);if(dx)b.style.transform=`translateX(${-dx}px)`;
+  const a=x0-dx,z=Math.max(x0+bw-dx,x0+sb.offsetWidth);let r=0;while(rows[r]&&rows[r].some(([p,q])=>a<q+12&&z>p-12))r++;(rows[r]=rows[r]||[]).push([a,z]);sb.style.bottom=r*24+'px';top=Math.max(top,r)}
+ box.style.height=(24+top*24)+'px'};
+new ResizeObserver(()=>placeShows()).observe($('#shows'));
+const drawNow=()=>{const nm=$('#nowmk'),n=nowC();nm.hidden=VIEW!==TODAY||n<X0||n>X1;nm.style.left=pct(Math.min(X1,Math.max(X0,n)))+'%'};
+/* 막대 아래 시각: 지금이면 '지금 15:40', 옮겼으면 그 시각 */
+const drawTlab=()=>{const box=$('#tlab'),sp=box.firstElementChild,n=nowC(),at=VIEW===TODAY&&Math.abs(T-n)<10;sp.textContent=at?`지금 ${hm(n)}`:`${VIEW!==TODAY?mdLabel(VIEW)+' ':''}${hmT(T)}`;$('#nowmk').classList.toggle('dim',!at);sp.style.left=pct(T)+'%';sp.style.transform='translateX(-50%)';const W=box.clientWidth,x=box.clientWidth*pct(T)/100,w=sp.offsetWidth,dx=x-w/2<0?w/2-x:x+w/2>W?W-x-w/2:0;if(dx)sp.style.transform=`translateX(calc(-50% + ${dx}px))`};
+new ResizeObserver(()=>drawTlab()).observe($('#tlab'));
+const setT=t=>{T=Math.max(X0,Math.min(X1,Math.round(+t/10)*10));tr.value=T;tr.setAttribute('aria-valuetext',`${VIEW!==TODAY?mdLabel(VIEW)+' ':''}${hmT(T)}`);const tn=$('#tnow'),nw=nowC();if(tn)tn.hidden=!(VIEW===TODAY&&nw>=X0&&nw<=X1&&Math.abs(T-nw)>=10);drawTlab();drawMap();drawMetrics()};
 $('#tnow').onclick=()=>{if(timer)stop();userT=false;setT(nowC());sayT()};
 tr.addEventListener('input',()=>{userT=true;setT(tr.value)});tr.addEventListener('change',sayT);
 $('#vsw').addEventListener('click',e=>{const b=e.target.closest('[data-v]');if(!b)return;setView(b.dataset.v);userT=false;renderView(true);const f=$(`#vsw [data-v="${VIEW}"]`);f&&f.focus();sayT()});
-let timer=null;const playIcon=n=>{$('#play').innerHTML=ic(n);$('#play').setAttribute('aria-label',n==='play'?'하루 흐름 재생':'멈춤')};
+let timer=null;const playIcon=n=>{$('#play').innerHTML=ic(n)+(n==='play'?'하루 재생':'멈춤');$('#play').setAttribute('aria-label',n==='play'?'하루 흐름 재생':'멈춤')};
 const stop=()=>{clearInterval(timer);timer=null;playIcon('play');sayT()};
 $('#play').onclick=()=>{if(timer)return stop();userT=true;if(T>=X1)setT(X0);playIcon('pause');timer=setInterval(()=>{if(T>=X1)return stop();setT(T+10)},110)};
 
