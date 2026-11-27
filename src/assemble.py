@@ -31,6 +31,32 @@ def extract_from(old_path):
     (D / 'travel.js').write_text(s[a:b] + '\n', encoding='utf-8')
     print('extracted to', D)
 
+def exit_tables():
+    """공연 전에 고정한 퇴장 확률표(analysis/exitprob_*.json)에서 '출차 시작 80% 범위'만 꺼내요.
+    같은 날·같은 시작이면 전날 실제 값을 넣은 P3를 P0보다 먼저 써요. {"YYYY-MM-DD HH:MM": [시작분, 끝분, 방식]}"""
+    import json as _j
+    A = SRC.parent / 'analysis'
+    m = lambda t: int(t[:2]) * 60 + int(t[3:5])
+    best = {}
+    rank = {'P3': 2, 'P0': 1}
+    for f in sorted(A.glob('exitprob_*.json')):
+        try:
+            d = _j.loads(f.read_text(encoding='utf-8'))
+        except Exception:
+            continue
+        tabs = d['tables'].values() if isinstance(d.get('tables'), dict) and 'what' in d and 'rules' in d else ([d] if 'onset_80' in d else [])
+        for t in tabs:
+            how = t.get('how')
+            if how not in rank or not t.get('onset_80'):
+                continue
+            a, b = (m(x) for x in t['onset_80'])
+            if b < a:
+                b += 1440
+            key = f"{t['day']} {t['start']}"
+            if key not in best or rank[how] > rank[best[key][2]]:
+                best[key] = [a, b, how]
+    return best
+
 def build():
     head = (SRC / 'head.html').read_text(encoding='utf-8')
     body = (SRC / 'body.html').read_text(encoding='utf-8')
@@ -41,7 +67,8 @@ def build():
     acc = (D / 'accuracy.json').read_text(encoding='utf-8') if (D / 'accuracy.json').exists() else 'null'
     import json as _j
     acc = _j.dumps(_j.loads(acc), ensure_ascii=False, separators=(',', ':'))
-    for k, v in (('__DATA__', piece('data.js') + '\nconst ACC=' + acc + ';'), ('__TRAVEL__', piece('travel.js'))):
+    exits = _j.dumps(exit_tables(), ensure_ascii=False, separators=(',', ':'))
+    for k, v in (('__DATA__', piece('data.js') + '\nconst ACC=' + acc + ';\nconst EXITS=' + exits + ';'), ('__TRAVEL__', piece('travel.js'))):
         assert app.count(k) == 1, k
         app = app.replace(k, v)
     out = head + body + app

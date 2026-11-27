@@ -375,6 +375,32 @@ html:not(.only-story) #story{display:none}
 .lostcard .contact div+div{border-left:1px solid var(--line-weak)}
 @media(max-width:960px){.lostcard .contact{grid-template-columns:repeat(2,minmax(0,1fr))}.lostcard .contact div:nth-child(3){border-left:0}.lostcard .contact div:nth-child(n+3){border-top:1px solid var(--line-weak)}}
 @media(max-width:760px){.modb,.modp{padding-left:16px;padding-right:16px}.lbody{padding:8px 16px 16px}.lostcard .contact div{padding:12px 16px}.h-i{margin-top:0}}
+/* 3판: 설명 대신 숫자 */
+.h-t h1{font-size:48px;line-height:1.2;letter-spacing:-.03em}
+.hnum{margin-top:8px;font-size:24px;line-height:1.3;font-weight:600;letter-spacing:-.01em;font-variant-numeric:tabular-nums;min-height:1.3em}
+.acts{margin-top:28px}
+.mob{display:none}
+.facts dd>span{display:block}
+.facts dd .cap{text-align:right;margin-top:2px}
+.shl.x li{grid-template-columns:52px minmax(0,1fr) auto}
+.shl .xo{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.shl .xo b{display:block;font-weight:600}
+.shl .xo .cap{text-align:right;margin-top:0}
+.today>.cap{margin-top:8px}
+.mapleg{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center}
+.mapleg span{display:inline-flex;align-items:center;gap:6px}
+.mapleg i{display:inline-block;width:10px;height:10px;border-radius:50%}
+.xb{grid-column:2;position:relative;height:10px}
+.xb span{position:absolute;top:2px;height:5px;background:var(--ink)}
+.sleg i.xk{height:4px;background:var(--ink);outline:0}
+.metrics{grid-template-columns:minmax(0,1fr)}
+.mt.wide{grid-column:auto;padding:0;border:0}
+.kv{margin:0;display:grid;gap:0;border-top:1px solid var(--line-weak)}
+.kv div{display:grid;grid-template-columns:minmax(0,11em) minmax(0,1fr);gap:12px;padding:8px 0;border-bottom:1px solid var(--line-weak);font-size:15px;line-height:1.5}
+.kv dt{color:var(--ink-2)}
+.kv dd{margin:0;font-variant-numeric:tabular-nums}
+.ins .kv{margin-top:16px}
+@media(max-width:960px){.hgrid{grid-template-areas:"t" "i" "m"}.mob{display:inline}.h-t h1{font-size:40px}.kv div{grid-template-columns:minmax(0,1fr)}}
 </style>
 <script>if(new URLSearchParams(location.search).get('only')==='story')document.documentElement.classList.add('only-story')</script>
 </head>

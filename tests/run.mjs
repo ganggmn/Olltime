@@ -150,6 +150,28 @@ await test('같은 기록을 두 번 채점하면 글자 하나까지 같음', (
 const scoreFn = (await import(path.join(ROOT, 'api/score.js'))).default, live = await import(path.join(ROOT, 'analysis/live_score.mjs'));
 await test('서버의 채점(/api/score)과 공개 스크립트(live_score.mjs)가 같은 숫자를 냄', async () => { process.env.SUPABASE_URL = 'https://example.invalid'; process.env.SUPABASE_SERVICE_KEY = 'test-key'; const real = globalThis.fetch; const from = Date.parse('2026-11-23T00:00:00+09:00'); globalThis.fetch = async u => ({ ok: true, json: async () => (!String(u).includes('collect_log') && String(u).includes('gte.' + encodeURIComponent(new Date(from).toISOString())) ? realDay.list.map(r => ({ ts: new Date(from + r[0] * 60000).toISOString(), parking: r[1], ppl_lo: r[2], ppl_hi: r[3], lvl: r[4] })) : []) }); const r = mkRes(); await scoreFn({ query: { end: '2026-11-23', days: '2', win: '10', dn: '2000', k: '3.0' } }, r); globalThis.fetch = real; ok(r.body.ok && r.body.days.length === 1, JSON.stringify(r.body).slice(0, 200)); const mine = await live.scoreFrom(async d => (d === '2026-11-23' ? realDay : { ok: true, list: [] }), ['2026-11-22', '2026-11-23'], { win: 10, dn: 2000, k: 3.0 }); ok(JSON.stringify(r.body.days) === JSON.stringify(mine.days) && JSON.stringify(r.body.total) === JSON.stringify(mine.total), '서로 다름'); ok(!JSON.stringify(r.body).includes('test-key')); });
 await test('채점 결과를 문장으로 풀어 쓸 수 있음(전문 용어 없이)', async () => { const out = await live.scoreFrom(async () => realDay, ['2026-11-23'], { win: 10, dn: 2000 }); const t = live.say(out); ok(t.includes('주차 2시간 앞 예상: 60번, 평균 43.6대(2.7%) 차이'), t.slice(0, 300)); for (const w of ['MAE', 'MAPE', 'beta', 'residual', 'LOO', 'undefined', 'NaN', 'null']) ok(!t.includes(w), '"' + w + '"가 들어 있음'); });
+console.log('9. 서울시 예보 적중률(/api/acc)');
+await test('예보 적중률: 같은 발표의 같은 예보 시각은 한 번만 세고, 붐빔 이름을 혼잡으로 맞추고, 실측이 없으면 빼요', async () => {
+  const { forecastHits } = await import(path.join(ROOT, 'api/_acc.js'));
+  const rows = [
+    { ppl_time: '2026-11-27 12:00', lvl: '여유', fcst: [[900, 1, 2, '여유'], [900, 1, 2, '여유'], [960, 1, 2, '약간 붐빔'], [1020, 1, 2, '여유'], [1500, 1, 2, '여유']] },
+    { ppl_time: '2026-11-27 15:00', lvl: '여유', fcst: null },
+    { ppl_time: '2026-11-27 16:00', lvl: '약간 붐빔', fcst: null },
+    { ppl_time: '2026-11-27 17:00', lvl: '보통', fcst: [] }
+  ];
+  const o = forecastHits(rows), H = Object.fromEntries(o.horizon.map(x => [x.h, x]));
+  ok(H[3].n === 1 && H[3].level === 100, '3시간 ' + JSON.stringify(H[3]));
+  ok(H[4].n === 1 && H[4].level === 100, '4시간 ' + JSON.stringify(H[4]));
+  ok(H[5].n === 1 && H[5].level === 0, '5시간 ' + JSON.stringify(H[5]));
+  ok(!H[13] && o.horizon.length === 3, '12시간 넘는 예보·실측 없는 예보는 빠짐');
+  ok(o.period[0] === '2026-11-27 12:00', '기간');
+});
+await test('예보 적중률 API: 저장소 설정이 없으면 ok:false, 키는 응답에 없음', async () => {
+  delete process.env.SUPABASE_URL; delete process.env.SUPABASE_SERVICE_KEY;
+  const h = (await import(path.join(ROOT, 'api/acc.js'))).default; let code = 0, body = null; const hd = {};
+  await h({ query: {} }, { setHeader: (k, v) => { hd[k] = v; }, status(c) { code = c; return this; }, json(b) { body = b; return this; } });
+  ok(code === 200 && body && body.ok === false, JSON.stringify(body));
+});
 
 console.log(`\n${pass}개 통과, ${fails.length}개 실패`);
 if (fails.length) { console.log('실패: ' + fails.join(' / ')); process.exit(1); }
