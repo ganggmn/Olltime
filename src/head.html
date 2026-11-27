@@ -486,6 +486,23 @@ html:not(.only-story) #story{display:none}
 #tr::-moz-range-thumb{height:44px;background:linear-gradient(90deg,transparent 6px,var(--ink) 6px,var(--ink) 8px,transparent 8px)}
 .shows .sb.open{border-right:0;border-style:dashed}
 @media(max-width:560px){.mapbox{height:400px}}
+/* 3판 6차: 한 줄 막대 + 만차 괄호(실선 실측, 점선 예상) */
+.scrub{display:block}
+.track{height:14px;margin-top:2px}
+.strip,.strip.cells{top:0}
+.pk{position:absolute;left:0;right:0;top:20px}
+.pk .pb{position:absolute;top:0;height:8px;border:1px solid var(--bad);border-top:0;box-sizing:border-box}
+.pk .pb.open{border-right:0;border-style:dashed;border-top:0}
+.pk .pb b{position:absolute;left:-1px;top:9px;font-size:13px;line-height:1.2;font-weight:600;color:var(--bad);white-space:nowrap;font-variant-numeric:tabular-nums}
+.nowmk{top:-3px;height:20px}
+#tr{top:-3px;height:calc(100% + 6px)}
+#tr::-webkit-slider-runnable-track{height:var(--th,20px)}
+#tr::-webkit-slider-thumb{height:var(--th,20px);background:linear-gradient(90deg,transparent 6px,var(--ink) 6px,var(--ink) 8px,transparent 8px) 0 0/100% 20px no-repeat}
+#tr::-moz-range-thumb{height:var(--th,20px);background:linear-gradient(90deg,transparent 6px,var(--ink) 6px,var(--ink) 8px,transparent 8px) 0 0/100% 20px no-repeat}
+.tlab{margin-top:4px}
+.sleg i.mk{width:16px;height:6px;background:transparent;outline:0;border:1.5px solid var(--bad);border-top:0;box-sizing:border-box}
+.sleg i.mk.pd{border-style:dashed;border-right:0;border-top:0}
+.legs .sleg .lh{min-width:0}
 </style>
 <script>if(new URLSearchParams(location.search).get('only')==='story')document.documentElement.classList.add('only-story')</script>
 </head>
