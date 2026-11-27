@@ -488,9 +488,12 @@ const W30={ker:[21,25,18.8,12.9,8.4,5.3,3.3,2.1,1.3,.8,.5,.3],th:[50,150,250],lv
  dirs:[['동쪽 · 올림픽공원역',k=>3770*(W30.ker[k]||0)/100,'검증: 2025 51일 · 일치 78.4%'],
   ['남쪽 · 남2문·방이동',k=>k<6?340/6:k<12?430/6:0,'1시간 평균 ÷ 6 · 검증 전'],
   ['북쪽 · 북2문·성내동',k=>k<6?100/6:0,'1시간 평균 ÷ 6 · 검증 전']]};
-const w30Fire=(st,run)=>{const e0=st+Math.max(60,run-45),P=PT.filter(r=>r[0]>=st&&r[1]!=null);for(const[m,v]of P){if(m<e0)continue;const pv=P.find(r=>r[0]>=m-12&&r[0]<=m-8);if(pv&&pv[1]>0&&(pv[1]-v)/pv[1]>=.065)return m}return null};
+/* 출차 혼잡 알림: 10분 동안 78대 넘게 줄어든 읽기가 5분 간격으로 두 번 이어지면 울림(2026 parking_sum 단위, 2025 120대 × 0.649).
+ 예전 '10분 6.5% 감소'는 2025 주차 대수(1,600대 안팎)로 정한 비율이라 2026 값(2,900대 안팎)에서는 190대가 되어 늦게 울렸어요(11/27 21:50).
+ 2025 71저녁(투어 통째로 빼고): 놓침·이른 울림 2/71(예전 10/71), 혼잡 시작 ±20분 79%(예전 73%). analysis/exit_alarm_2025.json */
+const w30Fire=(st,run)=>{const e0=st+Math.max(60,run-45),P=PT.filter(r=>r[0]>=st&&r[1]!=null);let c=0;for(const[m,v]of P){const pv=P.find(r=>r[0]>=m-12&&r[0]<=m-8),hit=!!pv&&pv[1]-v>=78;if(m<e0){c=0;continue}c=hit?c+1:0;if(c>=2)return m}return null};
 const renderW30=()=>{const box=$('#w30');if(!box)return;const sh=todayShows.find(s=>s.venue==='KSPO DOME');if(!sh||STATE!=='live'){box.hidden=true;return}
- const st=toM(sh.t),run=sh.run||150,fire=w30Fire(st,run),an=fire!=null?fire-15:st+run+25,n=nowC(),t0=Math.floor(n/10)*10;
+ const st=toM(sh.t),run=sh.run||150,fire=w30Fire(st,run),an=fire!=null?fire-20:st+run+25,n=nowC(),t0=Math.floor(n/10)*10;
  if(n<an-60||n>an+120){box.hidden=true;return}
  const cols=[0,10,20,30].map(d=>t0+d),lvl=v=>v>=W30.th[2]?3:v>=W30.th[1]?2:v>=W30.th[0]?1:0;
  box.hidden=false;box.innerHTML=`<h3 class="h-sub">앞으로 30분 · 걷는 길</h3>
