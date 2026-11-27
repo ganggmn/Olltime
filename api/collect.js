@@ -1,9 +1,14 @@
 /* GET /api/collect: 실시간 인구와 주차 대수를 한 번 받아 저장소(Supabase)에 한 줄로 남겨요.
    사람이 여는 주소가 아니라 예약 작업이 5분마다 부르는 주소예요.
    필요한 환경변수: SEOUL_KEY, SUPABASE_URL, SUPABASE_SERVICE_KEY. COLLECT_TOKEN은 선택이에요.
+   저장한 뒤 그 칸에 사이트가 내는 예상도 forecast_log에 남겨요(analysis/forecast_log.sql).
    키와 토큰은 응답과 오류 메시지 어디에도 넣지 않아요. */
 import { compactCity } from './_city.js';
 import { ask } from './_subway.js';
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
+import '../gp.js';
+import '../model.js';
 
 /* 지하철 도착 정보: 공원 둘레의 세 역을 하루 종일 모아요(서울시 호출 한도가 풀림, 2026년 11월 26일부터).
    몽촌토성역은 서울시에 '몽촌토성(평화의문)'으로 올라 있어요('몽촌토성'만 물으면 빈 목록, 2026년 11월 26일 확인). */
@@ -33,6 +38,34 @@ async function parking() {
   const sum = Number.parseInt(body.parking_sum, 10);
   if (String(body.code || body.resultCode || '0000') !== '0000' || !Number.isFinite(sum)) throw new Error('값이 비어 있음');
   return sum;
+}
+
+/* 예측 기록: 이 5분 칸에 사이트가 내는 예상을 '그때 낸 값' 그대로 남겨요(나중에 다시 계산한 값이 아님).
+   저장소의 forecast_log 표는 고치기·지우기·비우기를 막아 두었고, 기록 시각(저장소 시계)과 앞 줄 지문(sha256 사슬)은 저장소가 직접 붙여요.
+   자리값: 지금 사이트의 model.js·gp.js 지문과 배포 커밋. 출차 혼잡 시작 알림은 11/28 전에 고정한 규칙(N2: 10분 감소 78대 두 번 연속)의 상태예요. */
+const fileSha = () => { try { const h = createHash('sha256'); for (const f of ['../model.js', '../gp.js']) h.update(readFileSync(new URL(f, import.meta.url))); return h.digest('hex'); } catch (e) { return 'fn:' + createHash('sha256').update(String(globalThis.OLL.run)).digest('hex'); } };
+const MODEL_SHA = fileSha();
+const n2Fire = (P, st, run) => { const e0 = st + Math.max(60, run - 45), Q = P.filter(r => r[0] >= st && r[1] != null); let c = 0; for (const [m, v] of Q) { const pv = Q.find(r => r[0] >= m - 12 && r[0] <= m - 8), hit = !!pv && pv[1] - v >= 78; if (m < e0) { c = 0; continue; } c = hit ? c + 1 : 0; if (c >= 2) return m; } return null; };
+async function logForecast(base, auth, slot) {
+  const OLL = globalThis.OLL, kst = new Date(Date.parse(slot) + 9 * 3600e3), day = kst.toISOString().slice(0, 10);
+  const from = new Date(`${day}T00:00:00+09:00`).toISOString(), to = new Date(Date.parse(from) + 864e5).toISOString();
+  const r = await fetch(`${base}/rest/v1/samples?select=ts,parking,ppl_lo,ppl_hi,lvl&ts=gte.${encodeURIComponent(from)}&ts=lt.${encodeURIComponent(to)}&order=ts.asc&limit=400`, { headers: auth, signal: AbortSignal.timeout(6000) });
+  if (!r.ok) return `읽기 실패 ${r.status}`;
+  const list = (await r.json()).map(x => [Math.round((Date.parse(x.ts) - Date.parse(from)) / 60000), x.parking, x.ppl_lo, x.ppl_hi, x.lvl]);
+  if (!list.length) return '오늘 기록 없음';
+  const R = OLL.run(list, { day, isToday: true }), rd = v => (v == null ? null : Math.round(v));
+  const ks = (OLL.EVT[day] || []).find(e => e[0] === 'KSPO DOME');
+  const payload = {
+    m: list[list.length - 1][0], k: R.k, show: R.isShow, shows: OLL.EVT[day] || [],
+    car: { now: R.car.length ? R.car[R.car.length - 1].v : null, fut: R.carFut.map(p => [p.m, rd(p.v)]) },
+    ppl: { now: R.pe.length ? rd(R.pe[R.pe.length - 1].v) : null, fut: R.pFut.map(p => [p.m, rd(p.v)]) },
+    exit_n2: ks ? { st: ks[1], run: ks[2] || 150, fire: n2Fire(list.map(x => [x[0], x[1]]), ks[1], ks[2] || 150) } : null
+  };
+  const w = await fetch(`${base}/rest/v1/forecast_log`, {
+    method: 'POST', headers: { ...auth, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+    body: JSON.stringify({ slot_ts: slot, day, model_sha: MODEL_SHA, commit_sha: process.env.VERCEL_GIT_COMMIT_SHA || null, payload }), signal: AbortSignal.timeout(6000)
+  });
+  return w.ok ? 'ok' : `저장 실패 ${w.status}`;
 }
 
 /* 실패한 이유를 짧은 말로: 키나 주소는 넣지 않아요 */
@@ -122,7 +155,9 @@ export default async function handler(req, res) {
       }
     }
     const areas = await rimSave;
-    return res.status(200).json({ ok: true, ts: slot, parking: row.parking !== null, people: row.ppl_lo !== null, areas, subway });
+    let forecast;
+    try { forecast = await logForecast(base, auth, slot); } catch (e) { forecast = '기록 실패'; }
+    return res.status(200).json({ ok: true, ts: slot, parking: row.parking !== null, people: row.ppl_lo !== null, areas, subway, forecast });
   } catch (e) {
     return res.status(502).json({ ok: false, note: '저장소에 닿지 못했어요' });
   }
