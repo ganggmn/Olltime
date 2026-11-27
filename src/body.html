@@ -25,15 +25,15 @@
     </div>
     <div class="modb">
     <p class="cap mapleg" id="mapleg"></p>
-    <div class="tnowrow"><button class="tnow" type="button" id="tnow" hidden>지금 시각으로</button><button class="tnow pl" type="button" id="play" aria-label="하루 흐름 재생"><i data-ic="play"></i>하루 재생</button></div>
+    <div class="tnowrow"><button class="tnow pl" type="button" id="play" aria-label="하루 흐름 재생"><i data-ic="play"></i>하루 재생</button><button class="tnow" type="button" id="tnow" hidden>현재</button></div>
     <div class="scrub">
-      <div class="shows" id="shows" aria-hidden="true"></div>
-      <div class="track"><div class="strip cells" id="strip" aria-hidden="true"></div><div class="nowmk" id="nowmk" aria-hidden="true" hidden></div><input type="range" id="tr" min="300" max="1560" step="10" value="300" aria-label="지도와 지표의 시각"></div>
-      <div class="xb" id="xb" aria-hidden="true"></div>
-      <div class="tlab" id="tlab" aria-hidden="true"><span></span></div>
-      <div class="ticks" id="ticks" aria-hidden="true"></div>
-      <p class="sleg" id="sleg"></p>
-      <p class="cap acc1" id="acc1"></p>
+      <div></div><div class="shows" id="shows" aria-hidden="true"></div>
+      <div class="rl" aria-hidden="true"><span>인원</span><span>주차</span></div>
+      <div class="track"><div class="strip cells" id="strip" aria-hidden="true"></div><div class="strip cells s2" id="strip2" aria-hidden="true"></div><div class="nowmk" id="nowmk" aria-hidden="true" hidden></div><input type="range" id="tr" min="300" max="1560" step="10" value="300" aria-label="지도와 지표의 시각"></div>
+      <div></div><div class="tlab" id="tlab" aria-hidden="true"><span></span></div>
+      <div></div><div class="ticks" id="ticks" aria-hidden="true"></div>
+      <div class="legs"><p class="sleg" id="sleg"></p><p class="sleg" id="sleg2"></p>
+      <p class="cap acc1" id="acc1"></p></div>
     </div>
     <div class="metrics" id="metrics"></div>
     <p class="sr" id="srT" aria-live="polite"></p>

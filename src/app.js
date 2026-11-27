@@ -77,7 +77,7 @@ const exitOf=s=>{const x=EXITS[s.d+' '+s.t];if(x)return{lbl:'출차 시작',a:x[
 $$('i[data-ic]').forEach(n=>{n.outerHTML=ic(n.dataset.ic,n.id?` id="${n.id}"`:'')});
 
 /* 머리글 */
-let FLOORP=1030,FLOORD=false;const PCAP0=2200;
+let FLOORP=1030,FLOORD=false,PT=[];const PCAP0=2200;
 const renderHero=()=>{const live=STATE==='live',pend=STATE==='pending';
  $('#now').setAttribute('aria-busy',String(pend));
  $('#stamp').textContent=live?syncTxt(NOWM):pend?'동기화 중':'동기화 실패';
@@ -100,33 +100,52 @@ const renderHero=()=>{const live=STATE==='live',pend=STATE==='pending';
 /* 지도 */
 const svg=$('#svg'),dyn=$('#dyn');
 const halo='paint-order:stroke;stroke:#FAFAFA;stroke-width:4px;stroke-linejoin:round';
-const VEN={'KSPO DOME':[684,262,34],'올림픽홀':[851,506,25],'핸드볼경기장':[684,372,27]};
-const GATES=[['북1문',322,44],['북2문',546,42,3],['동1문',975,312],['동2문',975,394,4],['남1문',931,668],['남2문',644,668,5],['남3문',437,668],['남4문',305,668],['서1문',40,527],['서2문',40,435,6]];
-const LOTS=[[556,132],[800,452],[672,520],[140,362]];
-const STN=[['올림픽공원역','5호선, 9호선',922,318,'l'],['한성백제역','9호선',230,620,'r'],['몽촌토성역','8호선',92,700,'r']];
-const PL=[['KSPO DOME',684,262,34,0,'b'],['몽촌토성',330,330,0,0,'c'],['88호수',500,178,54,1,'b'],['88마당',590,340,0,1,'c'],['평화의광장',200,505,0,1,'c'],['올림픽홀',851,506,25,1,'b'],['티켓링크 라이브 아레나',684,372,27,1,'b'],['한성백제박물관',553,646,14,1,'u'],['소마미술관',346,646,12,2,'u'],['올림픽수영장',598,196,28,2,'b'],['우리금융아트홀',650,453,22,2,'b'],['벨로드롬',575,502,28,2,'b'],['테니스경기장',886,418,22,2,'b'],['한국스포츠과학원',783,553,13,2,'b'],['올림픽회관',104,457,25,2,'b'],['파크텔',80,352,17,2,'b'],['나홀로나무',238,236,14,2,'b'],['장미광장',905,622,0,2,'c'],['몽촌해자',138,590,0,2,'c']];
+/* 좌표 = OpenStreetMap 경도·위도를 지도 단위로 옮긴 값 (1단위 ≈ 1.8m). 출입문: 북2·동2·남2·남4·서1 = 이름 확인, 나머지 = 길과 공원 경계가 만나는 곳 */
+const VEN={'KSPO DOME':[760,402,37],'올림픽홀':[766,677,22],'핸드볼경기장':[708,517,29]};
+const GATES=[['북1문',256,95],['북2문',780,129,3],['동1문',947,522],['동2문',902,607,4],['남1문',778,822],['남2문',534,706,5],['남3문',323,612],['서1문',129,360],['서2문',196,221,6]];
+const LOTS=[[771,331],[829,590],[602,666],[198,264],[668,648],[739,542]];
+const STN=[['올림픽공원역','5·9호선',925,590],['한성백제역','9호선 · 남4문 앞',213,560],['몽촌토성역','8호선',41,506]];
+const PL=[['KSPO DOME',760,402,37,0],['몽촌토성',420,340,0,0,'c'],['올림픽홀',766,677,22,1],['티켓링크 라이브 아레나',708,517,29,1],['우리금융아트홀',645,552,24,1],['한성백제박물관',432,633,22,1],['88호수',660,245,0,1,'c'],['몽촌해자',292,364,0,1,'c'],['88잔디마당',640,418,0,1,'c'],['세계평화의문',173,458,12,1],['올림픽수영장',712,300,30,2],['벨로드롬',559,544,28,2],['테니스경기장',805,634,22,2],['소마미술관',303,546,14,2],['올림픽기념관',181,335,16,2],['파크텔',229,222,14,2],['몽촌역사관',603,121,12,2],['나홀로나무',415,188,4,2],['장미광장',766,788,0,2,'c'],['성내천',300,112,0,2,'c']];
+const ROADS=[['올림픽로',150,228],['위례성대로',356,676],['양재대로',908,700],['강동대로',880,160]];
 let K=.57;
-const tierOK=t=>t===0||(t===1&&K>=.5)||(t===2&&K>=.95);
-const gIc=(n,x,y,u)=>`<rect x="${(x-11*u).toFixed(1)}" y="${(y-11*u).toFixed(1)}" width="${(22*u).toFixed(1)}" height="${(22*u).toFixed(1)}" fill="#FFFFFF"/><g transform="translate(${(x-8*u).toFixed(1)} ${(y-8*u).toFixed(1)}) scale(${(.6667*u).toFixed(4)})" fill="none" stroke="#0A0A0A" stroke-width="2.625" stroke-linecap="round" stroke-linejoin="round">${ICONS[n]}</g>`;
+const gIc=(n,x,y,u)=>`<rect x="${(x-11*u).toFixed(1)}" y="${(y-11*u).toFixed(1)}" width="${(22*u).toFixed(1)}" height="${(22*u).toFixed(1)}" rx="${(3*u).toFixed(1)}" fill="#FFFFFF" stroke="#D4D4D8" stroke-width="${(.8*u).toFixed(2)}"/><g transform="translate(${(x-8*u).toFixed(1)} ${(y-8*u).toFixed(1)}) scale(${(.6667*u).toFixed(4)})" fill="none" stroke="#0A0A0A" stroke-width="2.625" stroke-linecap="round" stroke-linejoin="round">${ICONS[n]}</g>`;
 const venueState=(p,t)=>{if(!p)return'';if(t<p.inA-60)return'';if(t<p.inA)return'관객 도착 시작';if(t<=p.inB)return'입차 몰림';if(t<p.st)return'입장';if(t<p.end)return'공연 중';if(t<p.outA)return'퇴장 시작';if(t<p.outB)return Math.abs(t-p.outPk)<=20?'출차 최대':'출차 몰림';return''};
-const drawMap=()=>{const u=1/K,fs=(13*u).toFixed(2),hs=`paint-order:stroke;stroke:#FFFFFF;stroke-width:${(4*u).toFixed(2)}px;stroke-linejoin:round`;
- const tx=(x,y,str,o={})=>`<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" font-size="${fs}" text-anchor="${o.a||'middle'}"${o.w?' font-weight="600"':''} fill="${o.c||'#0A0A0A'}" style="${hs}">${str}</text>`;
- const sh=showAt(T),p=sh?pred(sh):null,row=refAt(TREF,T);let g='';
- for(const[n,x,y,dy,t,pos0]of PL){if(!tierOK(t)||(sh&&n===sh.venue))continue;const pos=pos0==='b'&&t===0&&K<.5?'u':pos0;g+=tx(x,pos==='c'?y+4.5*u:pos==='u'?y-dy-6*u:y+dy+15*u,n,{c:t===0?'#0A0A0A':'#6B6B74'})}
- if(sh){const[vx,vy,vr]=VEN[sh.venue]||VEN['KSPO DOME'];const live=T>=p.inA-60&&T<p.outB;
-  g+=`<circle cx="${vx}" cy="${vy}" r="${vr}" fill="${live?'#0A0A0A':'#FFFFFF'}" stroke="#0A0A0A" stroke-width="${(1.5*u).toFixed(2)}"/>`;
-  if(K<.5){g+=tx(vx,sh.venue==='올림픽홀'?vy+vr+15*u:vy-vr-7*u,esc(sh.venue),{w:1})}else{const d=K>=.9?1:-1,ex=vx+d*vr*.7,ey=vy-vr*.7,bx=vx+d*(vr+22*u),by=vy-vr-18*u,st=venueState(p,T),a=d>0?'start':'end';
-  g+=`<path d="M${ex.toFixed(1)},${ey.toFixed(1)} L${(bx-d*8*u).toFixed(1)},${by.toFixed(1)} H${bx.toFixed(1)}" fill="none" stroke="#0A0A0A" stroke-width="${u.toFixed(2)}"/>`+tx(bx+d*6*u,by-4*u,`${esc(sh.venue)}, ${sh.t} ${esc(sh.short)}`,{a,w:1})+(st?tx(bx+d*6*u,by+15*u,st,{a}):'')}}
- for(const[n,x,y,k]of GATES){const L=x<60,R=x>960,B=y>600,Tp=y<60;let lx=x,ly=y,a='middle';
-  if(Tp)ly=y+18*u;else if(B)ly=y-9*u;else if(L){lx=x+10*u;ly=y+4.5*u;a='start'}else if(R){lx=x-10*u;a='end';ly=k?y+4.5*u:y-9*u}
-  g+=`<circle cx="${x}" cy="${y}" r="${(3*u).toFixed(1)}" fill="#0A0A0A"/>`;
-  if(k){const v=row[k],r=Math.min(1,v/(GQ[n]?GQ[n][2]:124)),c=gateC(n,v);
-   g+=`<circle class="gp" style="animation-delay:-${((Date.now()%1600)/1000).toFixed(2)}s" cx="${x}" cy="${y}" r="${((7+r*17)*u).toFixed(1)}" fill="${c}" fill-opacity=".3"/>`+tx(lx,ly,`${n} ${Math.round(v)}대`,{a,w:1})}
-  else if(K>=.5)g+=tx(lx,ly,n,{a,c:'#6B6B74'})}
- for(const[x,y]of LOTS)g+=gIc('square-parking',x,y,u);
- for(const[n,l,x,y,side]of STN){const a=side==='l'?'end':'start',lx=side==='l'?x-14*u:x+14*u;g+=gIc('train-front',x,y,u)+tx(lx,y+4.5*u,n,{a,w:1});if(K>=.95)g+=tx(lx,y+20*u,l,{a,c:'#6B6B74'})}
- dyn.innerHTML=g};
-const BB={x:24,y:24,w:990,h:700};let vb={x:0,y:0,w:1000,h:720};
+/* 글자 폭 어림 (지도 단위): 한글 1em, 숫자 .6em, 나머지 .62em */
+const twd=(s,f)=>{let w=0;for(const ch of String(s))w+=/[가-힣]/.test(ch)?f*.98:/[0-9]/.test(ch)?f*.6:ch===' '?f*.3:f*.62;return w};
+/* 라벨끼리, 라벨과 아이콘이 겹치지 않게: 후보 자리 중 빈 곳에 놓고, 없으면 꼭 필요한 라벨만 가장 덜 겹치는 곳에 */
+const drawMap=()=>{const u=1/K,f=13*u,fs=f.toFixed(2),hs=`paint-order:stroke;stroke:#FFFFFF;stroke-width:${(4*u).toFixed(2)}px;stroke-linejoin:round`;
+ const occ=[],box=(x0,y0,x1,y1)=>occ.push([x0,y0,x1,y1]),isx=(r,q)=>Math.max(0,Math.min(r[2],q[2])-Math.max(r[0],q[0]))*Math.max(0,Math.min(r[3],q[3])-Math.max(r[1],q[1]));
+ /* 화면 밖으로 나가는 부분은 겹침보다 무겁게 셈 */
+ const VW=[vb.x+4*u,vb.y+4*u,vb.x+vb.w-4*u,vb.y+vb.h-4*u],ov=r=>occ.reduce((a,q)=>a+isx(r,q),0)+10*((r[2]-r[0])*(r[3]-r[1])-isx(r,VW));
+ {const c=$('.mapctl'),sr=svg.getBoundingClientRect();if(c&&sr.width){const q=c.getBoundingClientRect(),X=px=>vb.x+(px-sr.left)*u,Y=py=>vb.y+(py-sr.top)*u;box(X(q.left)-4*u,Y(q.top)-4*u,X(q.right)+4*u,Y(q.bottom)+4*u)}}
+ const tx=(x,y,str,o={})=>`<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" font-size="${o.f?o.f.toFixed(2):fs}" text-anchor="${o.a||'middle'}"${o.w?' font-weight="600"':''} fill="${o.c||'#0A0A0A'}" style="${hs}">${str}</text>`;
+ const rectOf=(x,y,w,a,ff=f)=>{const x0=a==='start'?x:a==='end'?x-w:x-w/2;return[x0-2*u,y-ff*.82,x0+w+2*u,y+ff*.28]};
+ /* lines: [[문자열,{w,c}],...] 두 줄까지. cands: [x,y,anchor] */
+ const place=(lines,cands,must)=>{const ww=Math.max(...lines.map(([s])=>twd(s,f))),hh=(lines.length-1)*f*1.2;let best=null,bo=Infinity;
+  for(const[x,y,a]of cands){const r=rectOf(x,y,ww,a);r[3]+=hh;const o=ov(r);if(o===0){best=[x,y,a,r];bo=0;break}if(o<bo){bo=o;best=[x,y,a,r]}}
+  if(!best||(bo>0&&!must))return'';const[x,y,a,r]=best;occ.push(r);return lines.map(([s,o],i)=>tx(x,y+i*f*1.2,s,{a,...o})).join('')};
+ const around=(x,y,d)=>[[x+d+5*u,y+f*.35,'start'],[x-d-5*u,y+f*.35,'end'],[x,y-d-5*u,'middle'],[x,y+d+f+2*u,'middle'],[x+d*.7+4*u,y-d*.7-3*u,'start'],[x-d*.7-4*u,y-d*.7-3*u,'end'],[x+d*.7+4*u,y+d*.7+f,'start'],[x-d*.7-4*u,y+d*.7+f,'end']];
+ const sh=showAt(T),p=sh?pred(sh):null,row=refAt(TREF,T);let g='',lab='';
+ /* 1. 그림 먼저: 공연장 원, 출입문 점·출차 원, 주차·역 아이콘. 자리도 미리 차지 */
+ let V=null;if(sh){const[vx,vy,vr]=VEN[sh.venue]||VEN['KSPO DOME'];const live=T>=p.inA-60&&T<p.outB;V=[vx,vy,vr];
+  g+=`<circle cx="${vx}" cy="${vy}" r="${vr}" fill="${live?'#0A0A0A':'#FFFFFF'}" stroke="#0A0A0A" stroke-width="${(1.5*u).toFixed(2)}"/>`;box(vx-vr,vy-vr,vx+vr,vy+vr)}
+ const GB=[];for(const[n,x,y,k]of GATES){g+=`<circle cx="${x}" cy="${y}" r="${(3*u).toFixed(1)}" fill="#0A0A0A"/>`;box(x-4*u,y-4*u,x+4*u,y+4*u);
+  if(k){const v=row[k],r=Math.min(1,v/(GQ[n]?GQ[n][2]:124)),c=gateC(n,v),rr=(7+r*17)*u;GB.push([n,x,y,rr,v]);
+   g+=`<circle class="gp" style="animation-delay:-${((Date.now()%1600)/1000).toFixed(2)}s" cx="${x}" cy="${y}" r="${rr.toFixed(1)}" fill="${c}" fill-opacity=".3"/>`}}
+ for(const[x,y]of LOTS){g+=gIc('square-parking',x,y,u*.85);box(x-10*u,y-10*u,x+10*u,y+10*u)}
+ for(const[n,l,x,y]of STN){g+=gIc('train-front',x,y,u);box(x-12*u,y-12*u,x+12*u,y+12*u)}
+ /* 2. 꼭 보여야 하는 라벨: 지금 공연, 출차 수가 있는 문, 역 */
+ if(V){const[vx,vy,vr]=V,st=venueState(p,T),L=[[`${esc(sh.venue)} · ${sh.t} ${esc(sh.short)}`,{w:1}]];if(st)L.push([st,{}]);lab+=place(L,around(vx,vy,vr),true)}
+ for(const[n,x,y,rr,v]of GB)lab+=place([[`${n} ${Math.round(v)}대`,{w:1}]],around(x,y,Math.max(rr*.55,6*u)),true);
+ for(const[n,l,x,y]of STN)lab+=place(K>=.6?[[n,{w:1}],[l,{c:'#6B6B74'}]]:[[n,{w:1}]],around(x,y,12*u),true);
+ /* 3. 시설: 확대할수록 더. 자리가 없으면 생략 */
+ const tierOK=t=>t===0||(t===1&&K>=.3)||(t===2&&K>=.55);
+ for(const[n,x,y,d,t,pos]of PL){if(!tierOK(t)||(sh&&n===sh.venue)||(sh&&sh.venue==='핸드볼경기장'&&n==='티켓링크 라이브 아레나'))continue;const c=t===0?'#0A0A0A':'#52525B';
+  lab+=place([[n,{c,w:t===0}]],pos==='c'?[[x,y+f*.35,'middle'],[x,y-f*.6,'middle'],[x,y+f*1.3,'middle']]:around(x,y,d),false)}
+ if(K>=.33)for(const[n,x,y,k]of GATES)if(!k)lab+=place([[n,{c:'#6B6B74'}]],around(x,y,4*u),false);
+ if(K>=.45)for(const[n,x,y]of ROADS)lab+=place([[n,{c:'#A1A1AA'}]],[[x,y,'middle']],false);
+ dyn.innerHTML=g+lab};
+const BB={x:30,y:8,w:950,h:830};let vb={x:0,y:0,w:1000,h:860};
 const setVB=()=>{svg.setAttribute('viewBox',`${vb.x.toFixed(1)} ${vb.y.toFixed(1)} ${vb.w.toFixed(1)} ${vb.h.toFixed(1)}`);const r=svg.getBoundingClientRect(),k=r.width?Math.min(r.width/vb.w,r.height/vb.h):0;if(k&&Math.abs(k-K)>.002){K=k;drawMap()}};
 const fit=()=>{const m=$('#map'),W=m.clientWidth,H=m.clientHeight;if(!W||!H)return;const pad=12,top=W<560?52:0,fw=W-pad*2-(W<560?0:52),fh=H-pad*2-top;const s=Math.min(fw/BB.w,fh/BB.h);vb.w=W/s;vb.h=H/s;vb.x=BB.x-pad/s-(fw/s-BB.w)/2;vb.y=BB.y-(pad+top)/s-(fh/s-BB.h)/2;setVB()};
 const zoom=f=>{const m=$('#map'),ar=(m.clientHeight/m.clientWidth)||.72,cx=vb.x+vb.w/2,cy=vb.y+vb.h/2;vb.w=Math.max(260,Math.min(2600,vb.w*f));vb.h=vb.w*ar;vb.x=cx-vb.w/2;vb.y=cy-vb.h/2;setVB()};
@@ -150,9 +169,9 @@ const sayT=()=>{const pp=people(T),sh=showAt(T),st=venueState(sh?pred(sh):null,T
 /* 시간 막대 */
 const tr=$('#tr'),X0=300,X1=1560,pct=m=>(m-X0)/(X1-X0)*100;
 const segs=list=>{const out=[];for(const s of list){const l=out[out.length-1];if(l&&l[2]===s[2])l[1]=s[1];else out.push([...s])}return out.map(([a,b,bg])=>`<span style="width:${(b-a)/(X1-X0)*100}%;background:${bg}"></span>`).join('')};
+const PN=['여유','다소 혼잡','혼잡','만차'];
 const SW=(bg,t)=>`<span><i style="background:${bg}"></i>${t}</span>`;
-const MAPLEG='<span><i style="background:#A1A1AA"></i>원 클수록 출차 많음 (대/10분, 예상)</span><span><i style="background:#FFD64D"></i>문별 상위 10%</span><span><i style="background:#E76767"></i>상위 1%</span>';
-const SHORT=n=>n.split(/\s*(?:&|〈|\[|\(|LIVE|스페셜|단독|연말|팬콘서트|콘서트|\d+주년)/)[0].trim()||n;
+const MAPLEG='<span><i style="background:#A1A1AA"></i>원 클수록 출차 많음 (대/10분, 예상)</span><span><i style="background:#FFD64D"></i>문별 상위 10%</span><span><i style="background:#E76767"></i>상위 1%</span><span>지도 © OpenStreetMap 기여자</span>';
 const renderView=reset=>{
  const sw=$('#vsw');if(!todayShows.length&&NEXTD){sw.hidden=false;sw.innerHTML=[[TODAY,'오늘'],[NEXTD,`${mdLabel(NEXTD)} 공연 날 미리 보기`]].map(([d,t])=>`<button type="button" data-v="${d}" aria-pressed="${VIEW===d}">${t}</button>`).join('')}else sw.hidden=true;
  const st=$('#strip'),X=VIEW===TODAY?viewShows.map(exitOf):[];
@@ -162,15 +181,21 @@ const renderView=reset=>{
   const LVK=['여유','보통','약간 혼잡','혼잡'];
   st.className='strip cells';st.innerHTML=cells.map((v,k)=>`<span${v<0?' class="na"':` style="background:${LVG[LVK[v]]}"`} title="${hm(X0+k*60)}–${hmX(X0+k*60+60)} ${v<0?'자료 없음':LVK[v]}"></span>`).join('');
   const used=new Set(cells);
-  $('#sleg').innerHTML=SW(LVG['여유'],'여유')+SW(LVG['보통'],'보통')+SW(LVG['약간 혼잡'],'약간 혼잡')+SW(LVG['혼잡'],'혼잡')+(used.has(-1)?'<span><i class="na"></i>자료 없음</span>':'')+(X.length?`<span><i class="xk"></i>출차 ${X.map(x=>rng(x.a,x.b)).join(' · ')}</span>`:'')+'<span>지금 이후 = 서울시 예보</span>';
+  /* 주차 칸: 2,200대 대비 비율. 지난 시간 = 실측(5분 기록 중 최고), 이후 = 예상(지금 대수 + 2025 같은 유형 공연 날 입차 − 출차 누적)
+     여유 < 50% · 다소 혼잡 ≥ 50% · 혼잡 ≥ 70% · 만차 ≥ 90% (주차장 칸과 같은 기준) */
+  const nw=nowC(),PS=v=>{const r=v/2200;return r>=.9?3:r>=.7?2:r>=.5?1:0},act=PT.filter(r=>r[0]<=nw).concat(PARK?[[nw,PARK.sum]]:[]),pr={};
+  if(PARK){let occ=PARK.sum;for(let t=Math.ceil(nw/10)*10;t<X1;t+=10){const r=refAt(TREF,t);occ+=r[2]-(r[3]+r[4]+r[5]+r[6]+r[7]);pr[t+10]=occ}}
+  const PC=[];for(let h=X0;h<X1;h+=60){const a=act.filter(r=>r[0]>=h&&r[0]<h+60);if(a.length){PC.push([PS(Math.max(...a.map(r=>r[1]))),0]);continue}const q=Object.keys(pr).map(Number).filter(t=>t>h&&t<=h+60);PC.push(q.length?[PS(Math.max(...q.map(t=>pr[t]))),1]:[-1,0])}
+  $('#strip2').innerHTML=PC.map(([v,e],k)=>`<span class="${v<0?'na':e?'pd p'+v:'p'+v}" title="${hm(X0+k*60)}–${hmX(X0+k*60+60)} ${v<0?'자료 없음':PN[v]+(e?' (예상)':'')}"></span>`).join('');
+  $('#sleg').innerHTML=`<span class="lh">인원</span>`+SW(LVG['여유'],'여유')+SW(LVG['보통'],'보통')+SW(LVG['약간 혼잡'],'약간 혼잡')+SW(LVG['혼잡'],'혼잡')+(used.has(-1)?'<span><i class="na"></i>자료 없음</span>':'')+'<span>서울시, 지금 이후 예보</span>';
+  $('#sleg2').innerHTML=`<span class="lh">주차</span>`+PN.map((n,k)=>`<span><i class="p${k}"></i>${n}${k?' ≥'+[0,50,70,90][k]+'%':''}</span>`).join('')+'<span><i class="pd"></i>예상</span><span>2,200대 대비</span>';
   $('#mapleg').innerHTML=MAPLEG}
  else{const L=[],ps=viewShows.map(pred);for(let t=X0;t<X1;t+=10){const m=t+5;let bg='#FFFFFF';if(ps.some(p=>m>=p.st&&m<p.end))bg=C_SHOW;else if(ps.some(p=>m>=p.inA&&m<p.inB))bg=C_IN;else if(ps.some(p=>m>=p.outA&&m<p.outB))bg=C_OUT;L.push([t,t+10,bg])}
-  st.className='strip';st.innerHTML=segs(L);
+  st.className='strip';st.innerHTML=segs(L);$('#strip2').innerHTML='';$('#sleg2').innerHTML='';
   $('#sleg').innerHTML=SW(C_IN,'입차 몰림')+SW(C_SHOW,'공연')+SW(C_OUT,'출차 몰림')+'<span>예상 · 2025 공연 날 기록</span>';
   $('#mapleg').innerHTML=MAPLEG}
- $('#xb').innerHTML=X.map(x=>`<span style="left:${pct(Math.max(X0,x.a))}%;width:${Math.max(.5,pct(Math.min(X1,x.b))-pct(Math.max(X0,x.a)))}%"></span>`).join('');
  /* 공연 괄호: 이름 + 시작–끝. 끝 미정이면 오른쪽을 열어 둬요 */
- $('#shows').innerHTML=viewShows.map(s=>{const p=pred(s),b=Math.min(X1,p.end);return`<div class="sb${s.run?'':' open'}" style="left:${pct(p.st)}%;width:${pct(b)-pct(p.st)}%"><b>${esc(SHORT(s.name))} ${s.t}${s.run?'–'+hmX(p.end):'~'}</b></div>`}).join('');
+ $('#shows').innerHTML=viewShows.map(s=>{const p=pred(s),b=Math.min(X1,p.end);return`<div class="sb${s.run?'':' open'}" style="left:${pct(p.st)}%;width:${pct(b)-pct(p.st)}%"><b>${esc(s.short||s.name)} ${s.t}${s.run?'–'+hmX(p.end):'~'}</b></div>`}).join('');
  placeShows();
  drawNow();
  $('#ticks').innerHTML=[360,540,720,900,1080,1260,1440].map(m=>`<span style="left:${pct(m)}%">${m===1440?'24시':m/60+'시'}</span>`).join('');
@@ -450,7 +475,7 @@ $('#retry').onclick=()=>{$('#retry').dataset.busy='1';load()};
 setInterval(()=>{if(VIEW===TODAY)drawNow();renderTrain()},60000);
 setInterval(async()=>{if(document.visibilityState!=='visible'||STATE==='pending')return;try{const c=await getJSON('/api/now',7000);if(!c||!c.now||c.now.lo==null||(STATE==='live'&&c.now.time===N.time))return;const p=await getJSON('/api/parking',7000).catch(()=>null);if(p&&p.ok)PARK=p;STATE='live';CITY=c;derive();renderHero();renderView(false);renderPass(false)}catch(e){}},300000);
 addEventListener('message',e=>{if(e.origin===location.origin&&e.data&&e.data.olltimeH>200){const f=document.getElementById('secf');if(f)f.style.height=e.data.olltimeH+'px'}});
-getJSON('/api/trend',7000).then(j=>{const v=(j&&j.ok?j.list:[]).filter(r=>r[1]!=null&&r[0]>=120&&r[0]<=300).map(r=>r[1]).sort((a,b)=>a-b);if(v.length>=6){FLOORP=v[Math.floor(v.length/2)];FLOORD=true;if(STATE==='live')renderHero()}}).catch(()=>{});
+getJSON('/api/trend',7000).then(j=>{PT=(j&&j.ok?j.list:[]).filter(r=>r[1]!=null).map(r=>[r[0],r[1]]);if(STATE==='live'&&PT.length)renderView(false);const v=(j&&j.ok?j.list:[]).filter(r=>r[1]!=null&&r[0]>=120&&r[0]<=300).map(r=>r[1]).sort((a,b)=>a-b);if(v.length>=6){FLOORP=v[Math.floor(v.length/2)];FLOORD=true;if(STATE==='live')renderHero()}}).catch(()=>{});
 $('#heroH').setAttribute('tabindex','-1');
 await load();
 })();

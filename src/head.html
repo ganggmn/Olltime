@@ -438,6 +438,54 @@ html:not(.only-story) #story{display:none}
 .tlab span{position:absolute;top:2px;font-size:13px;line-height:1.4;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
 .ticks{height:20px}
 .sleg i.na{background:transparent;outline:1px solid var(--line)}
+/* 3판 4차: 인원·출차 두 줄 + 만차 실선 */
+.tnowrow{justify-content:flex-start;height:auto;gap:8px;margin-top:16px}
+.tnowrow .btn{height:44px;padding:0 18px;font-size:15px}
+.tnowrow .btn.pl{padding:0 20px 0 16px}
+.tnowrow .btn.pl .ic{width:18px;height:18px}
+.scrub{display:grid;grid-template-columns:34px minmax(0,1fr);column-gap:8px;margin-top:12px}
+.rl{position:relative;height:50px;margin-top:2px}
+.rl span{position:absolute;left:0;font-size:13px;line-height:14px;color:var(--ink-2)}
+.rl span:nth-child(1){top:0}.rl span:nth-child(2){top:18px}.rl span:nth-child(3){top:35px}
+.track{height:50px}
+.strip.cells{top:0;height:14px}
+.strip.s2{top:18px}
+.pline{position:absolute;top:41px;height:2px;background:var(--ink)}
+.pline b{position:absolute;left:calc(100% + 6px);top:-8px;font-size:13px;line-height:18px;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
+.nowmk{top:-4px;height:54px}
+#tr{top:-4px;height:54px}
+#tr::-webkit-slider-runnable-track{height:54px}
+#tr::-webkit-slider-thumb{height:54px}
+#tr::-moz-range-thumb{height:54px}
+.legs{grid-column:1/-1;margin-top:6px}
+.legs .sleg{margin-top:4px}
+.sleg .lh{color:var(--ink);font-weight:600;min-width:34px}
+.sleg i.pk{height:2px;background:var(--ink);outline:0;width:16px}
+.shows .sb.open{border-right:0;border-top-style:solid}
+.shows .sb i{position:absolute;right:-1px;top:-1px;width:40%;height:8px;background:var(--surface);border-top:1px dashed var(--ink);border-right:1px dashed var(--ink);box-sizing:border-box}
+/* 3판 5차: 인원·주차 두 줄, 예상 = 점선, 얇은 시각 막대, 텍스트 버튼 */
+.tnowrow{display:flex;justify-content:space-between;align-items:center;height:24px;margin:16px 0 19px}
+.tnowrow .tnow{font-size:14px;line-height:24px}
+.tnow.pl{display:inline-flex;align-items:center;gap:6px;padding:0;color:var(--ink);font-weight:600;text-decoration:none}
+.tnow.pl .ic{width:16px;height:16px}
+#tnow{margin-left:auto}
+.scrub{margin-top:0}
+.rl{height:38px}
+.rl span:nth-child(2){top:24px}
+.track{height:38px}
+.strip.s2{top:24px}
+.strip.cells span.pd{background:transparent;border:1.5px dashed #A1A1AA;box-sizing:border-box}
+.strip.cells span.p0{background:#EEEEF0}.strip.cells span.p1{background:#71717A}.strip.cells span.p2{background:#FFD64D}.strip.cells span.p3{background:#E76767}
+.strip.cells span.pd.p0{background:transparent;border-color:#A1A1AA}.strip.cells span.pd.p1{background:rgba(113,113,122,.16);border-color:#71717A}.strip.cells span.pd.p2{background:rgba(255,214,77,.32);border-color:#D9A900}.strip.cells span.pd.p3{background:rgba(231,103,103,.2);border-color:#E76767}
+.sleg i.p0{background:#EEEEF0}.sleg i.p1{background:#71717A;outline:0}.sleg i.p2{background:#FFD64D;outline:0}.sleg i.p3{background:#E76767;outline:0}
+.sleg i.pd{background:transparent;outline:0;border:1.5px dashed #71717A;box-sizing:border-box;height:10px}
+.nowmk{top:-3px;height:44px;width:1px;margin-left:0}
+#tr{top:-3px;height:44px}
+#tr::-webkit-slider-runnable-track{height:44px}
+#tr::-webkit-slider-thumb{height:44px;background:linear-gradient(90deg,transparent 6px,var(--ink) 6px,var(--ink) 8px,transparent 8px)}
+#tr::-moz-range-thumb{height:44px;background:linear-gradient(90deg,transparent 6px,var(--ink) 6px,var(--ink) 8px,transparent 8px)}
+.shows .sb.open{border-right:0;border-style:dashed}
+@media(max-width:560px){.mapbox{height:400px}}
 </style>
 <script>if(new URLSearchParams(location.search).get('only')==='story')document.documentElement.classList.add('only-story')</script>
 </head>
