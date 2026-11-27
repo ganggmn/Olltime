@@ -2,9 +2,10 @@
 <meta name="description" content="올림픽공원 공연 날 운영 시간표, 오늘 추이, 구간 혼잡도, 예측 정확도와 검증 기록">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <style>
+:root{color-scheme:light;--bg:#FAFAFA;--surface:#FFFFFF;--surface-2:#F4F4F5;--ink:#0A0A0A;--ink-2:#6B6B74;--ink-3:#A1A1AA;--line:#D4D4D8;--line-weak:#E5E5E5;--ok:#15803D;--bad:#B91C1C;--warn:#A16207;--pad:36px}
 @font-face{font-family:Pretendard;src:url(/fonts/Pretendard-Regular.subset.woff2) format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:Pretendard;src:url(/fonts/Pretendard-SemiBold.subset.woff2) format("woff2");font-weight:600;font-display:swap}
-:root{--bg:#FAFAFA;--surface:#FFFFFF;--surface-2:#F4F4F5;--ink:#0A0A0A;--ink-2:#6B6B74;--line:#D4D4D8;--line-weak:#E5E5E5;--pad:36px}
+
 *{box-sizing:border-box}body{margin:0;font-family:Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;color:var(--ink);background:var(--bg);font-size:16px;line-height:1.75;word-break:keep-all;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-underline-offset:3px}h1,h2,p,ul{margin:0}ul{padding:0;list-style:none}
 :focus-visible{outline:2px solid var(--ink);outline-offset:2px}[hidden]{display:none!important}
@@ -24,12 +25,13 @@ h1{font-size:28px;line-height:1.35;font-weight:600;letter-spacing:-.02em}
 .ptabs button:hover{background:var(--surface-2);color:var(--ink)}
 .ptabs button[aria-selected=true]{background:var(--ink);color:var(--bg);font-weight:600}
 .pv{padding:24px 28px 28px}
+@media(max-width:760px){.ptabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.ptabs::-webkit-scrollbar{display:none}.ptabs button{flex:none}}
 .pframe{display:block;width:100%;border:0;min-height:560px}
 .data h2{font-size:16px;font-weight:600;margin:24px 0 8px}.data h2:first-child{margin-top:0}
 .data li{padding:6px 0;border-bottom:1px solid var(--line-weak)}.data p{max-width:760px}
 .ft{border-top:1px solid var(--line);padding:32px 0 64px;font-size:14px;color:var(--ink-2)}
 .ft .wrap{display:flex;flex-wrap:wrap;gap:8px 24px}.ft a{display:inline-block;padding:10px 0}
-@media(max-width:760px){:root{--pad:20px}.hd .wrap{height:56px;gap:20px}.tabs{gap:4px}.tabs a{font-size:15px}h1{font-size:22px}.pv{padding:16px 12px 20px}.hubgo{padding:10px}}
+@media(max-width:760px){:root{--pad:20px}.hd .wrap{height:56px;gap:20px}.tabs{gap:4px}.tabs a{font-size:15px}h1{font-size:22px}.pv{padding:16px 16px 20px}.hubgo{padding:10px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style></head>
 <body>
@@ -72,7 +74,7 @@ h1{font-size:28px;line-height:1.35;font-weight:600;letter-spacing:-.02em}
   function pick(name,push){
     if(!document.getElementById('t-'+name))name='ops';
     tabs.forEach(function(t){var on=t.id==='t-'+name,pv=document.getElementById(t.getAttribute('aria-controls'));
-      t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;pv.hidden=!on;
+      t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;pv.hidden=!on;if(on&&t.parentNode.scrollWidth>t.parentNode.clientWidth)t.parentNode.scrollLeft=Math.max(0,t.offsetLeft-t.parentNode.clientWidth/2+t.offsetWidth/2);
       if(!on)return;var f=pv.querySelector('iframe[data-src]');if(!f)return;
       if(!f.getAttribute('src')){f.addEventListener('load',function(){fit(f);try{new ResizeObserver(function(){fit(f)}).observe(f.contentDocument.body)}catch(e){}});f.setAttribute('src',f.dataset.src)}else fit(f)});
     if(push&&location.hash!=='#'+name)history.replaceState(null,'','#'+name)}

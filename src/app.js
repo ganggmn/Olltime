@@ -6,6 +6,7 @@ ROUTE.ln=ROUTE.ln.map(l=>l.replace(/·/g,''));ROUTE.st.forEach(s=>{s[0]=s[0].rep
 
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RM=matchMedia('(prefers-reduced-motion: reduce)');
+const ONLY=document.documentElement.classList.contains('only-story');
 const smooth=()=>RM.matches?'auto':'smooth';
 const W7='일월화수목금토';
 const dayLabel=d=>{const x=new Date(d+'T12:00:00+09:00');return`${x.getUTCMonth()+1}월 ${x.getUTCDate()}일 ${W7[x.getUTCDay()]}요일`};
@@ -39,7 +40,7 @@ const mergeShows=list=>{const yr=kst().date.slice(0,4),lab=d=>(d.slice(0,4)!==yr
   else SHOWS.push({d:g.d,day:lab(g.d),t:g.t,name:g.name,short:g.short||g.name,venue:g.venue,run:g.run||null});n++}
  SHOWS.sort((a,b)=>a.d<b.d?-1:a.d>b.d?1:a.t<b.t?-1:a.t>b.t?1:0);return n};
 const VENOK=new Set(['KSPO DOME','올림픽홀','핸드볼경기장']);
-try{const j=await getJSON('/api/shows',1500);if(j&&j.ok&&Array.isArray(j.list)){mergeShows(j.list);SHOWSRC=j.read_at||''}}catch(e){}
+if(!ONLY)try{const j=await getJSON('/api/shows',1500);if(j&&j.ok&&Array.isArray(j.list)){mergeShows(j.list);SHOWSRC=j.read_at||''}}catch(e){}
 const EXITP50=45; /* 2025년 큰 공연 28일: 공연 뒤 나가는 차의 절반이 빠진 때는 시작 195분 뒤(러닝타임 150분이면 끝나고 45분 뒤), 90%는 끝나고 110분 뒤 */
 
 /* 상태: 서울시 데이터를 기다리는 중(pending), 받음(live), 못 받음(fail) */
@@ -88,7 +89,7 @@ const renderHero=()=>{const live=STATE==='live',pend=STATE==='pending';
  const ph='<span class="ph"></span>',PCAP=2200,plv=v=>{const r=v/PCAP;return r>=.9?['만차','#B91C1C']:r>=.7?['혼잡','#8F6300']:r>=.5?['다소 혼잡','']:['여유','']},pcap=PARK?`<details class="pmore"><summary>자세히</summary><span class="cap">한국체육산업개발이 집계한 값이에요(동2·남2·북2문으로 들어와 아직 출차 기록이 없는 차, 2,200대 기준). 이 중 약 ${num(Math.round(FLOORP/10)*10)}대는 ${FLOORD?'오늘 ':''}새벽에도 줄지 않았어요. 장기 주차 차량이거나 출차 기록이 누락된 차량이에요.</span></details>`:'<span class="cap">동2, 남2, 북2문 2,200대 기준</span>';
  const park=PARK?(([l,c])=>`<span style="font-weight:600">장기 주차를 빼면 약 ${num(Math.max(0,Math.round((PARK.sum-FLOORP)/10)*10))}대</span><span class="cap" style="display:block">한국체육산업개발 집계로는 <span style="font-weight:600${c?';color:'+c:''}">${l}</span> 단계, ${num(PARK.sum)}대 (${Math.round(PARK.sum/PCAP*100)}%)</span>${pcap}`)(plv(PARK.sum)):pend?ph+pcap:'지금은 알 수 없어요<span class="cap">주차 현황이 들어오지 않아요</span>';
  const wx=()=>`${N.temp}도`+(N.ptype&&N.ptype!=='없음'?`, ${N.ptype}`:'')+(N.air?`, 미세먼지 ${N.air}`:'');
- const rows=live?[['지금 혼잡',`<span class="${LVC(N.lvl)}" style="font-weight:600">${N.lvl}</span>, ${num(N.lo)}~${num(N.hi)}명`],['주차장 차량',park],['날씨',wx()]]:pend?[['지금 혼잡',ph],['주차장 차량',park],['날씨',ph]]:[['지금 혼잡','불러오지 못했어요'],['주차장 차량',park],['날씨','불러오지 못했어요']];
+ const rows=live?[['주차장 차량',park],['날씨',wx()]]:pend?[['주차장 차량',park],['날씨',ph]]:[['주차장 차량',park],['날씨','불러오지 못했어요']];
  $('#facts').innerHTML=rows.map(([a,b])=>`<div><dt>${a}</dt><dd>${b}</dd></div>`).join('');
  const SH=S.length?S:NEXTD?SHOWS.filter(s=>s.d===NEXTD):[];
  if(!SH.length){$('#today').innerHTML='';return}
@@ -354,6 +355,8 @@ if(ACC){const H=ACC.horizon,h3=H.find(x=>x.h===3)||H[0],nF=H.reduce((a,x)=>a+x.n
   mk('#a3f',`지하철 ${num(M.subway)}명, ${M.subway_pct}%. 버스 ${num(M.bus)}명, ${100-M.subway_pct}%.`,(W,Hh)=>{const L=0,R=0,w=W-L-R,a=w*M.subway/tot;
    return`<rect x="${L}" y="20" width="${a-1}" height="28" rx="2" fill="#0A0A0A"/><rect x="${L+a+1}" y="20" width="${w-a-1}" height="28" rx="2" fill="#A1A1AA"/><text class="v" x="${L}" y="72">지하철 ${M.subway_pct}%</text><text x="${L}" y="92">${num(M.subway)}명</text><text class="v" x="${W}" y="72" text-anchor="end">버스 ${100-M.subway_pct}%</text><text x="${W}" y="92" text-anchor="end">${num(M.bus)}명</text>`})}}
 
+/* 정확도만 보여 줄 때는 여기까지: 실시간 데이터, 열차, 분실물은 부르지 않아요 */
+if(ONLY)return;
 /* 분실물 */
 const icon=n=>/지갑/.test(n)?'wallet':/키/.test(n)?'key-round':/여행용/.test(n)?'luggage':/가방|쇼핑백|파우치/.test(n)?'shopping-bag':/이어폰/.test(n)?'headphones':/워치/.test(n)?'watch':/휴대폰/.test(n)?'smartphone':/카메라/.test(n)?'camera':/선글라스/.test(n)?'glasses':/모자|외투/.test(n)?'shirt':/수첩/.test(n)?'notebook-pen':/킥보드/.test(n)?'bike':'toy-brick';
 let lf='전체',showAll=false;

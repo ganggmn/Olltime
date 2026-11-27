@@ -15,7 +15,7 @@
     <p class="lead" id="heroLead">서울시가 공개하는 공원 인구와 예보를 가져오고 있어요. 공연 예상과 플래너는 바로 쓸 수 있어요.</p>
     <div class="acts"><a class="btn" href="#plan">방문 계획 세우기</a><button class="btn sec" type="button" id="retry" hidden>다시 불러오기</button></div>
   </div>
-  <div class="h-m">
+  <div class="h-m"><div class="mod">
     <div class="ptabs" role="tablist" aria-label="지도 영역에 보여줄 내용"><button type="button" role="tab" id="pt-map" aria-selected="true" aria-controls="pv-map">주차·출입문</button><button type="button" role="tab" id="pt-walk" aria-selected="false" aria-controls="pv-walk">걷는 길 혼잡</button><button type="button" role="tab" id="pt-trend" aria-selected="false" aria-controls="pv-trend">오늘 추이</button></div>
     <div id="pv-map" role="tabpanel" aria-labelledby="pt-map">
     <div class="vsw" id="vsw" role="group" aria-label="지도에 보여줄 날" hidden></div>
@@ -23,6 +23,7 @@
       <div class="map" id="map">__MAPSVG__</div>
       <div class="mapctl"><button type="button" id="zin" aria-label="지도 확대"><i data-ic="plus"></i></button><button type="button" id="zout" aria-label="지도 축소"><i data-ic="minus"></i></button><button type="button" id="zre" aria-label="지도 처음 크기로"><i data-ic="rotate-ccw"></i></button></div>
     </div>
+    <div class="modb">
     <p class="cap mapleg" id="mapleg"></p>
     <div class="tnowrow"><button class="tnow" type="button" id="tnow" hidden>지금 시각으로</button></div>
     <div class="scrub">
@@ -36,17 +37,20 @@
     <div class="metrics" id="metrics"></div>
     <p class="sr" id="srT" aria-live="polite"></p>
     </div>
-    <div id="pv-walk" role="tabpanel" aria-labelledby="pt-walk" hidden><p class="cap" style="margin-bottom:12px">큰 공연(관객 9천 명 이상) 날 기준이에요. 시간을 바꾸고 방향을 누르면 해당 길만 진하게 표시돼요.</p><iframe class="pframe" data-src="/sections?embed=1" title="구간 혼잡도 지도와 방향별 목록"></iframe></div>
-    <div id="pv-trend" role="tabpanel" aria-labelledby="pt-trend" hidden><iframe class="pframe" data-src="/trend?embed=1" title="오늘 사람 수와 주차 대수 추이"></iframe></div>
-  </div>
+    </div>
+    <div id="pv-walk" class="modp" role="tabpanel" aria-labelledby="pt-walk" hidden><p class="cap" style="margin-bottom:12px">큰 공연(관객 9천 명 이상) 날 기준이에요. 시간을 바꾸고 방향을 누르면 해당 길만 진하게 표시돼요.</p><iframe class="pframe" data-src="/sections?embed=1" title="구간 혼잡도 지도와 방향별 목록"></iframe></div>
+    <div id="pv-trend" class="modp" role="tabpanel" aria-labelledby="pt-trend" hidden><iframe class="pframe" data-src="/trend?embed=1" title="오늘 사람 수와 주차 대수 추이"></iframe></div>
+  </div></div>
   <div class="h-i">
-    <dl class="facts" id="facts"></dl>
-    <ul class="tips" aria-label="주차 안내">
+    <div class="today" id="today"></div>
+    <div class="train" id="train" hidden></div>
+    <div class="grp"><h2 class="h-sub">주차와 날씨</h2><dl class="facts" id="facts"></dl></div>
+    <div class="grp"><h2 class="h-sub">주차 팁</h2>
+    <ul class="tips">
       <li><b>주말 낮 1~3시에 주차장이 가장 자주 차요</b><span class="cap">한국체육산업개발의 만차 기록 263건(2025년 2월~2026년 8월) 중 256건이 토·일요일, 163건이 오후 1~3시대였어요</span></li>
       <li><b>사람만 내려 주고 10분 안에 나가면 주차 요금이 없어요</b><span class="cap">올림픽공원 주차 안내 기준이에요. 들어오는 차 4대 중 1대가 이렇게 다녀가요</span></li>
     </ul>
-    <div class="today" id="today"></div>
-    <div class="train" id="train" hidden></div>
+    </div>
   </div>
 </div></section>
 
@@ -83,23 +87,18 @@
   <div class="ins"><div><p class="lbl">눈 오는 날</p><p class="bign">62% 적게</p><p>눈이 내린 12월 4일 저녁 7시에는 평소보다 차가 62% 적게 들어왔어요. 다음 날 아침 8시도 37% 적었어요.</p></div><figure class="fg" style="margin:0"><p class="fgt">한 시간 동안 들어온 차량 수</p><div class="fgl" aria-hidden="true"><span><i></i>12월 4일 목요일, 저녁부터 눈</span><span><i class="d"></i>공연 없는 평일 평균</span></div><div class="fig"><svg id="f4" role="img"></svg></div></figure></div>
 </div></section>
 
-<section class="band" id="lost"><div class="wrap split">
-  <div class="side lostside">
-    <h2>공원에서 잃어버린 물건, 여기서 찾아보세요</h2>
-    <p class="body">올림픽공원 안내센터 게시판의 습득물 공고를 모았어요. 습득하고 한 달이 지나면 송파경찰서로 넘어가요.</p>
+<section class="band" id="lost"><div class="wrap">
+  <h2 class="planh">공원에서 잃어버린 물건 찾기</h2>
+  <p class="secsub">올림픽공원 안내센터 게시판의 습득물 공고를 모았어요. 습득하고 한 달이 지나면 송파경찰서로 넘어가요.</p>
+  <div class="lostcard">
+    <div class="lhead"><div class="lostbar"><label class="search"><i data-ic="search"></i><input id="lq" type="search" placeholder="예: 곰말다리 근처 카드지갑" aria-label="잃어버린 물건 찾기" aria-describedby="lm"></label></div><div class="lf" id="lf" role="group" aria-label="상태별로 보기"></div></div>
+    <div class="lbody"><p class="lmsg lbl" id="lm" aria-live="polite"></p><div id="items"></div><div class="more" id="lmore"></div></div>
     <dl class="contact">
       <div><dt class="lbl">평화의광장 안내센터</dt><dd><a href="tel:02-2180-3564">02-2180-3564~5</a></dd></div>
       <div><dt class="lbl">만남의광장 안내센터</dt><dd><a href="tel:02-2180-3566">02-2180-3566</a></dd></div>
       <div><dt class="lbl">운영 시간</dt><dd>09:00~19:00<span class="cap">12:00~13:00 점심시간</span></dd></div>
       <div><dt class="lbl">한 달이 지난 물건</dt><dd><a href="https://www.lost112.go.kr" target="_blank" rel="noopener">lost112.go.kr</a><span class="cap">경찰청 유실물 통합포털, 새 창으로 열려요</span></dd></div>
     </dl>
-  </div>
-  <div class="lostmain">
-    <div class="lostbar"><label class="search"><i data-ic="search"></i><input id="lq" type="search" placeholder="예: 곰말다리 근처 카드지갑" aria-label="잃어버린 물건 찾기" aria-describedby="lm"></label></div>
-    <div class="lf" id="lf" role="group" aria-label="상태별로 보기"></div>
-    <p class="lmsg lbl" id="lm" aria-live="polite"></p>
-    <div id="items"></div>
-    <div class="more" id="lmore"></div>
   </div>
 </div></section>
 </main>

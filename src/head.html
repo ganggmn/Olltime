@@ -10,12 +10,11 @@
 <meta property="og:description" content="공연 날 올림픽공원, 언제 가고 언제 나오면 덜 붐빌까요">
 <meta name="theme-color" content="#FAFAFA">
 <link rel="preload" href="/fonts/Pretendard-Regular.subset.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/fonts/Pretendard-SemiBold.subset.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 /* VOICE ExamFit 디자인 토큰 그대로: 무채색, 조용하고 정확하게
    IDEA 올림픽공원 하루를 시간표처럼 읽는 서비스, 먹 하나로 그린 지도
    PICTURE 시간 막대를 움직이면 공연장, 출입문, 주차장이 바뀌는 흑백 공원 지도
-   COLOUR #FAFAFA 바탕, #FFFFFF 면, #0A0A0A 먹, 회색 세 단계; 의미색(초록, 노랑, 빨강)은 글자에만
+   COLOUR var(--bg) 바탕, var(--surface) 면, var(--ink) 먹, 회색 세 단계; 의미색(초록, 노랑, 빨강)은 글자에만
    TYPE Pretendard 400/600(KS X 1001 서브셋), 40 28 20 16 14 13
    LAYOUT 머리글 5:7(왼쪽 상태, 오른쪽 지도), 아래 구역은 4:8(왼쪽 제목 고정), 폰은 한 열 */
 @font-face{font-family:"Pretendard";src:url("/fonts/Pretendard-Regular.subset.woff2") format("woff2");font-weight:400;font-display:swap}
@@ -34,7 +33,7 @@ h4{font-size:16px;line-height:1.6;font-weight:600}
 a{color:inherit;text-underline-offset:3px}
 button,input{font-family:inherit;color:inherit}
 .lbl{font-size:14px;line-height:1.5;color:var(--ink-2)}
-.cap{font-size:13px;line-height:1.5;color:var(--ink-2)}
+.cap{font-size:14px;line-height:1.6;color:var(--ink-2)}
 .num{font-variant-numeric:tabular-nums}
 .ic{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;display:block}
 .wrap{max-width:1272px;margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
@@ -43,7 +42,7 @@ button,input{font-family:inherit;color:inherit}
 .sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .skip{position:absolute;left:12px;top:-60px;z-index:30;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:600}
 .skip:focus{top:10px}
-.lv-여유{color:var(--ink)}.lv-보통{color:var(--ink)}.lv-약간{color:#8F6300}.lv-붐빔{color:#B91C1C}
+.lv-여유{color:var(--ink)}.lv-보통{color:var(--ink)}.lv-약간{color:#8F6300}.lv-붐빔{color:var(--bad)}
 .ph{display:inline-block;width:96px;height:12px;border-radius:2px;background:var(--line-weak);vertical-align:middle}
 .nd{font-size:13px;font-weight:400;color:var(--ink-2);margin-right:6px}
 /* 버튼 */
@@ -81,7 +80,7 @@ button,input{font-family:inherit;color:inherit}
 .facts dd .cap{display:block}
 .tips{list-style:none;margin:0;padding:0}
 .pmore{margin-top:4px}
-.pmore summary{display:inline-block;font-size:13px;line-height:24px;color:var(--ink-2);text-decoration:underline;text-underline-offset:3px;cursor:pointer;list-style:none}
+.pmore summary{display:inline-block;font-size:14px;line-height:24px;padding:10px 0;color:var(--ink-2);text-decoration:underline;text-underline-offset:3px;cursor:pointer;list-style:none}
 .pmore summary::-webkit-details-marker{display:none}
 .pmore[open] summary{color:var(--ink)}
 .pmore .cap{display:block;text-align:left;margin-top:6px}
@@ -124,7 +123,7 @@ button,input{font-family:inherit;color:inherit}
 .vsw button:focus-visible{outline-offset:-2px}
 .vsw button:hover{color:var(--ink)}
 .vsw button[aria-pressed=true]{color:var(--ink);font-weight:600}.vsw button[aria-pressed=true]::after{background:var(--ink)}
-.mapbox{position:relative;border:1px solid var(--line);background:var(--surface);height:clamp(420px,46vw,560px)}
+.mapbox{position:relative;border:1px solid var(--line);background:var(--surface);height:clamp(360px,38vw,480px)}
 .map{position:absolute;inset:0;touch-action:pan-y;cursor:grab;overflow:hidden}
 .map.drag{cursor:grabbing}
 .map svg{width:100%;height:100%;display:block}
@@ -189,7 +188,7 @@ button,input{font-family:inherit;color:inherit}
 .srw .what .lbl{margin-top:2px}
 .tl{position:relative;height:12px;margin:16px 0 8px;background:var(--surface-2)}
 .tl i{position:absolute;top:0;bottom:0}
-.tl .a,.tlleg .a{background:#A1A1AA}
+.tl .a,.tlleg .a{background:var(--ink-3)}
 .tl .s,.tlleg .s{background:#D9D9DE}
 .tl .x,.tlleg .x{background:#E76767}
 .tl .p{width:2px;top:-4px;bottom:-4px;background:var(--ink)}
@@ -199,7 +198,7 @@ button,input{font-family:inherit;color:inherit}
 .tlk{display:grid;gap:4px;margin-top:4px;font-size:14px}
 .tlk li,.runs li{display:grid;grid-template-columns:14px 96px minmax(0,1fr);gap:10px;align-items:baseline}
 .tlk i,.runs i{width:14px;height:10px;display:inline-block}
-.tlk i.a{background:#A1A1AA}.tlk i.s{background:#D9D9DE}.tlk i.x{background:#E76767}
+.tlk i.a{background:var(--ink-3)}.tlk i.s{background:#D9D9DE}.tlk i.x{background:#E76767}
 .tlk .t,.runs .t{font-weight:600;font-variant-numeric:tabular-nums}
 .runs{grid-column:2;display:grid;gap:4px;margin-top:12px;font-size:14px}
 .runs li{grid-template-columns:14px 108px minmax(0,1fr)}
@@ -207,7 +206,7 @@ button,input{font-family:inherit;color:inherit}
 .mapleg{margin-top:8px}
 .blab{grid-column:2;position:relative;height:20px;margin-top:4px}
 .blab.two{height:38px}
-.blab span{position:absolute;top:0;transform:translateX(-50%);font-size:13px;line-height:1.4;font-weight:600;color:#B91C1C;white-space:nowrap}
+.blab span{position:absolute;top:0;transform:translateX(-50%);font-size:13px;line-height:1.4;font-weight:600;color:var(--bad);white-space:nowrap}
 .blab span.b2{color:#8F6300}
 .blab span.alt{top:18px}
 .blab em{font-style:normal;font-size:13px;color:var(--ink-2)}
@@ -244,9 +243,9 @@ legend{font-size:14px;color:var(--ink-2);padding:0;margin-bottom:8px}
 .fgl i.d{border-top:2px dashed var(--ink-2)}
 .fgl i.g{border-top:2px solid var(--ink-3)}
 .fgl i.b{width:12px;height:12px;border:0;background:var(--surface-2);outline:1px solid var(--line)}
-.fgl i.k{width:12px;height:12px;border:0;background:#EEEEF0;outline:1px solid #A1A1AA}
+.fgl i.k{width:12px;height:12px;border:0;background:#EEEEF0;outline:1px solid var(--ink-3)}
 .fgl.al{justify-content:flex-start;margin-top:12px}
-.fgl i.s1{width:12px;height:12px;border:0;background:var(--ink)}.fgl i.s2{width:12px;height:12px;border:0;background:#6B6B74}.fgl i.s3{width:12px;height:12px;border:0;background:var(--line-weak)}
+.fgl i.s1{width:12px;height:12px;border:0;background:var(--ink)}.fgl i.s2{width:12px;height:12px;border:0;background:var(--ink-2)}.fgl i.s3{width:12px;height:12px;border:0;background:var(--line-weak)}
 .attr{display:flex;height:16px;margin-top:24px;gap:2px}
 .attr span{height:100%}
 .acc1{grid-column:2;margin-top:8px}
@@ -324,6 +323,7 @@ h1{font-size:28px;line-height:1.35}h2{font-size:20px;line-height:1.5}.ins .bign,
 .hubgo{font-size:14px;line-height:1;text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:var(--surface);white-space:nowrap;flex:none}
 .hubgo:hover{background:var(--surface-2)}
 .ptabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px}
+@media(max-width:760px){.ptabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.ptabs::-webkit-scrollbar{display:none}.ptabs button{flex:none}}
 .ptabs button{border:0;background:transparent;color:var(--ink-2);font-size:15px;padding:0 16px;min-height:44px;border-radius:8px;cursor:pointer;white-space:nowrap}
 .ptabs button:hover{background:var(--surface-2);color:var(--ink)}
 .ptabs button[aria-selected=true]{background:var(--ink);color:var(--bg);font-weight:600}
@@ -340,9 +340,41 @@ html:not(.only-story) #story{display:none}
 .planact{margin-top:24px}
 #dmore{margin-top:4px;min-height:44px}
 .ft .wrap.ft4{grid-template-columns:minmax(0,2fr) repeat(3,minmax(0,1fr))}
-.ft nav li a{display:inline-block;padding:6px 0}
+.ft nav li a{display:inline-block;padding:10px 0}
 @media(max-width:960px){.plancard{grid-template-columns:minmax(0,1fr)}.planl{border-right:0;border-bottom:1px solid var(--line-weak)}.ft .wrap.ft4{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.ft4>div{grid-column:1/-1}}
 @media(max-width:760px){.planl{padding:0 20px 24px}.planr{padding:24px 20px}.hubgo{padding:10px 10px}}
+/* 컨테이너 분리 시안 */
+.mod{border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden}
+.mod .ptabs{margin:0;padding:8px;border-bottom:1px solid var(--line-weak)}
+.mod .vsw{margin:0;padding:0 18px}
+.mod .mapbox{border:0;border-bottom:1px solid var(--line-weak)}
+.modb{padding:12px 24px 24px}
+.modb .metrics{margin-top:20px;border-top:1px solid var(--line-weak)}
+.modp{padding:16px 24px 24px}
+.h-i{display:flex;flex-direction:column;gap:40px;margin-top:48px}
+.h-i>.today,.h-i>.train,.h-i .facts{margin-top:0}
+.h-i .facts{margin-top:12px;border-top:1px solid var(--line-weak)}
+.h-i .tips{margin-top:12px;border-top:1px solid var(--line-weak)}
+.h-i .tips li b{font-weight:600;font-size:15px}
+.h-i>.train[hidden]{display:none}
+.secsub{color:var(--ink-2);margin:-12px 0 24px;max-width:680px}
+.lostcard{border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.lhead{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line-weak)}
+.lhead .lostbar{flex:1 1 320px}
+.lhead .search{height:44px;border-radius:8px}
+.lhead .search input{height:42px}
+.lhead .lf{margin:0;border:0;gap:4px}
+.lhead .lf button{border-radius:8px;padding:0 14px;min-height:44px;font-size:15px}
+.lhead .lf button::after{display:none}
+.lhead .lf button:hover{background:var(--surface-2);color:var(--ink)}
+.lhead .lf button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.lbody{padding:8px 24px 24px}
+.lbody .lmsg{margin-top:8px}
+.lostcard .contact{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:0;border-top:1px solid var(--line-weak);background:var(--surface-2);border-radius:0 0 12px 12px}
+.lostcard .contact div{padding:16px 24px;border:0}
+.lostcard .contact div+div{border-left:1px solid var(--line-weak)}
+@media(max-width:960px){.lostcard .contact{grid-template-columns:repeat(2,minmax(0,1fr))}.lostcard .contact div:nth-child(3){border-left:0}.lostcard .contact div:nth-child(n+3){border-top:1px solid var(--line-weak)}}
+@media(max-width:760px){.modb,.modp{padding-left:16px;padding-right:16px}.lbody{padding:8px 16px 16px}.lostcard .contact div{padding:12px 16px}.h-i{margin-top:0}}
 </style>
 <script>if(new URLSearchParams(location.search).get('only')==='story')document.documentElement.classList.add('only-story')</script>
 </head>

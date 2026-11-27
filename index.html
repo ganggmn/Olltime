@@ -10,12 +10,11 @@
 <meta property="og:description" content="공연 날 올림픽공원, 언제 가고 언제 나오면 덜 붐빌까요">
 <meta name="theme-color" content="#FAFAFA">
 <link rel="preload" href="/fonts/Pretendard-Regular.subset.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/fonts/Pretendard-SemiBold.subset.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 /* VOICE ExamFit 디자인 토큰 그대로: 무채색, 조용하고 정확하게
    IDEA 올림픽공원 하루를 시간표처럼 읽는 서비스, 먹 하나로 그린 지도
    PICTURE 시간 막대를 움직이면 공연장, 출입문, 주차장이 바뀌는 흑백 공원 지도
-   COLOUR #FAFAFA 바탕, #FFFFFF 면, #0A0A0A 먹, 회색 세 단계; 의미색(초록, 노랑, 빨강)은 글자에만
+   COLOUR var(--bg) 바탕, var(--surface) 면, var(--ink) 먹, 회색 세 단계; 의미색(초록, 노랑, 빨강)은 글자에만
    TYPE Pretendard 400/600(KS X 1001 서브셋), 40 28 20 16 14 13
    LAYOUT 머리글 5:7(왼쪽 상태, 오른쪽 지도), 아래 구역은 4:8(왼쪽 제목 고정), 폰은 한 열 */
 @font-face{font-family:"Pretendard";src:url("/fonts/Pretendard-Regular.subset.woff2") format("woff2");font-weight:400;font-display:swap}
@@ -34,7 +33,7 @@ h4{font-size:16px;line-height:1.6;font-weight:600}
 a{color:inherit;text-underline-offset:3px}
 button,input{font-family:inherit;color:inherit}
 .lbl{font-size:14px;line-height:1.5;color:var(--ink-2)}
-.cap{font-size:13px;line-height:1.5;color:var(--ink-2)}
+.cap{font-size:14px;line-height:1.6;color:var(--ink-2)}
 .num{font-variant-numeric:tabular-nums}
 .ic{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;display:block}
 .wrap{max-width:1272px;margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
@@ -43,7 +42,7 @@ button,input{font-family:inherit;color:inherit}
 .sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .skip{position:absolute;left:12px;top:-60px;z-index:30;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:600}
 .skip:focus{top:10px}
-.lv-여유{color:var(--ink)}.lv-보통{color:var(--ink)}.lv-약간{color:#8F6300}.lv-붐빔{color:#B91C1C}
+.lv-여유{color:var(--ink)}.lv-보통{color:var(--ink)}.lv-약간{color:#8F6300}.lv-붐빔{color:var(--bad)}
 .ph{display:inline-block;width:96px;height:12px;border-radius:2px;background:var(--line-weak);vertical-align:middle}
 .nd{font-size:13px;font-weight:400;color:var(--ink-2);margin-right:6px}
 /* 버튼 */
@@ -81,7 +80,7 @@ button,input{font-family:inherit;color:inherit}
 .facts dd .cap{display:block}
 .tips{list-style:none;margin:0;padding:0}
 .pmore{margin-top:4px}
-.pmore summary{display:inline-block;font-size:13px;line-height:24px;color:var(--ink-2);text-decoration:underline;text-underline-offset:3px;cursor:pointer;list-style:none}
+.pmore summary{display:inline-block;font-size:14px;line-height:24px;padding:10px 0;color:var(--ink-2);text-decoration:underline;text-underline-offset:3px;cursor:pointer;list-style:none}
 .pmore summary::-webkit-details-marker{display:none}
 .pmore[open] summary{color:var(--ink)}
 .pmore .cap{display:block;text-align:left;margin-top:6px}
@@ -124,7 +123,7 @@ button,input{font-family:inherit;color:inherit}
 .vsw button:focus-visible{outline-offset:-2px}
 .vsw button:hover{color:var(--ink)}
 .vsw button[aria-pressed=true]{color:var(--ink);font-weight:600}.vsw button[aria-pressed=true]::after{background:var(--ink)}
-.mapbox{position:relative;border:1px solid var(--line);background:var(--surface);height:clamp(420px,46vw,560px)}
+.mapbox{position:relative;border:1px solid var(--line);background:var(--surface);height:clamp(360px,38vw,480px)}
 .map{position:absolute;inset:0;touch-action:pan-y;cursor:grab;overflow:hidden}
 .map.drag{cursor:grabbing}
 .map svg{width:100%;height:100%;display:block}
@@ -189,7 +188,7 @@ button,input{font-family:inherit;color:inherit}
 .srw .what .lbl{margin-top:2px}
 .tl{position:relative;height:12px;margin:16px 0 8px;background:var(--surface-2)}
 .tl i{position:absolute;top:0;bottom:0}
-.tl .a,.tlleg .a{background:#A1A1AA}
+.tl .a,.tlleg .a{background:var(--ink-3)}
 .tl .s,.tlleg .s{background:#D9D9DE}
 .tl .x,.tlleg .x{background:#E76767}
 .tl .p{width:2px;top:-4px;bottom:-4px;background:var(--ink)}
@@ -199,7 +198,7 @@ button,input{font-family:inherit;color:inherit}
 .tlk{display:grid;gap:4px;margin-top:4px;font-size:14px}
 .tlk li,.runs li{display:grid;grid-template-columns:14px 96px minmax(0,1fr);gap:10px;align-items:baseline}
 .tlk i,.runs i{width:14px;height:10px;display:inline-block}
-.tlk i.a{background:#A1A1AA}.tlk i.s{background:#D9D9DE}.tlk i.x{background:#E76767}
+.tlk i.a{background:var(--ink-3)}.tlk i.s{background:#D9D9DE}.tlk i.x{background:#E76767}
 .tlk .t,.runs .t{font-weight:600;font-variant-numeric:tabular-nums}
 .runs{grid-column:2;display:grid;gap:4px;margin-top:12px;font-size:14px}
 .runs li{grid-template-columns:14px 108px minmax(0,1fr)}
@@ -207,7 +206,7 @@ button,input{font-family:inherit;color:inherit}
 .mapleg{margin-top:8px}
 .blab{grid-column:2;position:relative;height:20px;margin-top:4px}
 .blab.two{height:38px}
-.blab span{position:absolute;top:0;transform:translateX(-50%);font-size:13px;line-height:1.4;font-weight:600;color:#B91C1C;white-space:nowrap}
+.blab span{position:absolute;top:0;transform:translateX(-50%);font-size:13px;line-height:1.4;font-weight:600;color:var(--bad);white-space:nowrap}
 .blab span.b2{color:#8F6300}
 .blab span.alt{top:18px}
 .blab em{font-style:normal;font-size:13px;color:var(--ink-2)}
@@ -244,9 +243,9 @@ legend{font-size:14px;color:var(--ink-2);padding:0;margin-bottom:8px}
 .fgl i.d{border-top:2px dashed var(--ink-2)}
 .fgl i.g{border-top:2px solid var(--ink-3)}
 .fgl i.b{width:12px;height:12px;border:0;background:var(--surface-2);outline:1px solid var(--line)}
-.fgl i.k{width:12px;height:12px;border:0;background:#EEEEF0;outline:1px solid #A1A1AA}
+.fgl i.k{width:12px;height:12px;border:0;background:#EEEEF0;outline:1px solid var(--ink-3)}
 .fgl.al{justify-content:flex-start;margin-top:12px}
-.fgl i.s1{width:12px;height:12px;border:0;background:var(--ink)}.fgl i.s2{width:12px;height:12px;border:0;background:#6B6B74}.fgl i.s3{width:12px;height:12px;border:0;background:var(--line-weak)}
+.fgl i.s1{width:12px;height:12px;border:0;background:var(--ink)}.fgl i.s2{width:12px;height:12px;border:0;background:var(--ink-2)}.fgl i.s3{width:12px;height:12px;border:0;background:var(--line-weak)}
 .attr{display:flex;height:16px;margin-top:24px;gap:2px}
 .attr span{height:100%}
 .acc1{grid-column:2;margin-top:8px}
@@ -324,6 +323,7 @@ h1{font-size:28px;line-height:1.35}h2{font-size:20px;line-height:1.5}.ins .bign,
 .hubgo{font-size:14px;line-height:1;text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:var(--surface);white-space:nowrap;flex:none}
 .hubgo:hover{background:var(--surface-2)}
 .ptabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px}
+@media(max-width:760px){.ptabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.ptabs::-webkit-scrollbar{display:none}.ptabs button{flex:none}}
 .ptabs button{border:0;background:transparent;color:var(--ink-2);font-size:15px;padding:0 16px;min-height:44px;border-radius:8px;cursor:pointer;white-space:nowrap}
 .ptabs button:hover{background:var(--surface-2);color:var(--ink)}
 .ptabs button[aria-selected=true]{background:var(--ink);color:var(--bg);font-weight:600}
@@ -340,9 +340,41 @@ html:not(.only-story) #story{display:none}
 .planact{margin-top:24px}
 #dmore{margin-top:4px;min-height:44px}
 .ft .wrap.ft4{grid-template-columns:minmax(0,2fr) repeat(3,minmax(0,1fr))}
-.ft nav li a{display:inline-block;padding:6px 0}
+.ft nav li a{display:inline-block;padding:10px 0}
 @media(max-width:960px){.plancard{grid-template-columns:minmax(0,1fr)}.planl{border-right:0;border-bottom:1px solid var(--line-weak)}.ft .wrap.ft4{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.ft4>div{grid-column:1/-1}}
 @media(max-width:760px){.planl{padding:0 20px 24px}.planr{padding:24px 20px}.hubgo{padding:10px 10px}}
+/* 컨테이너 분리 시안 */
+.mod{border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden}
+.mod .ptabs{margin:0;padding:8px;border-bottom:1px solid var(--line-weak)}
+.mod .vsw{margin:0;padding:0 18px}
+.mod .mapbox{border:0;border-bottom:1px solid var(--line-weak)}
+.modb{padding:12px 24px 24px}
+.modb .metrics{margin-top:20px;border-top:1px solid var(--line-weak)}
+.modp{padding:16px 24px 24px}
+.h-i{display:flex;flex-direction:column;gap:40px;margin-top:48px}
+.h-i>.today,.h-i>.train,.h-i .facts{margin-top:0}
+.h-i .facts{margin-top:12px;border-top:1px solid var(--line-weak)}
+.h-i .tips{margin-top:12px;border-top:1px solid var(--line-weak)}
+.h-i .tips li b{font-weight:600;font-size:15px}
+.h-i>.train[hidden]{display:none}
+.secsub{color:var(--ink-2);margin:-12px 0 24px;max-width:680px}
+.lostcard{border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.lhead{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line-weak)}
+.lhead .lostbar{flex:1 1 320px}
+.lhead .search{height:44px;border-radius:8px}
+.lhead .search input{height:42px}
+.lhead .lf{margin:0;border:0;gap:4px}
+.lhead .lf button{border-radius:8px;padding:0 14px;min-height:44px;font-size:15px}
+.lhead .lf button::after{display:none}
+.lhead .lf button:hover{background:var(--surface-2);color:var(--ink)}
+.lhead .lf button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.lbody{padding:8px 24px 24px}
+.lbody .lmsg{margin-top:8px}
+.lostcard .contact{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:0;border-top:1px solid var(--line-weak);background:var(--surface-2);border-radius:0 0 12px 12px}
+.lostcard .contact div{padding:16px 24px;border:0}
+.lostcard .contact div+div{border-left:1px solid var(--line-weak)}
+@media(max-width:960px){.lostcard .contact{grid-template-columns:repeat(2,minmax(0,1fr))}.lostcard .contact div:nth-child(3){border-left:0}.lostcard .contact div:nth-child(n+3){border-top:1px solid var(--line-weak)}}
+@media(max-width:760px){.modb,.modp{padding-left:16px;padding-right:16px}.lbody{padding:8px 16px 16px}.lostcard .contact div{padding:12px 16px}.h-i{margin-top:0}}
 </style>
 <script>if(new URLSearchParams(location.search).get('only')==='story')document.documentElement.classList.add('only-story')</script>
 </head>
@@ -363,7 +395,7 @@ html:not(.only-story) #story{display:none}
     <p class="lead" id="heroLead">서울시가 공개하는 공원 인구와 예보를 가져오고 있어요. 공연 예상과 플래너는 바로 쓸 수 있어요.</p>
     <div class="acts"><a class="btn" href="#plan">방문 계획 세우기</a><button class="btn sec" type="button" id="retry" hidden>다시 불러오기</button></div>
   </div>
-  <div class="h-m">
+  <div class="h-m"><div class="mod">
     <div class="ptabs" role="tablist" aria-label="지도 영역에 보여줄 내용"><button type="button" role="tab" id="pt-map" aria-selected="true" aria-controls="pv-map">주차·출입문</button><button type="button" role="tab" id="pt-walk" aria-selected="false" aria-controls="pv-walk">걷는 길 혼잡</button><button type="button" role="tab" id="pt-trend" aria-selected="false" aria-controls="pv-trend">오늘 추이</button></div>
     <div id="pv-map" role="tabpanel" aria-labelledby="pt-map">
     <div class="vsw" id="vsw" role="group" aria-label="지도에 보여줄 날" hidden></div>
@@ -414,6 +446,7 @@ html:not(.only-story) #story{display:none}
       </svg></div>
       <div class="mapctl"><button type="button" id="zin" aria-label="지도 확대"><i data-ic="plus"></i></button><button type="button" id="zout" aria-label="지도 축소"><i data-ic="minus"></i></button><button type="button" id="zre" aria-label="지도 처음 크기로"><i data-ic="rotate-ccw"></i></button></div>
     </div>
+    <div class="modb">
     <p class="cap mapleg" id="mapleg"></p>
     <div class="tnowrow"><button class="tnow" type="button" id="tnow" hidden>지금 시각으로</button></div>
     <div class="scrub">
@@ -427,17 +460,20 @@ html:not(.only-story) #story{display:none}
     <div class="metrics" id="metrics"></div>
     <p class="sr" id="srT" aria-live="polite"></p>
     </div>
-    <div id="pv-walk" role="tabpanel" aria-labelledby="pt-walk" hidden><p class="cap" style="margin-bottom:12px">큰 공연(관객 9천 명 이상) 날 기준이에요. 시간을 바꾸고 방향을 누르면 해당 길만 진하게 표시돼요.</p><iframe class="pframe" data-src="/sections?embed=1" title="구간 혼잡도 지도와 방향별 목록"></iframe></div>
-    <div id="pv-trend" role="tabpanel" aria-labelledby="pt-trend" hidden><iframe class="pframe" data-src="/trend?embed=1" title="오늘 사람 수와 주차 대수 추이"></iframe></div>
-  </div>
+    </div>
+    <div id="pv-walk" class="modp" role="tabpanel" aria-labelledby="pt-walk" hidden><p class="cap" style="margin-bottom:12px">큰 공연(관객 9천 명 이상) 날 기준이에요. 시간을 바꾸고 방향을 누르면 해당 길만 진하게 표시돼요.</p><iframe class="pframe" data-src="/sections?embed=1" title="구간 혼잡도 지도와 방향별 목록"></iframe></div>
+    <div id="pv-trend" class="modp" role="tabpanel" aria-labelledby="pt-trend" hidden><iframe class="pframe" data-src="/trend?embed=1" title="오늘 사람 수와 주차 대수 추이"></iframe></div>
+  </div></div>
   <div class="h-i">
-    <dl class="facts" id="facts"></dl>
-    <ul class="tips" aria-label="주차 안내">
+    <div class="today" id="today"></div>
+    <div class="train" id="train" hidden></div>
+    <div class="grp"><h2 class="h-sub">주차와 날씨</h2><dl class="facts" id="facts"></dl></div>
+    <div class="grp"><h2 class="h-sub">주차 팁</h2>
+    <ul class="tips">
       <li><b>주말 낮 1~3시에 주차장이 가장 자주 차요</b><span class="cap">한국체육산업개발의 만차 기록 263건(2025년 2월~2026년 8월) 중 256건이 토·일요일, 163건이 오후 1~3시대였어요</span></li>
       <li><b>사람만 내려 주고 10분 안에 나가면 주차 요금이 없어요</b><span class="cap">올림픽공원 주차 안내 기준이에요. 들어오는 차 4대 중 1대가 이렇게 다녀가요</span></li>
     </ul>
-    <div class="today" id="today"></div>
-    <div class="train" id="train" hidden></div>
+    </div>
   </div>
 </div></section>
 
@@ -474,23 +510,18 @@ html:not(.only-story) #story{display:none}
   <div class="ins"><div><p class="lbl">눈 오는 날</p><p class="bign">62% 적게</p><p>눈이 내린 12월 4일 저녁 7시에는 평소보다 차가 62% 적게 들어왔어요. 다음 날 아침 8시도 37% 적었어요.</p></div><figure class="fg" style="margin:0"><p class="fgt">한 시간 동안 들어온 차량 수</p><div class="fgl" aria-hidden="true"><span><i></i>12월 4일 목요일, 저녁부터 눈</span><span><i class="d"></i>공연 없는 평일 평균</span></div><div class="fig"><svg id="f4" role="img"></svg></div></figure></div>
 </div></section>
 
-<section class="band" id="lost"><div class="wrap split">
-  <div class="side lostside">
-    <h2>공원에서 잃어버린 물건, 여기서 찾아보세요</h2>
-    <p class="body">올림픽공원 안내센터 게시판의 습득물 공고를 모았어요. 습득하고 한 달이 지나면 송파경찰서로 넘어가요.</p>
+<section class="band" id="lost"><div class="wrap">
+  <h2 class="planh">공원에서 잃어버린 물건 찾기</h2>
+  <p class="secsub">올림픽공원 안내센터 게시판의 습득물 공고를 모았어요. 습득하고 한 달이 지나면 송파경찰서로 넘어가요.</p>
+  <div class="lostcard">
+    <div class="lhead"><div class="lostbar"><label class="search"><i data-ic="search"></i><input id="lq" type="search" placeholder="예: 곰말다리 근처 카드지갑" aria-label="잃어버린 물건 찾기" aria-describedby="lm"></label></div><div class="lf" id="lf" role="group" aria-label="상태별로 보기"></div></div>
+    <div class="lbody"><p class="lmsg lbl" id="lm" aria-live="polite"></p><div id="items"></div><div class="more" id="lmore"></div></div>
     <dl class="contact">
       <div><dt class="lbl">평화의광장 안내센터</dt><dd><a href="tel:02-2180-3564">02-2180-3564~5</a></dd></div>
       <div><dt class="lbl">만남의광장 안내센터</dt><dd><a href="tel:02-2180-3566">02-2180-3566</a></dd></div>
       <div><dt class="lbl">운영 시간</dt><dd>09:00~19:00<span class="cap">12:00~13:00 점심시간</span></dd></div>
       <div><dt class="lbl">한 달이 지난 물건</dt><dd><a href="https://www.lost112.go.kr" target="_blank" rel="noopener">lost112.go.kr</a><span class="cap">경찰청 유실물 통합포털, 새 창으로 열려요</span></dd></div>
     </dl>
-  </div>
-  <div class="lostmain">
-    <div class="lostbar"><label class="search"><i data-ic="search"></i><input id="lq" type="search" placeholder="예: 곰말다리 근처 카드지갑" aria-label="잃어버린 물건 찾기" aria-describedby="lm"></label></div>
-    <div class="lf" id="lf" role="group" aria-label="상태별로 보기"></div>
-    <p class="lmsg lbl" id="lm" aria-live="polite"></p>
-    <div id="items"></div>
-    <div class="more" id="lmore"></div>
   </div>
 </div></section>
 </main>
@@ -548,6 +579,7 @@ ROUTE.ln=ROUTE.ln.map(l=>l.replace(/·/g,''));ROUTE.st.forEach(s=>{s[0]=s[0].rep
 
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RM=matchMedia('(prefers-reduced-motion: reduce)');
+const ONLY=document.documentElement.classList.contains('only-story');
 const smooth=()=>RM.matches?'auto':'smooth';
 const W7='일월화수목금토';
 const dayLabel=d=>{const x=new Date(d+'T12:00:00+09:00');return`${x.getUTCMonth()+1}월 ${x.getUTCDate()}일 ${W7[x.getUTCDay()]}요일`};
@@ -581,7 +613,7 @@ const mergeShows=list=>{const yr=kst().date.slice(0,4),lab=d=>(d.slice(0,4)!==yr
   else SHOWS.push({d:g.d,day:lab(g.d),t:g.t,name:g.name,short:g.short||g.name,venue:g.venue,run:g.run||null});n++}
  SHOWS.sort((a,b)=>a.d<b.d?-1:a.d>b.d?1:a.t<b.t?-1:a.t>b.t?1:0);return n};
 const VENOK=new Set(['KSPO DOME','올림픽홀','핸드볼경기장']);
-try{const j=await getJSON('/api/shows',1500);if(j&&j.ok&&Array.isArray(j.list)){mergeShows(j.list);SHOWSRC=j.read_at||''}}catch(e){}
+if(!ONLY)try{const j=await getJSON('/api/shows',1500);if(j&&j.ok&&Array.isArray(j.list)){mergeShows(j.list);SHOWSRC=j.read_at||''}}catch(e){}
 const EXITP50=45; /* 2025년 큰 공연 28일: 공연 뒤 나가는 차의 절반이 빠진 때는 시작 195분 뒤(러닝타임 150분이면 끝나고 45분 뒤), 90%는 끝나고 110분 뒤 */
 
 /* 상태: 서울시 데이터를 기다리는 중(pending), 받음(live), 못 받음(fail) */
@@ -630,7 +662,7 @@ const renderHero=()=>{const live=STATE==='live',pend=STATE==='pending';
  const ph='<span class="ph"></span>',PCAP=2200,plv=v=>{const r=v/PCAP;return r>=.9?['만차','#B91C1C']:r>=.7?['혼잡','#8F6300']:r>=.5?['다소 혼잡','']:['여유','']},pcap=PARK?`<details class="pmore"><summary>자세히</summary><span class="cap">한국체육산업개발이 집계한 값이에요(동2·남2·북2문으로 들어와 아직 출차 기록이 없는 차, 2,200대 기준). 이 중 약 ${num(Math.round(FLOORP/10)*10)}대는 ${FLOORD?'오늘 ':''}새벽에도 줄지 않았어요. 장기 주차 차량이거나 출차 기록이 누락된 차량이에요.</span></details>`:'<span class="cap">동2, 남2, 북2문 2,200대 기준</span>';
  const park=PARK?(([l,c])=>`<span style="font-weight:600">장기 주차를 빼면 약 ${num(Math.max(0,Math.round((PARK.sum-FLOORP)/10)*10))}대</span><span class="cap" style="display:block">한국체육산업개발 집계로는 <span style="font-weight:600${c?';color:'+c:''}">${l}</span> 단계, ${num(PARK.sum)}대 (${Math.round(PARK.sum/PCAP*100)}%)</span>${pcap}`)(plv(PARK.sum)):pend?ph+pcap:'지금은 알 수 없어요<span class="cap">주차 현황이 들어오지 않아요</span>';
  const wx=()=>`${N.temp}도`+(N.ptype&&N.ptype!=='없음'?`, ${N.ptype}`:'')+(N.air?`, 미세먼지 ${N.air}`:'');
- const rows=live?[['지금 혼잡',`<span class="${LVC(N.lvl)}" style="font-weight:600">${N.lvl}</span>, ${num(N.lo)}~${num(N.hi)}명`],['주차장 차량',park],['날씨',wx()]]:pend?[['지금 혼잡',ph],['주차장 차량',park],['날씨',ph]]:[['지금 혼잡','불러오지 못했어요'],['주차장 차량',park],['날씨','불러오지 못했어요']];
+ const rows=live?[['주차장 차량',park],['날씨',wx()]]:pend?[['주차장 차량',park],['날씨',ph]]:[['주차장 차량',park],['날씨','불러오지 못했어요']];
  $('#facts').innerHTML=rows.map(([a,b])=>`<div><dt>${a}</dt><dd>${b}</dd></div>`).join('');
  const SH=S.length?S:NEXTD?SHOWS.filter(s=>s.d===NEXTD):[];
  if(!SH.length){$('#today').innerHTML='';return}
@@ -935,6 +967,8 @@ if(ACC){const H=ACC.horizon,h3=H.find(x=>x.h===3)||H[0],nF=H.reduce((a,x)=>a+x.n
   mk('#a3f',`지하철 ${num(M.subway)}명, ${M.subway_pct}%. 버스 ${num(M.bus)}명, ${100-M.subway_pct}%.`,(W,Hh)=>{const L=0,R=0,w=W-L-R,a=w*M.subway/tot;
    return`<rect x="${L}" y="20" width="${a-1}" height="28" rx="2" fill="#0A0A0A"/><rect x="${L+a+1}" y="20" width="${w-a-1}" height="28" rx="2" fill="#A1A1AA"/><text class="v" x="${L}" y="72">지하철 ${M.subway_pct}%</text><text x="${L}" y="92">${num(M.subway)}명</text><text class="v" x="${W}" y="72" text-anchor="end">버스 ${100-M.subway_pct}%</text><text x="${W}" y="92" text-anchor="end">${num(M.bus)}명</text>`})}}
 
+/* 정확도만 보여 줄 때는 여기까지: 실시간 데이터, 열차, 분실물은 부르지 않아요 */
+if(ONLY)return;
 /* 분실물 */
 const icon=n=>/지갑/.test(n)?'wallet':/키/.test(n)?'key-round':/여행용/.test(n)?'luggage':/가방|쇼핑백|파우치/.test(n)?'shopping-bag':/이어폰/.test(n)?'headphones':/워치/.test(n)?'watch':/휴대폰/.test(n)?'smartphone':/카메라/.test(n)?'camera':/선글라스/.test(n)?'glasses':/모자|외투/.test(n)?'shirt':/수첩/.test(n)?'notebook-pen':/킥보드/.test(n)?'bike':'toy-brick';
 let lf='전체',showAll=false;

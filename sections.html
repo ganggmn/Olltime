@@ -2,27 +2,28 @@
 <meta name="description" content="큰 공연 날 올림픽공원 공연장에서 역과 문까지 가는 길의 구간별 혼잡도">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
+:root{color-scheme:light;--bg:#FAFAFA;--surface:#FFFFFF;--surface-2:#F4F4F5;--ink:#0A0A0A;--ink-2:#6B6B74;--ink-3:#A1A1AA;--line:#D4D4D8;--line-weak:#E5E5E5;--ok:#15803D;--bad:#B91C1C;--warn:#A16207}
 @font-face{font-family:Pretendard;src:url(/fonts/Pretendard-Regular.subset.woff2) format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:Pretendard;src:url(/fonts/Pretendard-SemiBold.subset.woff2) format("woff2");font-weight:600;font-display:swap}
-:root{--bg:#FAFAFA;--ink:#0A0A0A;--ink-2:#6B6B74;--line:#D4D4D8;--line-weak:#E5E5E5}
+
 *{box-sizing:border-box}body{margin:0;font-family:Pretendard,system-ui,sans-serif;color:var(--ink);background:var(--bg);font-size:16px;line-height:1.5}
 main{max-width:720px;margin:0 auto;padding:20px 20px 40px}
 h1{font-size:22px;font-weight:600;margin:0 0 4px}.sub{margin:0;color:var(--ink-2);font-size:14px}
 .now{margin:20px 0 6px;font-size:20px;font-weight:600}
-.sl{display:flex;align-items:center;gap:12px}.sl input{flex:1;accent-color:#0A0A0A;height:36px}
-.ticks{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-2);margin-top:-2px}
+.sl{display:flex;align-items:center;gap:12px}.sl input{flex:1;accent-color:var(--ink);height:36px}
+.ticks{display:flex;justify-content:space-between;font-size:13px;color:var(--ink-2);margin-top:-2px}
 #map{height:360px;margin:16px 0 8px;border:1px solid var(--line)}
-.em .days{margin-top:0}.days{display:flex;flex-wrap:wrap;margin:14px 0 0;border:1px solid var(--line);width:fit-content}.days button{all:unset;box-sizing:border-box;cursor:pointer;padding:10px 14px;min-height:44px;font-size:15px;border-right:1px solid var(--line)}.days button:last-child{border-right:0}.days button[aria-pressed=true]{background:#0A0A0A;color:#fff;font-weight:600}.days button:focus-visible{outline:2px solid #0A0A0A;outline-offset:2px}
+.em .days{margin-top:0}.days{display:flex;flex-wrap:wrap;margin:14px 0 0;border:1px solid var(--line);width:fit-content}.days button{all:unset;box-sizing:border-box;cursor:pointer;padding:10px 14px;min-height:44px;font-size:15px;border-right:1px solid var(--line)}.days button:last-child{border-right:0}.days button[aria-pressed=true]{background:var(--ink);color:var(--surface);font-weight:600}.days button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .lg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--ink-2);margin:0 0 4px}.lg i{display:inline-block;width:20px;height:5px;border-radius:3px;vertical-align:middle;margin-right:6px}
 h2{font-size:15px;font-weight:600;margin:22px 0 2px;color:var(--ink-2)}
 ul{list-style:none;margin:0;padding:0}
-li{border-bottom:1px solid var(--line-weak)}li button{all:unset;box-sizing:border-box;width:100%;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:13px 10px 13px 12px;border-left:3px solid transparent;min-height:44px}li.on button{border-left-color:#0A0A0A;background:#fff}li button:focus-visible{outline:2px solid #0A0A0A;outline-offset:-2px}
+li{border-bottom:1px solid var(--line-weak)}li button{all:unset;box-sizing:border-box;width:100%;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:13px 10px 13px 12px;border-left:3px solid transparent;min-height:44px}li.on button{border-left-color:var(--ink);background:var(--surface)}li button:focus-visible{outline:2px solid var(--ink);outline-offset:-2px}
 li b{font-weight:600}li .lv{font-weight:600;white-space:nowrap}li .cap{grid-column:1/-1;font-size:14px;color:var(--ink-2)}li .seg{color:var(--ink)}li .seg b{font-weight:600}
 .lv i{display:inline-block;width:20px;height:5px;vertical-align:middle;margin-right:8px;border-radius:3px}
 .note{font-size:13px;color:var(--ink-2);margin-top:18px}
-.lb{background:none;border:0;box-shadow:none;font:600 13px Pretendard,system-ui,sans-serif;color:#0A0A0A;text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 3px #fff;white-space:nowrap}.leaflet-tooltip.lb:before{display:none}.gt{cursor:pointer;font:600 12px Pretendard,system-ui,sans-serif;border:1.5px solid #0A0A0A;background:#fff;text-align:center;line-height:19px;height:22px;width:44px}.lb.nm{font-size:11px}
+.lb{background:none;border:0;box-shadow:none;font:600 13px Pretendard,system-ui,sans-serif;color:var(--ink);text-shadow:0 0 3px var(--surface),0 0 3px var(--surface),0 0 3px var(--surface);white-space:nowrap}.leaflet-tooltip.lb:before{display:none}.gt{cursor:pointer;font:600 12px Pretendard,system-ui,sans-serif;border:1.5px solid var(--ink);background:var(--surface);text-align:center;line-height:19px;height:22px;width:44px}.lb.nm{font-size:11px}
 .emn{display:none}.em .emn{display:block}.em .note:not(.emn){display:none}.em .top,.em h1,.em #lead{display:none!important}.em main{padding:0 0 8px;max-width:none}.em body{background:transparent}
-</style></head><body><main>
+</style><style>.em main,.em .w{margin:0;padding:0 0 8px}.days{border:0!important;gap:4px;width:auto!important;max-width:100%;flex-wrap:nowrap!important;overflow-x:auto;scrollbar-width:none;margin:0 0 8px!important}.days::-webkit-scrollbar{display:none}.days button{border:0!important;border-radius:8px;background:transparent!important;color:var(--ink-2)!important;padding:0 14px!important;min-height:44px;white-space:nowrap;font-size:15px!important;display:inline-flex!important;align-items:center;cursor:pointer}.days button:hover{background:var(--surface-2)!important;color:var(--ink)!important}.days button[aria-pressed=true]{background:var(--ink)!important;color:var(--bg)!important;font-weight:600}.note,.sub{max-width:72ch}</style><style>.mapfail{display:grid;place-items:center;height:100%;margin:0;padding:16px;text-align:center;font-size:14px;color:var(--ink-2);background:var(--surface-2)}</style><script>addEventListener('load',function(){setTimeout(function(){document.querySelectorAll('.days').forEach(function(d){var b=d.querySelector('[aria-pressed=true]');if(b&&d.scrollWidth>d.clientWidth)d.scrollLeft=Math.max(0,b.offsetLeft-d.offsetLeft-d.clientWidth/2+b.offsetWidth/2)})},300)})</script></head><body><main>
 <p class="top" style="display:flex;justify-content:space-between;align-items:center;margin:0 0 28px"><b style="font-weight:600;font-size:20px">올타임</b><span style="display:flex;flex-wrap:wrap;gap:0 14px;justify-content:flex-end;font-size:14px"><a href="/" style="color:var(--ink-2);padding:12px 0">처음</a><a href="/trend" style="color:var(--ink-2);padding:12px 0">오늘의 추이</a><a href="/ops" style="color:var(--ink-2);padding:12px 0">운영자 화면</a><a href="/verify" style="color:var(--ink-2);padding:12px 0">검증 기록</a></span></p>
 <h1>구간 혼잡도</h1>
 <p class="sub" id="lead">큰 공연(관객 9천 명 이상)이 있는 날, 공연장에서 역과 문으로 가는 길의 구간별 혼잡도를 보여 줘요.</p>
@@ -41,6 +42,7 @@ li b{font-weight:600}li .lv{font-weight:600;white-space:nowrap}li .cap{grid-colu
 <p class="note">단계를 나누는 숫자(1시간에 300명, 900명, 1,500명)는 올타임이 정한 값이고, 이 공원 안에서 어느 길이 상대적으로 더 붐비는지를 나타내요. 걷기 불편한 정도를 뜻하지는 않아요. 도로용량편람의 보행 서비스수준은 길 폭 1m당 1분에 지나는 사람 수로 정하는데(20명까지 A, 32명까지 B, 46명까지 C, 70명까지 D, 106명까지 E), 길 폭을 몰라서 그 기준으로 바꾸지 못했어요. 예를 들어 폭이 4m라면 가장 붐비는 10분(역 방향 약 940명)이 1m당 1분에 약 24명으로 B에 해당해요. 다만 이 숫자는 확인된 사람만 센 최소치예요. 자료가 1시간 단위라서 끝난 직후 몇 분에 얼마나 몰리는지는 여기에 안 보여요. 11월 22일 공연 날에는 끝난 뒤 첫 10분에 공원 안 사람이 약 5,000명 줄었어요. 차로의 단계는 문별 출차 기록(76일)에서 5분 동안 나간 차 수가 최대치(약 45대)에 가까운 시간을 기준으로 정했어요. 걷는 시간은 지도상 길을 따라 잰 거리를 1분에 75m로 나눈 값이에요. 서울특별시 공공데이터, 서울교통공사, 한국체육산업개발 자료. 배경 지도와 길 형태 © OpenStreetMap 기여자</p>
 </main>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>if(typeof L==='undefined'){var Lnop=new Proxy(function(){},{get:function(t,k){return k===Symbol.toPrimitive?function(){return 0}:k==='then'?undefined:Lnop},apply:function(){return Lnop}});window.L=Lnop;document.addEventListener('DOMContentLoaded',function(){var m=document.getElementById('map');if(m)m.innerHTML='<p class="mapfail">지도를 불러오지 못했어요. 아래 구간 목록은 그대로 볼 수 있어요.</p>'})}</script>
 <script>
 const EM=new URLSearchParams(location.search).has('embed');if(EM)document.documentElement.classList.add('em');else{try{top.location.replace('/hub#sections')}catch(e){location.replace('/hub#sections')}}
 const tell=()=>{if(EM&&parent!==window)parent.postMessage({olltimeH:Math.ceil(document.documentElement.getBoundingClientRect().height)},location.origin)};

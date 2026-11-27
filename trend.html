@@ -1,23 +1,24 @@
 <!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>오늘의 추이 | 올타임</title>
 <meta name="description" content="올림픽공원 안 사람 수와 주차 대수의 10분 단위 추이">
 <style>
+:root{color-scheme:light;--bg:#FAFAFA;--surface:#FFFFFF;--surface-2:#F4F4F5;--ink:#0A0A0A;--ink-2:#6B6B74;--ink-3:#A1A1AA;--line:#D4D4D8;--line-weak:#E5E5E5;--ok:#15803D;--bad:#B91C1C;--warn:#A16207}
 @font-face{font-family:Pretendard;src:url(/fonts/Pretendard-Regular.subset.woff2) format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:Pretendard;src:url(/fonts/Pretendard-SemiBold.subset.woff2) format("woff2");font-weight:600;font-display:swap}
-:root{--bg:#FAFAFA;--ink:#0A0A0A;--ink-2:#6B6B74;--ink-3:#A1A1AA;--line:#D4D4D8;--line-weak:#E5E5E5}
+
 *{box-sizing:border-box}body{margin:0;font-family:Pretendard,system-ui,sans-serif;color:var(--ink);background:var(--bg);font-size:16px;line-height:1.5}
 main{max-width:760px;margin:0 auto;padding:20px 20px 48px}
 h1{font-size:22px;font-weight:600;margin:0 0 4px}.sub{margin:0;color:var(--ink-2);font-size:14px}
 .days{display:flex;flex-wrap:wrap;border:1px solid var(--line);margin:16px 0 4px;width:max-content;max-width:100%}
-.days button{font:inherit;font-size:15px;padding:9px 14px;background:#fff;border:0;color:var(--ink-2);cursor:pointer;min-height:42px}.days button+button{border-left:1px solid var(--line)}.days button[aria-pressed=true]{background:var(--ink);color:#fff}
+.days button{font:inherit;font-size:15px;padding:9px 14px;background:var(--surface);border:0;color:var(--ink-2);cursor:pointer;min-height:42px}.days button+button{border-left:1px solid var(--line)}.days button[aria-pressed=true]{background:var(--ink);color:var(--surface)}
 h2{font-size:17px;font-weight:600;margin:28px 0 2px}.big{font-size:15px;color:var(--ink-2);margin:0 0 6px}.big b{color:var(--ink);font-weight:600}
 svg{display:block;width:100%;height:auto;touch-action:pan-y}
-.ax{font-size:11px;fill:var(--ink-2)}.lb{font-size:11px;fill:var(--ink-2)}@media(max-width:560px){.ax,.lb{font-size:20px}}
+.ax{font-size:12px;fill:var(--ink-2)}.lb{font-size:12px;fill:var(--ink-2)}@media(max-width:560px){.ax,.lb{font-size:20px}}
 .lg{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--ink-2);margin-top:6px}.lg i{display:inline-block;vertical-align:middle;margin-right:6px}
-.pick{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--ink-2);margin:8px 0 6px}.pick select{font:inherit;font-size:15px;color:var(--ink);padding:9px 10px;border:1px solid var(--line);background:#fff;border-radius:0;min-height:42px;max-width:100%;flex:1}
+.pick{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--ink-2);margin:8px 0 6px}.pick select{font:inherit;font-size:15px;color:var(--ink);padding:9px 10px;border:1px solid var(--line);background:var(--surface);border-radius:0;min-height:42px;max-width:100%;flex:1}
 .tip{font-size:14px;min-height:22px;margin-top:6px}.tip b{font-weight:600}
 .note{font-size:13px;color:var(--ink-2);margin-top:22px}
 details{margin-top:14px;font-size:14px}summary{cursor:pointer;color:var(--ink-2);padding:8px 0}table{border-collapse:collapse;font-size:13px;width:100%}td,th{text-align:right;padding:5px 8px;border-bottom:1px solid var(--line-weak);font-variant-numeric:tabular-nums}th{color:var(--ink-2);font-weight:600}td:first-child,th:first-child{text-align:left}
-</style><script>if(new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('em');else{try{top.location.replace('/hub#trend')}catch(e){location.replace('/hub#trend')}}</script><style>.em .top,.em h1,.em h1+.sub{display:none!important}.em body{background:transparent}.em main{padding-top:0;padding-bottom:8px}.em .w{padding-top:0}</style></head><body><main>
+</style><script>if(new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('em');else{try{top.location.replace('/hub#trend')}catch(e){location.replace('/hub#trend')}}</script><style>.em .top,.em h1,.em h1+.sub{display:none!important}.em body{background:transparent}.em main{padding-top:0;padding-bottom:8px}.em .w{padding-top:0}</style><style>.em main,.em .w{margin:0;padding:0 0 8px}.days{border:0!important;gap:4px;width:auto!important;max-width:100%;flex-wrap:nowrap!important;overflow-x:auto;scrollbar-width:none;margin:0 0 8px!important}.days::-webkit-scrollbar{display:none}.days button{border:0!important;border-radius:8px;background:transparent!important;color:var(--ink-2)!important;padding:0 14px!important;min-height:44px;white-space:nowrap;font-size:15px!important;display:inline-flex!important;align-items:center;cursor:pointer}.days button:hover{background:var(--surface-2)!important;color:var(--ink)!important}.days button[aria-pressed=true]{background:var(--ink)!important;color:var(--bg)!important;font-weight:600}.note,.sub{max-width:72ch}</style><style>.em main{max-width:none}</style><script>addEventListener('load',function(){setTimeout(function(){document.querySelectorAll('.days').forEach(function(d){var b=d.querySelector('[aria-pressed=true]');if(b&&d.scrollWidth>d.clientWidth)d.scrollLeft=Math.max(0,b.offsetLeft-d.offsetLeft-d.clientWidth/2+b.offsetWidth/2)})},300)})</script></head><body><main>
 <p class="top" style="display:flex;justify-content:space-between;align-items:center;margin:0 0 28px"><b style="font-weight:600;font-size:20px">올타임</b><span style="display:flex;flex-wrap:wrap;gap:0 14px;justify-content:flex-end;font-size:14px"><a href="/" style="color:var(--ink-2);padding:12px 0">처음</a><a href="/sections" style="color:var(--ink-2);padding:12px 0">구간 혼잡도</a><a href="/ops" style="color:var(--ink-2);padding:12px 0">운영자 화면</a><a href="/verify" style="color:var(--ink-2);padding:12px 0">검증 기록</a></span></p>
 <h1>오늘의 추이</h1>
 <p class="sub">올림픽공원 안 사람 수와 주차 대수가 하루 동안 어떻게 움직였는지, 남은 시간에는 어떻게 될지 보여 줘요. 실제 값은 5분마다 새로 들어오고, 오늘 날짜를 보고 있으면 화면도 5분마다 자동으로 갱신돼요.</p>
