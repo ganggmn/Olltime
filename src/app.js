@@ -13,7 +13,7 @@ const dayLabel=d=>{const x=new Date(d+'T12:00:00+09:00');return`${x.getUTCMonth(
 const mdLabel=d=>dayLabel(d).replace(/ \S+요일$/,'');
 /* 혼잡 단계: 무채색에서 빨강으로. 붐빌수록 진하고 붉게 */
 /* 혼잡 막대: 여유·보통은 색 없이, 약간 혼잡은 노랑, 혼잡은 빨강 (각 원색 70%를 흰 바탕에 얹은 값) */
-const LVG={'여유':'#EEEEF0','보통':'#D4D4D8','약간 혼잡':'#FFD64D','혼잡':'#E76767'},LVN={'여유':0,'보통':1,'약간 혼잡':2,'혼잡':3};
+const LVG={'여유':'#EEEEF0','보통':'#A1A1AA','약간 혼잡':'#FFD64D','혼잡':'#E76767'},LVN={'여유':0,'보통':1,'약간 혼잡':2,'혼잡':3};
 const LVC=l=>'lv-'+(l==='약간 혼잡'?'약간':l);
 const HATCH=c=>`repeating-linear-gradient(45deg,${c} 0 2.5px,#FFFFFF 2.5px 4px)`;
 const C_IN='#A1A1AA',C_SHOW='#D9D9DE',C_OUT='#E76767';
@@ -186,11 +186,18 @@ const renderView=reset=>{
   const nw=nowC(),TH=2200*.9,act=PT.filter(r=>r[0]<=nw).concat(PARK?[[nw,PARK.sum]]:[]).sort((a,b)=>a[0]-b[0]),IV=[];let cur=null;
   for(const[m,v]of act)if(v>=TH){if(cur&&m-cur[1]<=20)cur[1]=m;else{cur=[m,m];IV.push(cur)}}
   let PI=null;if(PARK){let occ=PARK.sum,a=occ>=TH?nw:null,b=a;for(let t=Math.ceil(nw/10)*10;t<X1;t+=10){const r=refAt(TREF,t);occ+=r[2]-(r[3]+r[4]+r[5]+r[6]+r[7]);if(occ>=TH){if(a==null)a=t+10;b=t+10}else if(a!=null)break}if(a!=null&&b>a)PI=[a,b]}
+  /* 주차 칸: 2,200대 대비 < 50% 여유 · ≥ 50% 보통 · ≥ 70% 약간 혼잡 · ≥ 90% 만차(빨강). 지난 시간 = 실측 최고, 이후 = 예상(점선) */
+  const PS=v=>{const r=v/2200;return r>=.9?3:r>=.7?2:r>=.5?1:0},pr={};
+  if(PARK){let occ=PARK.sum;for(let t=Math.ceil(nw/10)*10;t<X1;t+=10){const r=refAt(TREF,t);occ+=r[2]-(r[3]+r[4]+r[5]+r[6]+r[7]);pr[t+10]=occ}}
+  const PC=[];for(let h=X0;h<X1;h+=60){const a=act.filter(r=>r[0]>=h&&r[0]<h+60);if(a.length){PC.push([PS(Math.max(...a.map(r=>r[1]))),0]);continue}const q=Object.keys(pr).map(Number).filter(t=>t>h&&t<=h+60);PC.push(q.length?[PS(Math.max(...q.map(t=>pr[t]))),1]:[-1,0])}
+  const PNM=['여유','보통','약간 혼잡','만차'];
+  $('#strip2').innerHTML=PC.map(([v,e],k)=>`<span class="${v<0?'na':e?'pd p'+v:'p'+v}" title="${hm(X0+k*60)}–${hmX(X0+k*60+60)} 주차 ${v<0?'자료 없음':PNM[v]+(e?' (예상)':'')}"></span>`).join('');
+  if(PC.some(([v])=>v<0))used.add(-1);
   PKB=IV.filter(([a,b])=>b-a>=10).map(([a,b])=>[a,b,0,`만차 ${hm(a)}–${hm(b)}`]).concat(PI?[[PI[0],PI[1],1,`만차 예상 ${PI[0]<=nw+5?'~':hm(PI[0])+'–'}${hmX(PI[1])}`]]:[]);
-  $('#sleg').innerHTML=`<span class="lh">인원 및 주차</span>`+SW(LVG['여유'],'여유')+SW(LVG['보통'],'보통')+SW(LVG['약간 혼잡'],'약간 혼잡')+SW(LVG['혼잡'],'혼잡')+(used.has(-1)?'<span><i class="na"></i>자료 없음</span>':'')+'<span><i class="mk"></i>만차</span><span><i class="mk pd"></i>만차 예상</span><span>지금 이후 = 서울시 예보·주차 예상</span>';
+  $('#sleg').innerHTML=`<span class="lh">인원 및 주차</span>`+SW(LVG['여유'],'여유')+SW(LVG['보통'],'보통')+SW(LVG['약간 혼잡'],'약간 혼잡')+SW(LVG['혼잡'],'혼잡·만차')+(used.has(-1)?'<span><i class="na"></i>자료 없음</span>':'')+'<span><i class="pd"></i>예상</span><span>인원 = 서울시 · 지금 이후 예보</span>';
   $('#mapleg').innerHTML=MAPLEG}
  else{const L=[],ps=viewShows.map(pred);for(let t=X0;t<X1;t+=10){const m=t+5;let bg='#FFFFFF';if(ps.some(p=>m>=p.st&&m<p.end))bg=C_SHOW;else if(ps.some(p=>m>=p.inA&&m<p.inB))bg=C_IN;else if(ps.some(p=>m>=p.outA&&m<p.outB))bg=C_OUT;L.push([t,t+10,bg])}
-  st.className='strip';st.innerHTML=segs(L);PKB=[];
+  st.className='strip';st.innerHTML=segs(L);PKB=[];$('#strip2').innerHTML='';
   $('#sleg').innerHTML=SW(C_IN,'입차 몰림')+SW(C_SHOW,'공연')+SW(C_OUT,'출차 몰림')+'<span>예상 · 2025 공연 날 기록</span>';
   $('#mapleg').innerHTML=MAPLEG}
  /* 공연 괄호: 이름 + 시작–끝. 끝 미정이면 오른쪽을 열어 둬요 */
@@ -211,7 +218,7 @@ new ResizeObserver(()=>placeShows()).observe($('#shows'));
 const placePk=()=>{const box=$('#pk'),W=box.clientWidth,rows=[];let n=0;
  for(const sb of box.querySelectorAll('.pb')){const b=sb.querySelector('b');b.style.transform='';const x0=sb.offsetLeft,bw=b.offsetWidth,dx=Math.max(0,x0+bw-W);if(dx)b.style.transform=`translateX(${-dx}px)`;
   const a=x0-dx,z=Math.max(x0+bw-dx,x0+sb.offsetWidth);let r=0;while(rows[r]&&rows[r].some(([p,q])=>a<q+12&&z>p-12))r++;(rows[r]=rows[r]||[]).push([a,z]);sb.style.top=r*24+'px';n=Math.max(n,r+1)}
- const h=n?20+n*24:14,trk=$('.track');trk.style.height=h+'px';tr.style.setProperty('--th',(h+6)+'px')};
+ const two=VIEW===TODAY,base=two?38:14,h=n?base+6+n*24:base,trk=$('.track');trk.style.height=h+'px';box.style.top=(base+6)+'px';$('#nowmk').style.height=(base+6)+'px';tr.style.setProperty('--th',(h+6)+'px');tr.style.setProperty('--tl',(base+6)+'px');$('.rl').hidden=!two};
 new ResizeObserver(()=>placePk()).observe($('#pk'));
 const drawNow=()=>{const nm=$('#nowmk'),n=nowC();nm.hidden=VIEW!==TODAY||n<X0||n>X1;nm.style.left=pct(Math.min(X1,Math.max(X0,n)))+'%'};
 /* 막대 아래 시각: 지금이면 '지금 15:40', 옮겼으면 그 시각 */

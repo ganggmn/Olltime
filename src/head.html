@@ -503,6 +503,18 @@ html:not(.only-story) #story{display:none}
 .sleg i.mk{width:16px;height:6px;background:transparent;outline:0;border:1.5px solid var(--bad);border-top:0;box-sizing:border-box}
 .sleg i.mk.pd{border-style:dashed;border-right:0;border-top:0}
 .legs .sleg .lh{min-width:0}
+/* 3판 7차: 인원·주차 두 줄 + 주차 아래 만차 괄호, 범례 한 줄 */
+.scrub{display:grid;grid-template-columns:34px minmax(0,1fr);column-gap:8px;align-items:start}
+.rl{position:relative;height:38px;margin-top:2px}
+.rl span{position:absolute;left:0;font-size:13px;line-height:14px;color:var(--ink-2)}
+.rl span:nth-child(1){top:0}.rl span:nth-child(2){top:24px}
+.strip.s2{top:24px}
+.strip.cells span.p1{background:#A1A1AA}
+.strip.cells span.pd.p1{background:rgba(161,161,170,.18);border-color:#A1A1AA}
+.nowmk{top:-3px}
+#tr::-webkit-slider-thumb{background:linear-gradient(90deg,transparent 6px,var(--ink) 6px,var(--ink) 8px,transparent 8px) 0 0/100% var(--tl,20px) no-repeat}
+#tr::-moz-range-thumb{background:linear-gradient(90deg,transparent 6px,var(--ink) 6px,var(--ink) 8px,transparent 8px) 0 0/100% var(--tl,20px) no-repeat}
+.legs{grid-column:1/-1}
 </style>
 <script>if(new URLSearchParams(location.search).get('only')==='story')document.documentElement.classList.add('only-story')</script>
 </head>
