@@ -67,6 +67,11 @@ for r in RD:
     elif t.get('leisure') in ('pitch', 'swimming_pool') and xy[0] == xy[-1] and r['id'] not in INDOOR: BLOCK.append(Polygon(xy).buffer(0))     # 울타리 친 경기장·수영장
     elif hw == 'residential': ROAD.append(LineString(xy).buffer(4, cap_style=2))
     elif hw == 'service' and r['id'] not in CAR_SERVICE_OK: ROAD.append(LineString(xy).buffer(4, cap_style=2))      # 차도(건널목·육교로만 건넘), 폭 8m 가정
+# 돔 동쪽 차도(239950534)는 위성(Esri z19)으로 잰 폭: 북쪽 정문 다리 갈림길~남쪽 성내천 내려가는 길 사이에서 중심선 서쪽 6.1m·동쪽 8.4m(양쪽 주차 줄 포함 약 14m)
+from shapely.ops import substring as _sub
+_rd = LineString(next(r for r in RD if r['id'] == '239950534')['xy'])
+_seg = _sub(_rd, _rd.project(Point(967170, 1946612)), _rd.project(Point(967152, 1946852)))
+ROAD.append(_seg.buffer(6.1, single_sided=True, cap_style=2).union(_seg.buffer(-8.4, single_sided=True, cap_style=2)))
 NOPAINT = shapely.union_all([Polygon(r['xy']).buffer(0) for r in RD if ('building' in r['tags'] or r['tags'].get('amenity') == 'parking') and len(r['xy']) > 3 and r['xy'][0] == r['xy'][-1]] + [EXC])
 BL = shapely.union_all(BLOCK).difference(NOPAINT); RO = shapely.union_all(ROAD).difference(NOPAINT).difference(BL)
 aB = shapely.area(shapely.intersection(cells, BL)); aR = shapely.area(shapely.intersection(cells, RO))
