@@ -515,6 +515,18 @@ html:not(.only-story) #story{display:none}
 #tr::-webkit-slider-thumb{background:linear-gradient(90deg,transparent 6px,var(--ink) 6px,var(--ink) 8px,transparent 8px) 0 0/100% var(--tl,20px) no-repeat}
 #tr::-moz-range-thumb{background:linear-gradient(90deg,transparent 6px,var(--ink) 6px,var(--ink) 8px,transparent 8px) 0 0/100% var(--tl,20px) no-repeat}
 .legs{grid-column:1/-1}
+/* 걷는 길 앞으로 30분 */
+.w30{margin:4px 0 24px}
+.w30 .h-sub{margin:0 0 4px}
+.w30t{width:100%;border-collapse:collapse;margin:12px 0 8px;font-variant-numeric:tabular-nums;table-layout:fixed}
+.w30t thead th{font-size:13px;font-weight:600;text-align:left;padding:0 4px 6px;border-bottom:1px solid var(--line)}
+.w30t thead th:first-child{width:38%}
+.w30t th span,.w30t td span{display:block;font-size:12px;font-weight:400;color:var(--ink-2);line-height:1.35}
+.w30t tbody th{font-size:14px;font-weight:600;text-align:left;padding:10px 8px 10px 0;border-bottom:1px solid var(--line-weak);vertical-align:top}
+.w30t td{font-size:15px;padding:10px 4px;border-bottom:1px solid var(--line-weak);vertical-align:top}
+.w30t td i{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media(max-width:560px){.w30t thead th:first-child{width:31%}.w30t td{font-size:14px;padding:8px 2px}.w30t tbody th{font-size:13px}}
 </style>
 <script>if(new URLSearchParams(location.search).get('only')==='story')document.documentElement.classList.add('only-story')</script>
 </head>

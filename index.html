@@ -515,6 +515,18 @@ html:not(.only-story) #story{display:none}
 #tr::-webkit-slider-thumb{background:linear-gradient(90deg,transparent 6px,var(--ink) 6px,var(--ink) 8px,transparent 8px) 0 0/100% var(--tl,20px) no-repeat}
 #tr::-moz-range-thumb{background:linear-gradient(90deg,transparent 6px,var(--ink) 6px,var(--ink) 8px,transparent 8px) 0 0/100% var(--tl,20px) no-repeat}
 .legs{grid-column:1/-1}
+/* 걷는 길 앞으로 30분 */
+.w30{margin:4px 0 24px}
+.w30 .h-sub{margin:0 0 4px}
+.w30t{width:100%;border-collapse:collapse;margin:12px 0 8px;font-variant-numeric:tabular-nums;table-layout:fixed}
+.w30t thead th{font-size:13px;font-weight:600;text-align:left;padding:0 4px 6px;border-bottom:1px solid var(--line)}
+.w30t thead th:first-child{width:38%}
+.w30t th span,.w30t td span{display:block;font-size:12px;font-weight:400;color:var(--ink-2);line-height:1.35}
+.w30t tbody th{font-size:14px;font-weight:600;text-align:left;padding:10px 8px 10px 0;border-bottom:1px solid var(--line-weak);vertical-align:top}
+.w30t td{font-size:15px;padding:10px 4px;border-bottom:1px solid var(--line-weak);vertical-align:top}
+.w30t td i{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media(max-width:560px){.w30t thead th:first-child{width:31%}.w30t td{font-size:14px;padding:8px 2px}.w30t tbody th{font-size:13px}}
 </style>
 <script>if(new URLSearchParams(location.search).get('only')==='story')document.documentElement.classList.add('only-story')</script>
 </head>
@@ -576,7 +588,7 @@ html:not(.only-story) #story{display:none}
     <p class="sr" id="srT" aria-live="polite"></p>
     </div>
     </div>
-    <div id="pv-walk" class="modp" role="tabpanel" aria-labelledby="pt-walk" hidden><p class="cap" style="margin-bottom:12px">기준: 관객 ≥ 9,000명 공연일</p><iframe class="pframe" data-src="/sections?embed=1" title="구간 혼잡도 지도와 방향별 목록"></iframe></div>
+    <div id="pv-walk" class="modp" role="tabpanel" aria-labelledby="pt-walk" hidden><div class="w30" id="w30" hidden></div><p class="cap" style="margin-bottom:12px">아래 지도: 1시간 단위 · 관객 ≥ 9,000명 공연일 중앙값</p><iframe class="pframe" data-src="/sections?embed=1" title="구간 혼잡도 지도와 방향별 목록"></iframe></div>
     <div id="pv-trend" class="modp" role="tabpanel" aria-labelledby="pt-trend" hidden><iframe class="pframe" data-src="/trend?embed=1" title="오늘 사람 수와 주차 대수 추이"></iframe></div>
   </div></div>
   <div class="h-i">
@@ -1177,7 +1189,7 @@ const load=async()=>{STATE='pending';renderHero();
  const ok=cr.status==='fulfilled'&&cr.value&&cr.value.now&&cr.value.now.time&&cr.value.now.lo!=null;
  PARK=pr.status==='fulfilled'&&pr.value&&pr.value.ok?pr.value:null;STATE=ok?'live':'fail';CITY=ok?cr.value:blankCity();derive();
  const hadF=document.activeElement===$('#retry');
- renderHero();renderView(false);renderQ();renderPass(false);
+ renderHero();renderView(false);renderQ();renderPass(false);renderW30();
  if(hadF)(STATE==='fail'?$('#retry'):$('#heroH')).focus()};
 /* 올림픽공원역 다음 열차: 서울시가 정보를 만든 시각(recptnDt)에서 지난 시간만큼 당겨서 보여줘요 */
 let TRAIN=null;
@@ -1202,9 +1214,27 @@ const renderTrain=()=>{const box=$('#train');
  const at=TRAIN.list.map(t=>t.at).sort().pop()||'';
  if(!rows){box.hidden=true;return}
  box.hidden=false;box.innerHTML=`<h2 class="h-sub">올림픽공원역 다음 열차</h2><ul class="shl trl">${rows}</ul><p class="cap">출처: 서울시${at?` · ${esc(at.slice(11,16))}`:''}</p>`};
+/* 걷는 길 앞으로 30분 (KSPO DOME 공연 날)
+   걷는 인원(10분) = 방향별 공연 뒤 합 × 10분 몫(2025 공연 날 60일, 출차가 몰리기 시작한 때 기준)
+   기준 시각: 종료 감지(주차 10분 6.5% 감소, 시작+60분·예정 끝−45분 뒤) − 15분. 감지 전 = 시작 + 예정 시간 + 25분
+   검증: 2025 공연 날 51일 올림픽공원역 시간별 승차 몫 일치 78.4%(감지 기준) vs 60.8%(일정만). 남·북은 아직 검증 전 */
+const W30={ker:[21,25,18.8,12.9,8.4,5.3,3.3,2.1,1.3,.8,.5,.3],th:[50,150,250],lv:['여유','보통','약간 혼잡','혼잡'],
+ dirs:[['동쪽 · 올림픽공원역',k=>3770*(W30.ker[k]||0)/100,'검증: 2025 51일 · 일치 78.4%'],
+  ['남쪽 · 남2문·방이동',k=>k<6?340/6:k<12?430/6:0,'1시간 평균 ÷ 6 · 검증 전'],
+  ['북쪽 · 북2문·성내동',k=>k<6?100/6:0,'1시간 평균 ÷ 6 · 검증 전']]};
+const w30Fire=(st,run)=>{const e0=st+Math.max(60,run-45),P=PT.filter(r=>r[0]>=st&&r[1]!=null);for(const[m,v]of P){if(m<e0)continue;const pv=P.find(r=>r[0]>=m-12&&r[0]<=m-8);if(pv&&pv[1]>0&&(pv[1]-v)/pv[1]>=.065)return m}return null};
+const renderW30=()=>{const box=$('#w30');if(!box)return;const sh=todayShows.find(s=>s.venue==='KSPO DOME');if(!sh||STATE!=='live'){box.hidden=true;return}
+ const st=toM(sh.t),run=sh.run||150,fire=w30Fire(st,run),an=fire!=null?fire-15:st+run+25,n=nowC(),t0=Math.floor(n/10)*10;
+ if(n<an-60||n>an+120){box.hidden=true;return}
+ const cols=[0,10,20,30].map(d=>t0+d),lvl=v=>v>=W30.th[2]?3:v>=W30.th[1]?2:v>=W30.th[0]?1:0;
+ box.hidden=false;box.innerHTML=`<h3 class="h-sub">앞으로 30분 · 걷는 길</h3>
+ <p class="cap">평소보다 늘어난 걷는 사람 (10분, 예상) · ${fire!=null?`기준 ${hm(an)} = 주차 감소 감지 ${hm(fire)} − 15분`:`기준 ${hm(an)} = ${sh.t} + ${run}분 + 25분 (주차 감소 감지 전)`}</p>
+ <table class="w30t"><thead><tr><th scope="col"><span class="sr">방향</span></th>${cols.map((c,i)=>`<th scope="col">${i?'+'+i*10+'분':'지금'}<span>${hm(c)}</span></th>`).join('')}</tr></thead><tbody>${W30.dirs.map(([nm,f,why])=>`<tr><th scope="row">${nm}<span>${why}</span></th>${cols.map(c=>{const k=Math.floor((c-an)/10),v=k<0?0:Math.round(f(k)),l=lvl(v);return`<td><i style="background:${LVG[W30.lv[l]]}"></i>${num(v)}<span>${W30.lv[l]}</span></td>`}).join('')}</tr>`).join('')}</tbody></table>
+ <p class="cap">10분 기준: 보통 ≥ 50 · 약간 혼잡 ≥ 150 · 혼잡 ≥ 250명 (아래 지도의 1시간 기준 ÷ 6) · 길 폭을 몰라 밀도는 아님</p>`};
 const loadTrain=async()=>{try{TRAIN=await getJSON('/api/subway',7000)}catch(e){}renderTrain()};
 loadTrain();
 setInterval(()=>{if(document.visibilityState==='visible')loadTrain();else renderTrain()},30000);
+setInterval(()=>{if(document.visibilityState==='visible')renderW30()},60000);
 $('#retry').onclick=()=>{$('#retry').dataset.busy='1';load()};
 /* 열어 둔 채로 있어도 최신으로: 1분마다 '지금' 표시, 5분마다 서울시 데이터를 조용히 다시 받아요 */
 setInterval(()=>{if(VIEW===TODAY)drawNow();renderTrain()},60000);
@@ -1212,7 +1242,7 @@ setInterval(async()=>{if(document.visibilityState!=='visible'||STATE==='pending'
 addEventListener('message',e=>{if(e.origin===location.origin&&e.data&&e.data.olltimeH>200){const f=document.getElementById('secf');if(f)f.style.height=e.data.olltimeH+'px'}});
 getJSON('/api/trend',7000).then(j=>{PT=(j&&j.ok?j.list:[]).filter(r=>r[1]!=null).map(r=>[r[0],r[1]]);
  /* 지난 시간 인원: 서울시가 측정한 시각 기준 (예전 기록은 저장 시각 − 30분) */
- {const seen=new Set();PP=(j&&j.ok?j.list:[]).filter(r=>r[2]!=null&&r[4]).map(r=>[r[5]!=null?r[5]:r[0]-30,r[2],r[3],NLV(r[4])]).filter(r=>!seen.has(r[0])&&seen.add(r[0])).sort((a,b)=>a[0]-b[0])}if(STATE==='live'&&PT.length)renderView(false);const v=(j&&j.ok?j.list:[]).filter(r=>r[1]!=null&&r[0]>=120&&r[0]<=300).map(r=>r[1]).sort((a,b)=>a-b);if(v.length>=6){FLOORP=v[Math.floor(v.length/2)];FLOORD=true;if(STATE==='live')renderHero()}}).catch(()=>{});
+ {const seen=new Set();PP=(j&&j.ok?j.list:[]).filter(r=>r[2]!=null&&r[4]).map(r=>[r[5]!=null?r[5]:r[0]-30,r[2],r[3],NLV(r[4])]).filter(r=>!seen.has(r[0])&&seen.add(r[0])).sort((a,b)=>a[0]-b[0])}if(STATE==='live'&&PT.length)renderView(false);renderW30();const v=(j&&j.ok?j.list:[]).filter(r=>r[1]!=null&&r[0]>=120&&r[0]<=300).map(r=>r[1]).sort((a,b)=>a-b);if(v.length>=6){FLOORP=v[Math.floor(v.length/2)];FLOORD=true;if(STATE==='live')renderHero()}}).catch(()=>{});
 $('#heroH').setAttribute('tabindex','-1');
 await load();
 })();
