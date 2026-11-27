@@ -55,6 +55,7 @@ L[~keep] = 0
 import osm_dome
 from shapely.geometry import Point
 RD = osm_dome.load(); BLOCK, ROAD = [], []
+INDOOR = {'470689431', '470689432', '683545632', '75956847'}  # 실내 수영장·체육과학관·실내테니스장: 건물이라 빨강에서 뺌(OSM에 building 태그가 없을 뿐)
 CAR_SERVICE_OK = {'923609912', '923609913', '923609914', '923609915', '923609916', '239951038', '688650626', '1321739839'}  # 걸어 다니는 통로·정문 다리·주차장 통로
 for r in RD:
     t = r['tags']; xy = r['xy']
@@ -62,7 +63,7 @@ for r in RD:
     hw = t.get('highway')
     if t.get('foot') == 'no': BLOCK.append(LineString(xy).buffer(1.5, cap_style=2))                                   # 자전거 전용(사람 금지) 길·다리
     elif hw == 'primary': BLOCK.append(LineString(xy).buffer(float(t.get('lanes', 6)) * 3.25 / 2, cap_style=2))     # 양재대로·오륜교(12차로)
-    elif t.get('leisure') in ('pitch', 'swimming_pool') and xy[0] == xy[-1]: BLOCK.append(Polygon(xy).buffer(0))     # 울타리 친 경기장·수영장
+    elif t.get('leisure') in ('pitch', 'swimming_pool') and xy[0] == xy[-1] and r['id'] not in INDOOR: BLOCK.append(Polygon(xy).buffer(0))     # 울타리 친 경기장·수영장
     elif hw == 'residential': ROAD.append(LineString(xy).buffer(4, cap_style=2))
     elif hw == 'service' and r['id'] not in CAR_SERVICE_OK: ROAD.append(LineString(xy).buffer(4, cap_style=2))      # 차도(건널목·육교로만 건넘), 폭 8m 가정
 NOPAINT = shapely.union_all([Polygon(r['xy']).buffer(0) for r in RD if ('building' in r['tags'] or r['tags'].get('amenity') == 'parking') and len(r['xy']) > 3 and r['xy'][0] == r['xy'][-1]] + [EXC])
