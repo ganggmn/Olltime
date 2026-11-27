@@ -26,6 +26,10 @@ for r in R:
     elif r['kind'] == 'A':
         p = poly(r)
         if p is not None and p.intersects(BB): geo.append(p.buffer(0))
+# 돔 서쪽 포장 광장 위 OSM 차량 통로(239951300): 위성으로 보니 차로 표시·연석 없이 폭 18~27m 포장 광장이라 걷는 칸(폭 16m)으로 칠함(road_width_meas.json)
+import osm_dome as _od
+for _r in _od.load():
+    if _r['id'] == '239951300': geo.append(LineString(_r['xy']).buffer(8, cap_style=2)); added.append(('239951300', 'service(광장)', 16, 0))
 U = shapely.union_all(geo)
 EXC = shapely.union_all([p.buffer(0) for r in R if (r['kind'] in 'BLW' or (r['kind'] == 'R' and 'role:outer' in r['raw'])) and (p := poly(r)) is not None and p.intersects(BB)])
 U = U.difference(EXC)
@@ -56,6 +60,22 @@ L[~keep] = 0
 import osm_dome
 from shapely.geometry import Point
 RD = osm_dome.load(); BLOCK, ROAD = [], []
+# 위성으로 잰 차도 폭(road_width_meas.json): 단면마다 앞뒤 10m 구간을 그 단면의 오른쪽·왼쪽 폭으로, 못 잰 구간은 8m(4m·4m) 가정
+from shapely.ops import substring as _ss
+_MW = json.load(open('road_width_meas.json', encoding='utf-8')); PRIM = {k: (v['right'], v['left']) for k, v in _MW['primary'].items()}
+def wband(g, rt, lf): return g.buffer(lf, single_sided=True, cap_style=2).union(g.buffer(rt, single_sided=True, cap_style=2))
+def road_geom(i, g):
+    S = sorted([(g.project(Point(s['x'], s['y'])), s['right'], s['left']) for s in _MW['sections'] if s['id'] == i])
+    if not S: return g.buffer(4, cap_style=2)
+    parts, cut, L = [], [], g.length
+    for p, rt, lf in S:
+        a, b = max(0, p - 10), min(L, p + 10); parts.append(wband(_ss(g, a, b), rt, lf)); cut.append((a, b))
+    cut.sort(); t = 0
+    for a, b in cut:
+        if a > t + 0.5: parts.append(_ss(g, t, a).buffer(4, cap_style=2))
+        t = max(t, b)
+    if t < L - 0.5: parts.append(_ss(g, t, L).buffer(4, cap_style=2))
+    return shapely.union_all(parts)
 INDOOR = {'470689431', '470689432', '683545632', '75956847'}  # 실내 수영장·체육과학관·실내테니스장: 건물이라 빨강에서 뺌(OSM에 building 태그가 없을 뿐)
 CAR_SERVICE_OK = {'923609912', '923609913', '923609914', '923609915', '923609916', '239951038', '688650626', '1321739839'}  # 걸어 다니는 통로·정문 다리·주차장 통로
 for r in RD:
@@ -63,10 +83,9 @@ for r in RD:
     if len(xy) < 2: continue
     hw = t.get('highway')
     if t.get('foot') == 'no': BLOCK.append(LineString(xy).buffer(1.5, cap_style=2))                                   # 자전거 전용(사람 금지) 길·다리
-    elif hw == 'primary': BLOCK.append(LineString(xy).buffer(float(t.get('lanes', 6)) * 3.25 / 2, cap_style=2))     # 양재대로·오륜교(12차로)
+    elif hw == 'primary': BLOCK.append(wband(LineString(xy), *PRIM[r['id']]) if r['id'] in PRIM else LineString(xy).buffer(float(t.get('lanes', 6)) * 3.25 / 2, cap_style=2))     # 양재대로(위성으로 잰 폭)·오륜교(12차로)
     elif t.get('leisure') in ('pitch', 'swimming_pool') and xy[0] == xy[-1] and r['id'] not in INDOOR: BLOCK.append(Polygon(xy).buffer(0))     # 울타리 친 경기장·수영장
-    elif hw == 'residential': ROAD.append(LineString(xy).buffer(4, cap_style=2))
-    elif hw == 'service' and r['id'] not in CAR_SERVICE_OK: ROAD.append(LineString(xy).buffer(4, cap_style=2))      # 차도(건널목·육교로만 건넘), 폭 8m 가정
+    elif hw == 'residential' or (hw == 'service' and r['id'] not in CAR_SERVICE_OK and r['id'] != '239951300'): ROAD.append(road_geom(r['id'], LineString(xy)))      # 차도(건널목·육교로만 건넘): 잰 단면은 그 폭, 못 잰 곳은 8m 가정
 # 돔 동쪽 차도(239950534)는 위성(Esri z19)으로 잰 폭: 북쪽 정문 다리 갈림길~남쪽 성내천 내려가는 길 사이에서 중심선 서쪽 6.1m·동쪽 8.4m(양쪽 주차 줄 포함 약 14m)
 from shapely.ops import substring as _sub
 _rd = LineString(next(r for r in RD if r['id'] == '239950534')['xy'])
