@@ -19,7 +19,7 @@
    LAYOUT 머리글 5:7(왼쪽 상태, 오른쪽 지도), 아래 구역은 4:8(왼쪽 제목 고정), 폰은 한 열 */
 @font-face{font-family:"Pretendard";src:url("/fonts/Pretendard-Regular.subset.woff2") format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:"Pretendard";src:url("/fonts/Pretendard-SemiBold.subset.woff2") format("woff2");font-weight:600;font-display:swap}
-:root{color-scheme:light;--bg:#FAFAFA;--surface:#FFFFFF;--surface-2:#F4F4F5;--ink:#0A0A0A;--ink-2:#6B6B74;--ink-3:#A1A1AA;--line:#D4D4D8;--line-weak:#E5E5E5;--ok:#15803D;--bad:#B91C1C;--warn:#A16207;--pad:36px;--hd:65px}
+:root{color-scheme:light;--bg:#FAFAFA;--surface:#FFFFFF;--surface-2:#F4F4F5;--ink:#0A0A0A;--ink-2:#6B6B74;--ink-3:#A1A1AA;--line:#D4D4D8;--line-weak:#E5E5E5;--ok:#15803D;--bad:#B91C1C;--warn:#8F6300;--warn-fill:#FFD64D;--bad-fill:#E76767;--pad:36px;--hd:65px}
 *{box-sizing:border-box;min-width:0}
 html{scroll-padding-top:calc(var(--hd) + 24px)}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;font-size:16px;line-height:1.75;font-weight:400;word-break:keep-all;overflow-x:clip;-webkit-font-smoothing:antialiased;caret-color:var(--ink)}
@@ -42,7 +42,7 @@ button,input{font-family:inherit;color:inherit}
 .sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .skip{position:absolute;left:12px;top:-60px;z-index:30;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:600}
 .skip:focus{top:10px}
-.lv-여유{color:var(--ink)}.lv-보통{color:var(--ink)}.lv-약간{color:#8F6300}.lv-붐빔{color:var(--bad)}
+.lv-여유{color:var(--ink)}.lv-보통{color:var(--ink)}.lv-약간{color:var(--warn)}.lv-붐빔,.lv-혼잡{color:var(--bad)}
 .ph{display:inline-block;width:96px;height:12px;border-radius:2px;background:var(--line-weak);vertical-align:middle}
 .nd{font-size:13px;font-weight:400;color:var(--ink-2);margin-right:6px}
 /* 버튼 */
@@ -276,7 +276,7 @@ legend{font-size:14px;color:var(--ink-2);padding:0;margin-bottom:8px}
 .lr.hit::before{content:"";position:absolute;left:-14px;top:16px;bottom:16px;width:2px;background:var(--ink)}
 .lr:focus{outline:none}
 .lr:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
-.s-keep{color:var(--ok)}.s-pol{color:var(--warn)}.s-back{color:var(--ink-2)}
+.s-keep{color:var(--ink);font-weight:600}.s-pol{color:var(--ink-2)}.s-back{color:var(--ink-2)}
 .more{margin-top:24px}
 .contact{margin-top:36px;border-top:1px solid var(--line)}
 .contact div{padding:12px 0;border-bottom:1px solid var(--line-weak)}
@@ -401,6 +401,15 @@ html:not(.only-story) #story{display:none}
 .kv dd{margin:0;font-variant-numeric:tabular-nums}
 .ins .kv{margin-top:16px}
 @media(max-width:960px){.hgrid{grid-template-areas:"t" "i" "m"}.mob{display:inline}.h-t h1{font-size:40px}.kv div{grid-template-columns:minmax(0,1fr)}}
+/* 3판 2차: 가독성·상태 색 */
+.fx{margin-top:2px;text-align:right}
+.fx summary{cursor:pointer;list-style:none;font-size:14px;color:var(--ink-2);display:inline-block;padding:4px 0}
+.fx summary::-webkit-details-marker{display:none}
+.fx summary::after{content:" +";color:var(--ink-3)}
+.fx[open] summary::after{content:" −"}
+.fx .cap{text-align:right;margin-top:0}
+.blab span.b2{color:var(--warn)}
+@media(max-width:560px){.shl.x li{grid-template-columns:52px minmax(0,1fr)}.shl .xo{grid-column:2;text-align:left;display:flex;flex-wrap:wrap;gap:0 8px;align-items:baseline;margin-top:-6px;white-space:normal}.shl .xo b{display:inline}.shl .xo .cap{text-align:left}}
 </style>
 <script>if(new URLSearchParams(location.search).get('only')==='story')document.documentElement.classList.add('only-story')</script>
 </head>

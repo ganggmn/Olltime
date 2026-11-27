@@ -1,7 +1,7 @@
 <!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>운영자 화면 | 올타임</title>
 <meta name="description" content="올림픽공원 공연 날 운영 시간표와 실시간 알림">
 <style>
-:root{color-scheme:light;--bg:#FAFAFA;--surface:#FFFFFF;--surface-2:#F4F4F5;--ink:#0A0A0A;--ink-2:#6B6B74;--ink-3:#A1A1AA;--line:#D4D4D8;--line-weak:#E5E5E5;--ok:#15803D;--bad:#B91C1C;--warn:#A16207}
+:root{color-scheme:light;--bg:#FAFAFA;--surface:#FFFFFF;--surface-2:#F4F4F5;--ink:#0A0A0A;--ink-2:#6B6B74;--ink-3:#A1A1AA;--line:#D4D4D8;--line-weak:#E5E5E5;--ok:#15803D;--bad:#B91C1C;--warn:#8F6300;--warn-fill:#FFD64D;--bad-fill:#E76767}
 @font-face{font-family:Pretendard;src:url(/fonts/Pretendard-Regular.subset.woff2) format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:Pretendard;src:url(/fonts/Pretendard-SemiBold.subset.woff2) format("woff2");font-weight:600;font-display:swap}
 
@@ -58,7 +58,7 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid 
 <div id="sc_ev"></div>
 <h3 style="font-size:14px;font-weight:600;margin:20px 0 0">평가 방법</h3><dl class="kv"><div><dt>주기</dt><dd>20분</dd></div><div><dt>예상</dt><dd>2시간 전까지 값만 사용</dd></div><div><dt>주차 비교</dt><dd>실측 = 한국체육산업개발 실시간 주차현황</dd></div><div><dt>인원 비교</dt><dd>서울시 범위 안 추정값 · 범위 적중률 병기</dd></div><div><dt>평소 오차</dt><dd>그날 전체 오차의 중앙값</dd></div><div><dt>이상 징후 제외</dt><dd>급변·큰 오차 시각 ~ +2시간 제외</dd></div><div><dt>1시간 안 복귀</dt><dd>미확인</dd></div><div><dt>오류 기록</dt><dd>2026-11-25 저녁부터 · 이전 빈칸 = 미확인</dd></div><div><dt>주의</dt><dd>기준 완화 → 제외 시간 ↑ → 오차 ↓ (전체 값과 비교)</dd></div><div><dt>저장</dt><dd>이 브라우저</dd></div><div><dt>재현</dt><dd>analysis/live_score.mjs</dd></div></dl>
 <h3 style="font-size:14px;font-weight:600;margin:20px 0 0">계산 방법</h3><dl class="kv"><div><dt>패턴</dt><dd>2025 큰 공연(관객 ≥ 9,000) 10분 패턴 × 관객 수 비례 · 공연별 합산</dd></div><div><dt>종료 후 역 방향</dt><dd>승차 증가 합 × 10분 비율 (21%, 25%, 19%, 13% …) · 역 승차 60일</dd></div><div><dt>승차 증가 중앙값</dt><dd>3,770명 (관객 13,452명)</dd></div><div><dt>1시간 묶음 일치</dt><dd>72.6%</dd></div><div><dt>몰림 시작</dt><dd>종료 + 25분 (2025 62일: 시작 + 2시간 55분 중앙값)</dd></div><div><dt>문별 차</dt><dd>입출차 10분 실제 평균</dd></div><div><dt>시작 전 역 방향</dt><dd>1시간 값 ÷ 6</dd></div></dl>
-<h3 style="font-size:14px;font-weight:600;margin:20px 0 0">참고</h3><dl class="kv"><div><dt>인원 범위</dt><dd>지하철 확인분 ≈ 관객 28% · 버스·택시·도보 제외 → 실제 ≥ 표시</dd></div><div><dt>관객 기본값</dt><dd>KSPO DOME 13,000 (2025 중앙값 13,452 · 정원 15,000) · 올림픽홀 3,000 · 핸드볼경기장 5,000 (정원)</dd></div><div><dt>올림픽홀·핸드볼경기장</dt><dd>KSPO DOME 패턴 × 관객 비율 (가정)</dd></div><div><dt>종료 시각 이동</dt><dd>평균 패턴 계산값 · 실측 미확인</dd></div><div><dt>겹침·몰림 기준</dt><dd>걷기 150명/10분 · 차 35·55대/10분 (올타임 기준, 표준 아님)</dd></div><div><dt>빠져나감 알림</dt><dd>공원 인원 −2,000명/10분 · 11/22 기록으로 확인</dd></div><div><dt>만차 예상</dt><dd><a href="/trend" style="color:inherit">오늘 추이</a>와 같은 방법</dd></div><div><dt>출처</dt><dd>서울특별시 공공데이터 · 서울교통공사 · 한국체육산업개발 · <a href="/verify" style="color:inherit">검증 기록</a></dd></div></dl>
+<h3 style="font-size:14px;font-weight:600;margin:20px 0 0">참고</h3><dl class="kv"><div><dt>인원 범위</dt><dd>지하철 확인분 = 관객의 약 28% · 버스·택시·도보 제외 → 실제 ≥ 표시</dd></div><div><dt>관객 기본값</dt><dd>KSPO DOME 13,000 (2025 중앙값 13,452 · 정원 15,000) · 올림픽홀 3,000 · 핸드볼경기장 5,000 (정원)</dd></div><div><dt>올림픽홀·핸드볼경기장</dt><dd>KSPO DOME 패턴 × 관객 비율 (가정)</dd></div><div><dt>종료 시각 이동</dt><dd>평균 패턴 계산값 · 실측 미확인</dd></div><div><dt>겹침·몰림 기준</dt><dd>걷기 150명/10분 · 차 35·55대/10분 (올타임 기준, 표준 아님)</dd></div><div><dt>빠져나감 알림</dt><dd>공원 인원 −2,000명/10분 · 11/22 기록으로 확인</dd></div><div><dt>만차 예상</dt><dd><a href="/trend" style="color:inherit">오늘 추이</a>와 같은 방법</dd></div><div><dt>출처</dt><dd>서울특별시 공공데이터 · 서울교통공사 · 한국체육산업개발 · <a href="/verify" style="color:inherit">검증 기록</a></dd></div></dl>
 </main>
 <script src="/gp.js"></script>
 <script src="/model.js"></script>
@@ -90,7 +90,7 @@ function render(){
   shows.forEach(x=>{const n=x.nm?`${x.nm} (${x.v})`:x.v;ev.push([x.s,`${n} 시작`,`관객 ${num(x.a)}명 기준`]);ev.push([x.e,`${n} 끝`,x.det?'실시간 값으로 맞춘 시각':'예정']) });
   runs(B,b=>o.inE[b]>=W_HOT).forEach(r=>ev.push([r.a*10,`~${hm(r.b*10+10)} 올림픽공원역 → 공연장 몰림`,`최대 ${num(Math.max(...o.inE.slice(r.a,r.b+1)))}명/10분`]));
   runs(B,b=>o.we[b]>=W_HOT&&o.cd[b]>=C_WARN).forEach(r=>ev.push([r.a*10,`~${hm(r.b*10+10)} 동2문 앞 사람·차 겹침`,`역 방향 최대 ${num(Math.max(...o.we.slice(r.a,r.b+1)))}명/10분 · 동2문 출차 최대 ${num(Math.max(...o.cd.slice(r.a,r.b+1)))}대/10분 · 역 출구–동2문 60m · 안내 인력 필요`,1]));
-  runs(B,b=>o.cn[b]>=C_HOT).forEach(r=>ev.push([r.a*10,`~${hm(r.b*10+10)} 북2문 출차 몰림`,`평소 + 최대 ${num(Math.max(...o.cn.slice(r.a,r.b+1)))}대/10분 · 북2문 최대 ≈ 90대/10분 → 대기 발생`,1]));
+  runs(B,b=>o.cn[b]>=C_HOT).forEach(r=>ev.push([r.a*10,`~${hm(r.b*10+10)} 북2문 출차 몰림`,`평소 + 최대 ${num(Math.max(...o.cn.slice(r.a,r.b+1)))}대/10분 · 북2문 최대 약 90대/10분 → 대기 발생`,1]));
   runs(B,b=>o.we[b]>=W_HOT).forEach(r=>{const seg=[...o.we.slice(r.a,r.b+1)],mx=Math.max(...seg);ev.push([(r.a+seg.indexOf(mx))*10,`올림픽공원역 방향 최대`,`${num(mx)}명/10분 · 역 3번 출구 도착 = +8분`,1]);ev.push([r.b*10+10,`올림픽공원역 방향 해소`,`< ${W_HOT}명/10분`])});
   ev.sort((a,b)=>a[0]-b[0]);
   $('#tl').innerHTML=ev.map(e=>`<li${e[3]?' class="hot"':''}><time>${hm(e[0])}</time><div>${e[1]}<span>${e[2]}</span></div></li>`).join('')||'<li><time></time><div>공연 추가 → 시간표</div></li>';

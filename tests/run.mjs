@@ -23,7 +23,7 @@ await test('index.html이 src와 같은 내용으로 만들어져 있음', () =>
 console.log('2. 화면끼리 숫자');
 const app = rd('src/app.js'), body = rd('src/body.html'), verify = rd('verify.html'), ops = rd('ops.html'), sec = rd('sections.html'), trend = rd('trend.html');
 await test('정확도 표: 첫 화면과 검증 기록이 같음', () => { const lad = [...app.matchAll(/\['[^']+',(\d+\.\d),'/g)].map(m => m[1]); ok(lad.length === 6, '단계 수 ' + lad.length); for (const v of lad) ok(verify.includes(`<td>${v}%</td>`), `검증 기록에 ${v}% 없음`); ok(body.includes(`${lad[4]}% → ${lad[5]}%`), '첫 화면 큰 숫자가 표와 다름'); });
-await test('검증 기록 목차 수 = 본문 항목 수', () => { const toc = (verify.match(/<li><a href="#v\d+">/g) || []).length, secs = (verify.match(/<section id="v\d+">/g) || []).length; ok(toc === secs, `목차 ${toc} 본문 ${secs}`); ok(body.includes(`검증 기록 ${secs}건`), '첫 화면의 건수'); });
+await test('검증 기록 목차 수 = 본문 항목 수', () => { const toc = (verify.match(/<tr><td><a href="#v\d+">/g) || []).length, secs = (verify.match(/<section id="v\d+">/g) || []).length; ok(toc === secs, `목차 ${toc} 본문 ${secs}`); ok(body.includes(`검증 기록 ${secs}건`), '첫 화면의 건수'); });
 await test('추이와 운영판이 계산을 따로 갖고 있지 않고 model.js를 씀', () => { for (const [n, h] of [['trend', trend], ['ops', ops]]) { ok(h.includes('<script src="/model.js">') && h.includes('<script src="/gp.js">'), n + ': 공용 파일을 안 불러옴'); ok(!/const BETA=\{/.test(h) && !/FLOOR=\d/.test(h) && !/const KC=\{/.test(h), n + ': 숫자를 따로 적어 둠'); } });
 const KER = constOf(ops, 'KER'), GOUT = constOf(ops, 'GOUT'), GIN = constOf(ops, 'GIN'), TOT = +ops.match(/const TOT=(\d+)/)[1], LAG = +ops.match(/LAG=(\d+)/)[1];
 const F = new Function('return ' + sec.match(/const F=(\{[^;]+\});/)[1])();
