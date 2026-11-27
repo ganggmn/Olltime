@@ -1,7 +1,7 @@
 {
  "what": "11/27 조용필 KSPO DOME(19:00, 예정 130분) 공연 뒤 출차 혼잡 시점 — 여러 모델, 출차 시작 전 고정",
  "made_at": "2026-11-27T19:19+09:00",
- "script": "analysis/exitpeak_models.py (sha256 앞 16자 c620f31162b8fc42, 맥 실행본과 같음)",
+ "script": "analysis/exitpeak_models.py (이 저장소 파일 sha256 앞 16자 33ee88185d0be01a. 맥에서 돌린 본과 내용 같음, 줄 끝 공백만 다를 수 있음)",
  "data": "2025 입출차(CMB 제외), KSPO DOME 단독 저녁 71개·투어 29개, 같은 투어 통째로 빼고 검증",
  "definition": {
   "혼잡": "10분 순유출(나간 차 − 들어온 차) ≥ 120대(2025 단위) = 78대(2026 parking_sum 단위, ×0.649)",
