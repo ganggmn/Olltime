@@ -1,0 +1,93 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>지난 공연 다시 돌려 보기 | 올타임</title>
+<meta name="description" content="2024·2025년 KSPO DOME 공연 저녁을 그날 실시간처럼 다시 돌려 2시간 앞 예상을 실제와 견준 기록">
+<style>
+:root{color-scheme:light;--bg:#FAFAFA;--surface:#FFFFFF;--surface-2:#F4F4F5;--ink:#0A0A0A;--ink-2:#6B6B74;--ink-3:#A1A1AA;--line:#D4D4D8;--line-weak:#E5E5E5;--ok:#15803D;--bad:#B91C1C;--warn:#8F6300;--warn-fill:#FFD64D;--bad-fill:#E76767}
+@font-face{font-family:Pretendard;src:url(/fonts/Pretendard-Regular.subset.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:Pretendard;src:url(/fonts/Pretendard-SemiBold.subset.woff2) format("woff2");font-weight:600;font-display:swap}
+
+*{box-sizing:border-box}body{margin:0;font-family:Pretendard,system-ui,sans-serif;color:var(--ink);background:var(--bg);font-size:16px;line-height:1.5}
+main{max-width:760px;margin:0 auto;padding:20px 20px 48px}
+h1{font-size:22px;font-weight:600;margin:0 0 4px}.sub{margin:0;color:var(--ink-2);font-size:14px}
+.days{display:flex;flex-wrap:wrap;border:1px solid var(--line);margin:16px 0 4px;width:max-content;max-width:100%}
+.days button{font:inherit;font-size:15px;padding:9px 14px;background:var(--surface);border:0;color:var(--ink-2);cursor:pointer;min-height:42px}.days button+button{border-left:1px solid var(--line)}.days button[aria-pressed=true]{background:var(--ink);color:var(--surface)}
+h2{font-size:17px;font-weight:600;margin:28px 0 2px}.big{font-size:15px;color:var(--ink-2);margin:0 0 6px}.big b{color:var(--ink);font-weight:600}
+svg{display:block;width:100%;height:auto;touch-action:pan-y}
+.ax{font-size:12px;fill:var(--ink-2)}.lb{font-size:12px;fill:var(--ink-2)}@media(max-width:560px){.ax,.lb{font-size:20px}}
+.lg{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--ink-2);margin-top:6px}.lg i{display:inline-block;vertical-align:middle;margin-right:6px}
+.pick{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--ink-2);margin:8px 0 6px}.pick select{font:inherit;font-size:15px;color:var(--ink);padding:9px 10px;border:1px solid var(--line);background:var(--surface);border-radius:0;min-height:42px;max-width:100%;flex:1}
+.tip{font-size:14px;min-height:22px;margin-top:6px}.tip b{font-weight:600}
+.note{font-size:13px;color:var(--ink-2);margin-top:22px}
+details{margin-top:14px;font-size:14px}summary{cursor:pointer;color:var(--ink-2);padding:8px 0}table{border-collapse:collapse;font-size:13px;width:100%}td,th{text-align:right;padding:5px 8px;border-bottom:1px solid var(--line-weak);font-variant-numeric:tabular-nums}th{color:var(--ink-2);font-weight:600}td:first-child,th:first-child{text-align:left}
+.kv{margin:8px 0 0;display:grid;border-top:1px solid var(--line-weak, #E5E5E5)}.kv div{display:grid;grid-template-columns:minmax(0,12em) minmax(0,1fr);gap:12px;padding:7px 0;border-bottom:1px solid var(--line-weak, #E5E5E5);font-size:14px;line-height:1.55}.kv dt{color:var(--ink-2)}.kv dd{margin:0;font-variant-numeric:tabular-nums}@media(max-width:560px){.kv div{grid-template-columns:minmax(0,1fr);gap:2px}}</style><style>.days{flex-wrap:wrap}.days button{white-space:nowrap}.mark{font-size:12px;fill:var(--ink)}@media(max-width:560px){.mark{font-size:20px}}.ph{font-size:14px;color:var(--ink-2);margin:4px 0 0}.ph b{color:var(--ink);font-weight:600}</style>
+</head><body><main>
+<p class="top" style="display:flex;justify-content:space-between;align-items:center;margin:0 0 28px"><b style="font-weight:600;font-size:20px">올타임</b><span style="display:flex;flex-wrap:wrap;gap:0 14px;justify-content:flex-end;font-size:14px"><a href="/" style="color:var(--ink-2);padding:12px 0">처음</a><a href="/trend" style="color:var(--ink-2);padding:12px 0">오늘의 추이</a><a href="/verify" style="color:var(--ink-2);padding:12px 0">검증 기록</a></span></p>
+<h1>지난 공연 다시 돌려 보기</h1>
+<p class="sub">2024·2025년 KSPO DOME 공연 저녁 199개를 그날 실시간으로 돌린 것처럼 다시 계산해, 2시간 앞서 낸 사람 수 예상을 실제와 견줘요. 지금 사이트 방식과 새 방식(공연 시작에 맞춘 모양 + 공연 중 늘지 않음 + 끝난 뒤 감소)을 같은 자료로 돌렸어요.</p>
+<h2>오늘과 같은 공연 · 2024 조용필 (18:00 시작, 130분)</h2>
+<div class="days" id="cyp" role="group" aria-label="2024 조용필 저녁"></div>
+<label class="pick" style="flex-direction:column;align-items:stretch;gap:4px">다른 저녁 고르기 (날짜 · 시작 · 공연 · 정확도 지금 → 새) <select id="sel"></select></label>
+<p class="big" id="pb"></p>
+<svg id="c1" viewBox="0 0 720 300" role="img" aria-label="공원 안 사람 수: 실제, 서울시식 범위, 2시간 앞 예상"></svg>
+<div class="lg" style="flex-direction:column;gap:4px"><span><i style="width:22px;height:3px;background:#0A0A0A"></i>실제 사람 수 (서울 생활인구, 사이트처럼 30분 늦게 들어온 시각에 그림)</span><span><i style="width:22px;height:12px;background:#D4D4D8"></i>서울시가 알려 줄 범위 (실제 값을 서울시 칸으로 바꿈)</span><span><i style="width:22px;height:0;border-top:3px dotted #6B6B74"></i>2시간 앞 예상 · 지금 사이트</span><span><i style="width:22px;height:0;border-top:3px dashed #0A0A0A"></i>2시간 앞 예상 · 새 방식</span><span><i style="width:2px;height:12px;background:#0A0A0A;margin-left:10px;margin-right:16px"></i>출차 알림 (새 규칙, 입출차 기록이 있는 저녁만)</span></div>
+<p class="ph" id="ph"></p>
+<p class="tip" id="t1"></p>
+<h2>모두 합치면 · 2시간 앞 정확도 (15~24시)</h2>
+<p class="big">정확도 = 100 × (1 − 오차 합 ÷ 실제 합). 차이의 범위는 같은 공연의 여러 날을 한 묶음으로 다시 뽑아(4,000번) 구했어요.</p>
+<div id="tb"></div>
+<h2>출차 알림 (새 규칙)</h2>
+<p class="big">10분 동안 주차 대수가 78대(2025 기록으로는 120대) 넘게 줄어든 읽기가 5분 간격으로 두 번 이어지면 '출차 혼잡이 시작됐다'고 알려요.</p>
+<dl class="kv"><div><dt>2025 공연 저녁 71개</dt><dd>놓치거나 20분 넘게 일찍 울린 저녁: 예전 10개 → 새 2개 · 혼잡 시작을 ±20분 안에 맞힘: 73% → 79% · 혼잡 끝은 65% → 55%로 나빠짐</dd></div><div><dt>2024 7월 공연 저녁 7개</dt><dd id="a24"></dd></div><div><dt>2026-11-27 조용필</dt><dd>예전 규칙 21:50 → 새 규칙 21:30 (실제 혼잡 시작 21:20, 결과를 본 뒤 맞춰 본 값)</dd></div></dl>
+<h2>읽을 때 알아 둘 점</h2>
+<dl class="kv">
+<div><dt>정답</dt><dd>2025: 서울 생활인구를 서울시 '올림픽공원' 구역에 맞춰 더한 1시간 값. 2024: 공원 값이 없어 공원이 든 동의 값에서 2025년 '동 − 공원' 차이를 뺀 근사(2025로 확인하면 공원 실제 값과 평균 12% 차이)라, 두 방식의 비교에만 써요</dd></div>
+<div><dt>1시간 값</dt><dd>정답이 1시간 단위라 끝난 뒤 급히 빠지는 모습이 1시간에 걸쳐 완만하게 보여요. 끝난 뒤 구간은 실제 5분 값(2026)으로 다시 봐야 해요</dd></div>
+<div><dt>서울시 범위</dt><dd>실제 값을 서울시 칸(1만 명 미만 500명, 이상 2,000명)으로 바꾸고 30분 늦게 넣었어요. 실제 서울시 값의 칸 오르내림은 넣지 않았어요</dd></div>
+<div><dt>2025는 학습한 해</dt><dd>두 방식 모두 2025 자료로 모양을 만들었어요. 처음 보는 해로 시험한 건 2024예요</dd></div>
+<div><dt>공연 시각</dt><dd>2025: 한국체육산업개발 누리집 일정. 2024: KOPIS 공연 정보(하루 한 번 공연만)</dd></div>
+<div><dt>출처</dt><dd>서울특별시 공공데이터(서울 생활인구) · 한국체육산업개발(입출차 기록) · 공연예술통합전산망(KOPIS) · 계산 코드 analysis/sim/</dd></div>
+</dl>
+</main>
+<script>
+const $=s=>document.querySelector(s),NS='http://www.w3.org/2000/svg',num=n=>Math.round(n).toLocaleString('ko-KR'),hm=m=>`${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`;
+const NAR=matchMedia('(max-width:560px)').matches,X0=NAR?84:46,X1=708,xs=m=>X0+(X1-X0)*m/1440,WD='일월화수목금토';
+const tAt=(tr,t)=>{const x=t/60-0.5;if(x<=0)return tr[0]*10;if(x>=23)return tr[23]*10;const i=Math.floor(x);return(tr[i]+(tr[i+1]-tr[i])*(x-i))*10};
+const bin=v=>{const w=v<10000?500:2000,lo=Math.floor(v/w)*w;return[lo,lo+w]};
+const unpack=a=>a.slice(1).map((v,i)=>({m:a[0]+20*i,v:v*10}));
+const wd=d=>WD[new Date(d+'T12:00:00+09:00').getUTCDay()];
+let D=null,cur=null;
+const sn=n=>{let x=String(n).replace(/\[[^\]]*\]/g,'').trim();if(x.includes(','))x=x.split(',').pop().trim();return x.length>18?x.slice(0,18)+'…':x};
+function phases(e){const fm=new Map(unpack(e.main).map(p=>[p.m,p.v])),fn=new Map(unpack(e.new).map(p=>[p.m,p.v])),end=e.st+(e.run||150),S={pre:[0,0,0],in:[0,0,0],post:[0,0,0]};
+  for(const[m,v0]of fm){if(m<900||m>1435||!fn.has(m))continue;const t=m-30,a=tAt(e.truth,t),k=t<e.st?'pre':t<end?'in':'post';if(t<900)continue;S[k][0]+=Math.abs(v0-a);S[k][1]+=Math.abs(fn.get(m)-a);S[k][2]+=a}
+  const f=(k,i)=>S[k][2]?(100*(1-S[k][i]/S[k][2])).toFixed(1):'–';return`공연 전 <b>${f('pre',0)} → ${f('pre',1)}%</b> · 공연 중 <b>${f('in',0)} → ${f('in',1)}%</b> · 끝난 뒤 <b>${f('post',0)} → ${f('post',1)}%</b> (지금 사이트 → 새 방식)`}
+function draw(e){cur=e;const H=300,svg=$('#c1');svg.innerHTML='';
+  const P=(t,a)=>{const x=document.createElementNS(NS,t);for(const k in a)x.setAttribute(k,a[k]);svg.appendChild(x);return x};
+  const rows=[];for(let m=0;m<1440;m+=5){const v=tAt(e.truth,Math.max(0,m-30)),b=bin(v);rows.push({m,v,lo:b[0],hi:b[1]})}
+  const fm=unpack(e.main),fn=unpack(e.new),mx=Math.max(...rows.map(r=>r.hi),...fm.map(p=>p.v),...fn.map(p=>p.v)),stp=mx>15000?5000:mx>6000?2500:1000,top=Math.ceil(mx/stp)*stp,y=v=>H-26-(H-44)*v/top;
+  for(let v=0;v<=top;v+=stp){P('line',{x1:X0,x2:X1,y1:y(v),y2:y(v),stroke:'#E5E5E5'});P('text',{x:X0-6,y:y(v)+4,'text-anchor':'end',class:'ax'}).textContent=num(v)}
+  [0,6,12,18,24].forEach(h=>{P('text',{x:xs(h*60),y:H-8,'text-anchor':h===0?'start':h===24?'end':'middle',class:'ax'}).textContent=h+'시'});
+  P('path',{d:rows.map((r,i)=>`${i?'L':'M'}${xs(r.m).toFixed(1)},${y(r.hi).toFixed(1)}`).join('')+rows.slice().reverse().map(r=>`L${xs(r.m).toFixed(1)},${y(r.lo).toFixed(1)}`).join('')+'Z',fill:'#D4D4D8',stroke:'none'});
+  P('line',{x1:xs(e.st),x2:xs(e.st),y1:14,y2:H-26,stroke:'#6B6B74','stroke-dasharray':'3 4'});{const L=xs(e.st)>520;P('text',{x:xs(e.st)+(L?-5:5),y:22,class:'lb','text-anchor':L?'end':'start'}).textContent=`${hm(e.st)} ${sn(e.name)} 시작`}
+  const al=e.exit&&e.exit.alarm_new;if(al){P('line',{x1:xs(al),x2:xs(al),y1:44,y2:H-26,stroke:'#0A0A0A','stroke-width':1.5});{const L=xs(al)>560;P('text',{x:xs(al)+(L?-5:5),y:58,class:'mark','text-anchor':L?'end':'start'}).textContent=`${hm(al)} 출차 알림`}}
+  const pth=a=>a.map((p,i)=>`${i?'L':'M'}${xs(p.m).toFixed(1)},${y(p.v).toFixed(1)}`).join('');
+  P('path',{d:pth(rows),fill:'none',stroke:'#0A0A0A','stroke-width':2});
+  P('path',{d:pth(fm),fill:'none',stroke:'#6B6B74','stroke-width':2,'stroke-dasharray':'2 5','stroke-linecap':'round'});
+  P('path',{d:pth(fn),fill:'none',stroke:'#0A0A0A','stroke-width':2,'stroke-dasharray':'7 5'});
+  $('#pb').innerHTML=`${e.d} (${wd(e.d)}) ${hm(e.st)} ${sn(e.name)}${e.run?` · 적힌 공연 시간 ${e.run}분`:''} · 2시간 앞 정확도 지금 사이트 <b>${e.acc[0].toFixed(1)}%</b> · 새 방식 <b>${e.acc[1].toFixed(1)}%</b>`;
+  $('#ph').innerHTML=phases(e);
+  const cl=document.createElementNS(NS,'line');cl.setAttribute('y1',14);cl.setAttribute('y2',H-26);cl.setAttribute('stroke','#0A0A0A');cl.style.display='none';svg.appendChild(cl);
+  const FM=new Map(fm.map(p=>[p.m,p.v])),FN=new Map(fn.map(p=>[p.m,p.v]));
+  const mv=ev=>{const r=svg.getBoundingClientRect(),cx=(ev.touches?ev.touches[0].clientX:ev.clientX)-r.left,m=Math.round(((cx/r.width*720-X0)/(X1-X0)*1440)/20)*20;if(m<0||m>1435)return;const row=rows[Math.min(rows.length-1,m/5)];cl.style.display='';cl.setAttribute('x1',xs(m));cl.setAttribute('x2',xs(m));
+    $('#t1').innerHTML=`<b>${hm(m)}</b> 실제 약 ${num(Math.round(row.v/100)*100)}명 <span style="color:#6B6B74">(서울시 범위 ${num(row.lo)}~${num(row.hi)}명)</span>`+(FM.has(m)?` · 2시간 앞 예상 지금 ${num(Math.round(FM.get(m)/100)*100)}명, 새 ${num(Math.round(FN.get(m)/100)*100)}명`:'')};
+  svg.onmousemove=mv;svg.ontouchstart=mv;svg.ontouchmove=mv;svg.onmouseleave=()=>{cl.style.display='none'};
+  document.querySelectorAll('#cyp button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.d===e.d));$('#sel').value=e.d;$('#t1').textContent=''}
+fetch('/sim_data.json').then(r=>r.json()).then(j=>{D=j;const by=Object.fromEntries(j.ev.map(e=>[e.d,e]));
+  const cy=j.ev.filter(e=>e.name.includes('조용필'));$('#cyp').innerHTML=cy.map(e=>`<button type="button" data-d="${e.d}">${+e.d.slice(5,7)}월 ${+e.d.slice(8)}일 (${wd(e.d)})</button>`).join('');
+  $('#cyp').onclick=ev=>{const b=ev.target.closest('button');if(b)draw(by[b.dataset.d])};
+  $('#sel').innerHTML=['2024','2025'].map(yr=>`<optgroup label="${yr}년 (${j.ev.filter(e=>e.yr===yr).length}저녁)">`+j.ev.filter(e=>e.yr===yr).sort((a,b)=>a.d<b.d?-1:1).map(e=>`<option value="${e.d}">${e.d.slice(5)} (${wd(e.d)}) ${hm(e.st)} ${sn(e.name)} · ${e.acc[0].toFixed(1)} → ${e.acc[1].toFixed(1)}%</option>`).join('')+'</optgroup>').join('');
+  $('#sel').onchange=ev=>draw(by[ev.target.value]);
+  const PH=[['all','15~24시 전체'],['공연 전(15시~시작)','공연 전'],['공연 중','공연 중'],['끝난 뒤(~24시)','끝난 뒤']];
+  $('#tb').innerHTML='<table><tr><th>구간</th><th>지금 사이트</th><th>새 방식</th><th>차이 (95% 범위)</th><th>새가 나은 저녁</th></tr>'+['2024','2025'].map(yr=>{const s=j.stats[yr];return`<tr><td colspan="5" style="text-align:left;padding-top:14px"><b style="font-weight:600">${yr}</b> · ${s.evenings}저녁 · ${s.shows}공연 · ${yr==='2024'?'처음 보는 해':'모양을 만든 해'}</td></tr>`+PH.map(([k,l])=>{const v=s.phases[k],f=x=>(+x).toFixed(1),sig=v.ci95[0]>0?'나음':v.ci95[1]<0?'나쁨':'차이 말 못 함';return`<tr><td>${l}</td><td>${f(v.acc_main)}%</td><td>${f(v.acc_new)}%</td><td>${v.diff>0?'+':''}${f(v.diff)}%p<br><span style="color:#6B6B74">${f(v.ci95[0])} ~ ${f(v.ci95[1])} · ${sig}</span></td><td>${v.better}/${v.n}</td></tr>`}).join('')}).join('')+'</table>';
+  const a=j.ev.filter(e=>e.yr==='2024'&&e.exit);const busy=a.filter(e=>e.exit.bs!=null);
+  $('#a24').textContent=`혼잡(10분 120대 넘게 나감)이 있던 ${busy.length}저녁 모두 새 규칙이 혼잡 시작 10~15분 뒤에 울렸고(${busy.map(e=>hm(e.exit.alarm_new)).join('·')}), 혼잡이 없던 ${a.length-busy.length}저녁에는 울리지 않았어요. 예전 규칙은 ${a.length}저녁 모두 울렸고 그중 ${a.filter(e=>e.exit.alarm_old!=null&&(e.exit.bs==null||e.exit.alarm_old<e.exit.bs-20)).length}저녁은 혼잡이 없거나 20분 넘게 일찍 울렸어요. 저녁 수가 적어 참고만 해요.`;
+  draw(by['2024-11-23']||j.ev[0])});
+</script></body></html>
