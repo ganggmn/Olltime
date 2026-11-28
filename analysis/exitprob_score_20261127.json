@@ -1,0 +1,207 @@
+{
+ "scored_at": "2026-11-28T09:25+09:00",
+ "prereg": "data/checks/exitprob_prereg_20261127.json",
+ "prereg_sha256": "a1b30121b5b2bcbcae687acb6a9a1ca21ee2377815b13c0b37b854adc3cd6501",
+ "parking": "맥 data/parking/parking.csv 복사본(10분 간격 수집, 원본은 저장소에 안 올림)",
+ "parking_sha256": "17ecb2059682b4f6ce3cafd4179d03e0c1a9bd785fcae2c96cbd59e0b1db9aec",
+ "commands": [
+  "python3 ../analysis/exitprob.py score 2026-11-27 19:00 130 checks/exitprob_prereg_20261127.json \"2026-11-27 P0|P2\" <복사본>",
+  "python3 ../analysis/exitprob_update_score.py 2026-11-27 19:00 130 checks/exitprob_prereg_20261127.json \"2026-11-27 P0|P2\" <복사본>"
+ ],
+ "score": {
+  "P0": {
+   "day": "2026-11-27",
+   "onset_after_start_min": 135.0,
+   "onset_slot": "21:10",
+   "in_80": true,
+   "range_80": [
+    "20:50",
+    "22:40"
+   ],
+   "logp_table": -3.170085660698769,
+   "logp_sched42": -6.907755278982137,
+   "brier_busy_table": 0.19931032458333334,
+   "mae_net_table": 52.46527777777779,
+   "brier_busy_sched42": 0.2126324074074074,
+   "mae_net_sched42": 49.7181718988814,
+   "brier_busy_hour_median": 0.2126324074074074,
+   "mae_net_hour_median": 49.7181718988814,
+   "logp_hour_median": -6.907755278982137,
+   "actual_net10_2026": [
+    23.0,
+    -7.0,
+    -30.0,
+    -31.0,
+    -11.3,
+    -4.7,
+    24.0,
+    18.0,
+    27.7,
+    -6.7,
+    -23.0,
+    -7.0,
+    59.3,
+    38.7,
+    170.7,
+    115.3,
+    203.0,
+    235.0,
+    198.0,
+    204.0,
+    213.0,
+    118.0,
+    15.0,
+    15.0,
+    11.0,
+    78.0,
+    142.0,
+    71.0,
+    15.0,
+    6.3,
+    10.7,
+    5.0,
+    7.0,
+    -1.0,
+    -0.7,
+    0.7
+   ]
+  },
+  "P2": {
+   "day": "2026-11-27",
+   "onset_after_start_min": 135.0,
+   "onset_slot": "21:10",
+   "in_80": true,
+   "range_80": [
+    "21:10",
+    "22:30"
+   ],
+   "logp_table": -3.402197881995739,
+   "logp_sched42": -6.907755278982137,
+   "brier_busy_table": 0.20362014625,
+   "mae_net_table": 53.04444444444446,
+   "brier_busy_sched42": 0.2126324074074074,
+   "mae_net_sched42": 49.7181718988814,
+   "brier_busy_hour_median": 0.2126324074074074,
+   "mae_net_hour_median": 49.7181718988814,
+   "logp_hour_median": -6.907755278982137,
+   "actual_net10_2026": [
+    23.0,
+    -7.0,
+    -30.0,
+    -31.0,
+    -11.3,
+    -4.7,
+    24.0,
+    18.0,
+    27.7,
+    -6.7,
+    -23.0,
+    -7.0,
+    59.3,
+    38.7,
+    170.7,
+    115.3,
+    203.0,
+    235.0,
+    198.0,
+    204.0,
+    213.0,
+    118.0,
+    15.0,
+    15.0,
+    11.0,
+    78.0,
+    142.0,
+    71.0,
+    15.0,
+    6.3,
+    10.7,
+    5.0,
+    7.0,
+    -1.0,
+    -0.7,
+    0.7
+   ]
+  }
+ },
+ "update": {
+  "P0": {
+   "day": "2026-11-27",
+   "key": "2026-11-27 P0",
+   "onset_after_start_min": 135.0,
+   "onset_slot": "21:10",
+   "table_recompute_maxdiff": 0.0,
+   "updates": [
+    {
+     "T": 150,
+     "fired_by_T": null,
+     "slots": "21:30~00:20",
+     "n_slots": 18,
+     "mae_prior": 57.392592592592614,
+     "mae_updated": 56.908290118051774,
+     "logp_prior": -3.170085660698769,
+     "logp_updated": -6.907755278982137,
+     "in80_updated": false,
+     "range80_updated": [
+      "21:30",
+      "22:30"
+     ]
+    },
+    {
+     "T": 180,
+     "fired_by_T": 170.0,
+     "slots": "22:00~00:20",
+     "n_slots": 15,
+     "mae_prior": 45.14222222222224,
+     "mae_updated": 44.290657806218185,
+     "logp_prior": -3.170085660698769,
+     "logp_updated": -3.106865281432814,
+     "in80_updated": true,
+     "range80_updated": [
+      "21:00",
+      "22:00"
+     ]
+    }
+   ]
+  },
+  "P2": {
+   "day": "2026-11-27",
+   "key": "2026-11-27 P2",
+   "onset_after_start_min": 135.0,
+   "onset_slot": "21:10",
+   "table_recompute_maxdiff": 0.0,
+   "updates": [
+    {
+     "T": 150,
+     "fired_by_T": null,
+     "slots": "21:30~00:20",
+     "n_slots": 18,
+     "mae_prior": 58.21481481481484,
+     "mae_updated": 57.687028323668706,
+     "logp_prior": -3.402197881995739,
+     "logp_updated": -6.907755278982137,
+     "in80_updated": false,
+     "range80_updated": [
+      "21:30",
+      "22:30"
+     ]
+    },
+    {
+     "T": 180,
+     "fired_by_T": 170.0,
+     "slots": "22:00~00:20",
+     "n_slots": 15,
+     "mae_prior": 45.40222222222224,
+     "mae_updated": 44.290657806218185,
+     "logp_prior": -3.402197881995739,
+     "logp_updated": -3.106865281432814,
+     "in80_updated": true,
+     "range80_updated": [
+      "21:00",
+      "22:00"
+     ]
+    }
+   ]
+  }
+ }
+}
