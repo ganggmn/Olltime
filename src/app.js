@@ -104,7 +104,9 @@ const halo='paint-order:stroke;stroke:#FAFAFA;stroke-width:4px;stroke-linejoin:r
 const VEN={'KSPO DOME':[760,402,37],'올림픽홀':[766,677,22],'핸드볼경기장':[708,517,29]};
 const GATES=[['북1문',256,95],['북2문',780,129,3],['동1문',947,522],['동2문',902,607,4],['남1문',778,822],['남2문',534,706,5],['남3문',323,612],['서1문',129,360],['서2문',196,221,6]];
 const LOTS=[[771,331],[829,590],[602,666],[198,264],[668,648],[739,542]];
-const STN=[['올림픽공원역','5·9호선',925,590],['한성백제역','9호선 · 남4문 앞',213,560],['몽촌토성역','8호선',41,506]];
+/* 역: [이름, 노선 번호들, 덧붙일 말, x, y] */
+const STN=[['올림픽공원역',[5,9],'',925,590],['한성백제역',[9],'남4문 앞',213,560],['몽촌토성역',[8],'',41,506]];
+const LC={5:'#996CAC',8:'#E6186C',9:'#BDB092'};
 const PL=[['KSPO DOME',760,402,37,0],['몽촌토성',420,340,0,0,'c'],['올림픽홀',766,677,22,1],['티켓링크 라이브 아레나',708,517,29,1],['우리금융아트홀',645,552,24,1],['한성백제박물관',432,633,22,1],['88호수',660,245,0,1,'c'],['몽촌해자',292,364,0,1,'c'],['88잔디마당',640,418,0,1,'c'],['세계평화의문',173,458,12,1],['올림픽수영장',712,300,30,2],['벨로드롬',559,544,28,2],['테니스경기장',805,634,22,2],['소마미술관',303,546,14,2],['올림픽기념관',181,335,16,2],['파크텔',229,222,14,2],['몽촌역사관',603,121,12,2],['나홀로나무',415,188,4,2],['장미광장',766,788,0,2,'c'],['성내천',300,112,0,2,'c']];
 const ROADS=[['올림픽로',150,228],['위례성대로',356,676],['양재대로',908,700],['강동대로',880,160]];
 let K=.57;
@@ -121,10 +123,16 @@ const drawMap=()=>{const u=1/K,f=13*u,fs=f.toFixed(2),hs=`paint-order:stroke;str
  const tx=(x,y,str,o={})=>`<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" font-size="${o.f?o.f.toFixed(2):fs}" text-anchor="${o.a||'middle'}"${o.w?' font-weight="600"':''} fill="${o.c||'#0A0A0A'}" style="${hs}">${str}</text>`;
  const rectOf=(x,y,w,a,ff=f)=>{const x0=a==='start'?x:a==='end'?x-w:x-w/2;return[x0-2*u,y-ff*.82,x0+w+2*u,y+ff*.28]};
  /* lines: [[문자열,{w,c}],...] 두 줄까지. cands: [x,y,anchor] */
- const place=(lines,cands,must)=>{const ww=Math.max(...lines.map(([s])=>twd(s,f))),hh=(lines.length-1)*f*1.2;let best=null,bo=Infinity;
-  for(const[x,y,a]of cands){const r=rectOf(x,y,ww,a);r[3]+=hh;const o=ov(r);if(o===0){best=[x,y,a,r];bo=0;break}if(o<bo){bo=o;best=[x,y,a,r]}}
-  if(!best||(bo>0&&!must))return'';const[x,y,a,r]=best;occ.push(r);return lines.map(([s,o],i)=>tx(x,y+i*f*1.2,s,{a,...o})).join('')};
- const around=(x,y,d)=>[[x+d+5*u,y+f*.35,'start'],[x-d-5*u,y+f*.35,'end'],[x,y-d-5*u,'middle'],[x,y+d+f+2*u,'middle'],[x+d*.7+4*u,y-d*.7-3*u,'start'],[x-d*.7-4*u,y-d*.7-3*u,'end'],[x+d*.7+4*u,y+d*.7+f,'start'],[x-d*.7-4*u,y+d*.7+f,'end']];
+ /* 노선 타원: 열차 목록과 같은 모양(번호 크게, '호선' 작게) */
+ const p1=n=>12*u+twd(n,12*u)+twd('호선',9.5*u)+u,pw=ps=>ps.reduce((a,n)=>a+p1(n),0)+(ps.length-1)*4*u;
+ const lw=([s,o])=>o.p?pw(o.p)+(s?6*u+twd(s,f):0):twd(s,f);
+ const pillRow=(x0,y,ps,s)=>{let cx=x0,o='';const cy=y-f*.35;for(const n of ps){const w=p1(n);o+=`<rect x="${cx.toFixed(1)}" y="${(cy-9*u).toFixed(1)}" width="${w.toFixed(1)}" height="${(18*u).toFixed(1)}" rx="${(9*u).toFixed(1)}" fill="${LC[n]||'#0A0A0A'}" stroke="#FFFFFF" stroke-width="${(1.5*u).toFixed(2)}"/><text x="${(cx+6*u).toFixed(1)}" y="${(cy+4.3*u).toFixed(1)}" font-size="${(12*u).toFixed(2)}" font-weight="600" fill="${n===9?'#0A0A0A':'#FFFFFF'}">${n}<tspan font-size="${(9.5*u).toFixed(2)}" dx="${u.toFixed(2)}">호선</tspan></text>`;cx+=w+4*u}
+  if(s)o+=tx(cx+2*u,y,s,{a:'start',c:'#6B6B74'});return o};
+ const place=(lines,cands,must)=>{const ww=Math.max(...lines.map(lw)),pp=lines.some(([,o])=>o.p)?2*u:0,hh=(lines.length-1)*f*1.2+pp;let best=null,bo=Infinity;
+  for(const[x,y0,a,up]of cands){const y=up?y0-hh:y0,r=rectOf(x,y,ww,a);r[3]+=hh;const o=ov(r);if(o===0){best=[x,y,a,r];bo=0;break}if(o<bo){bo=o;best=[x,y,a,r]}}
+  if(!best||(bo>0&&!must))return'';const[x,y,a,r]=best;occ.push(r);return lines.map(([s,o],i)=>{const yy=y+i*f*1.2;if(!o.p)return tx(x,yy,s,{a,...o});const w=lw([s,o]);return pillRow(a==='start'?x:a==='end'?x-w:x-w/2,yy+pp,o.p,s)}).join('')};
+ /* 넷째 값 1 = 위쪽 자리: 두 줄 라벨은 줄 수만큼 위로 올려서 아이콘을 덮지 않게 */
+ const around=(x,y,d)=>[[x+d+5*u,y+f*.35,'start'],[x-d-5*u,y+f*.35,'end'],[x,y-d-5*u,'middle',1],[x,y+d+f+2*u,'middle'],[x+d*.7+4*u,y-d*.7-3*u,'start',1],[x-d*.7-4*u,y-d*.7-3*u,'end',1],[x+d*.7+4*u,y+d*.7+f,'start'],[x-d*.7-4*u,y+d*.7+f,'end']];
  const sh=showAt(T),p=sh?pred(sh):null,row=refAt(TREF,T);let g='',lab='';
  /* 1. 그림 먼저: 공연장 원, 출입문 점·출차 원, 주차·역 아이콘. 자리도 미리 차지 */
  let V=null;if(sh){const[vx,vy,vr]=VEN[sh.venue]||VEN['KSPO DOME'];const live=T>=p.inA-60&&T<p.outB;V=[vx,vy,vr];
@@ -133,11 +141,11 @@ const drawMap=()=>{const u=1/K,f=13*u,fs=f.toFixed(2),hs=`paint-order:stroke;str
   if(k){const v=row[k],r=Math.min(1,v/(GQ[n]?GQ[n][2]:124)),c=gateC(n,v),rr=(7+r*17)*u;GB.push([n,x,y,rr,v]);
    g+=`<circle class="gp" style="animation-delay:-${((Date.now()%1600)/1000).toFixed(2)}s" cx="${x}" cy="${y}" r="${rr.toFixed(1)}" fill="${c}" fill-opacity=".3"/>`}}
  for(const[x,y]of LOTS){g+=gIc('square-parking',x,y,u*.85);box(x-10*u,y-10*u,x+10*u,y+10*u)}
- for(const[n,l,x,y]of STN){g+=gIc('train-front',x,y,u);box(x-12*u,y-12*u,x+12*u,y+12*u)}
+ for(const[n,ls,ss,x,y]of STN){g+=gIc('train-front',x,y,u);box(x-12*u,y-12*u,x+12*u,y+12*u)}
  /* 2. 꼭 보여야 하는 라벨: 지금 공연, 출차 수가 있는 문, 역 */
  if(V){const[vx,vy,vr]=V,st=venueState(p,T),L=[[`${esc(sh.venue)} · ${sh.t} ${esc(sh.short)}`,{w:1}]];if(st)L.push([st,{}]);lab+=place(L,around(vx,vy,vr),true)}
  for(const[n,x,y,rr,v]of GB)lab+=place([[`${n} ${Math.round(v)}대`,{w:1}]],around(x,y,Math.max(rr*.55,6*u)),true);
- for(const[n,l,x,y]of STN)lab+=place(K>=.6?[[n,{w:1}],[l,{c:'#6B6B74'}]]:[[n,{w:1}]],around(x,y,12*u),true);
+ for(const[n,ls,ss,x,y]of STN)lab+=place(K>=.6?[[n,{w:1}],[ss,{p:ls}]]:[[n,{w:1}]],around(x,y,12*u),true);
  /* 3. 시설: 확대할수록 더. 자리가 없으면 생략 */
  const tierOK=t=>t===0||(t===1&&K>=.3)||(t===2&&K>=.55);
  for(const[n,x,y,d,t,pos]of PL){if(!tierOK(t)||(sh&&n===sh.venue)||(sh&&sh.venue==='핸드볼경기장'&&n==='티켓링크 라이브 아레나'))continue;const c=t===0?'#0A0A0A':'#52525B';
@@ -238,6 +246,9 @@ const axis=`<div class="tlax" aria-hidden="true">${[15,18,21,24].map(h=>`<span s
 
 __TRAVEL__
 const DEST={'KSPO DOME':[37.5192,127.1272],'올림픽홀':[37.5146,127.1268],'핸드볼경기장':[37.5170,127.1270],'park':[37.5185,127.1220]};
+/* 노선 표시: 노선색 타원 안에 번호는 크게, '호선'은 작게 (서울시 공식 노선색) */
+const lnPill=n=>`<i class="lp" data-l="${n}"><b>${n}</b><small>호선</small></i>`;
+const lineP=l=>{const m=/^(\d)호선$/.exec(l);return m?lnPill(+m[1]):`<i class="lp"${l==='신분당선'?' data-l="sb"':''}>${esc(l.replace(/선$/,''))}</i>`};
 const MODE={pt:['지하철','train-front'],car:['자동차','car'],bike:['따릉이','bike'],walk:['걷기','footprints']};
 const OPS=ROUTE.st.findIndex(s=>s[0]==='올림픽공원');
 const jong=w=>{const c=w.charCodeAt(w.length-1)-0xAC00;return c>=0&&c<=11171?c%28:0};const iga=w=>w+(jong(w)?'이':'가');const ro=w=>{const j=jong(w);return w+(j&&j!==8?'으로':'로')};
@@ -247,29 +258,29 @@ const dur=m=>m>=60?`${Math.floor(m/60)}시간${m%60?` ${m%60}분`:''}`:`${m}분`
 
 /* 플래너 */
 const P={day:null,what:'show',show:0,org:null,mode:null,auto:true}; /* auto: 아직 날짜와 할 일을 고르지 않았어요 */
-let allDays=false;
-const planDays=()=>{const fut=[...new Set(SHOWS.filter(s=>s.d>TODAY).map(s=>s.d))],d=[TODAY,...fut.slice(0,allDays?99:3)];if(P.day&&P.day!=='none'&&!d.includes(P.day)&&fut.includes(P.day))d.push(P.day);return d};
-const opt=(name,val,checked,title,sub,dis)=>`<label class="opt"><input type="radio" name="${name}" value="${val}"${checked?' checked':''}${dis?' disabled':''}><span><b>${title}</b>${sub?`<span class="cap">${sub}</span>`:''}</span></label>`;
-const renderQ=()=>{const a=document.activeElement,keep=a&&a.type==='radio'&&a.closest('#pf')?[a.name,a.value]:null;
+const planDays=()=>{const fut=[...new Set(SHOWS.filter(s=>s.d>TODAY).map(s=>s.d))];return[TODAY,...fut]};
+const dayShort=d=>(SHOWS.find(s=>s.d===d)?.day||dayLabel(d)).replace(/요일$/,'');
+const renderQ=()=>{const a=document.activeElement,keep=a&&a.tagName==='SELECT'&&a.closest('#pf')?a.id:null;
  if(P.auto){P.day=TODAY;P.what='show'}else if(!P.day||(P.day!=='none'&&P.day<TODAY))P.day=TODAY;
- $('#qDay').innerHTML=planDays().map(d=>{const n=SHOWS.filter(s=>s.d===d).length;return opt('day',d,P.day===d,d===TODAY?'오늘 · '+dayLabel(d):esc(SHOWS.find(s=>s.d===d)?.day||dayLabel(d)),n?`공연 ${n}`:'공연 없음')}).join('')+opt('day','none',P.day==='none','다른 날','공연 없음');
- {const nf=new Set(SHOWS.filter(s=>s.d>TODAY).map(s=>s.d)).size,b=$('#dmore');b.hidden=allDays||nf<=3}
+ const dTxt=d=>d==='none'?'다른 날':(d===TODAY?'오늘 · ':'')+dayShort(d);
+ $('#qDay').innerHTML=planDays().map(d=>{const n=SHOWS.filter(s=>s.d===d).length;return`<option value="${d}"${P.day===d?' selected':''}>${esc(dTxt(d))} · ${n?`공연 ${n}`:'공연 없음'}</option>`}).join('')+`<option value="none"${P.day==='none'?' selected':''}>다른 날 · 공연 없음</option>`;
+ $('#dayTxt').textContent=dTxt(P.day);
  const list=SHOWS.map((s,i)=>({s,i})).filter(o=>o.s.d===P.day);
  if(!list.length)P.what='walk';
  if(P.what==='show'&&!list.some(o=>o.i===P.show))P.show=list[0].i;
- $('#qWhat').innerHTML=list.map(o=>(p=>opt('what','s'+o.i,P.what==='show'&&P.show===o.i,esc(o.s.name),`${o.s.t} · ${esc(o.s.venue)}<br>입차 ${rng(p.inA,p.inB)} · ${(x=>`${x.lbl.split(' ')[0]} ${rng(x.a,x.b)} (${x.p})`)(exitOf(o.s))}`))(pred(o.s))).join('')+opt('what','walk',P.what==='walk','산책·운동','');
- if(keep){const el=$(`#pf input[name="${keep[0]}"][value="${keep[1]}"]`);el&&el.focus()}};
+ $('#qWhat').innerHTML=list.map(o=>`<option value="s${o.i}"${P.what==='show'&&P.show===o.i?' selected':''}>${esc(o.s.name)} · ${o.s.t}</option>`).join('')+`<option value="walk"${P.what==='walk'?' selected':''}>산책·운동</option>`;
+ $('#whatTxt').textContent=P.what==='show'?SHOWS[P.show].name:'산책·운동';
+ if(keep){const el=$('#'+keep);el&&el.focus()}};
 $('#pf').addEventListener('change',e=>{const t=e.target;P.auto=false;if(t.name==='day')P.day=t.value;else if(t.name==='what'){if(t.value==='walk')P.what='walk';else{P.what='show';P.show=+t.value.slice(1)}}else return;P.mode=null;renderQ();renderPass(true)});
 $('#pf').addEventListener('submit',e=>e.preventDefault());
-$('#dmore').onclick=()=>{allDays=true;renderQ();const f=$('#qDay input:checked');f&&f.focus()};
 /* 출발역 찾기 */
 {const inp=$('#org'),box=$('#orgList'),msg=$('#omsg'),DEF='';let hits=[],cur=-1;
  const nq=q=>q.replace(/\(.*?(\)|$)/g,'').replace(/\s/g,'').replace(/역$/,'');
  const close=()=>{box.hidden=true;inp.setAttribute('aria-expanded','false');inp.removeAttribute('aria-activedescendant');cur=-1};
  const draw=()=>{box.innerHTML=hits.map((i,k)=>`<button type="button" tabindex="-1" role="option" id="og${k}" data-i="${i}" aria-selected="${k===cur}"><span>${esc(TR.name(i))}</span><span class="cap">${esc(TR.linesOf(i).join(', '))}</span></button>`).join('');box.hidden=!hits.length;inp.setAttribute('aria-expanded',String(!!hits.length));if(cur>=0)inp.setAttribute('aria-activedescendant','og'+cur);else inp.removeAttribute('aria-activedescendant')};
- const pick=i=>{P.org=i;P.mode=null;inp.value=TR.name(i)+'역';msg.textContent=`출발: ${TR.name(i)}역`;close();renderPass(true)};
- const miss=()=>{msg.textContent=`'${inp.value.trim()}' 없음`;if(P.org!==null){P.org=null;try{renderPass(false)}catch(e){}}};
- inp.addEventListener('input',()=>{hits=TR.find(inp.value).slice(0,6);cur=-1;draw();msg.textContent=DEF;if(!inp.value.trim()&&P.org!==null){P.org=null;renderPass(true)}});
+ const pick=i=>{P.org=i;P.mode=null;inp.value=TR.name(i)+'역';msg.classList.remove('err');msg.textContent=`출발: ${TR.name(i)}역`;close();renderPass(true)};
+ const miss=()=>{msg.classList.add('err');msg.textContent=`'${inp.value.trim()}' 없음`;if(P.org!==null){P.org=null;try{renderPass(false)}catch(e){}}};
+ inp.addEventListener('input',()=>{hits=TR.find(inp.value).slice(0,6);cur=-1;draw();msg.classList.remove('err');msg.textContent=DEF;if(!inp.value.trim()&&P.org!==null){P.org=null;renderPass(true)}});
  inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();if(cur>=0)return pick(hits[cur]);const h=TR.find(inp.value);if(h.length)pick(h[0]);else if(inp.value.trim())miss();return}
   if(box.hidden)return;if(e.key==='ArrowDown'){cur=Math.min(hits.length-1,cur+1);draw();e.preventDefault()}else if(e.key==='ArrowUp'){cur=Math.max(0,cur-1);draw();e.preventDefault()}else if(e.key==='Escape')close()});
  box.addEventListener('mousedown',e=>e.preventDefault());
@@ -289,19 +300,40 @@ const compare=(dest,hour,hol,show)=>{const o=P.org,t=TR.transit(o,dest),c=TR.car
  const score=m=>m.min+(back?back[m.k]:0);
  const rec=M.filter(m=>m.ok).sort((a,b)=>score(a)-score(b))[0]||M[0];
  return{M,rec,t,c,b,w,back,late}};
-const modeRows=(M,sel)=>`<div class="modes" role="group" aria-label="교통수단 비교">${M.filter(m=>m.k===sel||m.k==='pt'||m.k==='car'||(m.k==='bike'&&m.min<=90)||(m.k==='walk'&&m.min<=60)).map(m=>{const mm=m.min>=999?'없음':dur(m.min);return`<button type="button" class="md" data-m="${m.k}" aria-pressed="${m.k===sel}" aria-label="${MODE[m.k][0]}, ${mm}, ${esc(m.txt)}">${ic(MODE[m.k][1])}<span><b>${MODE[m.k][0]}</b><span class="cap">${esc(m.txt)}</span></span><span class="mm">${mm}</span></button>`}).join('')}</div>`;
-$('#pass').addEventListener('click',e=>{const b=e.target.closest('.md');if(!b)return;P.mode=b.dataset.m;renderPass(true)});
+const modeRows=(M,sel)=>`<div class="pmodes" role="group" aria-label="교통수단">${M.filter(m=>m.k===sel||m.k==='pt'||m.k==='car'||(m.k==='bike'&&m.min<=90)||(m.k==='walk'&&m.min<=60)).map(m=>{const mm=m.min>=999?'없음':dur(m.min);return`<button type="button" class="pmd" data-m="${m.k}" aria-pressed="${m.k===sel}" aria-label="${MODE[m.k][0]}, ${mm}, ${esc(m.txt)}">${ic(MODE[m.k][1])}<span>${MODE[m.k][0]} ${mm}</span></button>`}).join('')}</div>`;
+$('#pass').addEventListener('click',e=>{const b=e.target.closest('.pmd');if(!b)return;P.mode=b.dataset.m;renderPass(true)});
 
-const stg=rows=>`<ol class="stg">${rows.map((r,i)=>`<li class="${i===rows.length-1?'end':r[3]==='soft'?'soft':''}"><span class="t">${hmN(r[0])}</span>${esc(r[1])}${r[2]?`<span class="cap">${esc(r[2])}</span>`:''}</li>`).join('')}</ol>`;
-const renderPass=say=>{let cap,title,sub,bigT,bigS,why='',rows=[],tips=[],destName='올림픽공원',dest=DEST.park,cmpHtml='',modeTxt='';
+/* 시간표: [시각, 할 일, 덧붙일 말, 종류]. 종류 'wk'는 걷는 구간(발자국 아이콘 + 점선), 덧붙일 말은 산책·운동에서만 보여요 */
+const ptl=(rows,caps)=>`<ol class="ptl">${rows.map((r,i)=>r[3]==='wk'?`<li class="sg wk">${ic('footprints')}<span>${esc(r[1])}</span></li>`:`<li class="${i===rows.length-1?'end':r[3]==='soft'?'soft':''}"><span class="t">${hmN(r[0])}</span><span class="l">${esc(r[1])}${caps&&r[2]?`<span class="cap">${esc(r[2])}</span>`:''}</span></li>`).join('')}</ol>`;
+/* 방문 계획의 작은 지도: 위 지도 바탕에서 주차장 칸을 빼고, 고른 공연장만 검게 */
+const PMAP=(()=>{const w=$('#world');if(!w)return null;const at=(e,k)=>e.getAttribute(k),kids=[...w.children];
+ const base=kids.filter(e=>!(e.tagName==='path'&&at(e,'fill')==='#F4F4F5'&&at(e,'stroke')==='#D4D4D8')).map(e=>{const c=e.cloneNode(false);c.removeAttribute('id');return c.outerHTML}).join('');
+ const vp=kids.find(e=>at(e,'fill')==='#E4E4E7'&&at(e,'stroke')==='#52525B');
+ const subs=(vp?at(vp,'d').match(/M[^M]*/g)||[]:[]).map(d=>{let x=0,y=0,sx=0,sy=0,n=0;for(const[,c,as]of d.matchAll(/([MLl])([^MLlzZ]*)/g)){const a=(as.match(/-?\d*\.?\d+/g)||[]).map(Number);for(let i=0;i+1<a.length;i+=2){if(c==='l'||(c==='M'&&i>0)){x+=a[i];y+=a[i+1]}else{x=a[i];y=a[i+1]}sx+=x;sy+=y;n++}}return{d:d.trim(),x:sx/n,y:sy/n}});
+ return{base,subs,vb:[380,150,600,660]}})();
+const pmapHtml=(venue,sub)=>{if(!PMAP)return'';const[vx,vy,vw,vh]=PMAP.vb,v=venue&&VEN[venue],s=v&&PMAP.subs.map(o=>[Math.hypot(o.x-v[0],o.y-v[1]),o]).sort((a,b)=>a[0]-b[0])[0];
+ const hit=s&&s[0]<40?s[1].d:'';
+ return`<div class="pmw" role="img" aria-label="${venue?esc(venue)+' 위치':'올림픽공원 지도'} (지도 자료: OpenStreetMap)"><svg viewBox="${PMAP.vb.join(' ')}" aria-hidden="true"><g class="pmb">${PMAP.base}</g>${hit?`<path class="pmh" d="${hit}"/><path class="pmf" d="${hit}"/>`:''}</svg>${v?`<div class="pml" style="left:${((v[0]-vx)/vw*100).toFixed(2)}%;top:${((v[1]-v[2]-vy)/vh*100).toFixed(2)}%"><b>${esc(venue)}</b><span>${esc(sub)}</span></div>`:''}<span class="pmo">© OpenStreetMap</span></div>`};
+/* 공연 포스터: KOPIS 공연 목록에서 같은 날·같은 공연장 공연을 찾아 받아 와요. 못 찾으면 공연장 이름만 보여요 */
+const POSTER={};const VKW={'KSPO DOME':['KSPO','체조'],'올림픽홀':['올림픽홀'],'핸드볼경기장':['핸드볼']};
+const posterOf=async s=>{const key=`${s.d}|${s.venue}|${s.t}`;if(key in POSTER)return POSTER[key];POSTER[key]='';
+ try{const d8=s.d.replace(/-/g,''),j=await getJSON(`/api/kopis?t=list&from=${d8}&to=${d8}&q=${encodeURIComponent('올림픽공원')}`,6000);
+  const nz=x=>String(x||'').toLowerCase().replace(/[^0-9a-z가-힣]/g,''),at=(j.rows||[]).filter(r=>r.poster&&(VKW[s.venue]||[]).some(k=>String(r.fcltynm||'').includes(k)));
+  const hit=at.find(r=>{const a=nz(r.prfnm);return a&&(a.includes(nz(s.short))||nz(s.name).includes(a))})||(at.length===1?at[0]:null);
+  if(hit&&/^https?:\/\/(www\.)?kopis\.or\.kr\//.test(hit.poster))POSTER[key]=hit.poster.replace(/^http:/,'https:')}catch(e){}
+ return POSTER[key]};
+const showHead=s=>{const m=s.short&&s.short!==s.name&&s.name.startsWith(s.short)?/^[〈《\[「『<]\s*(.+?)\s*[〉》\]」』>]$/.exec(s.name.slice(s.short.length).trim()):null;return m?[m[1],s.short]:[s.name,s.short&&s.short!==s.name?s.short:'']};
+
+const renderPass=say=>{let cap,title,sub,bigT,bigS,why='',rows=[],tips=[],destName='올림픽공원',dest=DEST.park,cmpHtml='',modeTxt='',src='',route='',sh=null;
  const org=P.org!==null?TR.name(P.org)+'역':null,hol=isHol(P.day);
- if(P.what==='show'){const s=SHOWS[P.show],p=pred(s);destName=s.venue;dest=DEST[s.venue]||DEST.park;title=s.name;sub=`${s.day} · ${s.venue} · ${s.t}`;cap='예상 · 2025 공연 날 기록 · 서울시 교통';
+ if(P.what==='show'){const s=SHOWS[P.show],p=pred(s);sh=s;destName=s.venue;dest=DEST[s.venue]||DEST.park;title=s.name;sub=`${s.day} · ${s.venue} · ${s.t}`;cap='예상 · 2025 공연 날 기록 · 서울시 교통';
   if(org){const C=compare(dest,(p.st-120)/60,hol,p),m=C.M.find(x=>x.k===(P.mode||C.rec.k)),k=m.k;
-   const arr=k==='car'?p.st-120:p.st-45,dep=r5(arr-m.min);bigT=hm(dep);bigS=`${org} 출발`;modeTxt=`${MODE[k][0]} ${dur(m.min)}`;
+   const arr=k==='car'?p.st-120:p.st-45,dep=r5(arr-m.min);bigT=hm(dep);bigS=`${org} 출발`;modeTxt=`${MODE[k][0]} ${dur(m.min)}`;src=cap;cap=k==='car'?'이때 출발하면 공연 2시간 전에 주차장에 도착해요':'이때 출발하면 공연 45분 전에 도착해요';
+   route=k==='pt'&&C.t&&C.t.legs.length?C.t.legs.map(l=>lineP(l.line)+(l.exp?'<span>급행</span>':'')).join('<span class="ar">→</span>')+(C.t.legs.length>1?`<span>· 환승 ${esc(C.t.legs.slice(1).map(l=>l.from).join(', '))}</span>`:''):esc(m.txt);
    why=`추천 ${MODE[C.rec.k][0]}`+(C.back?` · 왕복 ${dur(C.rec.min+C.back[C.rec.k])} = 가는 ${dur(C.rec.min)} + 오는 ${dur(C.back[C.rec.k])}${C.rec.k==='pt'?'(역까지 15분 포함)':''}`+(C.rec.k!=='car'?` · 자동차 오는 ${dur(C.back.car)}(출차 대기 포함)`:''):'');
    cmpHtml=modeRows(C.M,k);
    if(k==='car')rows=[[dep,`${org} 출발`,`자동차 ${dur(m.min)}`,''],[p.st-120,'주차장 도착',`= 입차 최대 ${hm(p.inPk)} − 30분`,''],[p.st,'공연 시작','',''],[p.end,'공연 종료',runTxt(p),'soft'],[p.end+EXITP50,'출차',`= 종료 + ${EXITP50}분 (2025 관객 차량 50%)`,'soft'],[p.end+EXITP50+C.c.min-8,`${org} 도착`,'','']];
-   else if(k==='pt'){const t=C.t;rows=[[dep,`${org} 출발`,t.legs.map(l=>`${l.line}${l.exp?' 급행':''} ${l.from} → ${l.to}`).join(' · ')||'',''],[dep+t.min-t.walk,`${TR.name(t.to)}역 도착`,`+ 걷기 ${t.walk}분`,'soft'],[p.st-45,`${destName} 도착`,'','soft'],[p.st,'공연 시작','',''],[p.end,'공연 종료',runTxt(p),'soft'],[p.end+15+t.min,`${org} 도착`,C.late?'자정 넘음 · 막차 확인':'대안: 한성백제역(9) · 몽촌토성역(8)','']]}
+   else if(k==='pt'){const t=C.t;rows=[[dep,`${org} 출발`,'',''],[dep+t.min-t.walk,`${TR.name(t.to)}역 도착`,'','soft'],[null,`도보 약 ${t.walk}분`,'','wk'],[p.st-45,`${destName} 도착`,'','soft'],[p.st,'공연 시작','',''],[p.end,'공연 종료','','soft'],[null,'도보 약 15분','','wk'],[p.end+15+t.min,`${org} 도착`,'','']];tips.push(C.late?'집에 닿는 때가 자정을 넘어요 · 막차 확인':'돌아갈 때 다른 역: 한성백제역(9) · 몽촌토성역(8)')}
    else rows=[[dep,`${org} 출발`,`${MODE[k][0]} ${dur(m.min)}`,''],[p.st-45,`${destName} 도착`,k==='bike'?'공원 주변 대여소 12곳':'','soft'],[p.st,'공연 시작','',''],[p.end,'공연 종료',runTxt(p),'soft'],[p.end+m.min,`${org} 도착`,'','']];
    if(k==='car')tips=['20시 이후 출차: 북2 + 동2문 71% · 남2문 16% (2025 큰 공연 76일)','내려 주기 10분 이내 = 무료 (입차의 25%)']}
   else{const wk=s.venue==='KSPO DOME'?8:Math.max(5,(TR.transit(OPS,dest)||{walk:8}).walk);bigT=hm(p.st-45);bigS=`${s.venue} 도착`;why='';
@@ -318,7 +350,7 @@ const renderPass=say=>{let cap,title,sub,bigT,bigS,why='',rows=[],tips=[],destNa
    rows=[[e-180,'산책 추천','= 관객 입차 − 3시간',''],[e,'관객 입차 증가',shows.map(s=>`${s.t} ${s.short}`).join(', '),'soft'],[l,'한산','= 출차 몰림 끝','']]}
   else{cap='2025 평일 주차 기록';sub=P.day===TODAY?'오늘 · 공연 없음':'공연 없음';rows=[[480,'입차 최대','평일 08시','soft'],[1080,'출차 증가','평일 18시','']]}
   const later=useF?'부터 한산':'전후 한산';
-  if(org){const C=compare(dest,hour,hol,false),m=C.M.find(x=>x.k===(P.mode||C.rec.k));cmpHtml=modeRows(C.M,m.k);modeTxt=`${MODE[m.k][0]} ${dur(m.min)}`;why=`최단 ${MODE[C.rec.k][0]}`+(C.rec.k==='car'&&P.day===TODAY&&PARK&&PARK.sum/PCAP0>=.9?` · 주차장 ${Math.round(PARK.sum/PCAP0*100)}%`:'');
+  if(org){const C=compare(dest,hour,hol,false),m=C.M.find(x=>x.k===(P.mode||C.rec.k));cmpHtml=modeRows(C.M,m.k);route=esc(m.txt);modeTxt=`${MODE[m.k][0]} ${dur(m.min)}`;why=`최단 ${MODE[C.rec.k][0]}`+(C.rec.k==='car'&&P.day===TODAY&&PARK&&PARK.sum/PCAP0>=.9?` · 주차장 ${Math.round(PARK.sum/PCAP0*100)}%`:'');
    if(target==='now'){const d=Math.ceil(nowC()/5)*5;bigT=hm(d);bigS=`${org} 출발 · 한산`;rows.unshift([d,`${org} 출발`,`${MODE[m.k][0]} ${dur(m.min)}`,''])}
    else if(target!==null){const dep=r5(target-m.min);bigT=hm(dep);bigS=`${org} 출발`;rows.unshift([dep,`${org} 출발`,`${MODE[m.k][0]} ${dur(m.min)} → ${hm(target)}${later}`,''])}
    else{bigT='언제든';bigS='공연 없음'}}
@@ -328,10 +360,19 @@ const renderPass=say=>{let cap,title,sub,bigT,bigS,why='',rows=[],tips=[],destNa
  tips.push(esc(org?'자동차 시간 = 거리 ÷ 서울시 시간대별 평균 속도 + 8분':'주차장: 북2 · 동2 · 남2 · 서2문 · 역: 올림픽공원(5·9) · 한성백제(9) · 몽촌토성(8)'));
  if(P.day===TODAY&&STATE==='live'&&N.ptype&&N.ptype!=='없음')tips.push(esc(`오늘 ${N.ptype} · 2025 눈 온 저녁 입차 −62%`));
  const kakao=org?`https://map.kakao.com/link/from/${encodeURIComponent(org)},${TR.ll(P.org).join(',')}/to/${encodeURIComponent(destName)},${dest.join(',')}`:`https://map.kakao.com/link/search/${encodeURIComponent(destName)}`;
- const a=document.activeElement,km=a&&a.closest&&a.closest('#pass .md')?a.dataset.m:null;
- $('#pass').innerHTML=`<p class="cap">${cap}</p><h3 id="passH" tabindex="-1" style="margin-top:12px">${esc(title)}</h3><p class="lbl">${esc(sub)}</p><div class="bigt"><b>${bigT}</b><span>${esc(bigS)}</span></div>${modeTxt?`<p class="lbl" style="margin-top:4px">${esc(modeTxt)}</p>`:''}${why?`<p class="why2">${esc(why)}</p>`:''}${cmpHtml}<hr>${stg(rows)}<hr><div class="tips">${tips.map(t=>`<p>${t}</p>`).join('')}</div>
- <div class="links"><a class="btn sec" href="${kakao}" target="_blank" rel="noopener">카카오맵 길찾기${ic('external-link')}<span class="sr">, 새 창</span></a></div>`;
- if(km){const el=$(`#pass .md[data-m="${km}"]`);el&&el.focus()}
+ if(src)tips.unshift(esc(src));
+ const a=document.activeElement,km=a&&a.closest&&a.closest('#pass .pmd')?a.dataset.m:null;
+ $('#pass').innerHTML=`<p class="cap">${cap}</p><div class="pbig"><b>${bigT}</b><span>${esc(bigS)}</span></div>${cmpHtml}${route?`<p class="prt">${route}</p>`:''}${ptl(rows,!sh)}`;
+ $('#ptips').innerHTML=tips.map(t=>`<span>${t}</span>`).join('');
+ if(km){const el=$(`#pass .pmd[data-m="${km}"]`);el&&el.focus()}
+ /* 왼쪽: 공연 정보 */
+ {const p=sh&&pred(sh),[ti,by]=sh?showHead(sh):[title,sub],key=sh?`${sh.d}|${sh.venue}|${sh.t}`:'';
+  const dl=sh?[['공연 날짜',sh.day.replace(/\s?(.)요일$/,' ($1)')],['공연 시각',p.assumed?`${sh.t} ~`:`${sh.t} ~ ${hm(p.end)}`],['장소',sh.venue]]:[['날짜',P.day==='none'?'공연 없는 날':dayShort(P.day).replace(/\s(.)$/,' ($1)')],['장소','올림픽공원']];
+  $('#pshow').innerHTML=`<h3 id="passH" tabindex="-1">${esc(ti)}</h3>${by?`<p class="pby">${esc(by)}</p>`:''}<div class="ppos" id="ppos" data-k="${esc(key)}"><span>${esc(destName)}</span></div><dl class="pdl">${dl.map(r=>`<div><dt>${r[0]}</dt><dd>${esc(r[1])}</dd></div>`).join('')}</dl>`;
+  if(sh)posterOf(sh).then(u=>{const b=$('#ppos');if(!u||!b||b.dataset.k!==key)return;const im=new Image();im.alt=`${sh.name} 포스터`;im.referrerPolicy='no-referrer';im.onload=()=>{if(b.isConnected&&b.dataset.k===key){b.textContent='';b.appendChild(im);b.classList.add('has')}};im.src=u})}
+ /* 오른쪽: 공연장 지도와 길찾기 */
+ $('#pmap').innerHTML=pmapHtml(sh?sh.venue:'',sh?`${sh.t} ${sh.short}`:'');
+ $('#pkakao').href=kakao;
  if(say)$('#srPass').textContent=`${title}. ${bigT}${/^(에|까지|부터|전후|이면)/.test(bigS)?'':' '}${bigS}.${modeTxt?' '+modeTxt+'.':''}`};
 
 /* 그래프 */
@@ -476,7 +517,7 @@ const renderTrain=()=>{const box=$('#train');
   const way=((t.line.split(' - ')[1]||'').replace(/\s*\(.*$/,'').replace(/방면$/,' 방면').trim())||t.updn,k=t.id+'|'+t.updn;
   if(!G.has(k))G.set(k,{ln,id:t.id,way,ts:[]});G.get(k).ts.push({...e,d:`${t.dest}행${t.exp?' 급행':''}${t.last?' 막차':''}`})}
  const rows=[...G.values()].sort((a,b)=>a.id.localeCompare(b.id)||a.way.localeCompare(b.way)).map(g=>{const ts=g.ts.sort((a,b)=>a.s-b.s).slice(0,2);
-  return`<li><span class="t">${g.ln}</span><span>${esc(g.way)}<span class="cap">${[...new Set(ts.map(x=>x.d))].map(esc).join(', ')}</span></span><span class="eta">${ts.map((x,i)=>i?`<span>${x.x}</span>`:`<b>${x.x}</b>`).join('')}</span></li>`}).join('');
+  return`<li><span class="t">${lnPill(+g.id-1000)}</span><span>${esc(g.way)}<span class="cap">${[...new Set(ts.map(x=>x.d))].map(esc).join(', ')}</span></span><span class="eta">${ts.map((x,i)=>i?`<span>${x.x}</span>`:`<b>${x.x}</b>`).join('')}</span></li>`}).join('');
  const at=TRAIN.list.map(t=>t.at).sort().pop()||'';
  if(!rows){box.hidden=true;return}
  box.hidden=false;box.innerHTML=`<h2 class="h-sub">올림픽공원역 다음 열차</h2><ul class="shl trl">${rows}</ul><p class="cap">출처: 서울시${at?` · ${esc(at.slice(11,16))}`:''}</p>`};
