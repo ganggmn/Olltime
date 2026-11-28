@@ -1,4 +1,4 @@
-const mkTravel=R=>{
+const mkTravel=(R,plain)=>{
  const LN=R.ln,ST=R.st,NL=LN.length*2;
  const hav=(a,b,c,d)=>{const r=Math.PI/180,x=Math.sin((c-a)*r/2)**2+Math.cos(a*r)*Math.cos(c*r)*Math.sin((d-b)*r/2)**2;return 12742*Math.asin(Math.sqrt(x))};
  const adj=new Map(),lines=ST.map(()=>new Set());
@@ -20,14 +20,18 @@ const mkTravel=R=>{
  /* 지하철: 출발역 -> 공원 역 3곳 중 가장 빠른 곳 + 걸어서 목적지 */
  const PARK=['올림픽공원','몽촌토성','한성백제'].map(n=>ST.findIndex(s=>s[0]===n));
  const walkMin=(a,b,c,d)=>hav(a,b,c,d)*1.3/4.5*60;
- const transit=(o,dest)=>{if(PARK.includes(o)){return{min:Math.round(walkMin(ST[o][1],ST[o][2],dest[0],dest[1])),legs:[],to:o,ride:0,walk:Math.round(walkMin(ST[o][1],ST[o][2],dest[0],dest[1]))}}
+ const transit0=(o,dest)=>{if(PARK.includes(o)){return{min:Math.round(walkMin(ST[o][1],ST[o][2],dest[0],dest[1])),legs:[],to:o,ride:0,walk:Math.round(walkMin(ST[o][1],ST[o][2],dest[0],dest[1]))}}
   const P=sp(o);let best=null;
   for(const t of PARK)for(const L of lines[t]){const k=t*NL+L,d=P.dist.get(k);if(d===undefined)continue;const w=walkMin(ST[t][1],ST[t][2],dest[0],dest[1]),tot=d+w;if(!best||tot<best.tot)best={tot,k,t,w,d}}
   if(!best)return null;
   const seq=path(P,best.k),legs=[];let cur=null;
-  for(const k of seq){const s=Math.floor(k/NL),L=k%NL;if(!cur||cur.L!==L){if(cur&&cur.to===undefined)cur.to=cur.last;cur={L,from:s,last:s};legs.push(cur)}else cur.last=s}
-  const lg=[];for(const x of legs.filter(x=>x.from!==x.last)){const prev=lg[lg.length-1];if(prev&&prev.L===x.L){prev.to=ST[x.last][0]}else lg.push({L:x.L,base:x.L>>1,line:LN[x.L>>1],exp:x.L&1,from:ST[x.from][0],to:ST[x.last][0]})}
+  for(const k of seq){const s=Math.floor(k/NL),L=k%NL;if(!cur||cur.L!==L){if(cur&&cur.to===undefined)cur.to=cur.last;cur={L,from:s,last:s,k0:k,k1:k};legs.push(cur)}else{cur.last=s;cur.k1=k}}
+  /* t0·t1: 출발역을 나선 뒤 이 구간 열차를 탄 때·내린 때(분, 처음 기다림과 갈아타는 시간 포함) */
+  const lg=[];for(const x of legs.filter(x=>x.from!==x.last)){const prev=lg[lg.length-1],t0=Math.round(P.dist.get(x.k0)),t1=Math.round(P.dist.get(x.k1));if(prev&&prev.L===x.L){prev.to=ST[x.last][0];prev.t1=t1}else lg.push({L:x.L,base:x.L>>1,line:LN[x.L>>1],exp:x.L&1,from:ST[x.from][0],to:ST[x.last][0],t0,t1})}
   return{min:Math.round(best.tot),ride:Math.round(best.d),walk:Math.round(best.w),to:best.t,legs:lg}};
+ /* 신분당선은 요금이 따로 붙어요. 신분당선을 빼고 가도 2분 안쪽으로만 늦으면 그 길(예: 강남 → 2호선 → 종합운동장 → 9호선)을 골라요 */
+ const noSB=plain||!R.ln.includes('신분당선')?null:(()=>{let T=null;return()=>T||(T=mkTravel({...R,e:R.e.filter(e=>R.ln[e[2]]!=='신분당선')},true))})();
+ const transit=(o,dest)=>{const a=transit0(o,dest);if(noSB&&a&&a.legs.some(l=>l.line==='신분당선')){const b=noSB().transit(o,dest);if(b&&b.min-a.min<=2)return b}return a};
  /* 자동차: 서울시 평균 속도(평일 21.7, 휴일 23.9, 도시고속도로 50.2) x 공원 주변 시간대별 속도 비율 */
  const hours=Object.keys(R.spd).map(Number),pm=hours.filter(h=>h>=6&&h<=18).reduce((a,h)=>a+R.spd[h],0)/hours.filter(h=>h>=6&&h<=18).length;
  const parkSpd=h=>{h=Math.floor(h);if(R.spd[h]!==undefined)return R.spd[h];const c=hours.reduce((a,b)=>Math.abs(b-h)<Math.abs(a-h)?b:a);return R.spd[c]};

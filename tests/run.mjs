@@ -57,6 +57,7 @@ await test('9호선 급행 정차역: 올림픽공원·석촌·종합운동장·
 const dest = TR.find('올림픽공원')[0], legs = n => TR.transit(TR.find(n)[0], dest).legs;
 await test('김포공항 → 올림픽공원: 9호선 급행 한 번', () => { const l = legs('김포공항'); ok(l.length === 1 && l[0].line === '9호선' && l[0].exp, JSON.stringify(l)); });
 await test('급행 구간과 일반 구간이 한 줄로 합쳐지지 않음', () => { for (const n of ['강남', '잠실', '노원', '인천', '수원', '삼성중앙']) { const h = TR.find(n); if (!h.length) continue; for (const l of TR.transit(h[0], dest).legs) if (l.line === '9호선' && l.exp) ok(exp9.has(l.from) && exp9.has(l.to), `${n}: 급행이 ${l.from}→${l.to}`); } });
+await test('강남 → KSPO DOME: 2호선 → 종합운동장 → 9호선 급행(신분당선은 2분 넘게 빠를 때만)', () => { const l = TR.transit(TR.find('강남')[0], [37.5192, 127.1272]).legs; ok(l.length === 2 && l[0].line === '2호선' && l[0].to === '종합운동장' && l[1].line === '9호선' && l[1].from === '종합운동장' && l[1].t1 > l[1].t0 && l[0].t1 < l[1].t0, JSON.stringify(l)); });
 await test('없는 역은 찾지 못함', () => ok(TR.find('부산역').length === 0));
 
 console.log('6. 서버 함수');
