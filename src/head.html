@@ -475,8 +475,8 @@ html:not(.only-story) #story{display:none}
 .track{height:38px}
 .strip.s2{top:24px}
 .strip.cells span.pd{background:transparent;border:1.5px dashed #A1A1AA;box-sizing:border-box}
-.strip.cells span.p0{background:#EEEEF0}.strip.cells span.p1{background:#71717A}.strip.cells span.p2{background:#FFD64D}.strip.cells span.p3{background:#E76767}
-.strip.cells span.pd.p0{background:transparent;border-color:#A1A1AA}.strip.cells span.pd.p1{background:rgba(113,113,122,.16);border-color:#71717A}.strip.cells span.pd.p2{background:rgba(255,214,77,.32);border-color:#D9A900}.strip.cells span.pd.p3{background:rgba(231,103,103,.2);border-color:#E76767}
+.strip.cells span.p0{background:#EEEEF0}.strip.cells span.p1{background:#A1A1AA}.strip.cells span.p2{background:#FFD64D}.strip.cells span.p3{background:#E76767}
+.strip.cells span.pd.p0{background:transparent;border-color:#A1A1AA}.strip.cells span.pd.p1{background:rgba(161,161,170,.3);border-color:#A1A1AA}.strip.cells span.pd.p2{background:rgba(255,214,77,.32);border-color:#D9A900}.strip.cells span.pd.p3{background:rgba(231,103,103,.2);border-color:#E76767}
 .sleg i.p0{background:#EEEEF0}.sleg i.p1{background:#71717A;outline:0}.sleg i.p2{background:#FFD64D;outline:0}.sleg i.p3{background:#E76767;outline:0}
 .sleg i.pd{background:transparent;outline:0;border:1.5px dashed #71717A;box-sizing:border-box;height:10px}
 .nowmk{top:-3px;height:44px;width:1px;margin-left:0}
@@ -515,6 +515,9 @@ html:not(.only-story) #story{display:none}
 #tr::-webkit-slider-thumb{background:linear-gradient(90deg,transparent 6px,var(--ink) 6px,var(--ink) 8px,transparent 8px) 0 0/100% var(--tl,20px) no-repeat}
 #tr::-moz-range-thumb{background:linear-gradient(90deg,transparent 6px,var(--ink) 6px,var(--ink) 8px,transparent 8px) 0 0/100% var(--tl,20px) no-repeat}
 .legs{grid-column:1/-1}
+/* 인원·주차 막대: 한 칸 = 1시간. 격자로 나눠서 점선 테두리(예상) 칸도 실측 칸과 폭이 같아요 */
+.strip.cells{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr)}
+.strip.cells span{min-width:0}
 /* 걷는 길 앞으로 30분 */
 .w30{margin:4px 0 24px}
 .w30 .h-sub{margin:0 0 4px}

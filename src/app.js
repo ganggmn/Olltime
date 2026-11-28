@@ -507,11 +507,23 @@ setInterval(()=>{if(document.visibilityState==='visible')renderW30()},60000);
 $('#retry').onclick=()=>{$('#retry').dataset.busy='1';load()};
 /* 열어 둔 채로 있어도 최신으로: 1분마다 '지금' 표시, 5분마다 서울시 데이터를 조용히 다시 받아요 */
 setInterval(()=>{if(VIEW===TODAY)drawNow();renderTrain()},60000);
-setInterval(async()=>{if(document.visibilityState!=='visible'||STATE==='pending')return;try{const c=await getJSON('/api/now',7000);if(!c||!c.now||c.now.lo==null||(STATE==='live'&&c.now.time===N.time))return;const p=await getJSON('/api/parking',7000).catch(()=>null);if(p&&p.ok)PARK=p;STATE='live';CITY=c;derive();renderHero();renderView(false);renderPass(false)}catch(e){}},300000);
+/* 5분마다: 오늘 기록, 서울시 인구, 주차를 함께 다시 받아요. 서울시 값이 그대로여도 주차는 바뀌므로 다시 그려요 */
+let LASTR=Date.now();
+const refresh=async()=>{if(STATE==='pending')return;LASTR=Date.now();loadTrend();
+ try{const[c,p]=await Promise.all([getJSON('/api/now',7000).catch(()=>null),getJSON('/api/parking',7000).catch(()=>null)]);let ch=false;
+  if(p&&p.ok){PARK=p;ch=true}
+  if(c&&c.now&&c.now.lo!=null&&!(STATE==='live'&&c.now.time===N.time)){STATE='live';CITY=c;derive();ch=true}
+  if(ch&&STATE==='live'){renderHero();renderView(false);renderPass(false)}}catch(e){}};
+setInterval(()=>{if(document.visibilityState==='visible')refresh()},300000);
+/* 휴대폰에서 다른 앱을 보다 돌아오면 타이머가 멈춰 있었을 수 있어요: 1분 넘게 지났으면 바로 다시 받아요 */
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&Date.now()-LASTR>60000)refresh()});
 addEventListener('message',e=>{if(e.origin===location.origin&&e.data&&e.data.olltimeH>200){const f=document.getElementById('secf');if(f)f.style.height=e.data.olltimeH+'px'}});
-getJSON('/api/trend',7000).then(j=>{PT=(j&&j.ok?j.list:[]).filter(r=>r[1]!=null).map(r=>[r[0],r[1]]);
+/* 오늘 5분 기록(주차·인원): 처음 한 번만이 아니라 5분마다, 그리고 화면으로 돌아올 때 다시 받아요.
+   한 번만 받으면 열어 둔 사이 지나간 시간 칸이 '자료 없음'이 되거나 연 시각 값에 멈춰요 */
+const loadTrend=()=>getJSON('/api/trend',7000).then(j=>{PT=(j&&j.ok?j.list:[]).filter(r=>r[1]!=null).map(r=>[r[0],r[1]]);
  /* 지난 시간 인원: 서울시가 측정한 시각 기준 (예전 기록은 저장 시각 − 30분) */
  {const seen=new Set();PP=(j&&j.ok?j.list:[]).filter(r=>r[2]!=null&&r[4]).map(r=>[r[5]!=null?r[5]:r[0]-30,r[2],r[3],NLV(r[4])]).filter(r=>!seen.has(r[0])&&seen.add(r[0])).sort((a,b)=>a[0]-b[0])}if(STATE==='live'&&PT.length)renderView(false);renderW30();const v=(j&&j.ok?j.list:[]).filter(r=>r[1]!=null&&r[0]>=120&&r[0]<=300).map(r=>r[1]).sort((a,b)=>a-b);if(v.length>=6){FLOORP=v[Math.floor(v.length/2)];FLOORD=true;if(STATE==='live')renderHero()}}).catch(()=>{});
+loadTrend();
 $('#heroH').setAttribute('tabindex','-1');
 await load();
 })();
