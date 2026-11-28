@@ -52,21 +52,24 @@
 
 
 <section class="band" id="plan"><div class="wrap">
-  <h2 class="planh">방문 계획</h2>
-  <div class="plancard">
-    <div class="planl">
-      <form id="pf">
-      <fieldset><legend>날짜</legend><div id="qDay"></div><button class="tnow" type="button" id="dmore" hidden>날짜 더 보기</button></fieldset>
-      <fieldset><legend>할 일</legend><div id="qWhat"></div></fieldset>
-      <fieldset><legend>출발역</legend>
-        <label class="search"><i data-ic="map-pin"></i><input id="org" type="text" placeholder="예: 개봉역" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="orgList" aria-label="출발역" aria-describedby="omsg"></label>
+  <div class="ptop">
+    <h2 class="planh">방문 계획</h2>
+    <form id="pf" class="pcond">
+      <label class="pcf"><small>날짜</small><b id="dayTxt"></b><i data-ic="chevron-down"></i><select id="qDay" name="day" aria-label="날짜"></select></label>
+      <label class="pcf"><small>할 일</small><b id="whatTxt"></b><i data-ic="chevron-down"></i><select id="qWhat" name="what" aria-label="할 일"></select></label>
+      <div class="pcf porg"><small id="orgLbl">출발역</small><label class="psearch"><input id="org" type="text" placeholder="예: 개봉역" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="orgList" aria-labelledby="orgLbl" aria-describedby="omsg"><i data-ic="map-pin"></i></label>
         <div class="olist" id="orgList" role="listbox" aria-label="출발역 후보" hidden></div>
         <p class="cap omsg" id="omsg" aria-live="polite"></p>
-      </fieldset>
+      </div>
     </form>
-    </div>
-    <div class="planr"><article class="pass" id="pass" aria-labelledby="passH"></article><div class="planact"><button class="btn sec" type="button" id="toMap">지도에서 보기</button></div><p class="sr" id="srPass" aria-live="polite"></p></div>
   </div>
+  <div class="pgrid">
+    <div class="pshow" id="pshow"></div>
+    <article class="pans" id="pass" aria-labelledby="passH"></article>
+    <div class="pmapc"><div id="pmap"></div><div class="pacts"><a class="btn sec" id="pkakao" href="https://map.kakao.com/" target="_blank" rel="noopener">카카오맵 길찾기<i data-ic="external-link"></i><span class="sr">, 새 창</span></a><button class="btn sec" type="button" id="toMap">지도에서 보기</button></div></div>
+  </div>
+  <p class="ptips" id="ptips"></p>
+  <p class="sr" id="srPass" aria-live="polite"></p>
 </div></section>
 
 <section class="band" id="story"><div class="wrap">
