@@ -19,7 +19,7 @@
    LAYOUT 머리글 5:7(왼쪽 상태, 오른쪽 지도), 아래 구역은 4:8(왼쪽 제목 고정), 폰은 한 열 */
 @font-face{font-family:"Pretendard";src:url("/fonts/Pretendard-Regular.subset.woff2") format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:"Pretendard";src:url("/fonts/Pretendard-SemiBold.subset.woff2") format("woff2");font-weight:600;font-display:swap}
-:root{color-scheme:light;--bg:#FAFAFA;--surface:#FFFFFF;--surface-2:#F4F4F5;--ink:#0A0A0A;--ink-2:#6B6B74;--ink-3:#A1A1AA;--line:#D4D4D8;--line-weak:#E5E5E5;--ok:#15803D;--bad:#B91C1C;--warn:#8F6300;--warn-fill:#FFD64D;--bad-fill:#E76767;--pad:36px;--hd:65px}
+:root{color-scheme:light;--bg:#FAFAFA;--surface:#FFFFFF;--surface-2:#F4F4F5;--ink:#0A0A0A;--ink-2:#6B6B74;--ink-3:#A1A1AA;--line:#D4D4D8;--line-weak:#E5E5E5;--ok:#15803D;--bad:#B91C1C;--warn:#8F6300;--warn-fill:#FFD64D;--bad-fill:#E76767;--pad:36px;--hd:65px;--l5:#996CAC;--l8:#E6186C;--l9:#BDB092}
 *{box-sizing:border-box;min-width:0}
 html{scroll-padding-top:calc(var(--hd) + 24px)}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;font-size:16px;line-height:1.75;font-weight:400;word-break:keep-all;overflow-x:clip;-webkit-font-smoothing:antialiased;caret-color:var(--ink)}
@@ -103,7 +103,12 @@ button,input{font-family:inherit;color:inherit}
 .today .sum{margin-top:16px}
 .today .sum+.cap{margin-top:4px}
 .train{margin-top:48px}
-.trl li{grid-template-columns:52px minmax(0,1fr) auto}
+.trl li{grid-template-columns:62px minmax(0,1fr) auto}
+.trl .t{justify-self:start}
+.lp{display:inline-flex;align-items:baseline;gap:1px;height:24px;margin-top:2px;padding:0 9px 0 8px;border-radius:999px;background:var(--lc,var(--ink));color:var(--lt,#FFFFFF);font-style:normal;line-height:24px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.lp b{font-size:15px;font-weight:600}
+.lp small{font-size:12px;font-weight:600}
+.lp[data-l="5"]{--lc:var(--l5)}.lp[data-l="8"]{--lc:var(--l8)}.lp[data-l="9"]{--lc:var(--l9);--lt:var(--ink)}
 .trl .eta{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .trl .eta b{font-weight:600}
 .trl .eta span{margin-left:10px;color:var(--ink-2)}

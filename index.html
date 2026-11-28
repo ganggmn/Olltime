@@ -19,7 +19,7 @@
    LAYOUT 머리글 5:7(왼쪽 상태, 오른쪽 지도), 아래 구역은 4:8(왼쪽 제목 고정), 폰은 한 열 */
 @font-face{font-family:"Pretendard";src:url("/fonts/Pretendard-Regular.subset.woff2") format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:"Pretendard";src:url("/fonts/Pretendard-SemiBold.subset.woff2") format("woff2");font-weight:600;font-display:swap}
-:root{color-scheme:light;--bg:#FAFAFA;--surface:#FFFFFF;--surface-2:#F4F4F5;--ink:#0A0A0A;--ink-2:#6B6B74;--ink-3:#A1A1AA;--line:#D4D4D8;--line-weak:#E5E5E5;--ok:#15803D;--bad:#B91C1C;--warn:#8F6300;--warn-fill:#FFD64D;--bad-fill:#E76767;--pad:36px;--hd:65px}
+:root{color-scheme:light;--bg:#FAFAFA;--surface:#FFFFFF;--surface-2:#F4F4F5;--ink:#0A0A0A;--ink-2:#6B6B74;--ink-3:#A1A1AA;--line:#D4D4D8;--line-weak:#E5E5E5;--ok:#15803D;--bad:#B91C1C;--warn:#8F6300;--warn-fill:#FFD64D;--bad-fill:#E76767;--pad:36px;--hd:65px;--l5:#996CAC;--l8:#E6186C;--l9:#BDB092}
 *{box-sizing:border-box;min-width:0}
 html{scroll-padding-top:calc(var(--hd) + 24px)}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;font-size:16px;line-height:1.75;font-weight:400;word-break:keep-all;overflow-x:clip;-webkit-font-smoothing:antialiased;caret-color:var(--ink)}
@@ -103,7 +103,12 @@ button,input{font-family:inherit;color:inherit}
 .today .sum{margin-top:16px}
 .today .sum+.cap{margin-top:4px}
 .train{margin-top:48px}
-.trl li{grid-template-columns:52px minmax(0,1fr) auto}
+.trl li{grid-template-columns:62px minmax(0,1fr) auto}
+.trl .t{justify-self:start}
+.lp{display:inline-flex;align-items:baseline;gap:1px;height:24px;margin-top:2px;padding:0 9px 0 8px;border-radius:999px;background:var(--lc,var(--ink));color:var(--lt,#FFFFFF);font-style:normal;line-height:24px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.lp b{font-size:15px;font-weight:600}
+.lp small{font-size:12px;font-weight:600}
+.lp[data-l="5"]{--lc:var(--l5)}.lp[data-l="8"]{--lc:var(--l8)}.lp[data-l="9"]{--lc:var(--l9);--lt:var(--ink)}
 .trl .eta{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .trl .eta b{font-weight:600}
 .trl .eta span{margin-left:10px;color:var(--ink-2)}
@@ -787,7 +792,9 @@ const halo='paint-order:stroke;stroke:#FAFAFA;stroke-width:4px;stroke-linejoin:r
 const VEN={'KSPO DOME':[760,402,37],'올림픽홀':[766,677,22],'핸드볼경기장':[708,517,29]};
 const GATES=[['북1문',256,95],['북2문',780,129,3],['동1문',947,522],['동2문',902,607,4],['남1문',778,822],['남2문',534,706,5],['남3문',323,612],['서1문',129,360],['서2문',196,221,6]];
 const LOTS=[[771,331],[829,590],[602,666],[198,264],[668,648],[739,542]];
-const STN=[['올림픽공원역','5·9호선',925,590],['한성백제역','9호선 · 남4문 앞',213,560],['몽촌토성역','8호선',41,506]];
+/* 역: [이름, 노선 번호들, 덧붙일 말, x, y] */
+const STN=[['올림픽공원역',[5,9],'',925,590],['한성백제역',[9],'남4문 앞',213,560],['몽촌토성역',[8],'',41,506]];
+const LC={5:'#996CAC',8:'#E6186C',9:'#BDB092'};
 const PL=[['KSPO DOME',760,402,37,0],['몽촌토성',420,340,0,0,'c'],['올림픽홀',766,677,22,1],['티켓링크 라이브 아레나',708,517,29,1],['우리금융아트홀',645,552,24,1],['한성백제박물관',432,633,22,1],['88호수',660,245,0,1,'c'],['몽촌해자',292,364,0,1,'c'],['88잔디마당',640,418,0,1,'c'],['세계평화의문',173,458,12,1],['올림픽수영장',712,300,30,2],['벨로드롬',559,544,28,2],['테니스경기장',805,634,22,2],['소마미술관',303,546,14,2],['올림픽기념관',181,335,16,2],['파크텔',229,222,14,2],['몽촌역사관',603,121,12,2],['나홀로나무',415,188,4,2],['장미광장',766,788,0,2,'c'],['성내천',300,112,0,2,'c']];
 const ROADS=[['올림픽로',150,228],['위례성대로',356,676],['양재대로',908,700],['강동대로',880,160]];
 let K=.57;
@@ -804,10 +811,16 @@ const drawMap=()=>{const u=1/K,f=13*u,fs=f.toFixed(2),hs=`paint-order:stroke;str
  const tx=(x,y,str,o={})=>`<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" font-size="${o.f?o.f.toFixed(2):fs}" text-anchor="${o.a||'middle'}"${o.w?' font-weight="600"':''} fill="${o.c||'#0A0A0A'}" style="${hs}">${str}</text>`;
  const rectOf=(x,y,w,a,ff=f)=>{const x0=a==='start'?x:a==='end'?x-w:x-w/2;return[x0-2*u,y-ff*.82,x0+w+2*u,y+ff*.28]};
  /* lines: [[문자열,{w,c}],...] 두 줄까지. cands: [x,y,anchor] */
- const place=(lines,cands,must)=>{const ww=Math.max(...lines.map(([s])=>twd(s,f))),hh=(lines.length-1)*f*1.2;let best=null,bo=Infinity;
-  for(const[x,y,a]of cands){const r=rectOf(x,y,ww,a);r[3]+=hh;const o=ov(r);if(o===0){best=[x,y,a,r];bo=0;break}if(o<bo){bo=o;best=[x,y,a,r]}}
-  if(!best||(bo>0&&!must))return'';const[x,y,a,r]=best;occ.push(r);return lines.map(([s,o],i)=>tx(x,y+i*f*1.2,s,{a,...o})).join('')};
- const around=(x,y,d)=>[[x+d+5*u,y+f*.35,'start'],[x-d-5*u,y+f*.35,'end'],[x,y-d-5*u,'middle'],[x,y+d+f+2*u,'middle'],[x+d*.7+4*u,y-d*.7-3*u,'start'],[x-d*.7-4*u,y-d*.7-3*u,'end'],[x+d*.7+4*u,y+d*.7+f,'start'],[x-d*.7-4*u,y+d*.7+f,'end']];
+ /* 노선 타원: 열차 목록과 같은 모양(번호 크게, '호선' 작게) */
+ const p1=n=>12*u+twd(n,12*u)+twd('호선',9.5*u)+u,pw=ps=>ps.reduce((a,n)=>a+p1(n),0)+(ps.length-1)*4*u;
+ const lw=([s,o])=>o.p?pw(o.p)+(s?6*u+twd(s,f):0):twd(s,f);
+ const pillRow=(x0,y,ps,s)=>{let cx=x0,o='';const cy=y-f*.35;for(const n of ps){const w=p1(n);o+=`<rect x="${cx.toFixed(1)}" y="${(cy-9*u).toFixed(1)}" width="${w.toFixed(1)}" height="${(18*u).toFixed(1)}" rx="${(9*u).toFixed(1)}" fill="${LC[n]||'#0A0A0A'}" stroke="#FFFFFF" stroke-width="${(1.5*u).toFixed(2)}"/><text x="${(cx+6*u).toFixed(1)}" y="${(cy+4.3*u).toFixed(1)}" font-size="${(12*u).toFixed(2)}" font-weight="600" fill="${n===9?'#0A0A0A':'#FFFFFF'}">${n}<tspan font-size="${(9.5*u).toFixed(2)}" dx="${u.toFixed(2)}">호선</tspan></text>`;cx+=w+4*u}
+  if(s)o+=tx(cx+2*u,y,s,{a:'start',c:'#6B6B74'});return o};
+ const place=(lines,cands,must)=>{const ww=Math.max(...lines.map(lw)),pp=lines.some(([,o])=>o.p)?2*u:0,hh=(lines.length-1)*f*1.2+pp;let best=null,bo=Infinity;
+  for(const[x,y0,a,up]of cands){const y=up?y0-hh:y0,r=rectOf(x,y,ww,a);r[3]+=hh;const o=ov(r);if(o===0){best=[x,y,a,r];bo=0;break}if(o<bo){bo=o;best=[x,y,a,r]}}
+  if(!best||(bo>0&&!must))return'';const[x,y,a,r]=best;occ.push(r);return lines.map(([s,o],i)=>{const yy=y+i*f*1.2;if(!o.p)return tx(x,yy,s,{a,...o});const w=lw([s,o]);return pillRow(a==='start'?x:a==='end'?x-w:x-w/2,yy+pp,o.p,s)}).join('')};
+ /* 넷째 값 1 = 위쪽 자리: 두 줄 라벨은 줄 수만큼 위로 올려서 아이콘을 덮지 않게 */
+ const around=(x,y,d)=>[[x+d+5*u,y+f*.35,'start'],[x-d-5*u,y+f*.35,'end'],[x,y-d-5*u,'middle',1],[x,y+d+f+2*u,'middle'],[x+d*.7+4*u,y-d*.7-3*u,'start',1],[x-d*.7-4*u,y-d*.7-3*u,'end',1],[x+d*.7+4*u,y+d*.7+f,'start'],[x-d*.7-4*u,y+d*.7+f,'end']];
  const sh=showAt(T),p=sh?pred(sh):null,row=refAt(TREF,T);let g='',lab='';
  /* 1. 그림 먼저: 공연장 원, 출입문 점·출차 원, 주차·역 아이콘. 자리도 미리 차지 */
  let V=null;if(sh){const[vx,vy,vr]=VEN[sh.venue]||VEN['KSPO DOME'];const live=T>=p.inA-60&&T<p.outB;V=[vx,vy,vr];
@@ -816,11 +829,11 @@ const drawMap=()=>{const u=1/K,f=13*u,fs=f.toFixed(2),hs=`paint-order:stroke;str
   if(k){const v=row[k],r=Math.min(1,v/(GQ[n]?GQ[n][2]:124)),c=gateC(n,v),rr=(7+r*17)*u;GB.push([n,x,y,rr,v]);
    g+=`<circle class="gp" style="animation-delay:-${((Date.now()%1600)/1000).toFixed(2)}s" cx="${x}" cy="${y}" r="${rr.toFixed(1)}" fill="${c}" fill-opacity=".3"/>`}}
  for(const[x,y]of LOTS){g+=gIc('square-parking',x,y,u*.85);box(x-10*u,y-10*u,x+10*u,y+10*u)}
- for(const[n,l,x,y]of STN){g+=gIc('train-front',x,y,u);box(x-12*u,y-12*u,x+12*u,y+12*u)}
+ for(const[n,ls,ss,x,y]of STN){g+=gIc('train-front',x,y,u);box(x-12*u,y-12*u,x+12*u,y+12*u)}
  /* 2. 꼭 보여야 하는 라벨: 지금 공연, 출차 수가 있는 문, 역 */
  if(V){const[vx,vy,vr]=V,st=venueState(p,T),L=[[`${esc(sh.venue)} · ${sh.t} ${esc(sh.short)}`,{w:1}]];if(st)L.push([st,{}]);lab+=place(L,around(vx,vy,vr),true)}
  for(const[n,x,y,rr,v]of GB)lab+=place([[`${n} ${Math.round(v)}대`,{w:1}]],around(x,y,Math.max(rr*.55,6*u)),true);
- for(const[n,l,x,y]of STN)lab+=place(K>=.6?[[n,{w:1}],[l,{c:'#6B6B74'}]]:[[n,{w:1}]],around(x,y,12*u),true);
+ for(const[n,ls,ss,x,y]of STN)lab+=place(K>=.6?[[n,{w:1}],[ss,{p:ls}]]:[[n,{w:1}]],around(x,y,12*u),true);
  /* 3. 시설: 확대할수록 더. 자리가 없으면 생략 */
  const tierOK=t=>t===0||(t===1&&K>=.3)||(t===2&&K>=.55);
  for(const[n,x,y,d,t,pos]of PL){if(!tierOK(t)||(sh&&n===sh.venue)||(sh&&sh.venue==='핸드볼경기장'&&n==='티켓링크 라이브 아레나'))continue;const c=t===0?'#0A0A0A':'#52525B';
@@ -1182,6 +1195,8 @@ const load=async()=>{STATE='pending';renderHero();
 /* 올림픽공원역 다음 열차: 서울시가 정보를 만든 시각(recptnDt)에서 지난 시간만큼 당겨서 보여줘요 */
 let TRAIN=null;
 const LINE=id=>{const n=+id-1000;return n>=1&&n<=9?`${n}호선`:''};
+/* 노선 표시: 노선색 타원 안에 번호는 크게, '호선'은 작게 (서울시 공식 노선색) */
+const lnPill=n=>`<i class="lp" data-l="${n}"><b>${n}</b><small>호선</small></i>`;
 const kstMs=s=>Date.parse(String(s).replace(' ','T')+'+09:00');
 const etaOf=(t,now)=>{if(t.cd==='2')return null;
  const el=Math.max(0,(now-kstMs(t.at))/1000)||0,mins=s=>s<-30?null:s<=40?{s:0,x:'곧 도착'}:{s,x:`${Math.ceil(s/60)}분`};
@@ -1198,7 +1213,7 @@ const renderTrain=()=>{const box=$('#train');
   const way=((t.line.split(' - ')[1]||'').replace(/\s*\(.*$/,'').replace(/방면$/,' 방면').trim())||t.updn,k=t.id+'|'+t.updn;
   if(!G.has(k))G.set(k,{ln,id:t.id,way,ts:[]});G.get(k).ts.push({...e,d:`${t.dest}행${t.exp?' 급행':''}${t.last?' 막차':''}`})}
  const rows=[...G.values()].sort((a,b)=>a.id.localeCompare(b.id)||a.way.localeCompare(b.way)).map(g=>{const ts=g.ts.sort((a,b)=>a.s-b.s).slice(0,2);
-  return`<li><span class="t">${g.ln}</span><span>${esc(g.way)}<span class="cap">${[...new Set(ts.map(x=>x.d))].map(esc).join(', ')}</span></span><span class="eta">${ts.map((x,i)=>i?`<span>${x.x}</span>`:`<b>${x.x}</b>`).join('')}</span></li>`}).join('');
+  return`<li><span class="t">${lnPill(+g.id-1000)}</span><span>${esc(g.way)}<span class="cap">${[...new Set(ts.map(x=>x.d))].map(esc).join(', ')}</span></span><span class="eta">${ts.map((x,i)=>i?`<span>${x.x}</span>`:`<b>${x.x}</b>`).join('')}</span></li>`}).join('');
  const at=TRAIN.list.map(t=>t.at).sort().pop()||'';
  if(!rows){box.hidden=true;return}
  box.hidden=false;box.innerHTML=`<h2 class="h-sub">올림픽공원역 다음 열차</h2><ul class="shl trl">${rows}</ul><p class="cap">출처: 서울시${at?` · ${esc(at.slice(11,16))}`:''}</p>`};
