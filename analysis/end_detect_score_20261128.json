@@ -1,0 +1,49 @@
+{
+ "scored_at": "2026-11-28T22:40+09:00",
+ "rule_file": "analysis/end_detect_prereg.json",
+ "rule_commit": "ff1a808",
+ "rule_sha256": "b7fa24dd6b4e15e658eaa926550366234f4ef0caefee3d9601ff75ca7103f926",
+ "command": "python3 analysis/end_detect_live.py 2026-11-28 18:00 130 data/checks/park_20261128.csv data/citydata/raw_20261128.jsonl.gz",
+ "inputs": {
+  "parking": "/api/trend?day=2026-11-28 → time_kst,parking_sum 268줄(00:00~22:15, 빈 값 2: 01:20·01:25는 스크립트가 이어 메움)",
+  "parking_sha256": "799fa515bc6f4c435906f82ebd468c92f662db1fc665053e23a61e86dd923a43",
+  "seoul_raw": "맥 data/citydata/raw_20261128.jsonl.gz 215줄, 마지막 기준 시각 21:45(맥 수집이 18:15~18:55·19:40~19:55 기준 시각을 놓침, 원본은 저장소에 올리지 않음)",
+  "seoul_raw_sha256": "0834c9043443d3649d719a348180daf0ceb1929374c521b16ffdd741c6a8680d"
+ },
+ "result": {
+  "day": "2026-11-28",
+  "start": "18:00",
+  "sched_end": "20:10",
+  "park_onset": "20:20",
+  "fire": "20:45",
+  "est_end": "20:30",
+  "pop_drop_stamp": "20:40",
+  "pop_drop_seen": "21:10",
+  "est_end_minus_onset_min": 10.0,
+  "sched_end_minus_onset_min": -10.0,
+  "lead_vs_pop_min": 25.0,
+  "nowcast": {
+   "N0": {
+    "acc": 72.3,
+    "mae": 3262,
+    "n": 21
+   },
+   "N1": {
+    "acc": 91.1,
+    "mae": 1043,
+    "n": 21
+   },
+   "N2": {
+    "acc": 86.3,
+    "mae": 1618,
+    "n": 21
+   }
+  }
+ },
+ "reading": {
+  "note": "한 공연이라 유의성 판정 없음, 방향만. 11/29와 묶은 세 저녁 정리는 예약된 채점(11/30)에서",
+  "감지": "주차 감지 20:45 → 종료 추정 20:30, 사후 정답(출차 시작) 20:20보다 10분 늦음. 예정 종료(18:00+130분 = 20:10)는 정답보다 10분 이름",
+  "서울시보다 빠른가": "예. 서울시 하락(기준 20:40, 손에 들어온 때 21:10)보다 감지(20:45)가 25분 빨랐음. 11/27은 55분 늦었음",
+  "지금 인원 어림": "정답 15분 전~90분 뒤 5분마다 21칸(서울시 원본 한 칸 빠짐): N1(감지한 종료로 퇴장 모양) 91.1%, N0(최근 서울시 값) 72.3%, N2 86.3%. 11/27과 같은 순서(N1 > N2 > N0)"
+ }
+}
